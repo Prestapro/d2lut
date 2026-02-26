@@ -3,6 +3,10 @@ import argparse
 import sys
 from pathlib import Path
 import json
+import os
+import time
+import tempfile
+import subprocess
 
 from d2lut.exporters.d2r_json_filter import D2RJsonFilterExporter
 from d2lut.models import ObservedPrice
@@ -96,6 +100,152 @@ def interactive_prompt() -> str:
     print(f"\n[+] Selected {preset_name.title()} preset.")
     return preset_name
 
+def is_process_running(process_name: str) -> bool:
+    name = (process_name or "").lower()
+    if not name:
+        return False
+    try:
+        if os.name == "nt":
+            result = subprocess.run(
+                ["tasklist", "/FO", "CSV", "/NH"],
+                capture_output=True,
+                text=True,
+                check=False,
+                encoding="utf-8",
+                errors="ignore",
+            )
+            return name in result.stdout.lower()
+        result = subprocess.run(
+            ["ps", "-A", "-o", "comm="],
+            capture_output=True,
+            text=True,
+            check=False,
+            encoding="utf-8",
+            errors="ignore",
+        )
+        return any(name in line.lower() for line in result.stdout.splitlines())
+    except Exception:
+        return False
+
+def atomic_write_text(path: Path, text: str, encoding: str = "utf-8") -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile("w", delete=False, dir=str(path.parent), encoding=encoding) as tmp:
+        tmp.write(text)
+        tmp_path = Path(tmp.name)
+    tmp_path.replace(path)
+
+def run_generation(args, cfg, is_interactive: bool = False) -> int:
+    db_path = Path(args.db)
+    if not db_path.exists():
+        print(f"DB not found: {args.db}", file=sys.stderr)
+        return 1
+
+    print(f"Connecting to DB {args.db} ...")
+    market_db = D2LutDB(str(db_path))
+    
+    conn = sqlite3.connect(args.db)
+    conn.row_factory = sqlite3.Row
+    try:
+        print("Loading recent observations...")
+        raw_obs = market_db.load_observations(args.market_key)
+        observations = []
+        for row in raw_obs:
+            ask, bin_val, sold = None, None, None
+            if row["signal_kind"] == "ask":
+                ask = row["price_fg"]
+            elif row["signal_kind"] == "bin":
+                bin_val = row["price_fg"]
+            elif row["signal_kind"] == "sold":
+                sold = row["price_fg"]
+            observations.append(ObservedPrice(
+                canonical_item_id=row["canonical_item_id"],
+                variant_key=row["variant_key"],
+                ask_fg=ask,
+                bin_fg=bin_val,
+                sold_fg=sold,
+                confidence=row["confidence"],
+                source_url=row["source_url"] or ""
+            ))
+        print(f"Loaded {len(observations)} observations.")
+
+        pricing = PricingEngine()
+        price_index = pricing.build_index(observations)
+        print(f"Computed {len(price_index)} price estimates.")
+
+        included_kinds = [k.strip().lower() for k in cfg["always_include_kinds"].split(",") if k.strip()] if cfg["always_include_kinds"] else []
+        print(f"Generating filter with minimum threshold: {cfg['min_fg']} fg (mode: {args.price_mode})")
+        print(f"Price tag format: {cfg['format_str']!r}")
+        if included_kinds:
+            print(f"Bypassing threshold for kinds: {included_kinds}")
+
+        exporter = D2RJsonFilterExporter(
+            min_fg=cfg["min_fg"],
+            format_str=cfg["format_str"],
+            price_mode=args.price_mode,
+            always_include_kinds=included_kinds,
+            hide_junk=cfg["hide_junk"],
+            use_short_names=cfg["use_short_names"],
+            apply_colors=cfg["apply_colors"],
+            collect_explain=args.explain,
+            explain_limit=args.explain_limit,
+        )
+        json_text = exporter.export(price_index, conn=conn, base_json_path=args.base_json)
+
+        report = exporter.audit_report
+        print("\n--- Mapping Audit Report ---")
+        print(f"Total estimates evaluated: {report['total_evaluated']}")
+        print(f"Passed min-fg or forced inclusion: {report['eligible_count']}")
+        print(f"  - by threshold: {report.get('eligible_by_threshold', 0)}")
+        print(f"  - by forced include: {report.get('eligible_by_forced', 0)}")
+        print(f"Successfully mapped keys: {report['mapped_count']}")
+        if report["unmapped_variants"]:
+            print(f"Unmapped variants (Top 10): {report['unmapped_variants'][:10]}")
+        if report["multi_map_variants"]:
+            print(f"Multi-map warnings (Top 10): {report['multi_map_variants'][:10]}")
+        if args.explain:
+            if report.get("sample_injections"):
+                print("Sample injections:")
+                for row in report["sample_injections"][:args.explain_limit]:
+                    forced = " forced" if row.get("forced_match") else ""
+                    color = f" color={row['color_tag']}" if row.get("color_tag") else ""
+                    print(f"  - {row['variant_key']} -> {row.get('mapped_keys', [])} | fg={row['fg_value']}{forced}{color} | tag={row['tag_text']!r}")
+            if report.get("sample_skipped_below_threshold"):
+                print("Sample skipped (below threshold):")
+                for row in report["sample_skipped_below_threshold"][:args.explain_limit]:
+                    print(f"  - {row['variant_key']} | fg={row['fg_value']} < threshold={row['threshold']}")
+        print("----------------------------\n")
+
+        if args.audit_json:
+            audit_path = Path(args.audit_json)
+            audit_path.parent.mkdir(parents=True, exist_ok=True)
+            audit_path.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
+            print(f"Wrote audit report to: {audit_path}")
+
+        if args.dry_run:
+            print("Dry run complete. No files were written.")
+            return 0
+
+        out_path = Path(args.out)
+        atomic_write_text(out_path, json_text, encoding="utf-8")
+        print(f"Successfully wrote D2R filter mod to: {out_path}")
+        print(f"Total entries generated: {len(json.loads(json_text))}")
+
+        if args.status_json:
+            status_payload = {
+                "ok": True,
+                "timestamp": int(time.time()),
+                "db": str(args.db),
+                "out": str(args.out),
+                "market_key": args.market_key,
+                "mapped_count": report.get("mapped_count", 0),
+                "eligible_count": report.get("eligible_count", 0),
+            }
+            atomic_write_text(Path(args.status_json), json.dumps(status_payload, indent=2, ensure_ascii=False) + "\n")
+            print(f"Wrote status file: {args.status_json}")
+        return 0
+    finally:
+        conn.close()
+
 def main() -> None:
     # If run via double-click (no arguments provided except script name)
     is_interactive = len(sys.argv) == 1
@@ -122,6 +272,12 @@ def main() -> None:
     parser.add_argument("--use-short-names", action="store_true", default=None, help="Rename common items like potions and scrolls to take up less screen space")
     parser.add_argument("--apply-colors", action="store_true", default=None, help="Inject D2R format tags (e.g. ÿc8) based on Forum Gold tiers")
     parser.add_argument("--preset", type=str, choices=list(PRESETS.keys()), default=default_preset if is_interactive else None, help="Apply a pre-configured set of filters and thresholds")
+    parser.add_argument("--monitor-game", action="store_true", help="Wait for the game process to exit, then generate the filter (repeat loop)")
+    parser.add_argument("--game-process-name", type=str, default="D2R.exe", help="Process name to watch in --monitor-game mode")
+    parser.add_argument("--poll-seconds", type=int, default=10, help="Polling interval for --monitor-game mode")
+    parser.add_argument("--build-on-start", action="store_true", help="Generate immediately on startup before monitor loop")
+    parser.add_argument("--run-once-after-exit", action="store_true", help="In monitor mode, build once after one game exit and quit")
+    parser.add_argument("--status-json", type=str, default=None, help="Optional path to write status JSON after each successful build")
 
     raw_argv = [] if is_interactive else sys.argv[1:]
     args = parser.parse_args(raw_argv)
@@ -162,110 +318,42 @@ def main() -> None:
     if not format_str_explicit:
         cfg["format_str"] = TAG_STYLES.get(cfg.get("tag_style", args.tag_style), args.format_str)
 
-    db_path = Path(args.db)
-    if not db_path.exists():
-        print(f"DB not found: {args.db}", file=sys.stderr)
-        sys.exit(1)
-
-    print(f"Connecting to DB {args.db} ...")
-    market_db = D2LutDB(str(db_path))
-    
-    conn = sqlite3.connect(args.db)
-    conn.row_factory = sqlite3.Row
-    
-    print("Loading recent observations...")
-    # we don't need raw posts, just observations
-    # For a snapshot workflow, observations are already in the DB.
-    # Alternatively we can query estimates directly if we persisted them.
-    # We will compute estimates on the fly from the DB.
-    raw_obs = market_db.load_observations(args.market_key)
-    observations = []
-    for row in raw_obs:
-        # Based on how observed prices are stored in sqlite (signal_kind, price_fg)
-        # we map this back to ask/bin/sold
-        ask, bin_val, sold = None, None, None
-        if row["signal_kind"] == "ask":
-            ask = row["price_fg"]
-        elif row["signal_kind"] == "bin":
-            bin_val = row["price_fg"]
-        elif row["signal_kind"] == "sold":
-            sold = row["price_fg"]
-            
-        observations.append(ObservedPrice(
-            canonical_item_id=row["canonical_item_id"],
-            variant_key=row["variant_key"],
-            ask_fg=ask,
-            bin_fg=bin_val,
-            sold_fg=sold,
-            confidence=row["confidence"],
-            source_url=row["source_url"] or ""
-        ))        
-    print(f"Loaded {len(observations)} observations.")
-    
-    pricing = PricingEngine()
-    price_index = pricing.build_index(observations)
-    print(f"Computed {len(price_index)} price estimates.")
-
-    included_kinds = [k.strip().lower() for k in cfg["always_include_kinds"].split(",") if k.strip()] if cfg["always_include_kinds"] else []
-    print(f"Generating filter with minimum threshold: {cfg['min_fg']} fg (mode: {args.price_mode})")
-    print(f"Price tag format: {cfg['format_str']!r}")
-    if included_kinds:
-        print(f"Bypassing threshold for kinds: {included_kinds}")
-        
-    exporter = D2RJsonFilterExporter(
-        min_fg=cfg["min_fg"], 
-        format_str=cfg["format_str"],
-        price_mode=args.price_mode,
-        always_include_kinds=included_kinds,
-        hide_junk=cfg["hide_junk"],
-        use_short_names=cfg["use_short_names"],
-        apply_colors=cfg["apply_colors"],
-        collect_explain=args.explain,
-        explain_limit=args.explain_limit,
-    )
-    json_text = exporter.export(price_index, conn=conn, base_json_path=args.base_json)
-    
-    # Print mapping audit report
-    report = exporter.audit_report
-    print("\n--- Mapping Audit Report ---")
-    print(f"Total estimates evaluated: {report['total_evaluated']}")
-    print(f"Passed min-fg or forced inclusion: {report['eligible_count']}")
-    print(f"  - by threshold: {report.get('eligible_by_threshold', 0)}")
-    print(f"  - by forced include: {report.get('eligible_by_forced', 0)}")
-    print(f"Successfully mapped keys: {report['mapped_count']}")
-    if report["unmapped_variants"]:
-        print(f"Unmapped variants (Top 10): {report['unmapped_variants'][:10]}")
-    if report["multi_map_variants"]:
-        print(f"Multi-map warnings (Top 10): {report['multi_map_variants'][:10]}")
-    if args.explain:
-        if report.get("sample_injections"):
-            print("Sample injections:")
-            for row in report["sample_injections"][:args.explain_limit]:
-                forced = " forced" if row.get("forced_match") else ""
-                color = f" color={row['color_tag']}" if row.get("color_tag") else ""
-                print(f"  - {row['variant_key']} -> {row.get('mapped_keys', [])} | fg={row['fg_value']}{forced}{color} | tag={row['tag_text']!r}")
-        if report.get("sample_skipped_below_threshold"):
-            print("Sample skipped (below threshold):")
-            for row in report["sample_skipped_below_threshold"][:args.explain_limit]:
-                print(f"  - {row['variant_key']} | fg={row['fg_value']} < threshold={row['threshold']}")
-    print("----------------------------\n")
-
-    if args.audit_json:
-        audit_path = Path(args.audit_json)
-        audit_path.parent.mkdir(parents=True, exist_ok=True)
-        audit_path.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
-        print(f"Wrote audit report to: {audit_path}")
-
-    if args.dry_run:
-        print("Dry run complete. No files were written.")
-        sys.exit(0)
-
-    out_path = Path(args.out)
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(json_text, encoding="utf-8")
-    
-    print(f"Successfully wrote D2R filter mod to: {out_path}")
-    print(f"Total entries generated: {len(json.loads(json_text))}")
+    if args.monitor_game:
+        poll_seconds = max(1, int(args.poll_seconds))
+        proc_name = args.game_process_name
+        seen_running = False
+        print(f"Monitoring game process: {proc_name} (poll {poll_seconds}s)")
+        if args.build_on_start:
+            print("Build on start enabled.")
+            rc = run_generation(args, cfg, is_interactive=False)
+            if rc != 0:
+                sys.exit(rc)
+        try:
+            while True:
+                running = is_process_running(proc_name)
+                if running:
+                    if not seen_running:
+                        print(f"[monitor] Detected game running: {proc_name}")
+                    seen_running = True
+                else:
+                    if seen_running:
+                        print(f"[monitor] Detected game exit: {proc_name}. Rebuilding filter...")
+                        rc = run_generation(args, cfg, is_interactive=False)
+                        if rc != 0:
+                            sys.exit(rc)
+                        if args.run_once_after_exit:
+                            print("[monitor] run-once-after-exit complete.")
+                            break
+                        seen_running = False
+                        print("[monitor] Waiting for next game launch...")
+                time.sleep(poll_seconds)
+        except KeyboardInterrupt:
+            print("\nMonitor stopped.")
+            sys.exit(0)
+    else:
+        rc = run_generation(args, cfg, is_interactive=is_interactive)
+        if rc != 0:
+            sys.exit(rc)
 
     if is_interactive:
         try:
