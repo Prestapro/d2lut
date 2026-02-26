@@ -218,3 +218,29 @@ def test_export_apply_colors_with_custom_format_idempotent(test_db, tmp_path):
     result = exporter.export(prices, test_db, base_json_path=str(base_file))
     data = json.loads(result)
     assert data["r30"] == "Ber Rune ÿc4| 500 FGÿc0"
+
+def test_export_explain_audit_samples(test_db):
+    exporter = D2RJsonFilterExporter(
+        min_fg=100.0,
+        always_include_kinds=["rune:jah"],
+        apply_colors=True,
+        collect_explain=True,
+        explain_limit=5,
+    )
+    prices = {
+        "rune:jah": PriceEstimate("rune:jah", 50.0, 45.0, 55.0, "high", 10, datetime.now()),  # forced include
+        "rune:ber": PriceEstimate("rune:ber", 90.0, 80.0, 100.0, "high", 10, datetime.now()),  # below threshold skip
+    }
+    result = exporter.export(prices, test_db)
+    data = json.loads(result)
+    assert len(data) == 1
+    report = exporter.audit_report
+    assert report["eligible_count"] == 1
+    assert report["eligible_by_forced"] == 1
+    assert report["eligible_by_threshold"] == 0
+    assert len(report["sample_injections"]) == 1
+    assert report["sample_injections"][0]["variant_key"] == "rune:jah"
+    assert report["sample_injections"][0]["forced_match"] is True
+    assert report["sample_injections"][0]["color_tag"] == "ÿc0"  # 50 fg tier
+    assert len(report["sample_skipped_below_threshold"]) == 1
+    assert report["sample_skipped_below_threshold"][0]["variant_key"] == "rune:ber"

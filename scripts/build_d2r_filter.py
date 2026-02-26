@@ -101,6 +101,8 @@ def main() -> None:
     parser.add_argument("--base-json", type=str, default=str(APP_DIR / "data" / "templates" / "item-names.json"), help="Base item-names.json to modify")
     parser.add_argument("--out", type=str, default=str(APP_DIR / "output" / "item-names.json"), help="Output path for item-names.json")
     parser.add_argument("--audit-json", type=str, default=None, help="Optional path to write mapping audit report as JSON")
+    parser.add_argument("--explain", action="store_true", help="Include sample injection/skip explanations in audit output")
+    parser.add_argument("--explain-limit", type=int, default=20, help="Maximum number of sample explanations to collect")
     parser.add_argument("--dry-run", action="store_true", help="Generate the filter in memory and print the audit report without writing to disk")
     parser.add_argument("--hide-junk", action="store_true", default=None, help="Hide low-value trash items like arrows, low potions, and chips")
     parser.add_argument("--use-short-names", action="store_true", default=None, help="Rename common items like potions and scrolls to take up less screen space")
@@ -200,7 +202,9 @@ def main() -> None:
         always_include_kinds=included_kinds,
         hide_junk=cfg["hide_junk"],
         use_short_names=cfg["use_short_names"],
-        apply_colors=cfg["apply_colors"]
+        apply_colors=cfg["apply_colors"],
+        collect_explain=args.explain,
+        explain_limit=args.explain_limit,
     )
     json_text = exporter.export(price_index, conn=conn, base_json_path=args.base_json)
     
@@ -209,11 +213,24 @@ def main() -> None:
     print("\n--- Mapping Audit Report ---")
     print(f"Total estimates evaluated: {report['total_evaluated']}")
     print(f"Passed min-fg or forced inclusion: {report['eligible_count']}")
+    print(f"  - by threshold: {report.get('eligible_by_threshold', 0)}")
+    print(f"  - by forced include: {report.get('eligible_by_forced', 0)}")
     print(f"Successfully mapped keys: {report['mapped_count']}")
     if report["unmapped_variants"]:
         print(f"Unmapped variants (Top 10): {report['unmapped_variants'][:10]}")
     if report["multi_map_variants"]:
         print(f"Multi-map warnings (Top 10): {report['multi_map_variants'][:10]}")
+    if args.explain:
+        if report.get("sample_injections"):
+            print("Sample injections:")
+            for row in report["sample_injections"][:args.explain_limit]:
+                forced = " forced" if row.get("forced_match") else ""
+                color = f" color={row['color_tag']}" if row.get("color_tag") else ""
+                print(f"  - {row['variant_key']} -> {row.get('mapped_keys', [])} | fg={row['fg_value']}{forced}{color} | tag={row['tag_text']!r}")
+        if report.get("sample_skipped_below_threshold"):
+            print("Sample skipped (below threshold):")
+            for row in report["sample_skipped_below_threshold"][:args.explain_limit]:
+                print(f"  - {row['variant_key']} | fg={row['fg_value']} < threshold={row['threshold']}")
     print("----------------------------\n")
 
     if args.audit_json:

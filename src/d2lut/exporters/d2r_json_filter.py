@@ -15,7 +15,18 @@ class D2RJsonFilterExporter:
     D2R_COLOR_PREFIX = "\u00ffc"  # "ÿc"
     D2R_COLOR_RESET = "\u00ffc0"  # "ÿc0"
 
-    def __init__(self, min_fg: float = 0.0, format_str: str = " [{fg} fg]", price_mode: str = "estimate", always_include_kinds: List[str] = None, hide_junk: bool = False, use_short_names: bool = False, apply_colors: bool = False):
+    def __init__(
+        self,
+        min_fg: float = 0.0,
+        format_str: str = " [{fg} fg]",
+        price_mode: str = "estimate",
+        always_include_kinds: List[str] = None,
+        hide_junk: bool = False,
+        use_short_names: bool = False,
+        apply_colors: bool = False,
+        collect_explain: bool = False,
+        explain_limit: int = 20,
+    ):
         self.min_fg = min_fg
         self.format_str = format_str
         self.price_mode = price_mode
@@ -23,6 +34,8 @@ class D2RJsonFilterExporter:
         self.hide_junk = hide_junk
         self.use_short_names = use_short_names
         self.apply_colors = apply_colors
+        self.collect_explain = collect_explain
+        self.explain_limit = max(0, int(explain_limit))
         
         # Color Tiers: [threshold, d2r_color_code]
         # ÿc5 = Gray, ÿc0 = White, ÿc4 = Gold, ÿc; = Purple
@@ -36,9 +49,13 @@ class D2RJsonFilterExporter:
         self.audit_report: Dict[str, Any] = {
             "total_evaluated": 0,
             "eligible_count": 0,
+            "eligible_by_threshold": 0,
+            "eligible_by_forced": 0,
             "mapped_count": 0,
             "unmapped_variants": [],
-            "multi_map_variants": []
+            "multi_map_variants": [],
+            "sample_injections": [],
+            "sample_skipped_below_threshold": []
         }
 
     def export(self, price_index: dict[str, PriceEstimate], conn: sqlite3.Connection, base_json_path: str | None = None) -> str:
@@ -49,9 +66,13 @@ class D2RJsonFilterExporter:
         self.audit_report = {
             "total_evaluated": len(price_index),
             "eligible_count": 0,
+            "eligible_by_threshold": 0,
+            "eligible_by_forced": 0,
             "mapped_count": 0,
             "unmapped_variants": [],
-            "multi_map_variants": []
+            "multi_map_variants": [],
+            "sample_injections": [],
+            "sample_skipped_below_threshold": []
         }
         
         # D2R JSON files can be an array of objects [{"id": 1, "Key": "abc", "enUS": "Abc"}]
@@ -143,6 +164,14 @@ class D2RJsonFilterExporter:
                 return est.range_high_fg
             return est.estimate_fg
 
+        def color_code_for_fg(fg_val: float) -> str:
+            code = self.D2R_COLOR_RESET
+            for (low, high), tier_code in self.color_tiers.items():
+                if low <= fg_val <= high:
+                    code = tier_code
+                    break
+            return code
+
         def deterministic_id(key: str) -> int:
             return int(hashlib.md5(key.encode("utf-8")).hexdigest()[:8], 16)
 
@@ -173,11 +202,7 @@ class D2RJsonFilterExporter:
                 clean_val = SHORT_NAMES[key]
                 
             if price_text and self.apply_colors:
-                color_code = self.D2R_COLOR_RESET  # Default white
-                for (low, high), code in self.color_tiers.items():
-                    if low <= fg_val <= high:
-                        color_code = code
-                        break
+                color_code = color_code_for_fg(fg_val)
                 # D2R formatting is: [Base Name] [Color Code][Price Tag][Reset Color]
                 # We revert to White (ÿc0) after the tag so trailing text isn't dyed accidentally.
                 return f"{clean_val} {color_code}{price_text.strip()}{self.D2R_COLOR_RESET}"
@@ -200,11 +225,7 @@ class D2RJsonFilterExporter:
                         base_name = SHORT_NAMES.get(key, key) if self.use_short_names else key
                         # Mimic apply_transform formatting for fallback paths
                         if price_text and self.apply_colors:
-                            color_code = self.D2R_COLOR_RESET
-                            for (low, high), code in self.color_tiers.items():
-                                if low <= fg_val <= high:
-                                    color_code = code
-                                    break
+                            color_code = color_code_for_fg(fg_val)
                             mod_data[key] = f"{base_name} {color_code}{price_text.strip()}{self.D2R_COLOR_RESET}"
                         else:
                             mod_data[key] = f"{base_name}{price_text}"
@@ -220,11 +241,7 @@ class D2RJsonFilterExporter:
                 else:
                     base_name = SHORT_NAMES.get(key, key) if self.use_short_names else key
                     if price_text and self.apply_colors:
-                        color_code = self.D2R_COLOR_RESET
-                        for (low, high), code in self.color_tiers.items():
-                            if low <= fg_val <= high:
-                                color_code = code
-                                break
+                        color_code = color_code_for_fg(fg_val)
                         en_us_val = f"{base_name} {color_code}{price_text.strip()}{self.D2R_COLOR_RESET}"
                     else:
                         en_us_val = f"{base_name}{price_text}"
@@ -256,9 +273,22 @@ class D2RJsonFilterExporter:
             # Allow forced inclusion of specific categories (e.g. runes) or exact variants (e.g. rune:jah)
             is_forced = (kind in self.always_include_kinds) or (variant_key in self.always_include_kinds)
             if val < self.min_fg and not is_forced:
+                if self.collect_explain and len(self.audit_report["sample_skipped_below_threshold"]) < self.explain_limit:
+                    self.audit_report["sample_skipped_below_threshold"].append({
+                        "variant_key": variant_key,
+                        "kind": kind,
+                        "fg_value": round(float(val), 2),
+                        "threshold": float(self.min_fg),
+                        "forced_match": False,
+                        "reason": "below_threshold",
+                    })
                 continue
                 
             self.audit_report["eligible_count"] += 1
+            if is_forced and val < self.min_fg:
+                self.audit_report["eligible_by_forced"] += 1
+            else:
+                self.audit_report["eligible_by_threshold"] += 1
                 
             price_suffix = self.format_str.format(fg=f"{val:.0f}")
             
@@ -274,5 +304,18 @@ class D2RJsonFilterExporter:
             for k in keys:
                 if k:
                     upsert_key(k, price_suffix, val)
+            if self.collect_explain and len(self.audit_report["sample_injections"]) < self.explain_limit:
+                self.audit_report["sample_injections"].append({
+                    "variant_key": variant_key,
+                    "kind": kind,
+                    "fg_value": round(float(val), 2),
+                    "price_mode": self.price_mode,
+                    "forced_match": bool(is_forced and val < self.min_fg),
+                    "mapped_keys": keys,
+                    "mapped_key_count": len(keys),
+                    "multi_map": len(keys) > 1,
+                    "color_tag": color_code_for_fg(val) if self.apply_colors else None,
+                    "tag_text": price_suffix,
+                })
 
         return json.dumps(mod_data, indent=2, ensure_ascii=False)
