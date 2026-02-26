@@ -7,6 +7,7 @@ import os
 import time
 import tempfile
 import subprocess
+import shlex
 
 from d2lut.exporters.d2r_json_filter import D2RJsonFilterExporter
 from d2lut.models import ObservedPrice
@@ -134,6 +135,111 @@ def atomic_write_text(path: Path, text: str, encoding: str = "utf-8") -> None:
         tmp_path = Path(tmp.name)
     tmp_path.replace(path)
 
+def run_cmd(cmd: list[str], cwd: Path | None = None) -> int:
+    print(f"[refresh] $ {' '.join(shlex.quote(c) for c in cmd)}")
+    proc = subprocess.run(
+        cmd,
+        cwd=str(cwd) if cwd else None,
+        text=True,
+        check=False,
+    )
+    if proc.returncode != 0:
+        print(f"[refresh] command failed with code {proc.returncode}")
+    return proc.returncode
+
+def refresh_market_on_exit(args) -> int:
+    if args.refresh_command:
+        return run_cmd(args.refresh_command, cwd=APP_DIR)
+
+    # Local snapshot refresh path (no web fetch): just re-run parser/estimates on existing snapshot dirs.
+    if not args.refresh_web:
+        cmd = [
+            sys.executable, "scripts/run_d2jsp_snapshot_pipeline.py",
+            "--db", args.db,
+            "--market-key", args.market_key,
+            "--forum-pages-dir", args.forum_pages_dir,
+            "--topic-pages-dir", args.topic_pages_dir,
+            "--candidate-limit", str(args.refresh_candidate_limit),
+            "--top-limit", str(args.refresh_top_limit),
+            "--candidate-skip-liquid-singletons",
+            "--candidate-singleton-recent-hours", str(args.candidate_singleton_recent_hours),
+            "--candidate-singleton-min-recent-observations", str(args.candidate_singleton_min_recent_observations),
+            "--quiet",
+        ]
+        return run_cmd(cmd, cwd=APP_DIR)
+
+    # Web refresh path:
+    # 1) fetch top forum pages
+    fetch_forum_cmd = [
+        sys.executable, "scripts/fetch_d2jsp_forum_pages.py",
+        "--forum-id", str(args.forum_id),
+        "--pages", str(args.refresh_forum_pages),
+        "--categories", args.refresh_categories,
+        "--out-dir", args.forum_pages_dir,
+        "--profile-dir", args.refresh_profile_dir,
+        "--delay-ms", str(args.refresh_delay_ms),
+        "--retries", str(args.refresh_retries),
+        "--no-skip-existing",
+    ]
+    if args.refresh_manual_start:
+        fetch_forum_cmd.append("--manual-start")
+    else:
+        fetch_forum_cmd.append("--no-manual-start")
+    if run_cmd(fetch_forum_cmd, cwd=APP_DIR) != 0:
+        return 1
+
+    # 2) build fresh candidate URL list from refreshed forum snapshots
+    candidates_out = str(APP_DIR / "data" / "cache" / "topic_candidates_monitor.txt")
+    plan_cmd = [
+        sys.executable, "scripts/run_d2jsp_snapshot_pipeline.py",
+        "--db", args.db,
+        "--market-key", args.market_key,
+        "--forum-pages-dir", args.forum_pages_dir,
+        "--topic-pages-dir", args.topic_pages_dir,
+        "--candidate-limit", str(args.refresh_candidate_limit),
+        "--candidate-urls-out", candidates_out,
+        "--skip-topic-import",
+        "--skip-top",
+        "--candidate-skip-liquid-singletons",
+        "--candidate-singleton-recent-hours", str(args.candidate_singleton_recent_hours),
+        "--candidate-singleton-min-recent-observations", str(args.candidate_singleton_min_recent_observations),
+        "--quiet",
+    ]
+    if run_cmd(plan_cmd, cwd=APP_DIR) != 0:
+        return 1
+
+    # 3) fetch candidate topic pages (refetch top set each run)
+    fetch_topic_cmd = [
+        sys.executable, "scripts/fetch_d2jsp_topic_pages.py",
+        "--url-file", candidates_out,
+        "--out-dir", args.topic_pages_dir,
+        "--profile-dir", args.refresh_profile_dir,
+        "--delay-ms", str(args.refresh_delay_ms),
+        "--retries", str(args.refresh_retries),
+        "--no-skip-existing",
+        "--limit", str(args.refresh_topic_limit),
+    ]
+    if args.refresh_manual_start:
+        fetch_topic_cmd.append("--manual-start")
+    else:
+        fetch_topic_cmd.append("--no-manual-start")
+    if run_cmd(fetch_topic_cmd, cwd=APP_DIR) != 0:
+        return 1
+
+    # 4) import refreshed topic pages + rebuild top estimates
+    final_cmd = [
+        sys.executable, "scripts/run_d2jsp_snapshot_pipeline.py",
+        "--db", args.db,
+        "--market-key", args.market_key,
+        "--forum-pages-dir", args.forum_pages_dir,
+        "--topic-pages-dir", args.topic_pages_dir,
+        "--skip-forum-import",
+        "--skip-candidates",
+        "--top-limit", str(args.refresh_top_limit),
+        "--quiet",
+    ]
+    return run_cmd(final_cmd, cwd=APP_DIR)
+
 def run_generation(args, cfg, is_interactive: bool = False) -> int:
     db_path = Path(args.db)
     if not db_path.exists():
@@ -257,6 +363,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Generate D2R Static Loot Filter Mod (item-names.json)")
     parser.add_argument("--db", type=str, default=str(APP_DIR / "data" / "cache" / "d2lut.db"), help="Path to SQLite DB (d2lut.db)")
     parser.add_argument("--market-key", type=str, default="d2r_sc_ladder", help="Market key namespace")
+    parser.add_argument("--forum-id", type=int, default=271, help="d2jsp forum id used for refresh flows")
+    parser.add_argument("--forum-pages-dir", type=str, default=str(APP_DIR / "data" / "raw" / "d2jsp" / "forum_pages"), help="Forum snapshot directory")
+    parser.add_argument("--topic-pages-dir", type=str, default=str(APP_DIR / "data" / "raw" / "d2jsp" / "topic_pages"), help="Topic snapshot directory")
+    parser.add_argument("--candidate-singleton-recent-hours", type=int, default=24, help="Hours window for liquid singleton candidate skip")
+    parser.add_argument("--candidate-singleton-min-recent-observations", type=int, default=5, help="Minimum recent obs for liquid singleton skip")
     parser.add_argument("--min-fg", type=float, default=20.0, help="Minimum fg estimate to inject into filter")
     parser.add_argument("--price-mode", type=str, choices=["estimate", "range_low", "range_high"], default="estimate", help="Price field to inject")
     parser.add_argument("--format-str", type=str, default=" [{fg} fg]", help="Template for the price string. Use '{fg}' as the placeholder (e.g., ' | {fg} FG')")
@@ -278,6 +389,18 @@ def main() -> None:
     parser.add_argument("--build-on-start", action="store_true", help="Generate immediately on startup before monitor loop")
     parser.add_argument("--run-once-after-exit", action="store_true", help="In monitor mode, build once after one game exit and quit")
     parser.add_argument("--status-json", type=str, default=None, help="Optional path to write status JSON after each successful build")
+    parser.add_argument("--refresh-on-exit", action="store_true", help="When game exits, refresh market snapshots/prices before generating filter")
+    parser.add_argument("--refresh-command", nargs="+", default=None, help="Custom command to run for market refresh on exit")
+    parser.add_argument("--refresh-web", action="store_true", help="Use web snapshot fetchers during refresh-on-exit")
+    parser.add_argument("--refresh-profile-dir", type=str, default=str(APP_DIR / "data" / "cache" / "playwright-d2jsp-profile"), help="Playwright profile dir for web refresh")
+    parser.add_argument("--refresh-manual-start", action="store_true", help="Pause for Cloudflare/login before web refresh crawl")
+    parser.add_argument("--refresh-forum-pages", type=int, default=10, help="Forum pages per category to refresh in web mode")
+    parser.add_argument("--refresh-categories", type=str, default="2,3,4,5", help="Categories to refresh in web mode")
+    parser.add_argument("--refresh-topic-limit", type=int, default=250, help="Max candidate topics to fetch per refresh cycle")
+    parser.add_argument("--refresh-candidate-limit", type=int, default=500, help="Candidate pool size for refresh pipeline")
+    parser.add_argument("--refresh-top-limit", type=int, default=200, help="Top estimates rebuilt per refresh cycle")
+    parser.add_argument("--refresh-delay-ms", type=int, default=300, help="Delay between page fetches in web refresh mode")
+    parser.add_argument("--refresh-retries", type=int, default=2, help="Retries for page fetches in web refresh mode")
 
     raw_argv = [] if is_interactive else sys.argv[1:]
     args = parser.parse_args(raw_argv)
@@ -337,7 +460,19 @@ def main() -> None:
                     seen_running = True
                 else:
                     if seen_running:
-                        print(f"[monitor] Detected game exit: {proc_name}. Rebuilding filter...")
+                        print(f"[monitor] Detected game exit: {proc_name}.")
+                        if args.refresh_on_exit:
+                            print("[monitor] Running market refresh before filter generation...")
+                            refresh_rc = refresh_market_on_exit(args)
+                            if refresh_rc != 0:
+                                print("[monitor] Refresh failed. Skipping filter rebuild for this cycle.")
+                                if args.run_once_after_exit:
+                                    sys.exit(refresh_rc)
+                                seen_running = False
+                                print("[monitor] Waiting for next game launch...")
+                                time.sleep(poll_seconds)
+                                continue
+                        print("[monitor] Rebuilding filter...")
                         rc = run_generation(args, cfg, is_interactive=False)
                         if rc != 0:
                             sys.exit(rc)
