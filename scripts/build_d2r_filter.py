@@ -17,29 +17,42 @@ PRESETS = {
         "hide_junk": False,
         "use_short_names": True,
         "apply_colors": False,
-        "always_include_kinds": ["rune", "gem"]
+        "always_include_kinds": ["rune", "gem"],
+        "tag_style": "bracket",
     },
     "crafting": {
         "min_fg": 20.0,
         "hide_junk": True,
         "use_short_names": True,
         "apply_colors": True,
-        "always_include_kinds": ["rune", "base", "jewel", "gem"]
+        "always_include_kinds": ["rune", "base", "jewel", "gem"],
+        "tag_style": "bracket",
     },
     "endgame": {
         "min_fg": 50.0,
         "hide_junk": True,
         "use_short_names": True,
         "apply_colors": True,
-        "always_include_kinds": ["rune", "key", "token"]
+        "always_include_kinds": ["rune", "key", "token"],
+        "tag_style": "bracket",
     },
     "wealth": {
         "min_fg": 200.0,
         "hide_junk": True,
         "use_short_names": True,
         "apply_colors": True,
-        "always_include_kinds": ["rune:jah", "rune:ber"] # Example: only extremely high runes bypass
-    }
+        "always_include_kinds": ["rune:jah", "rune:ber"], # Example: only extremely high runes bypass
+        "tag_style": "bracket",
+    },
+    # Inspired by d2jsp endgame D2R JSON filters (e.g. "Roguecore" style): sparse display, focus on trade-relevant drops.
+    "roguecore": {
+        "min_fg": 100.0,
+        "hide_junk": True,
+        "use_short_names": True,
+        "apply_colors": True,
+        "always_include_kinds": ["rune", "key", "token", "jewel", "base"],
+        "tag_style": "pipe-upper",
+    },
 }
 
 def get_app_dir() -> Path:
@@ -66,17 +79,18 @@ def interactive_prompt() -> str:
     print("  [1] Leveling: Show all items, highlight runes/gems (0+ fg)")
     print("  [2] Crafting: Hide trash, show bases/jewels/gems (20+ fg)")
     print("  [3] Endgame : Hide trash, show keys/tokens (50+ fg)")
-    print("  [4] Wealth  : Hide trash, show ONLY Jah/Ber (200+ fg)\n")
+    print("  [4] Wealth  : Hide trash, show ONLY Jah/Ber (200+ fg)")
+    print("  [5] Roguecore: Endgame-sparse styling, focus trade items (100+ fg)\n")
     
     choice = ""
     try:
-        while choice not in ["1", "2", "3", "4"]:
-            choice = input("Enter choice (1-4): ").strip()
+        while choice not in ["1", "2", "3", "4", "5"]:
+            choice = input("Enter choice (1-5): ").strip()
     except (EOFError, KeyboardInterrupt):
         print("\nExiting.")
         sys.exit(0)
         
-    mapping = {"1": "leveling", "2": "crafting", "3": "endgame", "4": "wealth"}
+    mapping = {"1": "leveling", "2": "crafting", "3": "endgame", "4": "wealth", "5": "roguecore"}
     preset_name = mapping[choice]
     
     print(f"\n[+] Selected {preset_name.title()} preset.")
@@ -121,6 +135,7 @@ def main() -> None:
         "apply_colors": args.apply_colors if args.apply_colors is not None else False,
         "always_include_kinds": args.always_include_kinds,
         "format_str": args.format_str,
+        "tag_style": args.tag_style,
     }
     
     if args.preset:
@@ -141,9 +156,11 @@ def main() -> None:
         else:
             # Reconstruct list into comma-delimited string for consistency downstream
              cfg["always_include_kinds"] = ",".join(preset_cfg.get("always_include_kinds", []))
+        if not format_str_explicit:
+            cfg["tag_style"] = preset_cfg.get("tag_style", args.tag_style)
 
     if not format_str_explicit:
-        cfg["format_str"] = TAG_STYLES.get(args.tag_style, args.format_str)
+        cfg["format_str"] = TAG_STYLES.get(cfg.get("tag_style", args.tag_style), args.format_str)
 
     db_path = Path(args.db)
     if not db_path.exists():
