@@ -1,0 +1,42 @@
+{
+  "db": "data/cache/d2lut.db",
+  "catalog_affix_lexicon": {
+    "rows": 1294,
+    "affixes": 797
+  },
+  "maxroll_data_family_stats": {
+    "autoMagic": 44,
+    "crafted": 36,
+    "itemStatCost": 368,
+    "magicPrefix": 603,
+    "magicSuffix": 583,
+    "propertyGroups": 32,
+    "qualityItems": 8
+  },
+  "required_maxroll_families_missing": [],
+  "maxroll_modifier_lexicon_rows": 4818,
+  "modifier_alias_lexicon_rows": 5010,
+  "modifier_category_constraints_rows": 10,
+  "modifier_alias_by_source": {
+    "maxroll": 3700,
+    "catalog_affix": 1294,
+    "manual": 16
+  },
+  "modifier_alias_by_kind": {
+    "modifier_name": 2968,
+    "mod_code": 2026,
+    "stat_shorthand": 12,
+    "item_alias": 4
+  },
+  "constraints_by_category": {
+    "anni": 1,
+    "base_armor": 2,
+    "base_weapon": 2,
+    "jewel": 1,
+    "runes": 3,
+    "torch": 1
+  },
+  "required_constraint_categories_missing": [],
+  "audit_pass": true,
+  "failures": []
+}

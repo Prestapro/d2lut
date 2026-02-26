@@ -1,0 +1,41 @@
+markets:
+  primary:
+    source: d2jsp
+    forum_id: 271
+    name: "D2:R RotW Softcore Ladder Trading"
+    ladder: true
+    hardcore: false
+  secondary_reference:
+    source: d2jsp
+    forum_id: 384
+    name: "D2R Trading Post (general reference only)"
+    use_for_pricing: false
+
+collector:
+  mode: public_only
+  poll_interval_seconds: 600
+  user_agent: "d2lut/0.1"
+
+pricing:
+  currency: fg
+  recency_half_life_hours: 24
+  min_samples_default: 3
+  tiers_fg:
+    S: 500
+    A: 100
+    B: 25
+    C: 5
+
+usd_fg_reference:
+  samples:
+    - { usd: 10, fg: 290 }
+    - { usd: 20, fg: 630 }
+    - { usd: 30, fg: 920 }
+    - { usd: 40, fg: 1260 }
+    - { usd: 50, fg: 1550 }
+    - { usd: 60, fg: 1890 }
+    - { usd: 70, fg: 2180 }
+    - { usd: 80, fg: 2520 }
+    - { usd: 90, fg: 2810 }
+    - { usd: 100, fg: 3250 }
+

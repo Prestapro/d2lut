@@ -1,0 +1,30 @@
+# OS / editor
+.DS_Store
+
+# Python caches / test artifacts
+__pycache__/
+.pytest_cache/
+.hypothesis/
+*.pyc
+
+# Local builds / generated binaries
+build/
+dist/
+releases/
+*.spec
+
+# Local generated outputs
+output/
+
+# Large local datasets / caches
+data/raw/
+data/cache/*.db
+data/cache/*.sqlite
+data/cache/playwright-*/
+data/cache/topic_*.txt
+data/cache/*.html
+
+# Optional local envs
+.venv/
+venv/
+

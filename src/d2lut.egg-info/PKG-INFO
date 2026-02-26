@@ -1,0 +1,5 @@
+Metadata-Version: 2.4
+Name: d2lut
+Version: 0.1.0
+Summary: D2R loot value pipeline using d2jsp fg market signals
+Requires-Python: >=3.11

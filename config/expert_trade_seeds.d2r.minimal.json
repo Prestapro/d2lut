@@ -1,0 +1,199 @@
+{
+  "version": 1,
+  "game_profile": "d2r",
+  "description": "Important-only qualitative trade value seeds for D2R (SC ladder oriented). Not a price source.",
+  "entries": [
+    {
+      "needle": "hellfire_torch",
+      "tier": "HIGH",
+      "tags": ["unique_charm", "class_dependent"],
+      "stat_priority": ["class", "all attributes", "all resistances"],
+      "seasonality_notes": "Always tradable; class demand varies (often Sorc/Pal > others).",
+      "notes": "Use market pricing for exact class/roll values."
+    },
+    {
+      "needle": "annihilus",
+      "tier": "HIGH",
+      "tags": ["unique_charm", "all_builds"],
+      "stat_priority": ["all attributes", "all resistances", "xp gained"],
+      "seasonality_notes": "Always tradable; high rolls retain value."
+    },
+    {
+      "needle": "griffons_eye",
+      "tier": "HIGH",
+      "tags": ["lightning_bis", "helm"],
+      "stat_priority": ["-enemy lightning resist", "+lightning skill damage", "defense (secondary)"],
+      "seasonality_notes": "Value depends heavily on rolls."
+    },
+    {
+      "needle": "deaths_fathom",
+      "tier": "HIGH",
+      "tags": ["cold_sorc", "weapon"],
+      "stat_priority": ["cold skill damage", "resists"],
+      "seasonality_notes": "High/near-perfect cold dmg rolls command premiums."
+    },
+    {
+      "needle": "deaths_web",
+      "tier": "HIGH",
+      "tags": ["poison_necro", "weapon"],
+      "stat_priority": ["-enemy poison resist", "+poison and bone skills", "mana/life after kill"],
+      "seasonality_notes": "Top poison rolls matter most."
+    },
+    {
+      "needle": "crown_of_ages",
+      "tier": "HIGH",
+      "tags": ["pvp", "hardcore", "helm"],
+      "stat_priority": ["sockets", "damage reduced", "all resistances"],
+      "seasonality_notes": "2os and high DR greatly increase value."
+    },
+    {
+      "needle": "stone_of_jordan",
+      "tier": "HIGH",
+      "tags": ["ring", "skills", "dclone"],
+      "stat_priority": ["none (fixed-ish item value)"],
+      "seasonality_notes": "Demand often stable due to utility and DClone usage."
+    },
+    {
+      "needle": "the_stone_of_jordan",
+      "tier": "HIGH",
+      "tags": ["ring", "skills", "dclone"],
+      "stat_priority": ["none (fixed-ish item value)"]
+    },
+    {
+      "needle": "maras_kaleidoscope",
+      "tier": "HIGH",
+      "tags": ["amulet", "all_skills"],
+      "stat_priority": ["all resistances", "all skills"],
+      "seasonality_notes": "Res roll drives price."
+    },
+    {
+      "needle": "highlords_wrath",
+      "tier": "HIGH",
+      "tags": ["attack_amulet"],
+      "stat_priority": ["none (widely tradable baseline)"],
+      "seasonality_notes": "Consistently useful, especially for melee/physical builds."
+    },
+    {
+      "needle": "arachnid_mesh",
+      "tier": "HIGH",
+      "tags": ["caster_bis", "belt"],
+      "stat_priority": ["none (base item demand)"],
+      "seasonality_notes": "Very high early ladder demand."
+    },
+    {
+      "needle": "harlequin_crest",
+      "tier": "HIGH",
+      "tags": ["mf", "helm", "shako"],
+      "stat_priority": ["none (base item demand)"],
+      "seasonality_notes": "Early ladder premium; declines later."
+    },
+    {
+      "needle": "tal_rashas_guardianship",
+      "tier": "HIGH",
+      "tags": ["tal_set", "armor", "mf_sorc"],
+      "stat_priority": ["defense (secondary)"],
+      "seasonality_notes": "Often high early ladder, drops later."
+    },
+    {
+      "needle": "tal_rashas_adjudication",
+      "tier": "HIGH",
+      "tags": ["tal_set", "amulet", "mf_sorc"],
+      "stat_priority": ["none (set combo demand)"]
+    },
+    {
+      "needle": "rainbow_facet",
+      "tier": "HIGH",
+      "tags": ["facet", "jewel"],
+      "stat_priority": ["-enemy res", "+skill damage", "element", "near-perfect/perfect rolls"],
+      "seasonality_notes": "Perfect/near-perfect facets are much easier to trade than weak rolls."
+    },
+    {
+      "needle": "gheeds_fortune",
+      "tier": "MED",
+      "tags": ["charm", "mf", "goldfind"],
+      "stat_priority": ["all stats matter; depends on use"],
+      "seasonality_notes": "Tradeability depends on roll quality."
+    },
+    {
+      "needle": "nightwings_veil",
+      "tier": "MED",
+      "tags": ["cold", "helm"],
+      "stat_priority": ["cold skill damage", "dexterity", "cold absorb"]
+    },
+    {
+      "needle": "andariels_visage",
+      "tier": "MED",
+      "tags": ["mercenary", "helm"],
+      "stat_priority": ["life leech", "strength", "ethereal (merc)"],
+      "seasonality_notes": "Ethereal + strong rolls can spike hard."
+    },
+    {
+      "needle": "the_reapers_toll",
+      "tier": "MED",
+      "tags": ["mercenary", "weapon"],
+      "stat_priority": ["ethereal", "enhanced damage", "life leech"]
+    },
+    {
+      "needle": "titans_revenge",
+      "tier": "MED",
+      "tags": ["amazon_jav", "weapon"],
+      "stat_priority": ["ethereal", "enhanced damage", "life leech"]
+    },
+    {
+      "needle": "thunderstroke",
+      "tier": "MED",
+      "tags": ["amazon_jav", "weapon"],
+      "stat_priority": ["javelin skills", "ED (secondary)"]
+    },
+    {
+      "needle": "verdungos_hearty_cord",
+      "tier": "MED",
+      "tags": ["pvp", "survivability", "belt"],
+      "stat_priority": ["damage reduced", "vitality", "replenish life"]
+    },
+    {
+      "needle": "wizardspike",
+      "tier": "MED",
+      "tags": ["caster", "weapon"],
+      "stat_priority": ["none (utility baseline)"],
+      "seasonality_notes": "Strong early / budget utility option."
+    },
+    {
+      "needle": "magefist",
+      "tier": "LOW",
+      "tags": ["caster", "gloves"],
+      "stat_priority": ["none (baseline utility)"]
+    },
+    {
+      "needle": "nagelring",
+      "tier": "LOW",
+      "tags": ["mf", "ring"],
+      "stat_priority": ["magic find roll"]
+    },
+    {
+      "needle": "mosers_blessed_circle",
+      "tier": "LOW",
+      "tags": ["res_shield"],
+      "stat_priority": ["resists / defense (situational)"],
+      "seasonality_notes": "Useful but often low trade demand."
+    },
+    {
+      "needle": "jalals_mane",
+      "tier": "LOW",
+      "tags": ["druid", "helm"],
+      "stat_priority": ["ED (secondary)"]
+    },
+    {
+      "needle": "kiras_guardian",
+      "tier": "LOW",
+      "tags": ["res", "cannot_be_frozen", "helm"],
+      "stat_priority": ["all resistances roll"]
+    },
+    {
+      "needle": "goldwrap",
+      "tier": "LOW",
+      "tags": ["mf_goldfind", "belt"],
+      "stat_priority": ["gold find / mf use case"]
+    }
+  ]
+}

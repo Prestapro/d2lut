@@ -1,0 +1,196 @@
+name: Build Release Artifacts
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version (e.g. v1.0.11). Optional for manual runs."
+        required: false
+        type: string
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+env:
+  APP_NAME: D2R_Filter_Generator
+  BIN_NAME: D2R_Loot_Filter_Builder
+
+jobs:
+  build:
+    name: Build (${{ matrix.os_name }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-latest
+            os_name: linux-x64
+            archive_ext: tar.gz
+            shell: bash
+            pyinstaller_out: D2R_Loot_Filter_Builder
+          - runner: windows-latest
+            os_name: windows-x64
+            archive_ext: zip
+            shell: pwsh
+            pyinstaller_out: D2R_Loot_Filter_Builder.exe
+          - runner: macos-14
+            os_name: macos-arm64
+            archive_ext: zip
+            shell: bash
+            pyinstaller_out: D2R_Loot_Filter_Builder
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install build dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pyinstaller
+        shell: ${{ matrix.shell }}
+
+      - name: Build executable (Linux/macOS)
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          rm -rf build dist
+          PYTHONPATH=src python -m PyInstaller \
+            --name "${BIN_NAME}" \
+            --onefile \
+            --clean \
+            --distpath "dist" \
+            --workpath "build" \
+            scripts/build_d2r_filter.py
+
+      - name: Build executable (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          if (Test-Path build) { Remove-Item build -Recurse -Force }
+          if (Test-Path dist) { Remove-Item dist -Recurse -Force }
+          $env:PYTHONPATH = "src"
+          python -m PyInstaller `
+            --name "${env:BIN_NAME}" `
+            --onefile `
+            --clean `
+            --distpath "dist" `
+            --workpath "build" `
+            scripts/build_d2r_filter.py
+
+      - name: Compute release version
+        id: meta
+        shell: bash
+        run: |
+          if [[ "${GITHUB_REF_TYPE}" == "tag" ]]; then
+            VER="${GITHUB_REF_NAME}"
+          elif [[ -n "${{ github.event.inputs.version }}" ]]; then
+            VER="${{ github.event.inputs.version }}"
+          else
+            VER="dev-${GITHUB_RUN_NUMBER}"
+          fi
+          echo "version=$VER" >> "$GITHUB_OUTPUT"
+          echo "asset_base=${APP_NAME}-${{ matrix.os_name }}-$VER" >> "$GITHUB_OUTPUT"
+
+      - name: Prepare distributable folder (Linux/macOS)
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          PKG_ROOT="pkg/${APP_NAME}"
+          mkdir -p "$PKG_ROOT/data/cache" "$PKG_ROOT/data/templates" "$PKG_ROOT/output"
+          cp "dist/${{ matrix.pyinstaller_out }}" "$PKG_ROOT/"
+          if [[ -f "data/templates/item-names.json" ]]; then
+            cp "data/templates/item-names.json" "$PKG_ROOT/data/templates/"
+          fi
+          if [[ -f "data/cache/d2lut.db" ]]; then
+            cp "data/cache/d2lut.db" "$PKG_ROOT/data/cache/"
+          fi
+
+      - name: Prepare distributable folder (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $pkgRoot = "pkg/${env:APP_NAME}"
+          New-Item -ItemType Directory -Force -Path "$pkgRoot/data/cache" | Out-Null
+          New-Item -ItemType Directory -Force -Path "$pkgRoot/data/templates" | Out-Null
+          New-Item -ItemType Directory -Force -Path "$pkgRoot/output" | Out-Null
+          Copy-Item "dist/${{ matrix.pyinstaller_out }}" "$pkgRoot/"
+          if (Test-Path "data/templates/item-names.json") { Copy-Item "data/templates/item-names.json" "$pkgRoot/data/templates/" }
+          if (Test-Path "data/cache/d2lut.db") { Copy-Item "data/cache/d2lut.db" "$pkgRoot/data/cache/" }
+
+      - name: Archive (.tar.gz)
+        if: matrix.archive_ext == 'tar.gz'
+        shell: bash
+        run: |
+          mkdir -p release
+          tar -C pkg -czf "release/${{ steps.meta.outputs.asset_base }}.tar.gz" "${APP_NAME}"
+
+      - name: Archive (.zip) Linux/macOS
+        if: matrix.archive_ext == 'zip' && runner.os != 'Windows'
+        shell: bash
+        run: |
+          mkdir -p release
+          (cd pkg && zip -qry "../release/${{ steps.meta.outputs.asset_base }}.zip" "${APP_NAME}")
+
+      - name: Archive (.zip) Windows
+        if: matrix.archive_ext == 'zip' && runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path release | Out-Null
+          Compress-Archive -Path "pkg/${env:APP_NAME}" -DestinationPath "release/${{ steps.meta.outputs.asset_base }}.zip" -Force
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.meta.outputs.asset_base }}
+          path: release/*
+          if-no-files-found: error
+
+  checksums:
+    name: Build SHA256SUMS
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download all build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: release_assets
+
+      - name: Flatten assets
+        shell: bash
+        run: |
+          mkdir -p release_flat
+          find release_assets -type f \( -name '*.zip' -o -name '*.tar.gz' \) -exec cp {} release_flat/ \;
+          ls -lh release_flat
+
+      - name: Generate SHA256SUMS.txt
+        shell: bash
+        run: |
+          cd release_flat
+          sha256sum *.zip *.tar.gz > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+
+      - name: Upload checksum artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SHA256SUMS
+          path: release_flat/SHA256SUMS.txt
+          if-no-files-found: error
+
+      - name: Upload release assets (tag only)
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            release_flat/*.zip
+            release_flat/*.tar.gz
+            release_flat/SHA256SUMS.txt
+          generate_release_notes: true
+

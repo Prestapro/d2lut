@@ -1,0 +1,38 @@
+[
+  {
+    "variant_key": "unique:hellfire_torch",
+    "estimate_fg": 800.0,
+    "range_low_fg": 800.0,
+    "range_high_fg": 800.0,
+    "confidence": "low",
+    "sample_count": 1,
+    "updated_at": "2026-02-25T20:10:33.250682+00:00"
+  },
+  {
+    "variant_key": "rune:gul",
+    "estimate_fg": 185.0,
+    "range_low_fg": 185.0,
+    "range_high_fg": 185.0,
+    "confidence": "low",
+    "sample_count": 1,
+    "updated_at": "2026-02-25T20:10:33.250682+00:00"
+  },
+  {
+    "variant_key": "set:najs_light_plate",
+    "estimate_fg": 75.0,
+    "range_low_fg": 75.0,
+    "range_high_fg": 75.0,
+    "confidence": "low",
+    "sample_count": 1,
+    "updated_at": "2026-02-25T20:10:33.250682+00:00"
+  },
+  {
+    "variant_key": "set:tal_rashas_fine-spun_cloth",
+    "estimate_fg": 20.0,
+    "range_low_fg": 20.0,
+    "range_high_fg": 20.0,
+    "confidence": "low",
+    "sample_count": 1,
+    "updated_at": "2026-02-25T20:10:33.250682+00:00"
+  }
+]

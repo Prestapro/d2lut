@@ -1,0 +1,33 @@
+{
+  "ocr": {
+    "engine": "easyocr",
+    "confidence_threshold": 0.7,
+    "preprocess": {
+      "contrast_enhance": true,
+      "denoise": true,
+      "resize_factor": 2.0
+    }
+  },
+  "overlay": {
+    "enabled": true,
+    "color_thresholds": {
+      "low": 1000,
+      "medium": 10000
+    },
+    "update_interval_ms": 1000,
+    "max_cache_age_seconds": 300
+  },
+  "pricing": {
+    "min_samples": 3,
+    "confidence_levels": {
+      "low": 0.5,
+      "medium": 0.7,
+      "high": 0.9
+    }
+  },
+  "rules": {
+    "lld_enabled": true,
+    "craft_enabled": true,
+    "affix_adjustments": true
+  }
+}

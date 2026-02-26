@@ -1,0 +1,1 @@
+{"timestamp": "2026-02-25T19:19:25.722975+00:00", "event": "state_change", "snapshot": {"timestamp": "2026-02-25T19:19:25.722975+00:00", "crossover": true, "battlenet": true, "d2r": true, "agent": true, "wine": true, "state": "d2r_running", "d2r_count": 2, "battlenet_count": 4}}
