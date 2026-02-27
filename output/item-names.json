@@ -1,0 +1,697 @@
+[
+  {
+    "id": 1,
+    "Key": "r31",
+    "enUS": "Jah Rune ÿc1[4200 fg]ÿc0"
+  },
+  {
+    "id": 2,
+    "Key": "Acrobat's",
+    "enUS": "Acrobat's"
+  },
+  {
+    "id": 3,
+    "Key": "of Vita",
+    "enUS": "of Vita"
+  },
+  {
+    "id": 4,
+    "Key": "uap",
+    "enUS": "Monarch ÿc0[Enigma: 3os / 524def | Fortitude: 4os]"
+  },
+  {
+    "id": 5,
+    "Key": "Harlequin Crest",
+    "enUS": "Harlequin Crest"
+  },
+  {
+    "id": 6,
+    "Key": "pk1",
+    "enUS": "Key of Terror ÿc8[50 fg]ÿc0"
+  },
+  {
+    "id": 3301729244,
+    "Key": "unique:hellfire_torch",
+    "enUS": "unique:hellfire_torch ÿc;[760 fg]ÿc0"
+  },
+  {
+    "id": 707513867,
+    "Key": "rune:r30",
+    "enUS": "rune:r30 ÿc1[2400 fg]ÿc0"
+  },
+  {
+    "id": 3209008818,
+    "Key": "7s8",
+    "enUS": "7s8 ÿc8[80 fg]ÿc0"
+  },
+  {
+    "id": 77480217,
+    "Key": "r25",
+    "enUS": "r25 ÿc8[180 fg]ÿc0"
+  },
+  {
+    "id": 3973193092,
+    "Key": "rune:r31",
+    "enUS": "rune:r31 ÿc1[4200 fg]ÿc0"
+  },
+  {
+    "id": 1428742394,
+    "Key": "runeword:fortitude",
+    "enUS": "runeword:fortitude ÿc1[2844 fg]ÿc0"
+  },
+  {
+    "id": 1433914384,
+    "Key": "r27",
+    "enUS": "r27 ÿc;[600 fg]ÿc0"
+  },
+  {
+    "id": 2901582633,
+    "Key": "Gheeds Fortune",
+    "enUS": "Gheeds Fortune ÿc;[650 fg]ÿc0"
+  },
+  {
+    "id": 3655622333,
+    "Key": "unique:maras_kaleidoscope",
+    "enUS": "unique:maras_kaleidoscope ÿc;[800 fg]ÿc0"
+  },
+  {
+    "id": 2911351276,
+    "Key": "r22",
+    "enUS": "r22 ÿc8[60 fg]ÿc0"
+  },
+  {
+    "id": 2845708966,
+    "Key": "lbt",
+    "enUS": "lbt ÿc8[150 fg]ÿc0"
+  },
+  {
+    "id": 1351666233,
+    "Key": "charm:sunder",
+    "enUS": "charm:sunder ÿc;[200 fg]ÿc0"
+  },
+  {
+    "id": 3291968862,
+    "Key": "r24",
+    "enUS": "r24 ÿc;[200 fg]ÿc0"
+  },
+  {
+    "id": 3507858915,
+    "Key": "r32",
+    "enUS": "r32 ÿc;[800 fg]ÿc0"
+  },
+  {
+    "id": 1725037726,
+    "Key": "War Traveler",
+    "enUS": "War Traveler ÿc;ÿcO[50mf] [400 fg]ÿc0"
+  },
+  {
+    "id": 3146045341,
+    "Key": "7pa",
+    "enUS": "7pa ÿc;[300 fg]ÿc0"
+  },
+  {
+    "id": 459384233,
+    "Key": "rune:r16",
+    "enUS": "rune:r16 ÿc0[10 fg]ÿc0"
+  },
+  {
+    "id": 1931863583,
+    "Key": "r07",
+    "enUS": "r07 ÿc8[50 fg]ÿc0"
+  },
+  {
+    "id": 2227122167,
+    "Key": "rune:r22",
+    "enUS": "rune:r22 ÿc8[50 fg]ÿc0"
+  },
+  {
+    "id": 4021011202,
+    "Key": "r23",
+    "enUS": "r23 ÿc8[85 fg]ÿc0"
+  },
+  {
+    "id": 1293630937,
+    "Key": "r33",
+    "enUS": "r33 ÿc1[1700 fg]ÿc0"
+  },
+  {
+    "id": 319691674,
+    "Key": "Herald Of Zakarum",
+    "enUS": "Herald Of Zakarum ÿc8ÿcO[200ed] [125 fg]ÿc0"
+  },
+  {
+    "id": 1921660109,
+    "Key": "Gore Rider",
+    "enUS": "Gore Rider ÿc8ÿcO[200ed] [140 fg]ÿc0"
+  },
+  {
+    "id": 2173769533,
+    "Key": "Andariels Visage",
+    "enUS": "Andariels Visage ÿc;[200 fg]ÿc0"
+  },
+  {
+    "id": 3543160317,
+    "Key": "unique:annihilus",
+    "enUS": "unique:annihilus ÿc1[2700 fg]ÿc0"
+  },
+  {
+    "id": 1550901355,
+    "Key": "pk2",
+    "enUS": "pk2 ÿc8[40 fg]ÿc0"
+  },
+  {
+    "id": 337264302,
+    "Key": "rune:r26",
+    "enUS": "rune:r26 ÿc;[380 fg]ÿc0"
+  },
+  {
+    "id": 3420719064,
+    "Key": "r30",
+    "enUS": "r30 ÿc1[2450 fg]ÿc0"
+  },
+  {
+    "id": 176346869,
+    "Key": "rune:r21",
+    "enUS": "rune:r21 ÿc8[40 fg]ÿc0"
+  },
+  {
+    "id": 2875367455,
+    "Key": "rune:r25",
+    "enUS": "rune:r25 ÿc8[155 fg]ÿc0"
+  },
+  {
+    "id": 2039145160,
+    "Key": "r26",
+    "enUS": "r26 ÿc;[390 fg]ÿc0"
+  },
+  {
+    "id": 2859011641,
+    "Key": "misc:amu",
+    "enUS": "misc:amu ÿc;[400 fg]ÿc0"
+  },
+  {
+    "id": 2444496088,
+    "Key": "uit",
+    "enUS": "uit ÿc0[Stormshield | Spirit: 4os | ★ GG magic] ÿc8[50 fg]ÿc0"
+  },
+  {
+    "id": 3995833284,
+    "Key": "unique:stone_of_jordan",
+    "enUS": "unique:stone_of_jordan ÿc;[850 fg]ÿc0"
+  },
+  {
+    "id": 1318079138,
+    "Key": "rune:r27",
+    "enUS": "rune:r27 ÿc;[610 fg]ÿc0"
+  },
+  {
+    "id": 886720287,
+    "Key": "7vo",
+    "enUS": "7vo ÿc;[200 fg]ÿc0"
+  },
+  {
+    "id": 2554786519,
+    "Key": "r20",
+    "enUS": "r20 ÿc8[30 fg]ÿc0"
+  },
+  {
+    "id": 474755589,
+    "Key": "rune:r28",
+    "enUS": "rune:r28 ÿc;[800 fg]ÿc0"
+  },
+  {
+    "id": 3078244329,
+    "Key": "rune:r08",
+    "enUS": "rune:r08 ÿc0[10 fg]ÿc0"
+  },
+  {
+    "id": 1571841044,
+    "Key": "vou",
+    "enUS": "vou ÿc;[700 fg]ÿc0"
+  },
+  {
+    "id": 2474490778,
+    "Key": "toa",
+    "enUS": "toa ÿc8[160 fg]ÿc0"
+  },
+  {
+    "id": 2614021275,
+    "Key": "rune:r24",
+    "enUS": "rune:r24 ÿc;[220 fg]ÿc0"
+  },
+  {
+    "id": 895267904,
+    "Key": "uar",
+    "enUS": "uar ÿc8[50 fg]ÿc0"
+  },
+  {
+    "id": 3078339970,
+    "Key": "unique:arachnid_mesh",
+    "enUS": "unique:arachnid_mesh ÿc;ÿcO[120ed] [700 fg]ÿc0"
+  },
+  {
+    "id": 3826602,
+    "Key": "r15",
+    "enUS": "r15 ÿc0[15 fg]ÿc0"
+  },
+  {
+    "id": 2454703411,
+    "Key": "r29",
+    "enUS": "r29 ÿc1[1100 fg]ÿc0"
+  },
+  {
+    "id": 4144448893,
+    "Key": "unique:highlords_wrath",
+    "enUS": "unique:highlords_wrath ÿc;[275 fg]ÿc0"
+  },
+  {
+    "id": 18977518,
+    "Key": "set:tal_rashas_adjudication",
+    "enUS": "set:tal_rashas_adjudication ÿc;[300 fg]ÿc0"
+  },
+  {
+    "id": 839964118,
+    "Key": "rune:r33",
+    "enUS": "rune:r33 ÿc1[1700 fg]ÿc0"
+  },
+  {
+    "id": 289149510,
+    "Key": "runeword:call_to_arms",
+    "enUS": "runeword:call_to_arms ÿc;[664 fg]ÿc0"
+  },
+  {
+    "id": 2918512056,
+    "Key": "bundle:runes:vex+gul",
+    "enUS": "bundle:runes:vex+gul ÿc;[500 fg]ÿc0"
+  },
+  {
+    "id": 1488932144,
+    "Key": "unique:vampire_gaze",
+    "enUS": "unique:vampire_gaze ÿc;[500 fg]ÿc0"
+  },
+  {
+    "id": 1241874891,
+    "Key": "unique:harlequin_crest",
+    "enUS": "unique:harlequin_crest ÿc;ÿcO[141def] [400 fg]ÿc0"
+  },
+  {
+    "id": 994521389,
+    "Key": "charm:skiller",
+    "enUS": "charm:skiller ÿc8[100 fg]ÿc0"
+  },
+  {
+    "id": 3703174454,
+    "Key": "runeword:enigma",
+    "enUS": "runeword:enigma ÿc;[300 fg]ÿc0"
+  },
+  {
+    "id": 4204224701,
+    "Key": "rune:r20",
+    "enUS": "rune:r20 ÿc8[30 fg]ÿc0"
+  },
+  {
+    "id": 3964384823,
+    "Key": "r28",
+    "enUS": "r28 ÿc;[800 fg]ÿc0"
+  },
+  {
+    "id": 881442901,
+    "Key": "r21",
+    "enUS": "r21 ÿc8[39 fg]ÿc0"
+  },
+  {
+    "id": 1586695218,
+    "Key": "jewel:jew",
+    "enUS": "jewel:jew ÿc;[232 fg]ÿc0"
+  },
+  {
+    "id": 1518989416,
+    "Key": "rune:r15",
+    "enUS": "rune:r15 ÿc0[15 fg]ÿc0"
+  },
+  {
+    "id": 3278465683,
+    "Key": "Skin Of The Vipermagi",
+    "enUS": "Skin Of The Vipermagi ÿc8[100 fg]ÿc0"
+  },
+  {
+    "id": 1124270589,
+    "Key": "misc:key",
+    "enUS": "misc:key ÿc8[65 fg]ÿc0"
+  },
+  {
+    "id": 1336953300,
+    "Key": "rune:r23",
+    "enUS": "rune:r23 ÿc8[85 fg]ÿc0"
+  },
+  {
+    "id": 2740419102,
+    "Key": "runeword:heart_of_the_oak",
+    "enUS": "runeword:heart_of_the_oak ÿc;[750 fg]ÿc0"
+  },
+  {
+    "id": 2840706475,
+    "Key": "Ondals Wisdom",
+    "enUS": "Ondals Wisdom ÿc8[100 fg]ÿc0"
+  },
+  {
+    "id": 1299780026,
+    "Key": "set:tal_rashas_guardianship",
+    "enUS": "set:tal_rashas_guardianship ÿc;[450 fg]ÿc0"
+  },
+  {
+    "id": 1525830900,
+    "Key": "rune:r32",
+    "enUS": "rune:r32 ÿc;[800 fg]ÿc0"
+  },
+  {
+    "id": 2028429889,
+    "Key": "r16",
+    "enUS": "r16 ÿc0[10 fg]ÿc0"
+  },
+  {
+    "id": 4121824059,
+    "Key": "essence:mixed",
+    "enUS": "essence:mixed ÿc8[55 fg]ÿc0"
+  },
+  {
+    "id": 1749965227,
+    "Key": "bundle:organ_set",
+    "enUS": "bundle:organ_set ÿc;[800 fg]ÿc0"
+  },
+  {
+    "id": 3420849979,
+    "Key": "unique:leviathan",
+    "enUS": "unique:leviathan ÿc8[115 fg]ÿc0"
+  },
+  {
+    "id": 701676125,
+    "Key": "misc:eyz",
+    "enUS": "misc:eyz ÿc8[190 fg]ÿc0"
+  },
+  {
+    "id": 1402003134,
+    "Key": "bundle:runes:ist+mal",
+    "enUS": "bundle:runes:ist+mal ÿc;[264 fg]ÿc0"
+  },
+  {
+    "id": 572272461,
+    "Key": "unique:the_oculus",
+    "enUS": "unique:the_oculus ÿc8ÿcO[] [150 fg]ÿc0"
+  },
+  {
+    "id": 4136486098,
+    "Key": "base:archon_plate:noneth:3os",
+    "enUS": "base:archon_plate:noneth:3os ÿc8[100 fg]ÿc0"
+  },
+  {
+    "id": 2120749591,
+    "Key": "runeword:spirit",
+    "enUS": "runeword:spirit ÿc8[80 fg]ÿc0"
+  },
+  {
+    "id": 807630808,
+    "Key": "bundle:runes:mal+ohm",
+    "enUS": "bundle:runes:mal+ohm ÿc;[680 fg]ÿc0"
+  },
+  {
+    "id": 1435504480,
+    "Key": "r18",
+    "enUS": "r18 ÿc0[25 fg]ÿc0"
+  },
+  {
+    "id": 2303619488,
+    "Key": "r19",
+    "enUS": "r19 ÿc0[15 fg]ÿc0"
+  },
+  {
+    "id": 4140225960,
+    "Key": "jewel:rainbow_facet",
+    "enUS": "jewel:rainbow_facet ÿc8[50 fg]ÿc0"
+  },
+  {
+    "id": 1781799550,
+    "Key": "Hellfire Torch",
+    "enUS": "Hellfire Torch ÿc;[300 fg]ÿc0"
+  },
+  {
+    "id": 538639193,
+    "Key": "Griffons Eye",
+    "enUS": "Griffons Eye ÿc;ÿcO[-20/+15] [900 fg]ÿc0"
+  },
+  {
+    "id": 1483093382,
+    "Key": "runeword:insight",
+    "enUS": "runeword:insight ÿc;[350 fg]ÿc0"
+  },
+  {
+    "id": 1182332329,
+    "Key": "r11",
+    "enUS": "r11 ÿc5[5 fg]ÿc0"
+  },
+  {
+    "id": 2677593997,
+    "Key": "bundle:runes:ber+ist",
+    "enUS": "bundle:runes:ber+ist ÿc1[2500 fg]ÿc0"
+  },
+  {
+    "id": 3706273337,
+    "Key": "r17",
+    "enUS": "r17 ÿc0[15 fg]ÿc0"
+  },
+  {
+    "id": 3886910411,
+    "Key": "bundle:runes:ist+ohm",
+    "enUS": "bundle:runes:ist+ohm ÿc;[240 fg]ÿc0"
+  },
+  {
+    "id": 536765997,
+    "Key": "bundle:runes:mal+shael",
+    "enUS": "bundle:runes:mal+shael ÿc8[100 fg]ÿc0"
+  },
+  {
+    "id": 152060389,
+    "Key": "bundle:runes:cham+lo+sur",
+    "enUS": "bundle:runes:cham+lo+sur ÿc;[700 fg]ÿc0"
+  },
+  {
+    "id": 2807595997,
+    "Key": "base:sacred_rondache:noneth:4os",
+    "enUS": "base:sacred_rondache:noneth:4os ÿc8[100 fg]ÿc0"
+  },
+  {
+    "id": 853698239,
+    "Key": "base:thresher:noneth",
+    "enUS": "base:thresher:noneth ÿc8[100 fg]ÿc0"
+  },
+  {
+    "id": 4108188773,
+    "Key": "bundle:runes:pul+um",
+    "enUS": "bundle:runes:pul+um ÿc8[100 fg]ÿc0"
+  },
+  {
+    "id": 263243056,
+    "Key": "bundle:runes:lo+mal",
+    "enUS": "bundle:runes:lo+mal ÿc;[900 fg]ÿc0"
+  },
+  {
+    "id": 149019064,
+    "Key": "base:thresher:eth:4os",
+    "enUS": "base:thresher:eth:4os ÿc;[350 fg]ÿc0"
+  },
+  {
+    "id": 2474511143,
+    "Key": "bundle:runes:mal+um",
+    "enUS": "bundle:runes:mal+um ÿc8[90 fg]ÿc0"
+  },
+  {
+    "id": 1795645017,
+    "Key": "bundle:runes:ko+vex+pul+thul",
+    "enUS": "bundle:runes:ko+vex+pul+thul ÿc;[440 fg]ÿc0"
+  },
+  {
+    "id": 1067464617,
+    "Key": "base:mage_plate:noneth",
+    "enUS": "base:mage_plate:noneth ÿc8[175 fg]ÿc0"
+  },
+  {
+    "id": 175909057,
+    "Key": "runeword:breath_of_the_dying",
+    "enUS": "runeword:breath_of_the_dying ÿc1[5500 fg]ÿc0"
+  },
+  {
+    "id": 4056170095,
+    "Key": "runeword:chains_of_honor",
+    "enUS": "runeword:chains_of_honor ÿc8[150 fg]ÿc0"
+  },
+  {
+    "id": 1491800981,
+    "Key": "runeword:grief",
+    "enUS": "runeword:grief ÿc;[700 fg]ÿc0"
+  },
+  {
+    "id": 140655753,
+    "Key": "bundle:runes:ber+dol+ist+um",
+    "enUS": "bundle:runes:ber+dol+ist+um ÿc1[2700 fg]ÿc0"
+  },
+  {
+    "id": 292695495,
+    "Key": "base:giant_thresher:noneth",
+    "enUS": "base:giant_thresher:noneth ÿc8[80 fg]ÿc0"
+  },
+  {
+    "id": 3074195228,
+    "Key": "bundle:runes:ko+lem",
+    "enUS": "bundle:runes:ko+lem ÿc8[50 fg]ÿc0"
+  },
+  {
+    "id": 2595021442,
+    "Key": "r01",
+    "enUS": "r01 ÿc8[30 fg]ÿc0"
+  },
+  {
+    "id": 1462880649,
+    "Key": "bundle:runes:mal+ist+ohm",
+    "enUS": "bundle:runes:mal+ist+ohm ÿc;[900 fg]ÿc0"
+  },
+  {
+    "id": 3557169537,
+    "Key": "runeword:infinity",
+    "enUS": "runeword:infinity ÿc1[4000 fg]ÿc0"
+  },
+  {
+    "id": 2316462303,
+    "Key": "base:monarch:noneth:4os",
+    "enUS": "base:monarch:noneth:4os ÿc8[50 fg]ÿc0"
+  },
+  {
+    "id": 3796477675,
+    "Key": "r12",
+    "enUS": "r12 ÿc0[15 fg]ÿc0"
+  },
+  {
+    "id": 1203295785,
+    "Key": "base:thunder_maul:eth",
+    "enUS": "base:thunder_maul:eth ÿc;[700 fg]ÿc0"
+  },
+  {
+    "id": 3531245158,
+    "Key": "bundle:runeword_kit:enigma:mage_plate",
+    "enUS": "bundle:runeword_kit:enigma:mage_plate ÿc1[7700 fg]ÿc0"
+  },
+  {
+    "id": 3763207938,
+    "Key": "base:thunder_maul:eth:6os",
+    "enUS": "base:thunder_maul:eth:6os ÿc;[300 fg]ÿc0"
+  },
+  {
+    "id": 3001300053,
+    "Key": "base:colossus_voulge:eth",
+    "enUS": "base:colossus_voulge:eth ÿc8[177 fg]ÿc0"
+  },
+  {
+    "id": 414335720,
+    "Key": "base:sacred_armor:eth",
+    "enUS": "base:sacred_armor:eth ÿc8[120 fg]ÿc0"
+  },
+  {
+    "id": 1282193933,
+    "Key": "bundle:runeword_kit:spirit:monarch",
+    "enUS": "bundle:runeword_kit:spirit:monarch ÿc8[70 fg]ÿc0"
+  },
+  {
+    "id": 492157262,
+    "Key": "keyset:3x3",
+    "enUS": "keyset:3x3 ÿc;[650 fg]ÿc0"
+  },
+  {
+    "id": 1963960840,
+    "Key": "base:cryptic_axe:eth:5os",
+    "enUS": "base:cryptic_axe:eth:5os ÿc8[150 fg]ÿc0"
+  },
+  {
+    "id": 1027172615,
+    "Key": "bundle:runes:zod+vex",
+    "enUS": "bundle:runes:zod+vex ÿc1[2000 fg]ÿc0"
+  },
+  {
+    "id": 2796033415,
+    "Key": "bundle:runes:ist+sur",
+    "enUS": "bundle:runes:ist+sur ÿc1[1200 fg]ÿc0"
+  },
+  {
+    "id": 2461027542,
+    "Key": "base:giant_thresher:eth:4os",
+    "enUS": "base:giant_thresher:eth:4os ÿc;[600 fg]ÿc0"
+  },
+  {
+    "id": 33012622,
+    "Key": "base:thresher:eth:5os",
+    "enUS": "base:thresher:eth:5os ÿc8[80 fg]ÿc0"
+  },
+  {
+    "id": 3649519586,
+    "Key": "bundle:runes:ith+jah",
+    "enUS": "bundle:runes:ith+jah ÿc8[175 fg]ÿc0"
+  },
+  {
+    "id": 3689434051,
+    "Key": "base:cryptic_axe:eth",
+    "enUS": "base:cryptic_axe:eth ÿc8[60 fg]ÿc0"
+  },
+  {
+    "id": 4010426651,
+    "Key": "r08",
+    "enUS": "r08 ÿc0[10 fg]ÿc0"
+  },
+  {
+    "id": 2464289216,
+    "Key": "bundle:runeword_kit:insight:cryptic_axe",
+    "enUS": "bundle:runeword_kit:insight:cryptic_axe ÿc;[600 fg]ÿc0"
+  },
+  {
+    "id": 3720091040,
+    "Key": "base:berserker_axe:eth:5os",
+    "enUS": "base:berserker_axe:eth:5os ÿc;[300 fg]ÿc0"
+  },
+  {
+    "id": 534287145,
+    "Key": "base:sacred_armor:eth:4os",
+    "enUS": "base:sacred_armor:eth:4os ÿc8[80 fg]ÿc0"
+  },
+  {
+    "id": 2662409092,
+    "Key": "base:archon_plate:noneth",
+    "enUS": "base:archon_plate:noneth ÿc1[2500 fg]ÿc0"
+  },
+  {
+    "id": 2880796810,
+    "Key": "base:thresher:noneth:4os",
+    "enUS": "base:thresher:noneth:4os ÿc8[50 fg]ÿc0"
+  },
+  {
+    "id": 4121407511,
+    "Key": "bundle:runes:mal+pul",
+    "enUS": "bundle:runes:mal+pul ÿc;[200 fg]ÿc0"
+  },
+  {
+    "id": 1069375342,
+    "Key": "base:archon_plate:eth",
+    "enUS": "base:archon_plate:eth ÿc8[100 fg]ÿc0"
+  },
+  {
+    "id": 2408443021,
+    "Key": "Nightwings Veil",
+    "enUS": "Nightwings Veil ÿc;[400 fg]ÿc0"
+  },
+  {
+    "id": 737523185,
+    "Key": "base:berserker_axe:eth",
+    "enUS": "base:berserker_axe:eth ÿc;[200 fg]ÿc0"
+  },
+  {
+    "id": 175173053,
+    "Key": "bundle:runes:shael+io+sol",
+    "enUS": "bundle:runes:shael+io+sol ÿc8[50 fg]ÿc0"
+  }
+]
