@@ -1,15 +1,18 @@
 # Magic/Rare item pricing by affix combinations.
-# When a magic item drops, its value is estimated based on:
-# 1. Prefix + Suffix combination
-# 2. Item level (affects roll ranges)
-# 3. Base item type
+# Based on real D2R affix names from Arreat Summit / Maxroll
 #
-# Format:
-#   "<prefix> + <suffix>":
-#     base_price: FG value for average roll
-#     perfect_price: FG value for perfect roll
-#     item_types: []  # Specific bases this applies to (empty = all)
-#     min_ilvl: 0     # Minimum item level for this combo to be valuable
+# Prefix naming convention:
+# - "+2 Class Skills" = {Class}'s (e.g., Necromancer's, Sorceress's)
+# - "+3 Skill Tab" = specific prefix (e.g., Venomous for PnB, Golemlord's for Summon)
+#
+# Suffix naming convention:
+# - of the Magus = 20% FCR
+# - of Speed = 30% FRW
+# - of the Whale = 81-100 Life
+# - of Vita = 31-40 Life
+# - of Deflecting = +20% Block (shields only)
+# - of Atlas = +21-30 Str
+# - of Amicae = Damage Reduced by 1-4
 
 # ===================================
 # GG MAGIC ITEMS (High Value)
@@ -24,29 +27,371 @@ combinations:
     min_ilvl: 0
     notes: "JMOD - 4os + 20% block, GG for Spirit/Phoenix"
 
-  # ========== Caster Amulets ==========
+  # ========== Caster Amulets (+2 skills / 20 FCR) ==========
   "Arch-Angel's + of the Magus":
     base_price: 1500
     perfect_price: 5000
-    item_types: ["amu", "uhm", "ci3", "ci2", "ci0"]
+    item_types: ["amu"]
     min_ilvl: 90
-    notes: "+2 skills / 20 FCR - caster BiS"
+    notes: "+2 all skills / 20 FCR - caster BiS amulet"
 
-  "Arch-Angel's + of Life Everlasting":
+  # Class-specific +2 skills / 20 FCR amulets
+  "Necromancer's + of the Magus":
+    base_price: 2000
+    perfect_price: 8000
+    item_types: ["amu"]
+    min_ilvl: 90
+    notes: "+2 Necro / 20 FCR - GG for any Necro build"
+
+  "Sorceress's + of the Magus":
+    base_price: 1500
+    perfect_price: 6000
+    item_types: ["amu"]
+    min_ilvl: 90
+    notes: "+2 Sorc / 20 FCR"
+
+  "Paladin's + of the Magus":
+    base_price: 1800
+    perfect_price: 7000
+    item_types: ["amu"]
+    min_ilvl: 90
+    notes: "+2 Pally / 20 FCR - Hammerdin amulet"
+
+  "Druid's + of the Magus":
+    base_price: 2000
+    perfect_price: 8000
+    item_types: ["amu"]
+    min_ilvl: 90
+    notes: "+2 Druid / 20 FCR - Windy amulet"
+
+  "Assassin's + of the Magus":
+    base_price: 1200
+    perfect_price: 4500
+    item_types: ["amu"]
+    min_ilvl: 90
+    notes: "+2 Assa / 20 FCR - Trapsin amulet"
+
+  "Amazon's + of the Magus":
+    base_price: 1000
+    perfect_price: 3500
+    item_types: ["amu"]
+    min_ilvl: 90
+    notes: "+2 Zon / 20 FCR"
+
+  "Barbarian's + of the Magus":
     base_price: 800
     perfect_price: 2500
     item_types: ["amu"]
     min_ilvl: 90
-    notes: "+2 skills / high life"
+    notes: "+2 Barb / 20 FCR - Warcry barb"
+
+  # ========== Caster Circlets (+2/+3 skills / 20 FCR) ==========
+  # +2 All Skills
+  "Arch-Angel's + of the Magus":
+    base_price: 2000
+    perfect_price: 8000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+2 all skills / 20 FCR circlet"
+
+  "Arch-Angel's + of Speed":
+    base_price: 800
+    perfect_price: 2500
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+2 all skills / 30 FRW"
+
+  # Class-specific +2 skills circlets
+  "Necromancer's + of the Magus":
+    base_price: 3000
+    perfect_price: 15000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+2 Necro / 20 FCR - GG Poison/Bone or Summon circlet"
+
+  "Necromancer's + of Speed":
+    base_price: 1000
+    perfect_price: 3500
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+2 Necro / 30 FRW"
+
+  "Druid's + of the Magus":
+    base_price: 2500
+    perfect_price: 10000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+2 Druid / 20 FCR - Windy circlet"
+
+  "Paladin's + of the Magus":
+    base_price: 2000
+    perfect_price: 8000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+2 Pally / 20 FCR - Hammerdin circlet"
+
+  "Sorceress's + of the Magus":
+    base_price: 1500
+    perfect_price: 6000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+2 Sorc / 20 FCR - but +3 tree often better"
+
+  "Assassin's + of the Magus":
+    base_price: 1200
+    perfect_price: 5000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+2 Assa / 20 FCR - Trapsin circlet"
+
+  "Barbarian's + of the Magus":
+    base_price: 1500
+    perfect_price: 5000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+2 Barb / 20 FCR - Warcry circlet"
+
+  "Amazon's + of the Magus":
+    base_price: 1000
+    perfect_price: 3500
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+2 Zon / 20 FCR"
+
+  # ========== +3 Skill Tab Circlets (GG for specialized builds) ==========
+  # Necromancer tabs
+  "Venomous + of the Magus":
+    base_price: 4000
+    perfect_price: 20000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 PnB / 20 FCR - GG Poison Necro circlet (Venom for PnB)"
+
+  "Venomous + of Speed":
+    base_price: 1500
+    perfect_price: 5000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 PnB / 30 FRW"
+
+  "Venomous + of Nirvana":
+    base_price: 800
+    perfect_price: 2500
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 PnB / +Dex"
+
+  "Golemlord's + of the Magus":
+    base_price: 1500
+    perfect_price: 6000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Summon / 20 FCR - Summon Necro circlet"
+
+  "Golemlord's + of the Whale":
+    base_price: 800
+    perfect_price: 3000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Summon / +Life"
+
+  "Hexing + of the Magus":
+    base_price: 500
+    perfect_price: 2000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Curses / 20 FCR - niche curse Necro"
+
+  # Druid tabs
+  "Keeper's + of the Magus":
+    base_price: 2000
+    perfect_price: 8000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Summon Druid / 20 FCR"
+
+  "Keeper's + of Atlas":
+    base_price: 1000
+    perfect_price: 3500
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Summon Druid / +Str"
+
+  "Volcanic + of the Magus":
+    base_price: 1500
+    perfect_price: 6000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Fire Druid / 20 FCR"
+
+  "Glacial + of the Magus":
+    base_price: 1500
+    perfect_price: 6000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Cold Druid / 20 FCR"
+
+  # Sorceress tabs
+  "Powered + of the Magus":
+    base_price: 2000
+    perfect_price: 8000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Lightning / 20 FCR - Lightning Sorc circlet"
+
+  "Powered + of Speed":
+    base_price: 800
+    perfect_price: 3000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Lightning / 30 FRW"
+
+  "Charged + of the Magus":
+    base_price: 1800
+    perfect_price: 7000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Lightning / 20 FCR (alt name)"
+
+  "Charged + of Haste":
+    base_price: 1000
+    perfect_price: 3500
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 30
+    notes: "+3 Lightning / 20 FRW - LLD viable"
+
+  "Freezing + of the Magus":
+    base_price: 1500
+    perfect_price: 6000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Cold / 20 FCR"
+
+  "Freezing + of the Whale":
+    base_price: 800
+    perfect_price: 3000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Cold / +Life"
+
+  "Grim + of the Magus":
+    base_price: 1200
+    perfect_price: 5000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Fire / 20 FCR"
+
+  # Paladin tabs
+  "Hierophant's + of the Magus":
+    base_price: 2500
+    perfect_price: 10000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Pala Combat / 20 FCR - Hammerdin GG"
+
+  "Hierophant's + of the Whale":
+    base_price: 1000
+    perfect_price: 4000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Pala Combat / +Life"
+
+  "Lion Branded + of the Magus":
+    base_price: 1500
+    perfect_price: 6000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Combat Skills / 20 FCR (alt)"
+
+  "Captain's + of the Magus":
+    base_price: 800
+    perfect_price: 3000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Offensive Auras / 20 FCR"
+
+  "Preserver's + of the Magus":
+    base_price: 500
+    perfect_price: 2000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Defensive Auras / 20 FCR - niche"
+
+  # Assassin tabs
+  "Shadow + of the Magus":
+    base_price: 1500
+    perfect_price: 6000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Shadow / 20 FCR"
+
+  "Psychic + of the Magus":
+    base_price: 1200
+    perfect_price: 5000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Shadow / 20 FCR (alt)"
+
+  "Psychic + of Speed":
+    base_price: 600
+    perfect_price: 2000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Shadow / 30 FRW"
+
+  # Barbarian tabs (limited FCR usefulness)
+  "Berserker's + of the Magus":
+    base_price: 800
+    perfect_price: 3000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Combat / 20 FCR - Warcry barb"
+
+  "Berserker's + of Speed":
+    base_price: 500
+    perfect_price: 2000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Combat / 30 FRW"
+
+  # Amazon tabs
+  "Communal + of the Magus":
+    base_price: 800
+    perfect_price: 3000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Javelin/Spear / 20 FCR"
+
+  "Harpy's + of the Magus":
+    base_price: 700
+    perfect_price: 2500
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Bow/Crossbow / 20 FCR - niche"
+
+  # ========== Teleport Circlets (Charged) ==========
+  "Berserker's + of Teleportation":
+    base_price: 5000
+    perfect_price: 15000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+2 Barb / Teleport - GG for PvP/Speed"
+
+  "Witch-Hunter's + of Teleportation":
+    base_price: 3000
+    perfect_price: 10000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+2 Assa / Teleport - PvP Trapsin"
+
+  "Necromancer's + of Teleportation":
+    base_price: 4000
+    perfect_price: 12000
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+2 Necro / Teleport - PvP Necro"
 
   # ========== Caster Rings ==========
-  "Apprentice's + of Regeneration":
-    base_price: 200
-    perfect_price: 600
-    item_types: ["rin"]
-    min_ilvl: 0
-    notes: "10 FCR / mana regen"
-
   "Apprentice's + of the Whale":
     base_price: 500
     perfect_price: 1500
@@ -55,8 +400,8 @@ combinations:
     notes: "10 FCR / 100+ life"
 
   "Apprentice's + of Fortune":
-    base_price: 150
-    perfect_price: 400
+    base_price: 200
+    perfect_price: 600
     item_types: ["rin"]
     min_ilvl: 0
     notes: "10 FCR / MF"
@@ -99,13 +444,6 @@ combinations:
     min_ilvl: 0
     notes: "max dmg / AR / MF"
 
-  "Stalwart + of Vita":
-    base_price: 150
-    perfect_price: 500
-    item_types: ["cm1"]
-    min_ilvl: 0
-    notes: "AR / life"
-
   # ========== Jewels ==========
   "Fervent + of Freedom":
     base_price: 600
@@ -114,13 +452,6 @@ combinations:
     min_ilvl: 0
     notes: "15 IAS / -15 req - GG LLD jewel"
 
-  "Fervent + of the Leviathan":
-    base_price: 800
-    perfect_price: 2500
-    item_types: ["jew"]
-    min_ilvl: 0
-    notes: "15 IAS / -15 req / ED"
-
   "Crimson + of Fervent":
     base_price: 1500
     perfect_price: 5000
@@ -128,113 +459,18 @@ combinations:
     min_ilvl: 0
     notes: "40 ED / 15 IAS - GG jewel"
 
-  "Carmine + of Fervent":
-    base_price: 800
-    perfect_price: 2500
-    item_types: ["jew"]
-    min_ilvl: 0
-    notes: "ED / IAS jewel"
-
-  # ========== Circlets ==========
-  "Arch-Angel's + of the Magus":
-    base_price: 2000
-    perfect_price: 8000
-    item_types: ["ci0", "ci2", "ci3"]
-    min_ilvl: 90
-    notes: "+2 skills / 20 FCR circlet"
-
-  "Arch-Angel's + of Speed":
-    base_price: 800
-    perfect_price: 2500
-    item_types: ["ci0", "ci2", "ci3"]
-    min_ilvl: 90
-    notes: "+2 skills / 30 FRW"
-
-  # ========== Class-Specific Circlets (+3 skills) ==========
-  # These are GG items worth thousands of FG
-  "Malevolent + of the Magus":
-    base_price: 3000
-    perfect_price: 15000
-    item_types: ["ci0", "ci2", "ci3"]
-    min_ilvl: 90
-    notes: "+3 Necro / 20 FCR - GG Poison/Bone circlet (Warlock)"
-
-  "Bramble + of the Magus":
-    base_price: 2500
-    perfect_price: 10000
-    item_types: ["ci0", "ci2", "ci3"]
-    min_ilvl: 90
-    notes: "+3 Druid / 20 FCR - GG Windy circlet"
-
-  "Volcanic + of the Magus":
-    base_price: 1500
-    perfect_price: 6000
-    item_types: ["ci0", "ci2", "ci3"]
-    min_ilvl: 90
-    notes: "+3 Fire Druid / 20 FCR"
-
-  "Hierophant's + of the Magus":
-    base_price: 2000
-    perfect_price: 8000
-    item_types: ["ci0", "ci2", "ci3"]
-    min_ilvl: 90
-    notes: "+3 Pala / 20 FCR - Hammerdin circlet"
-
-  "Shrieking + of the Magus":
-    base_price: 1500
-    perfect_price: 5000
-    item_types: ["ci0", "ci2", "ci3"]
-    min_ilvl: 90
-    notes: "+3 Barb / 20 FCR - Warcry circlet"
-
-  "Visionary + of the Magus":
-    base_price: 1200
-    perfect_price: 4000
-    item_types: ["ci0", "ci2", "ci3"]
-    min_ilvl: 90
-    notes: "+3 Assa / 20 FCR - Trapsin circlet"
-
-  "Phantasmal + of the Magus":
-    base_price: 1500
-    perfect_price: 5000
-    item_types: ["ci0", "ci2", "ci3"]
-    min_ilvl: 90
-    notes: "+3 Sorc / 20 FCR - but +2 all usually better"
-
-  "Communal + of the Magus":
-    base_price: 1000
-    perfect_price: 3500
-    item_types: ["ci0", "ci2", "ci3"]
-    min_ilvl: 90
-    notes: "+3 Zon / 20 FCR - Java/Bow circlet"
-
-  # Class circlets with FRW
-  "Malevolent + of Speed":
-    base_price: 800
-    perfect_price: 2500
-    item_types: ["ci0", "ci2", "ci3"]
-    min_ilvl: 90
-    notes: "+3 Necro / 30 FRW"
-
-  "Bramble + of Speed":
-    base_price: 700
-    perfect_price: 2000
-    item_types: ["ci0", "ci2", "ci3"]
-    min_ilvl: 90
-    notes: "+3 Druid / 30 FRW"
-
   # ========== LLD Items ==========
   "Apprentice's + of Precision":
-    base_price: 15
-    perfect_price: 35
+    base_price: 200
+    perfect_price: 500
     item_types: ["rin", "amu"]
     min_ilvl: 0
     lld_only: true
     notes: "LLD caster ring - FCR / AR"
 
   "Mithral + of Freedom":
-    base_price: 20
-    perfect_price: 45
+    base_price: 300
+    perfect_price: 800
     item_types: ["jew"]
     min_ilvl: 0
     lld_only: true
@@ -245,13 +481,95 @@ combinations:
 # ===================================
 
 single_affix_values:
-  # Prefixes
+  # +2 Class Skills Prefixes (on circlets/amulets)
+  "Necromancer's":
+    base_price: 300
+    notes: "+2 Necro skills"
+  "Sorceress's":
+    base_price: 250
+    notes: "+2 Sorc skills"
+  "Paladin's":
+    base_price: 280
+    notes: "+2 Pally skills"
+  "Druid's":
+    base_price: 300
+    notes: "+2 Druid skills"
+  "Assassin's":
+    base_price: 200
+    notes: "+2 Assa skills"
+  "Barbarian's":
+    base_price: 150
+    notes: "+2 Barb skills"
+  "Amazon's":
+    base_price: 120
+    notes: "+2 Zon skills"
+  "Arch-Angel's":
+    base_price: 400
+    notes: "+2 all skills"
+
+  # +3 Skill Tab Prefixes
+  "Venomous":
+    base_price: 400
+    notes: "+3 PnB (Necro)"
+  "Golemlord's":
+    base_price: 250
+    notes: "+3 Summon (Necro)"
+  "Hexing":
+    base_price: 100
+    notes: "+3 Curses (Necro)"
+  "Keeper's":
+    base_price: 300
+    notes: "+3 Summon (Druid)"
+  "Volcanic":
+    base_price: 250
+    notes: "+3 Fire (Druid)"
+  "Glacial":
+    base_price: 250
+    notes: "+3 Cold (Druid/Sorc)"
+  "Powered":
+    base_price: 300
+    notes: "+3 Lightning (Sorc)"
+  "Charged":
+    base_price: 280
+    notes: "+3 Lightning (Sorc)"
+  "Freezing":
+    base_price: 200
+    notes: "+3 Cold (Sorc)"
+  "Grim":
+    base_price: 180
+    notes: "+3 Fire (Sorc)"
+  "Hierophant's":
+    base_price: 350
+    notes: "+3 Combat (Pally)"
+  "Lion Branded":
+    base_price: 250
+    notes: "+3 Combat (Pally)"
+  "Captain's":
+    base_price: 150
+    notes: "+3 Offensive Auras (Pally)"
+  "Preserver's":
+    base_price: 100
+    notes: "+3 Defensive Auras (Pally)"
+  "Shadow":
+    base_price: 200
+    notes: "+3 Shadow (Assa)"
+  "Psychic":
+    base_price: 180
+    notes: "+3 Shadow (Assa)"
+  "Berserker's":
+    base_price: 150
+    notes: "+3 Combat (Barb)"
+  "Communal":
+    base_price: 120
+    notes: "+3 Javelin/Spear (Zon)"
+  "Harpy's":
+    base_price: 100
+    notes: "+3 Bow (Zon)"
+
+  # Other Prefixes
   "Jeweler's":
     base_price: 500
     notes: "4os potential - valuable for runewords"
-  "Arch-Angel's":
-    base_price: 300
-    notes: "+2 skills"
   "Apprentice's":
     base_price: 100
     notes: "10 FCR"
@@ -270,27 +588,27 @@ single_affix_values:
   "Mithral":
     base_price: 100
     notes: "-requirements"
-  "Malevolent":
-    base_price: 200
-    notes: "+3 Necro skills"
-  "Bramble":
-    base_price: 180
-    notes: "+3 Druid skills"
-  "Hierophant's":
+  "Chromatic":
     base_price: 150
-    notes: "+3 Pala skills"
-  "Visionary":
+    notes: "+All Res / +Stats"
+  "Great Wyrm's":
     base_price: 100
-    notes: "+3 Assa skills"
-  "Phantasmal":
-    base_price: 120
-    notes: "+3 Sorc skills"
-  "Shrieking":
-    base_price: 100
-    notes: "+3 Barb skills"
-  "Communal":
+    notes: "+Mana"
+  "Bahamut's":
     base_price: 80
-    notes: "+3 Zon skills"
+    notes: "+Mana"
+  "Viper":
+    base_price: 200
+    notes: "+2 Pally with extras"
+  "Beast":
+    base_price: 150
+    notes: "+2 Barb with extras"
+  "Armageddon":
+    base_price: 120
+    notes: "+2 Assa with extras"
+  "Glyph":
+    base_price: 250
+    notes: "+2 PnB with extras"
 
   # Suffixes
   "of Deflecting":
@@ -320,6 +638,30 @@ single_affix_values:
   "of Speed":
     base_price: 80
     notes: "30 FRW"
+  "of Haste":
+    base_price: 80
+    notes: "20 FRW"
+  "of Atlas":
+    base_price: 80
+    notes: "+Str"
+  "of Nirvana":
+    base_price: 50
+    notes: "+Dex"
+  "of Amicae":
+    base_price: 100
+    notes: "Damage Reduced"
+  "of the Locust":
+    base_price: 80
+    notes: "Life Leech"
+  "of Teleportation":
+    base_price: 1000
+    notes: "Teleport charges - GG for PvP"
+  "of Regrowth":
+    base_price: 30
+    notes: "Replenish Life"
+  "of Life Everlasting":
+    base_price: 100
+    notes: "High life suffix"
 
 # ===================================
 # ILVL BONUSES
