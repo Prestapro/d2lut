@@ -68,8 +68,11 @@ class MagicItemPricer:
             if default_path.exists():
                 self._load_config(default_path)
             
-            # Load comprehensive affix database (prefer complete version from game files)
-            affix_db_path = Path(__file__).parent.parent.parent.parent / "config" / "affix_database_complete.yml"
+            # Load comprehensive affix database (prefer d2data version)
+            # Priority: d2data > complete > base
+            affix_db_path = Path(__file__).parent.parent.parent.parent / "config" / "affix_database_d2data.yml"
+            if not affix_db_path.exists():
+                affix_db_path = Path(__file__).parent.parent.parent.parent / "config" / "affix_database_complete.yml"
             if not affix_db_path.exists():
                 affix_db_path = Path(__file__).parent.parent.parent.parent / "config" / "affix_database.yml"
             if affix_db_path.exists():
