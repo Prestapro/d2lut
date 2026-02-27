@@ -42,10 +42,10 @@ class MagicItemPricer:
     }
     
     TIER_THRESHOLDS = {
-        "gg": 30,
-        "high": 15,
-        "medium": 5,
-        "low": 1,
+        "gg": 1000,     # 1000+ fg = GG tier
+        "high": 500,    # 500+ fg = High tier
+        "medium": 100,  # 100+ fg = Medium tier
+        "low": 10,      # 10+ fg = Low tier
     }
     
     def __init__(self, config_path: str | Path | None = None):
@@ -126,10 +126,11 @@ class MagicItemPricer:
             prefix_price = self.single_affix_values.get(prefix, {}).get("base_price", 0)
             suffix_price = self.single_affix_values.get(suffix, {}).get("base_price", 0)
             base_price = (prefix_price + suffix_price) * (roll_percent / 100.0)
+            price = base_price  # Initialize price from single affix calculation
         
-        # 3. Apply ilvl multiplier
+        # 3. Apply ilvl multiplier to price
         ilvl_mult = self._get_ilvl_multiplier(ilvl)
-        price = base_price * ilvl_mult
+        price = price * ilvl_mult
         
         # 4. Check for LLD bonus
         lld_mult = self._get_lld_multiplier(ilvl)
@@ -141,13 +142,19 @@ class MagicItemPricer:
         tier = self._price_to_tier(price)
         color = self.COLORS.get(tier, "ÿc0")
         
-        # 6. Generate tag
-        if price >= 30:
+        # 6. Generate tag based on value
+        if price >= 10000:
+            tag = "[GG]"
+        elif price >= 5000:
+            tag = "[$$$$$]"
+        elif price >= 1000:
+            tag = "[$$$$]"
+        elif price >= 500:
             tag = "[$$$]"
-        elif price >= 15:
-            tag = "[★]"
-        elif price >= 5:
-            tag = "[+]"
+        elif price >= 100:
+            tag = "[$$]"
+        elif price >= 10:
+            tag = "[$]"
         else:
             tag = ""
         

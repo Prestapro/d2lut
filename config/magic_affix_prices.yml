@@ -18,206 +18,207 @@
 combinations:
   # ========== JMOD - Jeweler's of Deflecting ==========
   "Jeweler's + of Deflecting":
-    base_price: 50
-    perfect_price: 150
+    base_price: 2000
+    perfect_price: 8000
     item_types: ["uit", "ulg", "ush", "uws"]  # Monarch and elite shields
     min_ilvl: 0
     notes: "JMOD - 4os + 20% block, GG for Spirit/Phoenix"
 
   # ========== Caster Amulets ==========
   "Arch-Angel's + of the Magus":
-    base_price: 30
-    perfect_price: 80
+    base_price: 1500
+    perfect_price: 5000
     item_types: ["amu", "uhm", "ci3", "ci2", "ci0"]
     min_ilvl: 90
     notes: "+2 skills / 20 FCR - caster BiS"
 
   "Arch-Angel's + of Life Everlasting":
-    base_price: 20
-    perfect_price: 50
+    base_price: 800
+    perfect_price: 2500
     item_types: ["amu"]
     min_ilvl: 90
     notes: "+2 skills / high life"
 
   # ========== Caster Rings ==========
   "Apprentice's + of Regeneration":
-    base_price: 15
-    perfect_price: 40
+    base_price: 200
+    perfect_price: 600
     item_types: ["rin"]
     min_ilvl: 0
     notes: "10 FCR / mana regen"
 
   "Apprentice's + of the Whale":
-    base_price: 25
-    perfect_price: 60
+    base_price: 500
+    perfect_price: 1500
     item_types: ["rin"]
     min_ilvl: 0
     notes: "10 FCR / 100+ life"
 
   "Apprentice's + of Fortune":
-    base_price: 10
-    perfect_price: 25
+    base_price: 150
+    perfect_price: 400
     item_types: ["rin"]
     min_ilvl: 0
     notes: "10 FCR / MF"
 
   # ========== Melee Rings ==========
   "Sapphire + of the Vampire":
-    base_price: 15
-    perfect_price: 40
+    base_price: 400
+    perfect_price: 1200
     item_types: ["rin"]
     min_ilvl: 0
     notes: "LL / ML - dual leech ring"
 
   # ========== Skiller Charms ==========
   "Shimmering + of Vita":
-    base_price: 20
-    perfect_price: 50
+    base_price: 800
+    perfect_price: 2500
     item_types: ["cm3"]  # Grand Charm
     min_ilvl: 50
     notes: "+1 skill tree / 40+ life"
 
   "Shimmering + of Sustenance":
-    base_price: 10
-    perfect_price: 25
+    base_price: 300
+    perfect_price: 800
     item_types: ["cm3"]
     min_ilvl: 50
     notes: "+1 skill tree / life"
 
   # ========== Small Charms ==========
   "Fine + of Vita":
-    base_price: 8
-    perfect_price: 25
+    base_price: 200
+    perfect_price: 700
     item_types: ["cm1"]  # Small Charm
     min_ilvl: 0
     notes: "max dmg / AR / life"
 
   "Fine + of Good Luck":
-    base_price: 5
-    perfect_price: 15
+    base_price: 100
+    perfect_price: 300
     item_types: ["cm1"]
     min_ilvl: 0
     notes: "max dmg / AR / MF"
 
   "Stalwart + of Vita":
-    base_price: 6
-    perfect_price: 18
+    base_price: 150
+    perfect_price: 500
     item_types: ["cm1"]
     min_ilvl: 0
     notes: "AR / life"
 
   # ========== Jewels ==========
   "Fervent + of Freedom":
-    base_price: 20
-    perfect_price: 50
+    base_price: 600
+    perfect_price: 2000
     item_types: ["jew"]
     min_ilvl: 0
     notes: "15 IAS / -15 req - GG LLD jewel"
 
   "Fervent + of the Leviathan":
-    base_price: 25
-    perfect_price: 60
+    base_price: 800
+    perfect_price: 2500
     item_types: ["jew"]
     min_ilvl: 0
     notes: "15 IAS / -15 req / ED"
 
   "Crimson + of Fervent":
-    base_price: 30
-    perfect_price: 80
+    base_price: 1500
+    perfect_price: 5000
     item_types: ["jew"]
     min_ilvl: 0
     notes: "40 ED / 15 IAS - GG jewel"
 
   "Carmine + of Fervent":
-    base_price: 20
-    perfect_price: 50
+    base_price: 800
+    perfect_price: 2500
     item_types: ["jew"]
     min_ilvl: 0
     notes: "ED / IAS jewel"
 
   # ========== Circlets ==========
   "Arch-Angel's + of the Magus":
-    base_price: 40
-    perfect_price: 100
+    base_price: 2000
+    perfect_price: 8000
     item_types: ["ci0", "ci2", "ci3"]
     min_ilvl: 90
     notes: "+2 skills / 20 FCR circlet"
 
   "Arch-Angel's + of Speed":
-    base_price: 25
-    perfect_price: 60
+    base_price: 800
+    perfect_price: 2500
     item_types: ["ci0", "ci2", "ci3"]
     min_ilvl: 90
     notes: "+2 skills / 30 FRW"
 
   # ========== Class-Specific Circlets (+3 skills) ==========
+  # These are GG items worth thousands of FG
   "Malevolent + of the Magus":
-    base_price: 50
-    perfect_price: 120
+    base_price: 3000
+    perfect_price: 15000
     item_types: ["ci0", "ci2", "ci3"]
     min_ilvl: 90
-    notes: "+3 Necro / 20 FCR - GG Poison/Bone circlet"
+    notes: "+3 Necro / 20 FCR - GG Poison/Bone circlet (Warlock)"
 
   "Bramble + of the Magus":
-    base_price: 45
-    perfect_price: 100
+    base_price: 2500
+    perfect_price: 10000
     item_types: ["ci0", "ci2", "ci3"]
     min_ilvl: 90
     notes: "+3 Druid / 20 FCR - GG Windy circlet"
 
   "Volcanic + of the Magus":
-    base_price: 35
-    perfect_price: 80
+    base_price: 1500
+    perfect_price: 6000
     item_types: ["ci0", "ci2", "ci3"]
     min_ilvl: 90
     notes: "+3 Fire Druid / 20 FCR"
 
   "Hierophant's + of the Magus":
-    base_price: 40
-    perfect_price: 90
+    base_price: 2000
+    perfect_price: 8000
     item_types: ["ci0", "ci2", "ci3"]
     min_ilvl: 90
     notes: "+3 Pala / 20 FCR - Hammerdin circlet"
 
   "Shrieking + of the Magus":
-    base_price: 30
-    perfect_price: 70
+    base_price: 1500
+    perfect_price: 5000
     item_types: ["ci0", "ci2", "ci3"]
     min_ilvl: 90
     notes: "+3 Barb / 20 FCR - Warcry circlet"
 
   "Visionary + of the Magus":
-    base_price: 25
-    perfect_price: 60
+    base_price: 1200
+    perfect_price: 4000
     item_types: ["ci0", "ci2", "ci3"]
     min_ilvl: 90
     notes: "+3 Assa / 20 FCR - Trapsin circlet"
 
   "Phantasmal + of the Magus":
-    base_price: 30
-    perfect_price: 70
+    base_price: 1500
+    perfect_price: 5000
     item_types: ["ci0", "ci2", "ci3"]
     min_ilvl: 90
     notes: "+3 Sorc / 20 FCR - but +2 all usually better"
 
   "Communal + of the Magus":
-    base_price: 25
-    perfect_price: 55
+    base_price: 1000
+    perfect_price: 3500
     item_types: ["ci0", "ci2", "ci3"]
     min_ilvl: 90
     notes: "+3 Zon / 20 FCR - Java/Bow circlet"
 
   # Class circlets with FRW
   "Malevolent + of Speed":
-    base_price: 25
-    perfect_price: 55
+    base_price: 800
+    perfect_price: 2500
     item_types: ["ci0", "ci2", "ci3"]
     min_ilvl: 90
     notes: "+3 Necro / 30 FRW"
 
   "Bramble + of Speed":
-    base_price: 22
-    perfect_price: 50
+    base_price: 700
+    perfect_price: 2000
     item_types: ["ci0", "ci2", "ci3"]
     min_ilvl: 90
     notes: "+3 Druid / 30 FRW"
@@ -246,57 +247,78 @@ combinations:
 single_affix_values:
   # Prefixes
   "Jeweler's":
-    base_price: 10
-    notes: "4os potential"
+    base_price: 500
+    notes: "4os potential - valuable for runewords"
   "Arch-Angel's":
-    base_price: 15
+    base_price: 300
     notes: "+2 skills"
   "Apprentice's":
-    base_price: 8
+    base_price: 100
     notes: "10 FCR"
   "Fervent":
-    base_price: 12
+    base_price: 150
     notes: "15 IAS"
   "Crimson":
-    base_price: 10
+    base_price: 200
     notes: "40 ED"
   "Shimmering":
-    base_price: 10
-    notes: "+1 skill tree"
+    base_price: 250
+    notes: "+1 skill tree (skiller potential)"
   "Fine":
-    base_price: 5
+    base_price: 50
     notes: "max dmg / AR"
   "Mithral":
-    base_price: 8
+    base_price: 100
     notes: "-requirements"
+  "Malevolent":
+    base_price: 200
+    notes: "+3 Necro skills"
+  "Bramble":
+    base_price: 180
+    notes: "+3 Druid skills"
+  "Hierophant's":
+    base_price: 150
+    notes: "+3 Pala skills"
+  "Visionary":
+    base_price: 100
+    notes: "+3 Assa skills"
+  "Phantasmal":
+    base_price: 120
+    notes: "+3 Sorc skills"
+  "Shrieking":
+    base_price: 100
+    notes: "+3 Barb skills"
+  "Communal":
+    base_price: 80
+    notes: "+3 Zon skills"
 
   # Suffixes
   "of Deflecting":
-    base_price: 15
-    notes: "20% block"
+    base_price: 300
+    notes: "20% block - rare suffix"
   "of the Magus":
-    base_price: 12
-    notes: "20 FCR"
+    base_price: 200
+    notes: "20 FCR - caster suffix"
   "of the Whale":
-    base_price: 10
+    base_price: 150
     notes: "100 life"
   "of Vita":
-    base_price: 8
+    base_price: 100
     notes: "40+ life"
   "of the Vampire":
-    base_price: 8
+    base_price: 80
     notes: "mana leech"
   "of Fortune":
-    base_price: 5
+    base_price: 50
     notes: "MF"
   "of Freedom":
-    base_price: 8
+    base_price: 100
     notes: "-requirements"
   "of Precision":
-    base_price: 5
+    base_price: 30
     notes: "AR"
   "of Speed":
-    base_price: 8
+    base_price: 80
     notes: "30 FRW"
 
 # ===================================

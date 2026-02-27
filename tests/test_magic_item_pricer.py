@@ -88,24 +88,24 @@ class TestMagicItemPricer:
     
     def test_tier_assignment(self):
         """Test tier assignment based on price."""
-        # GG tier
-        tier = self.pricer._price_to_tier(50.0)
+        # GG tier (1000+)
+        tier = self.pricer._price_to_tier(5000.0)
         assert tier == "gg"
         
-        # High tier
-        tier = self.pricer._price_to_tier(20.0)
+        # High tier (500+)
+        tier = self.pricer._price_to_tier(750.0)
         assert tier == "high"
         
-        # Medium tier
-        tier = self.pricer._price_to_tier(10.0)
+        # Medium tier (100+)
+        tier = self.pricer._price_to_tier(250.0)
         assert tier == "medium"
         
-        # Low tier
-        tier = self.pricer._price_to_tier(3.0)
+        # Low tier (10+)
+        tier = self.pricer._price_to_tier(50.0)
         assert tier == "low"
         
-        # Trash tier
-        tier = self.pricer._price_to_tier(0.5)
+        # Trash tier (< 10)
+        tier = self.pricer._price_to_tier(5.0)
         assert tier == "trash"
     
     def test_format_ilvl(self):
