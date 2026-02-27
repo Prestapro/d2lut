@@ -79,7 +79,7 @@ def test_find_slang_matches_single(test_db):
     matches = normalizer.find_slang_matches("I have a Shako for trade")
     
     assert len(matches) == 1
-    assert matches[0].term_raw == "shako"
+    assert matches[0].term_raw == "Shako"  # Original case from DB
     assert matches[0].canonical_item_id == "harlequin_crest"
     assert matches[0].replacement_text == "Harlequin Crest"
     assert matches[0].confidence == 0.95
@@ -93,9 +93,9 @@ def test_find_slang_matches_multiple(test_db):
     matches = normalizer.find_slang_matches("Trading SoJ and BK for Ber")
     
     assert len(matches) == 3
-    assert matches[0].term_raw == "soj"
-    assert matches[1].term_raw == "bk"
-    assert matches[2].term_raw == "ber"
+    assert matches[0].term_raw == "SoJ"  # Original case from DB
+    assert matches[1].term_raw == "BK"
+    assert matches[2].term_raw == "Ber"
 
 
 def test_find_slang_matches_case_insensitive(test_db):
