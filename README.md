@@ -90,6 +90,26 @@ python3 scripts/process_monitor.py --interval 2
 
 Logs are written to `data/cache/process_monitor.jsonl`.
 
+## Safe Full `item-names.json` Merge (FG Overlay)
+
+When working with D2R string mods, replacing the full `item-names.json` with a compact generated file can break many in-game labels (`missing string` scenarios).
+
+Use this helper to safely overlay FG labels onto a full dictionary:
+
+```bash
+python3 scripts/merge_full_item_names_fg.py \
+  --base-json path/to/full/item-names.json \
+  --priced-json path/to/generated/item-names.json \
+  --out path/to/final/item-names.json \
+  --hide-ammo \
+  --add-missing-runes
+```
+
+Notes:
+- Keeps untouched rows from the full dictionary.
+- Applies direct rune/key/gem overlays and safe name-based mappings for unique/set/base entries.
+- Supports custom label separator via `--separator` (for example, avoid `|` if needed).
+
 ## Market DB (d2jsp snapshot import MVP)
 
 Cloudflare may block direct `curl` scraping of `d2jsp`. The current MVP supports importing a saved forum HTML page snapshot and extracting thread-title `BIN/SOLD` signals.
