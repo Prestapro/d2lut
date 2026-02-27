@@ -150,6 +150,78 @@ combinations:
     min_ilvl: 90
     notes: "+2 skills / 30 FRW"
 
+  # ========== Class-Specific Circlets (+3 skills) ==========
+  "Malevolent + of the Magus":
+    base_price: 50
+    perfect_price: 120
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Necro / 20 FCR - GG Poison/Bone circlet"
+
+  "Bramble + of the Magus":
+    base_price: 45
+    perfect_price: 100
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Druid / 20 FCR - GG Windy circlet"
+
+  "Volcanic + of the Magus":
+    base_price: 35
+    perfect_price: 80
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Fire Druid / 20 FCR"
+
+  "Hierophant's + of the Magus":
+    base_price: 40
+    perfect_price: 90
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Pala / 20 FCR - Hammerdin circlet"
+
+  "Shrieking + of the Magus":
+    base_price: 30
+    perfect_price: 70
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Barb / 20 FCR - Warcry circlet"
+
+  "Visionary + of the Magus":
+    base_price: 25
+    perfect_price: 60
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Assa / 20 FCR - Trapsin circlet"
+
+  "Phantasmal + of the Magus":
+    base_price: 30
+    perfect_price: 70
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Sorc / 20 FCR - but +2 all usually better"
+
+  "Communal + of the Magus":
+    base_price: 25
+    perfect_price: 55
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Zon / 20 FCR - Java/Bow circlet"
+
+  # Class circlets with FRW
+  "Malevolent + of Speed":
+    base_price: 25
+    perfect_price: 55
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Necro / 30 FRW"
+
+  "Bramble + of Speed":
+    base_price: 22
+    perfect_price: 50
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+3 Druid / 30 FRW"
+
   # ========== LLD Items ==========
   "Apprentice's + of Precision":
     base_price: 15
