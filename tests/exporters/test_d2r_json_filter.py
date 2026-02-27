@@ -185,8 +185,8 @@ def test_export_sparse_short_names(test_db):
 def test_export_apply_colors(test_db, tmp_path):
     exporter = D2RJsonFilterExporter(min_fg=10.0, apply_colors=True)
     prices = {
-        "rune:jah": PriceEstimate("rune:jah", 4000.0, 3900.0, 4100.0, "high", 50, datetime.now()), # 1000+ -> ÿc; (Purple)
-        "rune:ber": PriceEstimate("rune:ber", 500.0, 400.0, 600.0, "high", 50, datetime.now()),    # 200-999 -> ÿc4 (Gold)
+        "rune:jah": PriceEstimate("rune:jah", 4000.0, 3900.0, 4100.0, "high", 50, datetime.now()), # 1000+ -> ÿc1 (Red/GG)
+        "rune:ber": PriceEstimate("rune:ber", 500.0, 400.0, 600.0, "high", 50, datetime.now()),    # 200-999 -> ÿc; (Purple/High)
     }
     
     base_file = tmp_path / "item-names.json"
@@ -200,8 +200,9 @@ def test_export_apply_colors(test_db, tmp_path):
     data = json.loads(result)
     
     # Verify new pricing overrode old color arrays completely
-    assert data["r30"] == "Ber Rune ÿc4[500 fg]ÿc0"
-    assert data["r31"] == "Jah Rune ÿc;[4000 fg]ÿc0"
+    # Color tiers per TZ: ÿc; (Purple) for 200-999, ÿc1 (Red) for 1000+
+    assert data["r30"] == "Ber Rune ÿc;[500 fg]ÿc0"  # 500 FG -> Purple (High)
+    assert data["r31"] == "Jah Rune ÿc1[4000 fg]ÿc0"  # 4000 FG -> Red (GG)
 
 def test_export_apply_colors_with_custom_format_idempotent(test_db, tmp_path):
     exporter = D2RJsonFilterExporter(min_fg=10.0, apply_colors=True, format_str=" | {fg} FG")
@@ -217,7 +218,8 @@ def test_export_apply_colors_with_custom_format_idempotent(test_db, tmp_path):
 
     result = exporter.export(prices, test_db, base_json_path=str(base_file))
     data = json.loads(result)
-    assert data["r30"] == "Ber Rune ÿc4| 500 FGÿc0"
+    # 500 FG -> Purple (High tier 200-999)
+    assert data["r30"] == "Ber Rune ÿc;| 500 FGÿc0"
 
 def test_export_explain_audit_samples(test_db):
     exporter = D2RJsonFilterExporter(
@@ -241,6 +243,6 @@ def test_export_explain_audit_samples(test_db):
     assert len(report["sample_injections"]) == 1
     assert report["sample_injections"][0]["variant_key"] == "rune:jah"
     assert report["sample_injections"][0]["forced_match"] is True
-    assert report["sample_injections"][0]["color_tag"] == "ÿc0"  # 50 fg tier
+    assert report["sample_injections"][0]["color_tag"] == "ÿc8"  # 50 fg -> Orange (Mid tier 30-199)
     assert len(report["sample_skipped_below_threshold"]) == 1
     assert report["sample_skipped_below_threshold"][0]["variant_key"] == "rune:ber"
