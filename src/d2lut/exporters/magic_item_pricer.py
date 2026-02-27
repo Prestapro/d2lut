@@ -68,8 +68,10 @@ class MagicItemPricer:
             if default_path.exists():
                 self._load_config(default_path)
             
-            # Load comprehensive affix database
-            affix_db_path = Path(__file__).parent.parent.parent.parent / "config" / "affix_database.yml"
+            # Load comprehensive affix database (prefer complete version from game files)
+            affix_db_path = Path(__file__).parent.parent.parent.parent / "config" / "affix_database_complete.yml"
+            if not affix_db_path.exists():
+                affix_db_path = Path(__file__).parent.parent.parent.parent / "config" / "affix_database.yml"
             if affix_db_path.exists():
                 self._load_affix_database(affix_db_path)
     
@@ -87,15 +89,16 @@ class MagicItemPricer:
         self.lld_ilvl_tiers = data.get("lld_ilvl_tiers", {})
     
     def _load_affix_database(self, db_path: Path) -> None:
-        """Load comprehensive affix database with all affixes from CSV."""
+        """Load comprehensive affix database with all affixes from game files."""
         if not db_path.exists():
             return
         
         with open(db_path, "r", encoding="utf-8") as f:
             data = yaml.safe_load(f) or {}
         
-        self.magic_prefixes = data.get("magic_prefixes", {})
-        self.magic_suffixes = data.get("magic_suffixes", {})
+        # Support both old and new structure
+        self.magic_prefixes = data.get("magic_prefixes", data.get("prefixes", {}))
+        self.magic_suffixes = data.get("magic_suffixes", data.get("suffixes", {}))
         self.rare_prefixes = data.get("rare_prefixes", {})
         self.gg_combinations = data.get("gg_combinations", {})
         
@@ -111,25 +114,43 @@ class MagicItemPricer:
         if not self.lld_ilvl_tiers and "lld_ilvl_tiers" in data:
             self.lld_ilvl_tiers = data["lld_ilvl_tiers"]
         
-        # Build single_affix_values from magic_prefixes + magic_suffixes
+        # Build single_affix_values from prefixes + suffixes
         # This provides fallback pricing for any affix in the database
         for name, info in self.magic_prefixes.items():
             if name not in self.single_affix_values:
-                self.single_affix_values[name] = {
-                    "base_price": info.get("base_price", 0),
-                    "property": info.get("property", ""),
-                    "notes": info.get("notes", ""),
-                }
+                # Handle variants
+                if "variants" in info:
+                    # Use highest price from variants
+                    max_price = max(v.get("base_price", 0) for v in info["variants"])
+                    self.single_affix_values[name] = {
+                        "base_price": max_price,
+                        "property": info.get("notes", ""),
+                        "notes": info.get("notes", ""),
+                    }
+                else:
+                    self.single_affix_values[name] = {
+                        "base_price": info.get("base_price", 0),
+                        "property": info.get("property", ""),
+                        "notes": info.get("notes", ""),
+                    }
         
         for name, info in self.magic_suffixes.items():
-            # Remove 'of ' prefix for lookup
-            lookup_name = name.replace("of_", "of ") if "_" in name else name
+            # Handle "of " prefix for lookup
+            lookup_name = name
             if lookup_name not in self.single_affix_values:
-                self.single_affix_values[lookup_name] = {
-                    "base_price": info.get("base_price", 0),
-                    "property": info.get("property", ""),
-                    "notes": info.get("notes", ""),
-                }
+                if "variants" in info:
+                    max_price = max(v.get("base_price", 0) for v in info["variants"])
+                    self.single_affix_values[lookup_name] = {
+                        "base_price": max_price,
+                        "property": info.get("notes", ""),
+                        "notes": info.get("notes", ""),
+                    }
+                else:
+                    self.single_affix_values[lookup_name] = {
+                        "base_price": info.get("base_price", 0),
+                        "property": info.get("property", ""),
+                        "notes": info.get("notes", ""),
+                    }
         
         for name, info in self.rare_prefixes.items():
             if name not in self.single_affix_values:
