@@ -1,0 +1,346 @@
+# LLD (Low Level Dueling) item pricing configuration.
+# LLD items have separate market dynamics due to level restrictions.
+# 
+# LLD Buckets:
+#   LLD9  - max level 9 (very niche, rare trades)
+#   LLD18 - max level 18 (popular bracket)
+#   LLD30 - max level 30 (most active bracket)
+#   MLD   - level 31-49 (mid-level duel)
+#   HLD   - level 50+ (standard high-level dueling)
+
+# Base LLD pricing multipliers - LLD items often command premium prices
+# due to rarity and specific stat requirements
+multipliers:
+  lld9: 2.0    # Very rare, niche market
+  lld18: 1.5   # Popular, active market
+  lld30: 1.3   # Most common LLD bracket
+  mld: 1.1     # Slight premium for specific items
+
+# LLD-specific item prices (in FG)
+# These override/multiply base prices for LLD variants
+items:
+  # =====================
+  # LLD WEAPONS
+  # =====================
+  
+  # Phase Blades for LLD
+  "base:phase_blade_lld":
+    estimate_fg: 5
+    bucket: "LLD30"
+    notes: "Grief base for LLD smiter"
+    
+  # Ancient Sword LLD18
+  "base:ancient_sword_lld":
+    estimate_fg: 3
+    bucket: "LLD18"
+    notes: "Lower req alternative"
+    
+  # =====================
+  # LLD ARMOR
+  # =====================
+  
+  # Twitchthroe LLD (unique studded leather)
+  "unique:twitchthroe_lld":
+    estimate_fg: 5
+    bucket: "LLD30"
+    notes: "IAS, block, DR - LLD staple"
+    
+  # Arkaine's Valor LLD (req 85, not LLD viable)
+  # Bloodletter (unique gladius) LLD18
+  "unique:bloodletter_lld":
+    estimate_fg: 3
+    bucket: "LLD18"
+    notes: "+1 skills, IAS, damage"
+    
+  # =====================
+  # LLD HELMETS
+  # =====================
+  
+  # Rockstopper LLD
+  "unique:rockstopper_lld":
+    estimate_fg: 2
+    bucket: "LLD30"
+    notes: "DR, res - tanky option"
+    
+  # Peasant Crown LLD
+  "unique:peasant_crown_lld":
+    estimate_fg: 3
+    bucket: "LLD30"
+    notes: "+1 skills, FRW, vitality"
+    
+  # Tarnhelm LLD
+  "unique:tarnhelm_lld":
+    estimate_fg: 1
+    bucket: "LLD18"
+    notes: "+1 skills, MF"
+    
+  # Circlets with +skills for LLD
+  "base:circlet_lld":
+    estimate_fg: 8
+    bucket: "LLD30"
+    notes: "+2 skills magic/craft potential"
+    
+  # =====================
+  # LLD SHIELDS
+  # =====================
+  
+  # Sigon's Shield LLD (unique gothic shield)
+  "unique:sigons_shield_lld":
+    estimate_fg: 2
+    bucket: "LLD30"
+    notes: "+1 skills, block"
+    
+  # Mosers Blessed Circle LLD
+  "unique:mosers_lld":
+    estimate_fg: 3
+    bucket: "LLD30"
+    notes: "All res - defensive option"
+    
+  # Paladins shields LLD
+  "base:pally_shield_lld":
+    estimate_fg: 10
+    bucket: "LLD30"
+    notes: "Spirit base for LLD pally"
+    
+  # =====================
+  # LLD GLOVES
+  # =====================
+  
+  # Bloodfist LLD
+  "unique:bloodfist_lld":
+    estimate_fg: 2
+    bucket: "LLD18"
+    notes: "IAS, FHR, life - LLD18 staple"
+    
+  # Chance Guards LLD
+  "unique:chance_guards_lld":
+    estimate_fg: 1
+    bucket: "LLD18"
+    notes: "MF gloves - cheap"
+    
+  # Magefist LLD
+  "unique:magefist_lld":
+    estimate_fg: 3
+    bucket: "LLD30"
+    notes: "FCR, +1 fire skills"
+    
+  # =====================
+  # LLD BOOTS
+  # =====================
+  
+  # Goblin Toe LLD
+  "unique:goblin_toe_lld":
+    estimate_fg: 2
+    bucket: "LLD18"
+    notes: "CB - budget phys"
+    
+  # Treads of Cthon LLD
+  "unique:treads_of_cthbon_lld":
+    estimate_fg: 1
+    bucket: "LLD18"
+    notes: "FRW, stamina"
+    
+  # Gore Foot LLD
+  "unique:gore_foot_lld":
+    estimate_fg: 2
+    bucket: "LLD18"
+    notes: "OW - early LLD"
+    
+  # =====================
+  # LLD BELTS
+  # =====================
+  
+  # Lenymo LLD
+  "unique:lenymo_lld":
+    estimate_fg: 1
+    bucket: "LLD18"
+    notes: "Mana regen"
+    
+  # Nightsmoke LLD
+  "unique:nightsmoke_lld":
+    estimate_fg: 2
+    bucket: "LLD30"
+    notes: "MDR, mana"
+    
+  # Snakecord LLD
+  "unique:snakecord_lld":
+    estimate_fg: 1
+    bucket: "LLD18"
+    notes: "Poison res"
+    
+  # =====================
+  # LLD JEWELRY
+  # =====================
+  
+  # Angelic set pieces LLD (ring + amulet combo for AR)
+  "set:angelic_ring_lld":
+    estimate_fg: 2
+    bucket: "LLD30"
+    notes: "AR per level - essential for melee"
+    
+  "set:angelic_amulet_lld":
+    estimate_fg: 2
+    bucket: "LLD30"
+    notes: "+1 skills, AR with ring"
+    
+  # Cathan's Ring LLD
+  "set:cathans_ring_lld":
+    estimate_fg: 1
+    bucket: "LLD18"
+    notes: "LLR - caster option"
+    
+  # Iratha's set pieces LLD
+  "set:irathas_collar_lld":
+    estimate_fg: 2
+    bucket: "LLD30"
+    notes: "+1 skills, res"
+    
+  # =====================
+  # LLD CHARMS
+  # =====================
+  
+  # Small charms with LLD stats
+  "charm:sc_max_dmg_ar_lld":
+    estimate_fg: 8
+    bucket: "LLD30"
+    notes: "3 max dmg / 15+ AR - melee LLD"
+    
+  "charm:sc_life_res_lld":
+    estimate_fg: 5
+    bucket: "LLD30"
+    notes: "15+ life / 5+ res - tanky"
+    
+  "charm:sc_fhr_lld":
+    estimate_fg: 3
+    bucket: "LLD30"
+    notes: "5 FHR - BM/FCR breakpoint"
+    
+  # Grand charms with +skills LLD
+  "charm:gc_skill_lld":
+    estimate_fg: 10
+    bucket: "LLD30"
+    notes: "+1 skill tree - powerful LLD boost"
+    
+  "charm:gc_skill_life_lld":
+    estimate_fg: 20
+    bucket: "LLD30"
+    notes: "+1 skill + life - GG LLD"
+    
+  # =====================
+  # LLD JEWELS
+  # =====================
+  
+  "jewel:ias_lld":
+    estimate_fg: 10
+    bucket: "LLD30"
+    notes: "15 IAS - breakpoint critical"
+    
+  "jewel:ias_ed_lld":
+    estimate_fg: 20
+    bucket: "LLD30"
+    notes: "15 IAS / ED - GG LLD jewel"
+    
+  "jewel:max_dmg_ar_lld":
+    estimate_fg: 8
+    bucket: "LLD30"
+    notes: "Max dmg / AR - melee LLD"
+    
+  "jewel:-req_lld":
+    estimate_fg: 5
+    bucket: "LLD30"
+    notes: "-15 req - enables higher bases"
+    
+  "jewel:fhr_lld":
+    estimate_fg: 3
+    bucket: "LLD30"
+    notes: "7 FHR - breakpoint helper"
+    
+  # =====================
+  # LLD RUNEWORDS
+  # =====================
+  
+  "runeword:spirit_lld":
+    estimate_fg: 8
+    bucket: "LLD30"
+    notes: "Low req spirit base valuable"
+    
+  "runeword:steel_lld":
+    estimate_fg: 1
+    bucket: "LLD18"
+    notes: "Early LLD weapon"
+    
+  "runeword:strenght_lld":
+    estimate_fg: 2
+    bucket: "LLD18"
+    notes: "CB for early LLD"
+    
+  "runeword:insight_lld":
+    estimate_fg: 3
+    bucket: "LLD30"
+    notes: "Low req polearm for merc"
+
+# LLD affix bonuses - specific affixes that are valuable for LLD
+affix_bonuses:
+  # Prefixes
+  "+1_skills_low_req":
+    multiplier: 2.0
+    notes: "+1 skills with low requirement"
+    
+  "+max_damage":
+    multiplier: 1.5
+    notes: "Max damage valuable for LLD melee"
+    
+  "+ar":
+    multiplier: 1.3
+    notes: "AR crucial for LLD hit chance"
+    
+  # Suffixes  
+  "ias":
+    multiplier: 1.8
+    notes: "IAS breakpoints critical in LLD"
+    
+  "fhr":
+    multiplier: 1.4
+    notes: "FHR breakpoints important"
+    
+  "fcr":
+    multiplier: 1.5
+    notes: "FCR breakpoints for casters"
+    
+  "frw":
+    multiplier: 1.3
+    notes: "FRW for positioning"
+    
+  "-requirements":
+    multiplier: 1.6
+    notes: "-req enables higher base items"
+    
+  "life":
+    multiplier: 1.2
+    notes: "Life always valuable"
+    
+  "resists":
+    multiplier: 1.2
+    notes: "Resists for survivability"
+
+# Set item bonuses for LLD
+set_bonuses:
+  # Angelic set (ring + ammy combo for massive AR)
+  angelic_combo:
+    estimate_fg: 5
+    notes: "Ring + Ammy combo gives massive AR - melee staple"
+    
+  # Iratha's set (resists, +1 skills)
+  irathas_partial:
+    estimate_fg: 4
+    notes: "Partial set for resists + skills"
+    
+  # Cathan's set (casting)
+  cathans_partial:
+    estimate_fg: 2
+    notes: "FCR from ring, +skills from ammy"
+    
+  # Tancred's set (mix)
+  tancreds_partial:
+    estimate_fg: 2
+    notes: "Some pieces have LLD utility"
