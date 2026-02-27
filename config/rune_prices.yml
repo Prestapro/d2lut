@@ -1,0 +1,37 @@
+# Baseline static rune prices in FG.
+# These will be injected into item-runes.json properties.
+
+prices:
+  "Jah": 50
+  "Ber": 55
+  "Sur": 25
+  "Lo": 12
+  "Ohm": 15
+  "Vex": 8
+  "Cham": 5
+  "Zod": 10
+  "Gul": 5
+  "Ist": 4
+  "Mal": 3
+  "Um": 2
+  "Pul": 1
+  "Lem": 0.5
+  "Fal": 0.2
+  "Ko": 0.2
+  "Lum": 0.2
+  "Io": 0.1
+  "Hel": 0.5 # High demand for rerolling
+  "Dol": 0.1
+  "Shael": 0.2 # Crafting
+  "Sol": 0.5 # Crafting
+  "Amn": 0.2 # Crafting
+  "Thul": 0.1
+  "Ort": 0.1
+  "Ral": 0.5 # Crafting
+  "Tal": 0.2 # Insight
+  "Ith": 0.1
+  "Eth": 0.1
+  "Nef": 0.2 # Crafting
+  "Tir": 0.1
+  "Eld": 0.1
+  "El": 0.1

@@ -1,0 +1,179 @@
+prefixes:
+  "Jeweler's":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+  "Artisan's":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+  "Cruel":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+  "Blood":
+    color: "ÿc;"
+    tag: ""
+    tier: "CRAFT"
+  "Fletcher's":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+  "Lancer's":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+  "Acrobatic":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+  "Rose Branded": # Paladin Combat Skills
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+  "Lion Branded": # Paladin Combat Skills
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+  "Harpoonist's": # Amazon Javelin and Spear Skills
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+  "Sparking": # Sorceress Lightning Skills
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+  "Chilling": # Sorceress Cold Skills
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+  "Burning": # Sorceress Fire Skills
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+  "Mentalist's": # Assassin Shadow Disciplines
+    color: "ÿc;"
+    tag: ""
+    tier: "MID"
+  "Entrapping": # Assassin Traps
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+  "Shogukusha's": # Assassin Martial Arts
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+  "Graverobber's": # Necromancer Summoning Skills
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+  "Fungal": # Necromancer Poison and Bone Skills
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+  "Spiritual": # Druid Shape Shifting Skills
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+  "Nature's": # Druid Elemental Skills
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+  "Trainer's": # Druid Summoning Skills
+    color: "ÿc;"
+    tag: ""
+    tier: "MID"
+  "Sounding": # Barbarian Warcries
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+  "Fanatic": # Barbarian Masteries
+    color: "ÿc;"
+    tag: ""
+    tier: "MID"
+  "Expert's": # Barbarian Combat Skills
+    color: "ÿc;"
+    tag: ""
+    tier: "MID"
+
+suffixes:
+  "of Deflecting":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+  "of Vita":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+  "of Sustenance":
+    color: "ÿc8"
+    tag: ""
+    tier: "MID"
+  "of Quickness":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+  "of Alacrity":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+  "of Readiness":
+    color: "ÿc8"
+    tag: ""
+    tier: "MID"
+  "of the Magus":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+  "of the Apprentice":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+  "of the Titan":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+  "of the Bear":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+  "of Good Luck":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+  "of Fortune":
+    color: "ÿc8"
+    tag: ""
+    tier: "MID"
+  "of the Whale":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+  "of the Squid":
+    color: "ÿc8"
+    tag: ""
+    tier: "MID"
+  "of Simplicity": # -Req
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+  "of Accuracy":
+    color: "ÿc5"
+    tag: ""
+    tier: "TRASH"
+  "of Light":
+    color: "ÿc5"
+    tag: ""
+    tier: "TRASH"
+  "of Illumination":
+    color: "ÿc5"
+    tag: ""
+    tier: "TRASH"
+  "Drake's": # Checking string replacement edge case
+    color: "ÿc5"
+    tag: ""
+    tier: "TRASH"
+  "Lizard's":
+    color: "ÿc5"
+    tag: ""
+    tier: "TRASH"

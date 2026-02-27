@@ -10,6 +10,9 @@ import subprocess
 import shlex
 
 from d2lut.exporters.d2r_json_filter import D2RJsonFilterExporter
+from d2lut.exporters.d2r_affix_filter import AffixHighlighter
+from d2lut.exporters.d2r_base_hints import BaseHintGenerator
+from d2lut.exporters.rune_converter import RuneConverter
 from d2lut.models import ObservedPrice
 from d2lut.pricing.engine import PricingEngine
 from d2lut.storage.sqlite import D2LutDB
@@ -294,8 +297,35 @@ def run_generation(args, cfg, is_interactive: bool = False) -> int:
             apply_colors=cfg["apply_colors"],
             collect_explain=args.explain,
             explain_limit=args.explain_limit,
+            affix_highlighter=AffixHighlighter(APP_DIR / "config" / "gg_affixes.yml") if cfg["apply_colors"] else None,
+            base_hint_generator=BaseHintGenerator(APP_DIR / "config" / "base_potential.yml"),
+            perfect_rolls_path=APP_DIR / "config" / "perfect_rolls.yml",
+            rune_converter=RuneConverter(APP_DIR / "config" / "rune_prices.yml")
         )
-        json_text = exporter.export(price_index, conn=conn, base_json_path=args.base_json)
+        json_text = exporter.export(price_index, conn=conn, base_json_path=args.base_json, base_runes_json_path=args.base_runes_json)
+        
+        if args.dry_run:
+            print("Dry run complete. No files were written.")
+            # Still print audit report for dry run
+        else:
+            # Write primary item-names.json
+            out_path = Path(args.out)
+            atomic_write_text(out_path, json_text, encoding="utf-8")
+            print(f"Successfully wrote D2R filter mod to: {out_path}")
+            print(f"Total entries generated: {len(json.loads(json_text))}")
+            
+            # Process and write item-runes.json if evaluated
+            if hasattr(exporter, 'runes_mod_data_out') and exporter.runes_mod_data_out:
+                runes_out_path = Path(args.out).parent / "item-runes.json"
+                atomic_write_text(runes_out_path, exporter.runes_mod_data_out, encoding="utf-8")
+                print(f"Successfully wrote D2R runes mod to: {runes_out_path}")
+
+            # Also process affixes if requested
+            if exporter.affix_highlighter:
+                affix_out_path = Path(args.out).parent / "item-nameaffixes.json"
+                affix_text = exporter.export_affixes(base_affix_json_path=args.base_affix_json)
+                atomic_write_text(affix_out_path, affix_text, encoding="utf-8")
+                print(f"Successfully wrote D2R affix filter mod to: {affix_out_path}")
 
         report = exporter.audit_report
         print("\n--- Mapping Audit Report ---")
@@ -374,6 +404,8 @@ def main() -> None:
     parser.add_argument("--tag-style", type=str, choices=list(TAG_STYLES.keys()), default="bracket", help="Convenience style for the price tag (ignored if --format-str is explicitly provided)")
     parser.add_argument("--always-include-kinds", type=str, default=None, help="Comma-separated list of item kinds (e.g., rune,key) to bypass min-fg threshold")
     parser.add_argument("--base-json", type=str, default=str(APP_DIR / "data" / "templates" / "item-names.json"), help="Base item-names.json to modify")
+    parser.add_argument("--base-runes-json", type=str, default=str(APP_DIR / "data" / "templates" / "item-runes.json"), help="Base item-runes.json to modify")
+    parser.add_argument("--base-affix-json", type=str, default=str(APP_DIR / "data" / "templates" / "item-nameaffixes.json"), help="Base item-nameaffixes.json to modify")
     parser.add_argument("--out", type=str, default=str(APP_DIR / "output" / "item-names.json"), help="Output path for item-names.json")
     parser.add_argument("--audit-json", type=str, default=None, help="Optional path to write mapping audit report as JSON")
     parser.add_argument("--explain", action="store_true", help="Include sample injection/skip explanations in audit output")

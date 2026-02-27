@@ -5,10 +5,15 @@ import json
 import re
 import sqlite3
 from pathlib import Path
-from typing import Optional, Any, Dict, List
-
+import yaml
+from pathlib import Path
+from typing import Optional, Any, Dict, List, TYPE_CHECKING
 from d2lut.models import PriceEstimate
 
+if TYPE_CHECKING:
+    from d2lut.exporters.d2r_affix_filter import AffixHighlighter
+    from d2lut.exporters.d2r_base_hints import BaseHintGenerator
+    from d2lut.exporters.rune_converter import RuneConverter
 
 class D2RJsonFilterExporter:
     """Export d2lut price estimates into a D2R static localization mod (item-names.json)."""
@@ -26,6 +31,10 @@ class D2RJsonFilterExporter:
         apply_colors: bool = False,
         collect_explain: bool = False,
         explain_limit: int = 20,
+        affix_highlighter: Optional['AffixHighlighter'] = None,
+        base_hint_generator: Optional['BaseHintGenerator'] = None,
+        perfect_rolls_path: Optional[str | Path] = None,
+        rune_converter: Optional['RuneConverter'] = None,
     ):
         self.min_fg = min_fg
         self.format_str = format_str
@@ -36,14 +45,28 @@ class D2RJsonFilterExporter:
         self.apply_colors = apply_colors
         self.collect_explain = collect_explain
         self.explain_limit = max(0, int(explain_limit))
+        self.affix_highlighter = affix_highlighter
+        self.base_hint_generator = base_hint_generator
+        self.rune_converter = rune_converter
+        
+        self.perfect_rolls: Dict[str, str] = {}
+        if perfect_rolls_path:
+            p = Path(perfect_rolls_path)
+            if p.exists():
+                with p.open("r", encoding="utf-8") as f:
+                    data = yaml.safe_load(f) or {}
+                    for k, v in data.get("rolls", {}).items():
+                        if "display" in v:
+                            self.perfect_rolls[k] = v["display"]
         
         # Color Tiers: [threshold, d2r_color_code]
-        # ÿc5 = Gray, ÿc0 = White, ÿc4 = Gold, ÿc; = Purple
+        # ÿc5 = Gray, ÿc0 = White, ÿc8 = Orange, ÿc; = Purple, ÿc1 = Red
         self.color_tiers = {
-            (0, 49): f"{self.D2R_COLOR_PREFIX}5",
-            (50, 199): f"{self.D2R_COLOR_PREFIX}0",
-            (200, 999): f"{self.D2R_COLOR_PREFIX}4",
-            (1000, float('inf')): f"{self.D2R_COLOR_PREFIX};",
+            (0, 9): f"{self.D2R_COLOR_PREFIX}5",  # Trash
+            (10, 29): f"{self.D2R_COLOR_PREFIX}0", # Low
+            (30, 199): f"{self.D2R_COLOR_PREFIX}8", # Mid
+            (200, 999): f"{self.D2R_COLOR_PREFIX};", # High
+            (1000, float('inf')): f"{self.D2R_COLOR_PREFIX}1", # GG
         }
         
         self.audit_report: Dict[str, Any] = {
@@ -58,7 +81,7 @@ class D2RJsonFilterExporter:
             "sample_skipped_below_threshold": []
         }
 
-    def export(self, price_index: dict[str, PriceEstimate], conn: sqlite3.Connection, base_json_path: str | None = None) -> str:
+    def export(self, price_index: dict[str, PriceEstimate], conn: sqlite3.Connection, base_json_path: str | None = None, base_runes_json_path: str | None = None) -> str:
         """
         Generate the JSON payload for item-names.json.
         """
@@ -85,6 +108,14 @@ class D2RJsonFilterExporter:
                 mod_data = json.load(f)
                 if isinstance(mod_data, dict):
                     is_dict_format = True
+
+        # Process item-runes.json if base_runes_json_path is provided
+        runes_mod_data = []
+        is_runes_dict_format = False
+        if base_runes_json_path and Path(base_runes_json_path).exists() and self.rune_converter:
+            with open(base_runes_json_path, "r", encoding="utf-8") as f:
+                runes_mod_data = json.load(f)
+                is_runes_dict_format = isinstance(runes_mod_data, dict)
 
         # Mapping dictionaries for Short Names
         SHORT_NAMES = {
@@ -191,8 +222,8 @@ class D2RJsonFilterExporter:
             full_regex = fr'\s*(?:{color_prefix}.)?\s*{fmt_regex}(?:{color_prefix}.)?\s*'
             return re.sub(full_regex, '', text).strip()
 
-        def apply_transform(key: str, val: str, price_text: str = "", fg_val: float = 0.0) -> str:
-            """Applies short name, junk hiding, and price injection to a string."""
+        def apply_transform(key: str, val: str, price_text: str = "", fg_val: float = 0.0, apply_base_hint: bool = True) -> str:
+            """Applies short name, junk hiding, base hints, and price injection to a string."""
             if self.hide_junk and key in JUNK_KEYS:
                 return ""
                 
@@ -201,29 +232,35 @@ class D2RJsonFilterExporter:
             if self.use_short_names and key in SHORT_NAMES:
                 clean_val = SHORT_NAMES[key]
                 
+            # Append base hint if applicable
+            if apply_base_hint and self.base_hint_generator:
+                base_hint = self.base_hint_generator.get_base_hints(key)
+                if base_hint:
+                    clean_val = f"{clean_val}{base_hint}"
+                
             if price_text and self.apply_colors:
                 color_code = color_code_for_fg(fg_val)
-                # D2R formatting is: [Base Name] [Color Code][Price Tag][Reset Color]
-                # We revert to White (ÿc0) after the tag so trailing text isn't dyed accidentally.
                 return f"{clean_val} {color_code}{price_text.strip()}{self.D2R_COLOR_RESET}"
                 
-            return clean_val + price_text
+            return f"{clean_val}{price_text}"
 
-        def upsert_key(key: str, price_text: str = "", fg_val: float = 0.0):
+        def upsert_key(key: str, price_text: str = "", fg_val: float = 0.0, apply_base_hint: bool = True):
             if is_dict_format:
                 if key in mod_data:
-                    # In dict format, it could be {"r33": "Zod Rune"} or {"r33": {"enUS": "Zod Rune"}}
                     val = mod_data[key]
                     if isinstance(val, str):
-                        mod_data[key] = apply_transform(key, val, price_text, fg_val)
+                        mod_data[key] = apply_transform(key, val, price_text, fg_val, apply_base_hint)
                     elif isinstance(val, dict) and "enUS" in val:
-                        val["enUS"] = apply_transform(key, val["enUS"], price_text, fg_val)
+                        val["enUS"] = apply_transform(key, val["enUS"], price_text, fg_val, apply_base_hint)
                 else:
                     if self.hide_junk and key in JUNK_KEYS:
                         mod_data[key] = ""
                     else:
                         base_name = SHORT_NAMES.get(key, key) if self.use_short_names else key
-                        # Mimic apply_transform formatting for fallback paths
+                        if apply_base_hint and self.base_hint_generator:
+                            hint = self.base_hint_generator.get_base_hints(key)
+                            if hint: base_name = f"{base_name}{hint}"
+                        
                         if price_text and self.apply_colors:
                             color_code = color_code_for_fg(fg_val)
                             mod_data[key] = f"{base_name} {color_code}{price_text.strip()}{self.D2R_COLOR_RESET}"
@@ -232,14 +269,17 @@ class D2RJsonFilterExporter:
             else:
                 for item in mod_data:
                     if item.get("Key") == key:
-                        item["enUS"] = apply_transform(key, item.get("enUS", ""), price_text, fg_val)
+                        item["enUS"] = apply_transform(key, item.get("enUS", ""), price_text, fg_val, apply_base_hint)
                         return
-                        
-                # Sparse fallback creation
+                
                 if self.hide_junk and key in JUNK_KEYS:
                     en_us_val = ""
                 else:
                     base_name = SHORT_NAMES.get(key, key) if self.use_short_names else key
+                    if apply_base_hint and self.base_hint_generator:
+                        hint = self.base_hint_generator.get_base_hints(key)
+                        if hint: base_name = f"{base_name}{hint}"
+                        
                     if price_text and self.apply_colors:
                         color_code = color_code_for_fg(fg_val)
                         en_us_val = f"{base_name} {color_code}{price_text.strip()}{self.D2R_COLOR_RESET}"
@@ -300,10 +340,25 @@ class D2RJsonFilterExporter:
                 self.audit_report["mapped_count"] += 1
                 if len(keys) > 1:
                     self.audit_report["multi_map_variants"].append(variant_key)
-                
+            
+            p_roll_display = self.perfect_rolls.get(variant_key, "")
+            # Example format string: " [{fg} fg]"
+            # If we have perfect rolls, we insert them right before the price string.
+            # Arachnid Mesh ➔ Arachnid Mesh ÿcO[120ed] ÿc3(20-150 fg)
+            actual_price_suffix = price_suffix
+            if p_roll_display:
+                if self.apply_colors:
+                    actual_price_suffix = f" {self.D2R_COLOR_PREFIX}O{p_roll_display}{actual_price_suffix}"
+                else:
+                    actual_price_suffix = f" {p_roll_display}{actual_price_suffix}"
+
+            # If it's a unique or set, we don't want to show base hints like "Spirit: 4os" on the already
+            # identified unique item name. We disable apply_base_hint in this branch.
+            apply_hint = kind not in ("unique", "set")
+
             for k in keys:
                 if k:
-                    upsert_key(k, price_suffix, val)
+                    upsert_key(k, actual_price_suffix, val, apply_base_hint=apply_hint)
             if self.collect_explain and len(self.audit_report["sample_injections"]) < self.explain_limit:
                 self.audit_report["sample_injections"].append({
                     "variant_key": variant_key,
@@ -317,5 +372,81 @@ class D2RJsonFilterExporter:
                     "color_tag": color_code_for_fg(val) if self.apply_colors else None,
                     "tag_text": price_suffix,
                 })
+
+        # Process static runes
+        if runes_mod_data and self.rune_converter:
+            if is_runes_dict_format:
+                for key, val in runes_mod_data.items():
+                    name_str = val if isinstance(val, str) else val.get("enUS", "")
+                    if name_str.lower().endswith(" rune"):
+                        suffix = self.rune_converter.get_rune_price_suffix(name_str, self.format_str)
+                        if suffix:
+                            fg_val = self.rune_converter.get_rune_price(name_str)
+                            # Apply the exact same formatting rules as upsert_key
+                            if self.apply_colors:
+                                color_code = color_code_for_fg(fg_val)
+                                new_val = f"{name_str} {color_code}{suffix.strip()}{self.D2R_COLOR_RESET}"
+                            else:
+                                new_val = f"{name_str}{suffix}"
+                                
+                            if isinstance(val, str):
+                                runes_mod_data[key] = new_val
+                            else:
+                                val["enUS"] = new_val
+            else:
+                for item in runes_mod_data:
+                    name_str = item.get("enUS", "")
+                    if name_str.lower().endswith(" rune"):
+                        suffix = self.rune_converter.get_rune_price_suffix(name_str, self.format_str)
+                        if suffix:
+                            fg_val = self.rune_converter.get_rune_price(name_str)
+                            if self.apply_colors:
+                                color_code = color_code_for_fg(fg_val)
+                                new_val = f"{name_str} {color_code}{suffix.strip()}{self.D2R_COLOR_RESET}"
+                            else:
+                                new_val = f"{name_str}{suffix}"
+                            item["enUS"] = new_val
+
+            # Write out item-runes.json if a path was given, saving to same dir as output (handled upstream)
+            # This class just modifies the object. But we need to return it alongside mod_data.
+            # A cleaner way is to let the caller handle runes file save.
+            self.runes_mod_data_out = json.dumps(runes_mod_data, indent=2, ensure_ascii=False)
+
+        return json.dumps(mod_data, indent=2, ensure_ascii=False)
+
+    def export_affixes(self, base_affix_json_path: str) -> str:
+        """
+        Loads item-nameaffixes.json, applies AffixHighlighter, and returns the modified JSON text.
+        """
+        if not self.affix_highlighter or not Path(base_affix_json_path).exists():
+            return "{}"
+
+        with open(base_affix_json_path, "r", encoding="utf-8") as f:
+            mod_data = json.load(f)
+
+        is_dict_format = isinstance(mod_data, dict)
+
+        if is_dict_format:
+            for key, val in mod_data.items():
+                if isinstance(val, str):
+                    # We don't strictly know if it's prefix or suffix from just the string value in dict format,
+                    # but usually suffixes start with "of "
+                    if val.startswith("of "):
+                        mod_data[key] = self.affix_highlighter.highlight_suffix(val)
+                    else:
+                        mod_data[key] = self.affix_highlighter.highlight_prefix(val)
+                elif isinstance(val, dict) and "enUS" in val:
+                    str_val = val["enUS"]
+                    if str_val.startswith("of "):
+                        val["enUS"] = self.affix_highlighter.highlight_suffix(str_val)
+                    else:
+                        val["enUS"] = self.affix_highlighter.highlight_prefix(str_val)
+        else:
+            for item in mod_data:
+                str_val = item.get("enUS", "")
+                if str_val.startswith("of "):
+                    item["enUS"] = self.affix_highlighter.highlight_suffix(str_val)
+                elif str_val:
+                    item["enUS"] = self.affix_highlighter.highlight_prefix(str_val)
 
         return json.dumps(mod_data, indent=2, ensure_ascii=False)

@@ -1,0 +1,56 @@
+# This file defines the perfect stat rolls for valuable unique items.
+# The `display` string will be injected into the identified item name in D2R.
+
+rolls:
+  "unique:griffons_eye":
+    display: "[-20/+15]"
+  "unique:the_stone_of_jordan":
+    display: "(100fg+)" # Fixed stats, just display baseline price
+  "unique:arachnid_mesh":
+    display: "[120ed]"
+  "unique:deaths_fathom":
+    display: "[30% cold]"
+  "unique:crown_of_ages":
+    display: "[2os/15DR]"
+  "unique:mara_s_kaleidoscope":
+    display: "[30res]"
+  "unique:war_traveler":
+    display: "[50mf]"
+  "unique:harlequin_crest":
+    display: "[141def]"
+  "unique:andariel_s_visage":
+    display: "[10ll/30str]"
+  "unique:verdungo_s_hearty_cord":
+    display: "[40vit/15DR]"
+  "unique:dracul_s_grasp":
+    display: "[10ll/15str]"
+  "unique:bul_kathos_s_wedding_band":
+    display: "[5ll]"
+  "unique:wisp_projector":
+    display: "[20abs/20mf]"
+  "unique:herald_of_zakarum":
+    display: "[200ed]"
+  "unique:nightwing_s_veil":
+    display: "[15% cold]"
+  "unique:boneflame":
+    display: "[+3/30res]"
+  "unique:darkforce_spawn":
+    display: "[+3/+3/+3]"
+  "unique:ormus_s_robes":
+    display: "[15/15/15]"
+  "unique:sandstorm_trek":
+    display: "[15/15]"
+  "unique:shadow_dancer":
+    display: "[+2/25dex]"
+  "unique:gore_rider":
+    display: "[200ed]"
+  "unique:titans_revenge":
+    display: "[200ed/9ll]"
+  "unique:death_s_web":
+    display: "[+2/-50]"
+  "unique:eschuta_s_temper":
+    display: "[+3/20/20]"
+  "unique:the_oculus":
+    display: "[]" # Fixed stats
+  "unique:ali_baba":
+    display: "[120ed/15dex]"

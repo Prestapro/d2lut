@@ -1,0 +1,71 @@
+# This file maps internal base codes to hints that will be shown when the item is unidentified on the ground.
+# Keys must match the internal d2r json keys.
+hints:
+  "rin": # Ring
+    uniques: ["Nagel", "Wisp", "SoJ", "BK"]
+    gg_magic: false
+  "amu": # Amulet
+    uniques: ["Mara", "Tal", "Highlord"]
+    gg_magic: false
+  "uit": # Monarch
+    uniques: ["Stormshield"]
+    runewords: ["Spirit: 4os"]
+    gg_magic: true # JMOD potential
+  "uap": # Archon Plate
+    uniques: []
+    runewords: ["Enigma: 3os / 524def", "Fortitude: 4os"]
+    gg_magic: false
+  "xtb": # War Boots
+    uniques: ["Gore Rider"]
+    gg_magic: false
+  "uvg": # Vampirebone Gloves
+    uniques: ["Dracul's"]
+    gg_magic: false
+  "uhm": # Diadem
+    uniques: ["Griffon's"]
+    gg_magic: true
+  "ci3": # Tiara
+    uniques: ["Kira's"]
+    gg_magic: true
+  "ci2": # Coronet
+    uniques: []
+    gg_magic: true
+  "ci0": # Circlet
+    uniques: []
+    gg_magic: true
+  "cm1": # Small Charm
+    uniques: ["Annihilus"]
+    gg_magic: true
+  "cm2": # Large Charm
+    uniques: ["Hellfire"]
+    gg_magic: false
+  "cm3": # Grand Charm
+    uniques: ["Gheed's"]
+    gg_magic: true
+  "jew": # Jewel
+    uniques: ["Facet"]
+    gg_magic: true
+  "upl": # Balrog Skin
+    uniques: ["Arkaine's"]
+    gg_magic: false
+  "uzl": # Dimensional Shard
+    uniques: ["Death's Fathom"]
+    gg_magic: false
+  "uui": # Arachnid Mesh
+    uniques: ["Arachnid Mesh"]
+    gg_magic: false
+  "xua": # Demonhide Sash
+    uniques: ["String of Ears"]
+    gg_magic: false
+  "zmb": # Zombie Head
+    uniques: ["Homunculus"]
+    gg_magic: false
+  "xts": # Gilded Shield
+    uniques: ["HoZ"]
+    gg_magic: false
+  "xh9": # Grim Helm
+    uniques: ["Vampire Gaze"]
+    gg_magic: false
+  "usk": # Shako
+    uniques: ["Shako"]
+    gg_magic: false
