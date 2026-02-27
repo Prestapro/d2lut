@@ -6,6 +6,7 @@ __pycache__/
 .pytest_cache/
 .hypothesis/
 *.pyc
+*.egg-info/
 
 # Local builds / generated binaries
 build/
