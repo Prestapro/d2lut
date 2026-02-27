@@ -29,10 +29,15 @@ dev = [
     "pytest>=8.0",
     "hypothesis>=6.0",
     "ruff>=0.1.0",
+    "pyinstaller>=6.0",
+]
+all = [
+    "d2lut[overlay,scraper,ml,dev]",
 ]
 
 [project.scripts]
 d2lut-server = "d2lut.scripts.run_remote_overlay_server:main"
+d2lut-build = "d2lut.scripts.build_overlay_server:main"
 
 [build-system]
 requires = ["setuptools>=68", "wheel"]

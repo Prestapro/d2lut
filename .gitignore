@@ -30,3 +30,8 @@ data/cache/*.html
 .venv/
 venv/
 .env
+.build-venv/
+build_overlay/
+*.pyc
+__pycache__/
+.DS_Store
