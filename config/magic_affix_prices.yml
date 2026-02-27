@@ -1,0 +1,252 @@
+# Magic/Rare item pricing by affix combinations.
+# When a magic item drops, its value is estimated based on:
+# 1. Prefix + Suffix combination
+# 2. Item level (affects roll ranges)
+# 3. Base item type
+#
+# Format:
+#   "<prefix> + <suffix>":
+#     base_price: FG value for average roll
+#     perfect_price: FG value for perfect roll
+#     item_types: []  # Specific bases this applies to (empty = all)
+#     min_ilvl: 0     # Minimum item level for this combo to be valuable
+
+# ===================================
+# GG MAGIC ITEMS (High Value)
+# ===================================
+
+combinations:
+  # ========== JMOD - Jeweler's of Deflecting ==========
+  "Jeweler's + of Deflecting":
+    base_price: 50
+    perfect_price: 150
+    item_types: ["uit", "ulg", "ush", "uws"]  # Monarch and elite shields
+    min_ilvl: 0
+    notes: "JMOD - 4os + 20% block, GG for Spirit/Phoenix"
+
+  # ========== Caster Amulets ==========
+  "Arch-Angel's + of the Magus":
+    base_price: 30
+    perfect_price: 80
+    item_types: ["amu", "uhm", "ci3", "ci2", "ci0"]
+    min_ilvl: 90
+    notes: "+2 skills / 20 FCR - caster BiS"
+
+  "Arch-Angel's + of Life Everlasting":
+    base_price: 20
+    perfect_price: 50
+    item_types: ["amu"]
+    min_ilvl: 90
+    notes: "+2 skills / high life"
+
+  # ========== Caster Rings ==========
+  "Apprentice's + of Regeneration":
+    base_price: 15
+    perfect_price: 40
+    item_types: ["rin"]
+    min_ilvl: 0
+    notes: "10 FCR / mana regen"
+
+  "Apprentice's + of the Whale":
+    base_price: 25
+    perfect_price: 60
+    item_types: ["rin"]
+    min_ilvl: 0
+    notes: "10 FCR / 100+ life"
+
+  "Apprentice's + of Fortune":
+    base_price: 10
+    perfect_price: 25
+    item_types: ["rin"]
+    min_ilvl: 0
+    notes: "10 FCR / MF"
+
+  # ========== Melee Rings ==========
+  "Sapphire + of the Vampire":
+    base_price: 15
+    perfect_price: 40
+    item_types: ["rin"]
+    min_ilvl: 0
+    notes: "LL / ML - dual leech ring"
+
+  # ========== Skiller Charms ==========
+  "Shimmering + of Vita":
+    base_price: 20
+    perfect_price: 50
+    item_types: ["cm3"]  # Grand Charm
+    min_ilvl: 50
+    notes: "+1 skill tree / 40+ life"
+
+  "Shimmering + of Sustenance":
+    base_price: 10
+    perfect_price: 25
+    item_types: ["cm3"]
+    min_ilvl: 50
+    notes: "+1 skill tree / life"
+
+  # ========== Small Charms ==========
+  "Fine + of Vita":
+    base_price: 8
+    perfect_price: 25
+    item_types: ["cm1"]  # Small Charm
+    min_ilvl: 0
+    notes: "max dmg / AR / life"
+
+  "Fine + of Good Luck":
+    base_price: 5
+    perfect_price: 15
+    item_types: ["cm1"]
+    min_ilvl: 0
+    notes: "max dmg / AR / MF"
+
+  "Stalwart + of Vita":
+    base_price: 6
+    perfect_price: 18
+    item_types: ["cm1"]
+    min_ilvl: 0
+    notes: "AR / life"
+
+  # ========== Jewels ==========
+  "Fervent + of Freedom":
+    base_price: 20
+    perfect_price: 50
+    item_types: ["jew"]
+    min_ilvl: 0
+    notes: "15 IAS / -15 req - GG LLD jewel"
+
+  "Fervent + of the Leviathan":
+    base_price: 25
+    perfect_price: 60
+    item_types: ["jew"]
+    min_ilvl: 0
+    notes: "15 IAS / -15 req / ED"
+
+  "Crimson + of Fervent":
+    base_price: 30
+    perfect_price: 80
+    item_types: ["jew"]
+    min_ilvl: 0
+    notes: "40 ED / 15 IAS - GG jewel"
+
+  "Carmine + of Fervent":
+    base_price: 20
+    perfect_price: 50
+    item_types: ["jew"]
+    min_ilvl: 0
+    notes: "ED / IAS jewel"
+
+  # ========== Circlets ==========
+  "Arch-Angel's + of the Magus":
+    base_price: 40
+    perfect_price: 100
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+2 skills / 20 FCR circlet"
+
+  "Arch-Angel's + of Speed":
+    base_price: 25
+    perfect_price: 60
+    item_types: ["ci0", "ci2", "ci3"]
+    min_ilvl: 90
+    notes: "+2 skills / 30 FRW"
+
+  # ========== LLD Items ==========
+  "Apprentice's + of Precision":
+    base_price: 15
+    perfect_price: 35
+    item_types: ["rin", "amu"]
+    min_ilvl: 0
+    lld_only: true
+    notes: "LLD caster ring - FCR / AR"
+
+  "Mithral + of Freedom":
+    base_price: 20
+    perfect_price: 45
+    item_types: ["jew"]
+    min_ilvl: 0
+    lld_only: true
+    notes: "LLD jewel - -req / -req"
+
+# ===================================
+# SINGLE AFFIX VALUES
+# ===================================
+
+single_affix_values:
+  # Prefixes
+  "Jeweler's":
+    base_price: 10
+    notes: "4os potential"
+  "Arch-Angel's":
+    base_price: 15
+    notes: "+2 skills"
+  "Apprentice's":
+    base_price: 8
+    notes: "10 FCR"
+  "Fervent":
+    base_price: 12
+    notes: "15 IAS"
+  "Crimson":
+    base_price: 10
+    notes: "40 ED"
+  "Shimmering":
+    base_price: 10
+    notes: "+1 skill tree"
+  "Fine":
+    base_price: 5
+    notes: "max dmg / AR"
+  "Mithral":
+    base_price: 8
+    notes: "-requirements"
+
+  # Suffixes
+  "of Deflecting":
+    base_price: 15
+    notes: "20% block"
+  "of the Magus":
+    base_price: 12
+    notes: "20 FCR"
+  "of the Whale":
+    base_price: 10
+    notes: "100 life"
+  "of Vita":
+    base_price: 8
+    notes: "40+ life"
+  "of the Vampire":
+    base_price: 8
+    notes: "mana leech"
+  "of Fortune":
+    base_price: 5
+    notes: "MF"
+  "of Freedom":
+    base_price: 8
+    notes: "-requirements"
+  "of Precision":
+    base_price: 5
+    notes: "AR"
+  "of Speed":
+    base_price: 8
+    notes: "30 FRW"
+
+# ===================================
+# ILVL BONUSES
+# ===================================
+
+ilvl_multipliers:
+  # Higher ilvl = better roll potential = more value
+  90: 1.3    # ilvl 90+ gets bonus for perfect rolls
+  85: 1.15
+  80: 1.1
+  75: 1.05
+  50: 1.0    # Base
+  30: 0.9    # Lower ilvl
+  0: 0.8
+
+# ===================================
+# LLD BONUSES
+# ===================================
+
+lld_ilvl_tiers:
+  # Items with low ilvl are valuable for LLD
+  9: 2.0     # LLD9 - max ilvl for level 9 dueling
+  18: 1.5    # LLD18
+  30: 1.3    # LLD30
