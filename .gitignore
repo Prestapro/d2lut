@@ -13,8 +13,9 @@ dist/
 releases/
 *.spec
 
-# Local generated outputs
+# Local generated outputs (except example files tracked with git add -f)
 output/
+!output/item-names.json
 
 # Large local datasets / caches
 data/raw/
