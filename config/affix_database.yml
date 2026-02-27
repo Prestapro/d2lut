@@ -1,0 +1,1398 @@
+# Complete D2R Magic/Rare Affix Database
+# Generated from d2r_maxroll_affixes.csv
+# Contains ALL affixes from Arreat Summit / Maxroll
+#
+# Structure:
+# - Name: Affix name as it appears in-game
+# - Property: What the affix does
+# - AffixLevel: Required affix level for spawn
+# - LevelReq: Character level requirement
+# - ItemTypes: What items can spawn this affix
+# - Group: Affix group (determines exclusivity)
+# - BasePrice: FG value for this affix alone
+# - Category: magic_only or magic_and_rare
+
+# ===================================
+# AFFIX GROUPS (for reference)
+# ===================================
+# 101 = Defense
+# 103 = Minimum Damage
+# 104 = Maximum Damage
+# 105 = Enhanced Damage
+# 107 = Damage Taken to Mana
+# 108 = Stamina Regeneration
+# 110 = Attack Rating
+# 111 = Attack Rating + Enhanced Damage
+# 112 = Light Radius
+# 113 = Hit Causes Monster to Flee
+# 114 = Magic Find
+# 115 = Mana
+# 116 = All Resistances
+# 117 = Cold Resist
+# 118 = Fire Resist
+# 119 = Lightning Resist
+# 120 = Poison Resist
+# 122 = Sockets
+# 123 = vs Demons
+# 125 = +Skills
+# 137 = Cold Damage
+# 138 = Fire Damage
+# 139 = Lightning Damage
+# 140 = Poison Damage
+# 142 = vs Undead
+
+# ===================================
+# MAGIC ONLY PREFIXES
+# ===================================
+
+magic_prefixes:
+  # ========== DEFENSE (Group 101) ==========
+  Stalwart:
+    properties:
+      - "+33-40 Defense (large charm, alvl 32)"
+      - "+44-50 Defense (large charm, alvl 37)"
+      - "+30-40 Defense (medium charm, alvl 38)"
+      - "+60-100 Defense (large charm, alvl 42)"
+      - "+45-60 Defense (medium charm, alvl 45)"
+      - "+20-30 Defense (small charm, alvl 48)"
+    item_types: ["large charm", "medium charm", "small charm"]
+    group: 101
+    base_price: 5
+    notes: "Defense on charms - low value"
+
+  Godly:
+    property: "+101-200% Enhanced Defense"
+    item_types: ["any armor"]
+    group: 101
+    affix_level: 45
+    level_req: 38
+    base_price: 50
+    notes: "Highest ED% for armor - useful for def-based builds"
+
+  Ivory:
+    property: "+41-64 Defense"
+    item_types: ["jewel"]
+    group: 101
+    affix_level: 64
+    level_req: 56
+    base_price: 10
+    notes: "Defense jewel - rarely used"
+
+  # ========== MINIMUM DAMAGE (Group 103) ==========
+  Sanguinary:
+    property: "+2 to Minimum Damage"
+    item_types: ["medium charm", "large charm"]
+    group: 103
+    base_price: 20
+    notes: "Min damage grand charm - LLD viable"
+
+  Bloody:
+    property: "+3 to Minimum Damage"
+    item_types: ["large charm"]
+    group: 103
+    affix_level: 75
+    level_req: 67
+    base_price: 30
+    notes: "Highest min damage on GC"
+
+  # ========== MAXIMUM DAMAGE (Group 104) ==========
+  Forked:
+    property: "+2 to Maximum Damage"
+    item_types: ["medium charm", "large charm"]
+    group: 104
+    base_price: 25
+    notes: "Max damage charm"
+
+  Vermillion:
+    property: "+11-15 to Maximum Damage"
+    item_types: ["jewel"]
+    group: 104
+    affix_level: 58
+    level_req: 50
+    base_price: 100
+    notes: "High max damage jewel - valuable for melee"
+
+  Serrated:
+    property: "+3 to Maximum Damage"
+    item_types: ["large charm"]
+    group: 104
+    affix_level: 67
+    level_req: 59
+    base_price: 40
+    notes: "Highest max damage on GC"
+
+  # ========== ENHANCED DAMAGE (Group 105) ==========
+  Cruel:
+    property: "+201-300% Enhanced Damage"
+    item_types: ["weapon"]
+    group: 105
+    affix_level: 51
+    level_req: 43
+    base_price: 150
+    notes: "Highest ED% prefix - GG for weapons"
+
+  Ruby:
+    property: "+31-40% Enhanced Damage"
+    item_types: ["jewel"]
+    group: 105
+    affix_level: 66
+    level_req: 58
+    base_price: 200
+    notes: "40 ED jewel - valuable, combine with IAS for GG"
+
+  # ========== ATTACK RATING (Group 110) ==========
+  Steel:
+    properties:
+      - "+88-102 AR (large charm, alvl 37)"
+      - "+103-117 AR (large charm, alvl 43)"
+      - "+52-64 AR (medium charm, alvl 43)"
+      - "+118-132 AR (large charm, alvl 49)"
+      - "+65-77 AR (medium charm, alvl 52)"
+      - "+25-36 AR (small charm, alvl 57)"
+    item_types: ["large charm", "medium charm", "small charm"]
+    group: 110
+    base_price: 5
+    notes: "AR on charms - low value standalone"
+
+  Weird:
+    property: "+301-450 to Attack Rating"
+    item_types: ["weapon"]
+    group: 110
+    affix_level: 37
+    level_req: 27
+    base_price: 15
+    notes: "High AR on weapons - niche"
+
+  Argent:
+    property: "+61-100 to Attack Rating"
+    item_types: ["jewel"]
+    group: 110
+    affix_level: 44
+    level_req: 36
+    base_price: 10
+    notes: "AR jewel - rarely used"
+
+  # ========== AR + ED (Group 111) ==========
+  Fine:
+    property: "+10-20 AR, +1-3 Max Damage"
+    item_types: ["small charm"]
+    group: 111
+    affix_level: 28
+    level_req: 21
+    base_price: 50
+    notes: "Fine SC - valuable for PvP/life combos"
+
+  Hawkeye:
+    property: "+1.5 AR per Character Level"
+    item_types: ["weapon"]
+    group: 111
+    affix_level: 35
+    level_req: 26
+    base_price: 20
+    notes: "AR per level - scales well"
+
+  Grandmaster's:
+    property: "+251-300 AR, +151-200% ED"
+    item_types: ["weapon"]
+    group: 111
+    affix_level: 69
+    level_req: 61
+    base_price: 300
+    notes: "Top AR+ED combo - but Cruel is better for pure damage"
+
+  # ========== MONSTER FLEE (Group 113) ==========
+  Wailing:
+    property: "Hit Causes Monster to Flee 25%"
+    item_types: ["missile weapon"]
+    group: 113
+    affix_level: 24
+    level_req: 18
+    base_price: 1
+    notes: "Niche - mostly undesirable"
+
+  # ========== MAGIC FIND (Group 114) ==========
+  Fortuitous:
+    property: "11-15% Better Chance of Getting Magic Items"
+    item_types: ["ring", "amulet", "circlet"]
+    group: 114
+    affix_level: 12
+    level_req: 8
+    base_price: 100
+    notes: "15% MF amulet/ring prefix - GG for MF gear"
+
+  Lucky:
+    properties:
+      - "5-7% MF (large charm, alvl 38)"
+      - "4-6% MF (medium charm, alvl 51)"
+      - "2-3% MF (medium charm, alvl 53)"
+      - "8-12% MF (large charm, alvl 55)"
+    item_types: ["large charm", "medium charm"]
+    group: 114
+    base_price: 30
+    notes: "MF grand charm - 12% is decent"
+
+  # ========== MANA (Group 115) ==========
+  Turquoise:
+    property: "+16-20 to Mana"
+    item_types: ["jewel"]
+    group: 115
+    affix_level: 29
+    level_req: 21
+    base_price: 10
+    notes: "Mana jewel - niche"
+
+  Bahamut's:
+    property: "+91-120 to Mana"
+    item_types: ["staves and rods", "ring", "amulet", "orb", "circlet"]
+    group: 115
+    affix_level: 45
+    level_req: 37
+    base_price: 80
+    notes: "High mana - caster amulet/ring potential"
+
+  Serpent's:
+    property: "+13-17 to Mana"
+    item_types: ["small charm"]
+    group: 115
+    affix_level: 48
+    level_req: 40
+    base_price: 15
+    notes: "17 mana SC - mana-based builds"
+
+  # ========== ALL RESISTANCES (Group 116) ==========
+  Shimmering:
+    properties:
+      - "All Res +3-6 (large charm, alvl 8)"
+      - "All Res +8-12 (large charm, alvl 14)"
+      - "All Res +3-5 (medium charm, alvl 17)"
+      - "All Res +3-5 (small charm, alvl 33)"
+      - "All Res +6-8 (medium charm, alvl 34)"
+      - "All Res +13-15 (large charm, alvl 35)"
+    item_types: ["large charm", "medium charm", "small charm"]
+    group: 116
+    base_price: 50
+    notes: "Res charms - 15 all res GC is good"
+
+  Scintillating:
+    property: "All Resistances +11-15"
+    item_types: ["jewel", "ring"]
+    group: 116
+    base_price: 100
+    notes: "15 all res jewel/ring - valuable"
+
+  Chromatic:
+    property: "All Resistances +21-30"
+    item_types: ["any shield", "amulet", "circlet"]
+    group: 116
+    affix_level: 50
+    level_req: 42
+    base_price: 150
+    notes: "30 all res shield/amulet - GG"
+
+  # ========== SINGLE RESISTANCES (Groups 117-120) ==========
+  Sapphire:
+    property: "Cold Resist +10-30%"
+    item_types: ["large charm", "medium charm", "small charm"]
+    group: 117
+    base_price: 5
+    notes: "Single cold res - low value"
+
+  Garnet:
+    property: "Fire Resist +8-9%"
+    item_types: ["small charm"]
+    group: 118
+    base_price: 3
+    notes: "Single fire res SC"
+
+  Ruby:
+    property: "Fire Resist +13-30%"
+    item_types: ["large charm", "medium charm"]
+    group: 118
+    base_price: 8
+    notes: "Single fire res - Ruby is also ED jewel name"
+
+  Amber:
+    property: "Lightning Resist +10-30%"
+    item_types: ["large charm", "medium charm", "small charm"]
+    group: 119
+    base_price: 8
+    notes: "Single light res - most useful single res"
+
+  Emerald:
+    property: "Poison Resist +10-30%"
+    item_types: ["large charm", "medium charm", "small charm"]
+    group: 120
+    base_price: 3
+    notes: "Single poison res - least useful"
+
+  # ========== SOCKETS (Group 122) ==========
+  Artificer's:
+    property: "Socketed (3)"
+    item_types: ["weapon", "any shield", "helm", "armor"]
+    group: 122
+    affix_level: 33
+    level_req: 25
+    base_price: 100
+    notes: "3os prefix - useful for certain bases"
+
+  Jeweler's:
+    property: "Socketed (4)"
+    item_types: ["weapon", "any shield", "helm", "armor"]
+    group: 122
+    affix_level: 55
+    level_req: 47
+    base_price: 500
+    notes: "4os prefix - GG for JMOD, Spirit bases, etc."
+
+  # ========== VS DEMONS (Group 123) ==========
+  Celestial:
+    property: "+301-400 AR vs Demons, +201-300% Damage to Demons"
+    item_types: ["weapon"]
+    group: 123
+    affix_level: 55
+    level_req: 41
+    base_price: 50
+    notes: "Demo slayer - niche but powerful vs demons"
+
+  # ========== +1 SKILLS (Group 125 - Grand Charms) ==========
+  Fletcher's:
+    property: "+1 to Bow and Crossbow Skills"
+    item_types: ["large charm"]
+    group: 125
+    affix_level: 50
+    level_req: 42
+    base_price: 50
+    notes: "Zon Bow skiller GC"
+
+  Acrobat's:
+    property: "+1 to Passive and Magic Skills"
+    item_types: ["large charm"]
+    group: 125
+    affix_level: 50
+    level_req: 42
+    base_price: 30
+    notes: "Zon Passive skiller GC"
+
+  Harpoonist's:
+    property: "+1 to Javelin and Spear Skills"
+    item_types: ["large charm"]
+    group: 125
+    affix_level: 50
+    level_req: 42
+    base_price: 80
+    notes: "Zon Javelin skiller GC - popular for Javazons"
+
+  # ========== +3 SKILL TABS (Group 125) ==========
+  # Amazon
+  Archer's:
+    property: "+3 to Bow and Crossbow Skills"
+    item_types: ["missile weapon", "gloves"]
+    group: 125
+    affix_level: 60
+    level_req: 45
+    base_price: 150
+    notes: "+3 Bow gloves/weapon"
+
+  Athlete's:
+    property: "+3 to Passive and Magic Skills"
+    item_types: ["gloves", "amulet", "circlet"]
+    group: 125
+    affix_level: 60
+    level_req: 45
+    base_price: 80
+    notes: "+3 Passive amulet/circlet/gloves"
+
+  Lancer's:
+    property: "+3 to Javelin and Spear Skills"
+    item_types: ["spear", "gloves"]
+    group: 125
+    affix_level: 60
+    level_req: 45
+    base_price: 200
+    notes: "+3 Javelin gloves/spear - GG for Javazons"
+
+  # Sorceress
+  Volcanic:
+    property: "+3 to Fire Skills"
+    item_types: ["orb", "amulet", "circlet"]
+    group: 125
+    affix_level: 60
+    level_req: 45
+    base_price: 300
+    notes: "+3 Fire Sorc - Fire Ball/Meteor builds"
+
+  Powered:
+    property: "+3 to Lightning Skills"
+    item_types: ["orb", "amulet", "circlet"]
+    group: 125
+    affix_level: 60
+    level_req: 45
+    base_price: 400
+    notes: "+3 Light Sorc - Lightning/Chain Lightning"
+
+  Glacial:
+    property: "+3 to Cold Skills"
+    item_types: ["orb", "amulet", "circlet"]
+    group: 125
+    affix_level: 60
+    level_req: 45
+    base_price: 350
+    notes: "+3 Cold Sorc - Blizzard/Frozen Orb"
+
+  # Necromancer
+  Accursed:
+    property: "+3 to Curses Skills"
+    item_types: ["wand", "voodoo heads", "amulet", "circlet"]
+    group: 125
+    affix_level: 60
+    level_req: 45
+    base_price: 100
+    notes: "+3 Curses - niche curse-support builds"
+
+  Venomous:
+    property: "+3 to Poison and Bone Skills"
+    item_types: ["wand", "voodoo heads", "amulet", "knife", "circlet"]
+    group: 125
+    affix_level: 60
+    level_req: 45
+    base_price: 800
+    notes: "+3 PnB - GG for Poison Necro, includes Bone Spear/Spirit"
+
+  Golemlord's:
+    property: "+3 to Summoning Skills"
+    item_types: ["wand", "voodoo heads", "amulet", "circlet"]
+    group: 125
+    affix_level: 60
+    level_req: 45
+    base_price: 400
+    notes: "+3 Summon - Summonmancer items"
+
+  # Paladin
+  Rose_Branded:
+    property: "+3 to Combat Skills"
+    item_types: ["scepter", "sword", "mace", "any shield", "auric shields", "amulet"]
+    group: 125
+    affix_level: 60
+    level_req: 45
+    base_price: 500
+    notes: "+3 Pally Combat - Hammerdin/Smiter/Zealer"
+
+  Marshal's:
+    property: "+3 to Offensive Auras Skills"
+    item_types: ["scepter", "sword", "mace", "any shield", "auric shields", "amulet"]
+    group: 125
+    affix_level: 60
+    level_req: 45
+    base_price: 200
+    notes: "+3 Offensive Auras - Auradin"
+
+  Guardian's:
+    property: "+3 to Defensive Auras Skills"
+    item_types: ["any shield", "auric shields", "amulet", "circlet"]
+    group: 125
+    affix_level: 60
+    level_req: 45
+    base_price: 150
+    notes: "+3 Defensive Auras - support Pally"
+
+  # Barbarian
+  Master's:
+    property: "+3 to Combat Skills"
+    item_types: ["primal helm", "weapon", "helm"]
+    group: 125
+    affix_level: 60
+    level_req: 45
+    base_price: 250
+    notes: "+3 Barb Combat - for weapon/helm"
+
+  Furious:
+    property: "+3 to Combat Masteries Skills"
+    item_types: ["primal helm", "weapon", "amulet"]
+    group: 125
+    affix_level: 60
+    level_req: 45
+    base_price: 150
+    notes: "+3 Combat Masteries - weapon mastery"
+
+  Echoing:
+    property: "+3 to Warcries Skills"
+    item_types: ["primal helm", "weapon", "amulet"]
+    group: 125
+    affix_level: 60
+    level_req: 45
+    base_price: 400
+    notes: "+3 Warcries - Warcry Barb, BO sticks"
+
+  # Druid
+  Keeper's:
+    property: "+3 to Summoning Skills"
+    item_types: ["club", "pelt", "amulet", "circlet"]
+    group: 125
+    affix_level: 60
+    level_req: 45
+    base_price: 350
+    notes: "+3 Druid Summon - Summoner Druid"
+
+  Communal:
+    property: "+3 to Shapeshifting Skills"
+    item_types: ["club", "pelt", "amulet", "circlet"]
+    group: 125
+    affix_level: 60
+    level_req: 45
+    base_price: 200
+    notes: "+3 Shapeshifting - Werewolf/Werebear"
+
+  Gaea's:
+    property: "+3 to Elemental Skills"
+    item_types: ["club", "pelt", "amulet", "circlet"]
+    group: 125
+    affix_level: 60
+    level_req: 45
+    base_price: 500
+    notes: "+3 Elemental - Wind Druid (Tornado/Hurricane)"
+
+  # Assassin
+  Cunning:
+    property: "+3 to Traps Skills"
+    item_types: ["hand to hand", "amulet", "circlet"]
+    group: 125
+    affix_level: 60
+    level_req: 45
+    base_price: 400
+    notes: "+3 Traps - Trapsin (Lightning Sentry)"
+
+  Shadow:
+    property: "+3 to Shadow Disciplines Skills"
+    item_types: ["hand to hand", "amulet", "helm", "circlet"]
+    group: 125
+    affix_level: 60
+    level_req: 45
+    base_price: 250
+    notes: "+3 Shadow - Shadowassin, Venom"
+
+  Kenshi's:
+    property: "+3 to Martial Arts Skills"
+    item_types: ["hand to hand", "amulet", "gloves", "circlet"]
+    group: 125
+    affix_level: 60
+    level_req: 45
+    base_price: 150
+    notes: "+3 Martial Arts - Martial Arts Assassin"
+
+  # Assassin (New D2R Skills)
+  Torrid:
+    property: "+3 to Chaos Skills"
+    item_types: ["knife", "grimoire", "amulet", "circlet"]
+    group: 125
+    affix_level: 60
+    level_req: 45
+    base_price: 300
+    notes: "+3 Chaos Skills (D2R Assassin rework)"
+
+  Forbidden:
+    property: "+3 to Eldritch Skills"
+    item_types: ["knife", "grimoire", "amulet", "sword", "circlet"]
+    group: 125
+    affix_level: 60
+    level_req: 45
+    base_price: 300
+    notes: "+3 Eldritch Skills (D2R Assassin rework)"
+
+  Malevolent:
+    property: "+3 to Demon Skills"
+    item_types: ["knife", "grimoire", "amulet", "circlet"]
+    group: 125
+    affix_level: 60
+    level_req: 45
+    base_price: 300
+    notes: "+3 Demon Skills (D2R Assassin rework)"
+
+  # ========== ELEMENTAL DAMAGE (Groups 137-140) ==========
+  Hibernal:
+    property: "+8-15 Min Cold Damage, +15-30 Max Cold Damage"
+    item_types: ["large charm", "medium charm", "small charm"]
+    group: 137
+    base_price: 30
+    notes: "Cold damage charms - adds chill effect"
+
+  Flaming:
+    property: "+8-27 Min Fire Damage, +20-43 Max Fire Damage"
+    item_types: ["large charm", "medium charm", "small charm"]
+    group: 138
+    base_price: 25
+    notes: "Fire damage charms"
+
+  Shocking:
+    property: "+1 Min Lightning Damage, +44-90 Max Lightning Damage"
+    item_types: ["large charm", "medium charm", "small charm"]
+    group: 139
+    base_price: 35
+    notes: "Lightning damage charms - high max damage"
+
+  Pestilent:
+    property: "Adds 171-470 Poison Damage Over 6 Seconds"
+    item_types: ["large charm", "medium charm", "small charm", "weapon"]
+    group: 140
+    base_price: 40
+    notes: "Poison damage - good for Venom builds"
+
+  # ========== VS UNDEAD (Group 142) ==========
+  Divine:
+    property: "+326-450 AR vs Undead, +276-350% Damage to Undead"
+    item_types: ["weapon"]
+    group: 142
+    affix_level: 45
+    level_req: 37
+    base_price: 30
+    notes: "Undead slayer - niche but useful in certain areas"
+
+# ===================================
+# MAGIC ONLY SUFFIXES
+# ===================================
+
+magic_suffixes:
+  # Note: In D2R, suffixes appear as "of {Name}"
+  # The CSV lists prefix names, but these are the suffix equivalents
+
+  of_the_Magus:
+    property: "20% Faster Cast Rate"
+    item_types: ["amulet", "circlet", "orb"]
+    base_price: 300
+    notes: "20 FCR - GG caster suffix"
+
+  of_Speed:
+    property: "30% Faster Run/Walk"
+    item_types: ["boots", "circlet"]
+    base_price: 100
+    notes: "30 FRW - mobility suffix"
+
+  of_Haste:
+    property: "20% Faster Run/Walk"
+    item_types: ["boots"]
+    base_price: 50
+    notes: "20 FRW"
+
+  of_the_Whale:
+    property: "+81-100 to Life"
+    item_types: ["amulet", "circlet", "armor"]
+    base_price: 200
+    notes: "100 life - valuable life suffix"
+
+  of_Vita:
+    property: "+31-40 to Life"
+    item_types: ["small charm", "grand charm"]
+    base_price: 150
+    notes: "40 life skiller suffix"
+
+  of_Sustenance:
+    property: "+21-30 to Life"
+    item_types: ["small charm", "grand charm"]
+    base_price: 80
+    notes: "30 life skiller suffix"
+
+  of_Atlas:
+    property: "+21-30 to Strength"
+    item_types: ["amulet", "circlet", "ring"]
+    base_price: 50
+    notes: "+Str suffix for requirements"
+
+  of_Nirvana:
+    property: "+16-20 to Dexterity"
+    item_types: ["amulet", "circlet", "ring"]
+    base_price: 40
+    notes: "+Dex suffix"
+
+  of_Deflecting:
+    property: "+20% Increased Chance of Blocking"
+    item_types: ["any shield"]
+    base_price: 400
+    notes: "20% block - JMOD suffix"
+
+  of_Teleportation:
+    property: "Teleport Charges"
+    item_types: ["amulet", "circlet"]
+    base_price: 1000
+    notes: "Teleport charges - GG for PvP"
+
+  of_Fortune:
+    property: "+25-35% Better Chance of Getting Magic Items"
+    item_types: ["amulet", "ring"]
+    base_price: 100
+    notes: "MF suffix"
+
+  of_Good_Luck:
+    property: "+10-20% Better Chance of Getting Magic Items"
+    item_types: ["small charm"]
+    base_price: 50
+    notes: "MF SC suffix"
+
+  of_the_Vampire:
+    property: "6-9% Mana Stolen Per Hit"
+    item_types: ["ring", "weapon"]
+    base_price: 80
+    notes: "Mana leech suffix"
+
+  of_the_Leech:
+    property: "6-9% Life Stolen Per Hit"
+    item_types: ["ring", "weapon"]
+    base_price: 100
+    notes: "Life leech suffix"
+
+  of_the_Locust:
+    property: "3-5% Life Stolen Per Hit"
+    item_types: ["weapon"]
+    base_price: 60
+    notes: "Life leech weapon suffix"
+
+  of_Apprentice:
+    property: "10% Faster Cast Rate"
+    item_types: ["ring"]
+    base_price: 150
+    notes: "10 FCR ring suffix - caster ring"
+
+  of_Fervent:
+    property: "15% Increased Attack Speed"
+    item_types: ["jewel"]
+    base_price: 200
+    notes: "15 IAS jewel suffix"
+
+  of_Freedom:
+    property: "-15% Requirements"
+    item_types: ["jewel", "armor"]
+    base_price: 100
+    notes: "-req suffix"
+
+  of_Precision:
+    property: "+31-40 to Attack Rating"
+    item_types: ["ring", "amulet"]
+    base_price: 20
+    notes: "AR suffix"
+
+  of_Regrowth:
+    property: "Replenish Life +5-10"
+    item_types: ["small charm"]
+    base_price: 5
+    notes: "Life regen - low value"
+
+# ===================================
+# RARE AFFIXES (Magic and Rare)
+# ===================================
+
+rare_prefixes:
+  # ========== DEFENSE (Group 101) ==========
+  Stout:
+    property: "+1-5 Defense"
+    item_types: ["large charm", "medium charm", "small charm"]
+    group: 101
+    base_price: 1
+    notes: "Low defense - rarely matters"
+
+  Blanched:
+    property: "+5-8 Defense"
+    item_types: ["jewel"]
+    group: 101
+    base_price: 1
+    notes: "Defense jewel - not used"
+
+  Sturdy:
+    property: "+10-30% Enhanced Defense"
+    item_types: ["any armor"]
+    group: 101
+    base_price: 20
+    notes: "ED armor prefix - low tier"
+
+  Strong:
+    property: "+31-40% Enhanced Defense"
+    item_types: ["any armor"]
+    group: 101
+    base_price: 30
+    notes: "ED armor prefix - mid tier"
+
+  Glorious:
+    property: "+41-50% Enhanced Defense"
+    item_types: ["any armor"]
+    group: 101
+    base_price: 40
+    notes: "ED armor prefix - mid tier"
+
+  Blessed:
+    property: "+51-65% Enhanced Defense"
+    item_types: ["any armor"]
+    group: 101
+    base_price: 50
+    notes: "ED armor prefix - good tier"
+
+  Saintly:
+    property: "+66-80% Enhanced Defense"
+    item_types: ["any armor"]
+    group: 101
+    base_price: 60
+    notes: "ED armor prefix - high tier"
+
+  Holy:
+    property: "+81-100% Enhanced Defense"
+    item_types: ["any armor"]
+    group: 101
+    base_price: 80
+    notes: "ED armor prefix - very high tier"
+
+  Godly_Rare:
+    property: "+101-200% Enhanced Defense"
+    item_types: ["any armor"]
+    group: 101
+    base_price: 100
+    notes: "ED armor prefix - rare can roll this too"
+
+  # ========== MDR (Group 103) ==========
+  Devious:
+    property: "Magic Damage Reduced by 1"
+    item_types: ["any shield"]
+    group: 103
+    base_price: 10
+    notes: "MDR 1 - minimal"
+
+  Fortified:
+    property: "Magic Damage Reduced by 2"
+    item_types: ["any shield"]
+    group: 103
+    base_price: 20
+    notes: "MDR 2 - low but useful"
+
+  # ========== MIN DAMAGE (Group 103) ==========
+  Scarlet:
+    property: "+1-4 to Minimum Damage"
+    item_types: ["jewel"]
+    group: 103
+    base_price: 30
+    notes: "Min damage jewel"
+
+  Red:
+    property: "+1-2 to Minimum Damage"
+    item_types: ["large charm", "medium charm", "small charm"]
+    group: 103
+    base_price: 15
+    notes: "Min damage charm"
+
+  Crimson:
+    property: "+5-8 to Minimum Damage"
+    item_types: ["jewel"]
+    group: 103
+    base_price: 80
+    notes: "High min damage jewel - valuable"
+
+  Sanguinary_Rare:
+    property: "+2 to Minimum Damage"
+    item_types: ["large charm"]
+    group: 103
+    base_price: 30
+    notes: "Min damage GC - rare can roll"
+
+  # ========== MAX DAMAGE (Group 104) ==========
+  Jagged:
+    properties:
+      - "+1 Max Damage (charms)"
+      - "+10-20% Enhanced Damage (weapon, circlet)"
+    item_types: ["large charm", "medium charm", "small charm", "weapon", "circlet"]
+    group: 104
+    base_price: 20
+    notes: "Low tier max damage or ED"
+
+  Carbuncle:
+    property: "+1-5 to Maximum Damage"
+    item_types: ["jewel"]
+    group: 104
+    base_price: 40
+    notes: "Max damage jewel"
+
+  Carmine:
+    property: "+6-9 to Maximum Damage"
+    item_types: ["jewel"]
+    group: 104
+    base_price: 100
+    notes: "High max damage jewel - valuable"
+
+  Forked_Rare:
+    property: "+2 to Maximum Damage"
+    item_types: ["large charm"]
+    group: 104
+    base_price: 35
+    notes: "Max damage GC - rare can roll"
+
+  # ========== ENHANCED DAMAGE (Group 105) ==========
+  Cinnabar:
+    property: "+5-10% Enhanced Damage"
+    item_types: ["jewel"]
+    group: 105
+    base_price: 30
+    notes: "Low ED jewel"
+
+  Deadly:
+    property: "+21-30% Enhanced Damage"
+    item_types: ["weapon", "circlet"]
+    group: 105
+    base_price: 25
+    notes: "Low ED weapon"
+
+  Vicious:
+    property: "+31-40% Enhanced Damage"
+    item_types: ["weapon"]
+    group: 105
+    base_price: 35
+    notes: "Low-mid ED weapon"
+
+  Rusty:
+    property: "+11-20% Enhanced Damage"
+    item_types: ["jewel"]
+    group: 105
+    base_price: 20
+    notes: "Low ED jewel"
+
+  Brutal:
+    property: "+41-50% Enhanced Damage"
+    item_types: ["weapon"]
+    group: 105
+    base_price: 45
+    notes: "Mid ED weapon"
+
+  Massive:
+    property: "+51-65% Enhanced Damage"
+    item_types: ["weapon"]
+    group: 105
+    base_price: 55
+    notes: "Mid-high ED weapon"
+
+  Savage:
+    property: "+66-80% Enhanced Damage"
+    item_types: ["weapon"]
+    group: 105
+    base_price: 70
+    notes: "High ED weapon"
+
+  Merciless:
+    property: "+81-100% Enhanced Damage"
+    item_types: ["weapon"]
+    group: 105
+    base_price: 90
+    notes: "Very high ED weapon"
+
+  Ferocious:
+    property: "+101-200% Enhanced Damage"
+    item_types: ["weapon"]
+    group: 105
+    base_price: 120
+    notes: "Excellent ED weapon - but Cruel is better"
+
+  Realgar:
+    property: "+21-30% Enhanced Damage"
+    item_types: ["jewel"]
+    group: 105
+    base_price: 50
+    notes: "ED jewel - mid tier"
+
+  Gritty:
+    property: "+0.75 Max Damage Per Character Level"
+    item_types: ["weapon"]
+    group: 105
+    base_price: 80
+    notes: "Max dmg per level - scales well (75 at clvl 100)"
+
+  Cruel_Rare:
+    property: "+201-300% Enhanced Damage"
+    item_types: ["weapon"]
+    group: 105
+    base_price: 150
+    notes: "Best ED prefix - rare can also roll"
+
+  # ========== DAMAGE TO MANA (Group 107) ==========
+  Dun:
+    property: "7-12% Damage Taken Goes To Mana"
+    item_types: ["jewel"]
+    group: 107
+    base_price: 15
+    notes: "Energy shield synergy - niche"
+
+  Vulpine:
+    property: "10% Damage Taken Goes To Mana"
+    item_types: ["any shield", "amulet"]
+    group: 107
+    base_price: 30
+    notes: "ES synergy - memory runeword has this"
+
+  # ========== STAMINA (Group 108) ==========
+  Tireless:
+    property: "Heal Stamina Plus 10-50%"
+    item_types: ["boots"]
+    group: 108
+    base_price: 5
+    notes: "Stamina regen - low value"
+
+  # ========== ATTACK RATING (Group 110) ==========
+  Bronze:
+    property: "+2-12 to Attack Rating"
+    item_types: ["large charm", "medium charm", "small charm"]
+    group: 110
+    base_price: 2
+    notes: "Low AR charms"
+
+  Iron:
+    property: "+21-40 to Attack Rating"
+    item_types: ["weapon", "ring", "circlet"]
+    group: 110
+    base_price: 10
+    notes: "Low AR"
+
+  Steel_Rare:
+    property: "+41-60 to Attack Rating"
+    item_types: ["weapon", "ring", "circlet"]
+    group: 110
+    base_price: 15
+    notes: "Mid AR"
+
+  Silver:
+    property: "+61-80 to Attack Rating"
+    item_types: ["weapon", "ring", "circlet"]
+    group: 110
+    base_price: 20
+    notes: "Mid AR"
+
+  Gold:
+    property: "+81-100 to Attack Rating"
+    item_types: ["weapon", "ring", "circlet"]
+    group: 110
+    base_price: 25
+    notes: "Good AR"
+
+  Platinum:
+    property: "+101-120 to Attack Rating"
+    item_types: ["weapon", "ring", "circlet"]
+    group: 110
+    base_price: 30
+    notes: "High AR"
+
+  Meteoric:
+    property: "+121-150 to Attack Rating"
+    item_types: ["weapon"]
+    group: 110
+    base_price: 40
+    notes: "Very high AR"
+
+  Strange:
+    property: "+151-300 to Attack Rating"
+    item_types: ["weapon"]
+    group: 110
+    base_price: 60
+    notes: "Excellent AR - highest pure AR prefix"
+
+  # ========== AR + ED (Group 111) ==========
+  Sharp:
+    property: "+10-20 AR, +10-20% ED"
+    item_types: ["weapon"]
+    group: 111
+    base_price: 30
+    notes: "AR+ED combo - low tier"
+
+  Fine_Rare:
+    property: "+21-40 AR, +21-30% ED"
+    item_types: ["weapon"]
+    group: 111
+    base_price: 45
+    notes: "AR+ED combo - mid tier"
+
+  Warriors:
+    property: "+41-60 AR, +31-40% ED"
+    item_types: ["weapon"]
+    group: 111
+    base_price: 60
+    notes: "AR+ED combo - good tier"
+
+  Soldiers:
+    property: "+61-80 AR, +41-50% ED"
+    item_types: ["weapon"]
+    group: 111
+    base_price: 75
+    notes: "AR+ED combo - high tier"
+
+  Knights:
+    property: "+81-100 AR, +51-65% ED"
+    item_types: ["weapon"]
+    group: 111
+    base_price: 100
+    notes: "AR+ED combo - very high tier"
+
+  Lords:
+    property: "+101-120 AR, +66-80% ED"
+    item_types: ["weapon"]
+    group: 111
+    base_price: 120
+    notes: "AR+ED combo - excellent tier"
+
+  Kings:
+    property: "+121-150 AR, +81-100% ED"
+    item_types: ["weapon"]
+    group: 111
+    base_price: 150
+    notes: "AR+ED combo - near top tier"
+
+  Masters_Rare:
+    property: "+151-250 AR, +101-150% ED"
+    item_types: ["weapon"]
+    group: 111
+    base_price: 200
+    notes: "AR+ED combo - best tier for rare weapons"
+
+  # ========== MONSTER FLEE (Group 113) ==========
+  Screaming:
+    property: "Hit Causes Monster to Flee 25%"
+    item_types: ["weapon"]
+    group: 113
+    base_price: 1
+    notes: "Niche - mostly unwanted"
+
+  Howling:
+    property: "Hit Causes Monster to Flee 100%"
+    item_types: ["weapon"]
+    group: 113
+    base_price: 1
+    notes: "Niche - mostly unwanted"
+
+  Wailing_Rare:
+    property: "Hit Causes Monster to Flee 100%"
+    item_types: ["weapon"]
+    group: 113
+    base_price: 1
+    notes: "Niche - mostly unwanted"
+
+  # ========== MAGIC FIND (Group 114) ==========
+  Fortuitous_Rare:
+    property: "10-15% Better Chance of Getting Magic Items"
+    item_types: ["ring", "amulet"]
+    group: 114
+    base_price: 80
+    notes: "MF ring/amulet - rare can roll"
+
+  Felicitous:
+    property: "5-10% Better Chance of Getting Magic Items"
+    item_types: ["ring", "amulet", "circlet"]
+    group: 114
+    base_price: 50
+    notes: "MF mid-tier"
+
+  Lucky_Rare:
+    property: "1-4% Better Chance of Getting Magic Items"
+    item_types: ["large charm"]
+    group: 114
+    base_price: 20
+    notes: "MF GC - rare can roll"
+
+  # ========== MANA (Group 115) ==========
+  Lizards:
+    property: "+1-7 to Mana"
+    item_types: ["large charm", "medium charm", "small charm", "any armor", "ring", "amulet", "staves and rods", "orb"]
+    group: 115
+    base_price: 5
+    notes: "Low mana affix"
+
+  Snakes:
+    property: "+5-10 to Mana"
+    item_types: ["any shield", "staves and rods", "belt", "ring", "amulet", "circlet"]
+    group: 115
+    base_price: 15
+    notes: "Mid mana affix"
+
+  Serpents_Rare:
+    property: "+11-20 to Mana"
+    item_types: ["any shield", "staves and rods", "belt", "ring", "amulet", "circlet"]
+    group: 115
+    base_price: 25
+    notes: "Good mana affix"
+
+  Drakes:
+    property: "+21-30 to Mana"
+    item_types: ["staves and rods", "ring", "amulet", "orb", "circlet"]
+    group: 115
+    base_price: 35
+    notes: "High mana affix"
+
+  Dragons:
+    property: "+31-40 to Mana"
+    item_types: ["staves and rods", "ring", "amulet", "orb", "circlet"]
+    group: 115
+    base_price: 50
+    notes: "Very high mana affix"
+
+  Wyrms:
+    property: "+41-60 to Mana"
+    item_types: ["staves and rods", "ring", "amulet", "orb", "circlet"]
+    group: 115
+    base_price: 70
+    notes: "Excellent mana affix - highest for rare"
+
+  # ========== LIGHT RADIUS (Group 112) ==========
+  Glimmering:
+    property: "+1 to Light Radius"
+    item_types: ["any armor", "wand", "staff", "ring", "amulet", "orb"]
+    group: 112
+    base_price: 1
+    notes: "Light radius - cosmetic mostly"
+
+  Glowing:
+    property: "+2 to Light Radius"
+    item_types: ["any armor", "wand", "staff", "ring", "amulet", "orb"]
+    group: 112
+    base_price: 1
+    notes: "Light radius - cosmetic mostly"
+
+# ===================================
+# GG COMBINATIONS (High Value)
+# ===================================
+
+gg_combinations:
+  # JMOD - Jeweler's Monarch of Deflecting
+  "Jeweler's Monarch of Deflecting":
+    prefix: "Jeweler's"
+    suffix: "of Deflecting"
+    base_types: ["Monarch"]
+    base_price: 2000
+    perfect_price: 8000
+    notes: "4os + 20% block - Spirit/Phoenix base"
+
+  # Caster Amulets
+  "Arch-Angel's Amulet of the Magus":
+    prefix: "Arch-Angel's"
+    suffix: "of the Magus"
+    base_types: ["Amulet"]
+    base_price: 1500
+    perfect_price: 5000
+    min_ilvl: 90
+    notes: "+2 all skills / 20 FCR"
+
+  "Necromancer's Amulet of the Magus":
+    prefix: "Necromancer's"
+    suffix: "of the Magus"
+    base_types: ["Amulet"]
+    base_price: 2000
+    perfect_price: 8000
+    min_ilvl: 90
+    notes: "+2 Necro / 20 FCR - GG Poison Necro"
+
+  "Sorceress's Amulet of the Magus":
+    prefix: "Sorceress's"
+    suffix: "of the Magus"
+    base_types: ["Amulet"]
+    base_price: 1500
+    perfect_price: 6000
+    min_ilvl: 90
+    notes: "+2 Sorc / 20 FCR"
+
+  # Caster Circlets
+  "Venomous Diadem of the Magus":
+    prefix: "Venomous"
+    suffix: "of the Magus"
+    base_types: ["Diadem", "Circlet", "Coronet", "Tiara"]
+    base_price: 4000
+    perfect_price: 20000
+    min_ilvl: 90
+    notes: "+3 PnB / 20 FCR - GG Poison Necro"
+
+  "Powered Diadem of the Magus":
+    prefix: "Powered"
+    suffix: "of the Magus"
+    base_types: ["Diadem", "Circlet", "Coronet", "Tiara"]
+    base_price: 2500
+    perfect_price: 10000
+    min_ilvl: 90
+    notes: "+3 Lightning / 20 FCR - Lightning Sorc"
+
+  "Gaea's Diadem of the Magus":
+    prefix: "Gaea's"
+    suffix: "of the Magus"
+    base_types: ["Diadem", "Circlet", "Coronet", "Tiara"]
+    base_price: 2500
+    perfect_price: 10000
+    min_ilvl: 90
+    notes: "+3 Elemental / 20 FCR - Wind Druid"
+
+  "Echoing Amulet of the Magus":
+    prefix: "Echoing"
+    suffix: "of the Magus"
+    base_types: ["Amulet"]
+    base_price: 1500
+    perfect_price: 6000
+    min_ilvl: 90
+    notes: "+3 Warcries / 20 FCR - Warcry Barb"
+
+  # GG Jewels
+  "Ruby Jewel of Fervent":
+    prefix: "Ruby"
+    suffix: "of Fervent"
+    base_types: ["Jewel"]
+    base_price: 1500
+    perfect_price: 5000
+    notes: "40 ED / 15 IAS - GG jewel"
+
+  "Crimson Jewel of Fervent":
+    prefix: "Crimson"
+    suffix: "of Fervent"
+    base_types: ["Jewel"]
+    base_price: 1500
+    perfect_price: 5000
+    notes: "40 ED / 15 IAS - GG jewel variant"
+
+  # Skiller Charms
+  "Skiller Grand Charm of Vita":
+    prefix: "Skiller"
+    suffix: "of Vita"
+    base_types: ["Grand Charm"]
+    base_price: 800
+    perfect_price: 2500
+    min_ilvl: 50
+    notes: "+1 skill tree / 40+ life"
+
+  # Teleport Items
+  "Necromancer's Circlet of Teleportation":
+    prefix: "Necromancer's"
+    suffix: "of Teleportation"
+    base_types: ["Diadem", "Circlet"]
+    base_price: 4000
+    perfect_price: 12000
+    notes: "+2 Necro / Teleport - PvP"
+
+  "Barbarian's Circlet of Teleportation":
+    prefix: "Barbarian's"
+    suffix: "of Teleportation"
+    base_types: ["Diadem", "Circlet"]
+    base_price: 5000
+    perfect_price: 15000
+    notes: "+2 Barb / Teleport - PvP"
+
+# ===================================
+# ILVL BONUSES
+# ===================================
+
+ilvl_multipliers:
+  90: 1.3    # ilvl 90+ can roll all affixes, perfect roll potential
+  85: 1.15   # ilvl 85+ good roll potential
+  80: 1.1
+  75: 1.05
+  50: 1.0    # Base
+  30: 0.9    # Lower ilvl
+  0: 0.8
+
+# ===================================
+# LLD BONUSES
+# ===================================
+
+lld_ilvl_tiers:
+  9: 2.0     # LLD9 - max ilvl for level 9 dueling
+  18: 1.5    # LLD18
+  30: 1.3    # LLD30
+
+# ===================================
+# TIER THRESHOLDS
+# ===================================
+
+tier_thresholds:
+  GG: 1000
+  High: 500
+  Medium: 100
+  Low: 10

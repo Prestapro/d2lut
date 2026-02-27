@@ -54,13 +54,24 @@ class MagicItemPricer:
         self.ilvl_multipliers: dict = {}
         self.lld_ilvl_tiers: dict = {}
         
+        # Complete affix database
+        self.magic_prefixes: dict = {}
+        self.magic_suffixes: dict = {}
+        self.rare_prefixes: dict = {}
+        self.gg_combinations: dict = {}
+        
         if config_path:
             self._load_config(Path(config_path))
         else:
-            # Default config path
+            # Default config paths
             default_path = Path(__file__).parent.parent.parent.parent / "config" / "magic_affix_prices.yml"
             if default_path.exists():
                 self._load_config(default_path)
+            
+            # Load comprehensive affix database
+            affix_db_path = Path(__file__).parent.parent.parent.parent / "config" / "affix_database.yml"
+            if affix_db_path.exists():
+                self._load_affix_database(affix_db_path)
     
     def _load_config(self, config_path: Path) -> None:
         """Load affix pricing configuration."""
@@ -74,6 +85,59 @@ class MagicItemPricer:
         self.single_affix_values = data.get("single_affix_values", {})
         self.ilvl_multipliers = data.get("ilvl_multipliers", {})
         self.lld_ilvl_tiers = data.get("lld_ilvl_tiers", {})
+    
+    def _load_affix_database(self, db_path: Path) -> None:
+        """Load comprehensive affix database with all affixes from CSV."""
+        if not db_path.exists():
+            return
+        
+        with open(db_path, "r", encoding="utf-8") as f:
+            data = yaml.safe_load(f) or {}
+        
+        self.magic_prefixes = data.get("magic_prefixes", {})
+        self.magic_suffixes = data.get("magic_suffixes", {})
+        self.rare_prefixes = data.get("rare_prefixes", {})
+        self.gg_combinations = data.get("gg_combinations", {})
+        
+        # Merge tier thresholds from database if present
+        if "tier_thresholds" in data:
+            self.TIER_THRESHOLDS = data["tier_thresholds"]
+        
+        # Merge ilvl multipliers from database if not already loaded
+        if not self.ilvl_multipliers and "ilvl_multipliers" in data:
+            self.ilvl_multipliers = data["ilvl_multipliers"]
+        
+        # Merge LLD tiers if not already loaded
+        if not self.lld_ilvl_tiers and "lld_ilvl_tiers" in data:
+            self.lld_ilvl_tiers = data["lld_ilvl_tiers"]
+        
+        # Build single_affix_values from magic_prefixes + magic_suffixes
+        # This provides fallback pricing for any affix in the database
+        for name, info in self.magic_prefixes.items():
+            if name not in self.single_affix_values:
+                self.single_affix_values[name] = {
+                    "base_price": info.get("base_price", 0),
+                    "property": info.get("property", ""),
+                    "notes": info.get("notes", ""),
+                }
+        
+        for name, info in self.magic_suffixes.items():
+            # Remove 'of ' prefix for lookup
+            lookup_name = name.replace("of_", "of ") if "_" in name else name
+            if lookup_name not in self.single_affix_values:
+                self.single_affix_values[lookup_name] = {
+                    "base_price": info.get("base_price", 0),
+                    "property": info.get("property", ""),
+                    "notes": info.get("notes", ""),
+                }
+        
+        for name, info in self.rare_prefixes.items():
+            if name not in self.single_affix_values:
+                self.single_affix_values[name] = {
+                    "base_price": info.get("base_price", 0),
+                    "property": info.get("property", ""),
+                    "notes": info.get("notes", ""),
+                }
     
     def price_item(
         self,
@@ -121,28 +185,39 @@ class MagicItemPricer:
                     notes = combo_data.get("notes", "")
                     is_lld = combo_data.get("lld_only", False)
         
-        # 2. If no combo match, sum single affix values
+        # 2. Check GG combinations from database
+        if base_price == 0:
+            gg_combo_key = f"{prefix} {suffix}"  # e.g., "Jeweler's Monarch of Deflecting"
+            for combo_name, combo_data in self.gg_combinations.items():
+                if combo_data.get("prefix") == prefix and combo_data.get("suffix") == suffix:
+                    base_price = combo_data.get("base_price", 0)
+                    perfect_price = combo_data.get("perfect_price", base_price * 2)
+                    price = base_price + (perfect_price - base_price) * (roll_percent / 100.0)
+                    notes = combo_data.get("notes", "")
+                    break
+        
+        # 3. If no combo match, sum single affix values
         if base_price == 0:
             prefix_price = self.single_affix_values.get(prefix, {}).get("base_price", 0)
             suffix_price = self.single_affix_values.get(suffix, {}).get("base_price", 0)
             base_price = (prefix_price + suffix_price) * (roll_percent / 100.0)
             price = base_price  # Initialize price from single affix calculation
         
-        # 3. Apply ilvl multiplier to price
+        # 4. Apply ilvl multiplier to price
         ilvl_mult = self._get_ilvl_multiplier(ilvl)
         price = price * ilvl_mult
         
-        # 4. Check for LLD bonus
+        # 5. Check for LLD bonus
         lld_mult = self._get_lld_multiplier(ilvl)
         if lld_mult > 1.0:
             price *= lld_mult
             is_lld = True
         
-        # 5. Determine tier
+        # 6. Determine tier
         tier = self._price_to_tier(price)
         color = self.COLORS.get(tier, "ÿc0")
         
-        # 6. Generate tag based on value
+        # 7. Generate tag based on value
         if price >= 10000:
             tag = "[GG]"
         elif price >= 5000:
@@ -158,7 +233,7 @@ class MagicItemPricer:
         else:
             tag = ""
         
-        # 7. Generate ilvl display
+        # 8. Generate ilvl display
         ilvl_display = self._format_ilvl(ilvl, is_lld)
         
         return AffixPriceResult(
