@@ -73,6 +73,127 @@ _SHAKO_RE = re.compile(r"(?i)\b(?:shako|harlequin\s+crest)\b")
 _GRIFFON_RE = re.compile(r"(?i)\b(?:griffon'?s?\s+eye|griffons?)\b")
 _HOZ_RE = re.compile(r"(?i)\b(?:herald\s+of\s+zakarum|hoz|zaka)\b")
 _NIGHTWING_RE = re.compile(r"(?i)\b(?:nightwing'?s?(?:\s+veil)?|nw)\b")
+
+# --- Additional unique/set item patterns for broader market coverage ---
+_ARACH_RE = re.compile(r"(?i)\b(?:arach(?:nid)?(?:'?s)?(?:\s+mesh)?)\b")
+_MARAS_RE = re.compile(r"(?i)\b(?:mara'?s?(?:\s+kaleidoscope)?)\b")
+_HIGHLORD_RE = re.compile(r"(?i)\b(?:highlord'?s?(?:\s+wrath)?)\b")
+_WAR_TRAV_RE = re.compile(r"(?i)\b(?:war\s*trav(?:eler)?s?|wt)\b")
+_SOJ_RE = re.compile(r"(?i)\b(?:soj|stone\s+of\s+jordan)\b")
+_OCULUS_RE = re.compile(r"(?i)\b(?:occ(?:y|ulus)|the\s+oculus)\b")
+_SKULLDERS_RE = re.compile(r"(?i)\b(?:skull?ders?(?:'?s)?(?:\s+ire)?)\b")
+_GHEEDS_RE = re.compile(r"(?i)\b(?:gheed'?s?(?:\s+fortune)?)\b")
+_CHANCE_RE = re.compile(r"(?i)\b(?:chance\s*guards?|chancies?)\b")
+_DRACULS_RE = re.compile(r"(?i)\b(?:dracul'?s?(?:\s+grasp)?|drac'?s?)\b")
+_GORE_RE = re.compile(r"(?i)\b(?:gore\s*riders?|gores?)\b")
+_GUILLAUMES_RE = re.compile(r"(?i)\b(?:guillaume'?s?(?:\s+face)?|gface|gull?y)\b")
+_HOMUNCULUS_RE = re.compile(r"(?i)\b(?:homunculus)\b")
+_RAVEN_RE = re.compile(r"(?i)\b(?:raven\s*frost|ravenfrost)\b")
+_VERDUNGOS_RE = re.compile(r"(?i)\b(?:verdungo'?s?(?:\s+hearty\s+cord)?)\b")
+_WIZSPIKE_RE = re.compile(r"(?i)\b(?:wizard\s*spike|wizzy|wizardspike)\b")
+_MAGEFIST_RE = re.compile(r"(?i)\b(?:magefist|mage\s*fist)\b")
+_NAGEL_RE = re.compile(r"(?i)\b(?:nagel(?:ring)?)\b")
+_VIPERMAGI_RE = re.compile(r"(?i)\b(?:viper\s*magi|vmagi|skin\s+of\s+the\s+vipermagi)\b")
+_TITANS_RE = re.compile(r"(?i)\b(?:titan'?s?(?:\s+revenge)?)\b")
+_ANDARIELS_RE = re.compile(r"(?i)\b(?:andy'?s?(?:\s+visage)?|andariel'?s?(?:\s+visage)?)\b")
+_REAPERS_RE = re.compile(r"(?i)\b(?:reaper'?s?\s+toll)\b")
+_COA_RE = re.compile(r"(?i)\b(?:coa|crown\s+of\s+ages)\b")
+_DFATHOM_RE = re.compile(r"(?i)\b(?:death'?s?\s+fathom|dfathom)\b")
+_DWEB_RE = re.compile(r"(?i)\b(?:death'?s?\s+web|dweb)\b")
+_TYRAELS_RE = re.compile(r"(?i)\b(?:tyrael'?s?(?:\s+might)?)\b")
+_WISP_RE = re.compile(r"(?i)\b(?:wisp\s*projector)\b")
+_METALGRID_RE = re.compile(r"(?i)\b(?:metalgrid)\b")
+_ONDALS_RE = re.compile(r"(?i)\b(?:ondal'?s?(?:\s+wisdom)?)\b")
+_ORMUS_RE = re.compile(r"(?i)\b(?:ormus'?(?:\s+robes?)?)\b")
+_THUNDERSTROKE_RE = re.compile(r"(?i)\b(?:thunderstroke|t-?strokes?)\b")
+_JALALS_RE = re.compile(r"(?i)\b(?:jalal'?s?(?:\s+mane)?)\b")
+_KIRAS_RE = re.compile(r"(?i)\b(?:kira'?s?(?:\s+guardian)?)\b")
+_LOH_RE = re.compile(r"(?i)\b(?:laying\s+of\s+hands|loh)\b")
+_GOLDWRAP_RE = re.compile(r"(?i)\b(?:goldwrap)\b")
+_DWARF_STAR_RE = re.compile(r"(?i)\b(?:dwarf\s*star)\b")
+_BK_RING_RE = re.compile(r"(?i)\b(?:bk\s*(?:ring|wedding)|bul[- ]?kathos)\b")
+_TGODS_RE = re.compile(r"(?i)\b(?:tgod'?s?|thundergod'?s?(?:\s+vigor)?)\b")
+_STORMSHIELD_RE = re.compile(r"(?i)\b(?:stormshield|ss)\b")
+_LIDLESS_RE = re.compile(r"(?i)\b(?:lidless(?:\s+wall)?)\b")
+_STRING_OF_EARS_RE = re.compile(r"(?i)\b(?:string\s+of\s+ears|soe)\b")
+_LEVIATHAN_RE = re.compile(r"(?i)\b(?:leviathan)\b")
+_WINDFORCE_RE = re.compile(r"(?i)\b(?:windforce|wf)\b")
+_GRANDFATHER_RE = re.compile(r"(?i)\b(?:grandfather|gf)\b")
+_ESCHUTA_RE = re.compile(r"(?i)\b(?:eschuta'?s?(?:\s+temper)?)\b")
+_RAVENLORE_RE = re.compile(r"(?i)\b(?:ravenlore)\b")
+_SANDSTORM_RE = re.compile(r"(?i)\b(?:sandstorm\s*treks?|sandtreks?)\b")
+_WATERWALK_RE = re.compile(r"(?i)\b(?:waterwalk)\b")
+_NOSFERATU_RE = re.compile(r"(?i)\b(?:nosferatu'?s?(?:\s+coil)?)\b")
+_ARREAT_RE = re.compile(r"(?i)\b(?:arreat'?s?(?:\s+face)?)\b")
+_STEELREND_RE = re.compile(r"(?i)\b(?:steelrend)\b")
+
+# Additional set items
+_IK_ARMOR_RE = re.compile(r"(?i)\b(?:ik\s*armor|immortal\s+king'?s?\s+soul\s+cage)\b")
+_IK_MAUL_RE = re.compile(r"(?i)\b(?:ik\s*maul|immortal\s+king'?s?\s+stone\s+crusher)\b")
+_TRANG_ARMOR_RE = re.compile(r"(?i)\b(?:trang'?s?\s+armor|trang(?:oul)?'?s?\s+scales)\b")
+_NATS_ARMOR_RE = re.compile(r"(?i)\b(?:nat'?s?\s+armor|natalya'?s?\s+shadow)\b")
+_NATS_CLAW_RE = re.compile(r"(?i)\b(?:nat'?s?\s+claw|natalya'?s?\s+mark)\b")
+_GRISWOLD_ARMOR_RE = re.compile(r"(?i)\b(?:gris(?:wold)?'?s?\s+armor|griswold'?s?\s+heart)\b")
+_MAVINA_BOW_RE = re.compile(r"(?i)\b(?:mav(?:ina)?'?s?\s+bow|mavina'?s?\s+caster)\b")
+_ALDUR_ARMOR_RE = re.compile(r"(?i)\b(?:aldur'?s?\s+armor|aldur'?s?\s+deception)\b")
+
+# Skiller Grand Charms — class-specific +skill tree GCs
+_SKILLER_CLASS_HINTS: list[tuple[re.Pattern[str], str]] = [
+    # Sorceress trees
+    (re.compile(r"(?i)\b(?:light(?:ning|ning)?\s*skill|light\s*gc|light\s*skiller)\b"), "lightning"),
+    (re.compile(r"(?i)\b(?:cold\s*skill|cold\s*gc|cold\s*skiller|blizzard\s*gc)\b"), "cold"),
+    (re.compile(r"(?i)\b(?:fire\s*skill|fire\s*gc|fire\s*skiller)\b"), "fire"),
+    # Paladin trees
+    (re.compile(r"(?i)\b(?:p(?:ala?(?:din)?|aly?)?\s*combat\s*skill|pcomb|p\s*comb)\b"), "paladin_combat"),
+    (re.compile(r"(?i)\b(?:off(?:ensive)?\s*aura|off\s*aura)\b"), "offensive_aura"),
+    (re.compile(r"(?i)\b(?:def(?:ensive)?\s*aura|def\s*aura)\b"), "defensive_aura"),
+    # Necromancer trees
+    (re.compile(r"(?i)\b(?:p(?:oison)?\s*(?:and|&|n)\s*b(?:one)?|pnb)\b"), "poison_and_bone"),
+    (re.compile(r"(?i)\b(?:necro?\s*summon|summon\s*(?:necro?|gc|skiller))\b"), "necro_summoning"),
+    (re.compile(r"(?i)\b(?:curses?\s*(?:gc|skiller))\b"), "curses"),
+    # Amazon trees
+    (re.compile(r"(?i)\b(?:java?\s*(?:skill|gc|skiller)|jav(?:elin)?\s+(?:and\s+)?spear)\b"), "javelin_and_spear"),
+    (re.compile(r"(?i)\b(?:bow\s*(?:skill|gc|skiller)|bow\s+(?:and\s+)?crossbow)\b"), "bow_and_crossbow"),
+    (re.compile(r"(?i)\b(?:passive\s*(?:skill|gc|skiller)|passive\s+(?:and\s+)?magic)\b"), "passive_and_magic"),
+    # Barbarian trees
+    (re.compile(r"(?i)\b(?:warcr(?:y|ies)\s*(?:gc|skiller)?|war\s*cry\s*(?:gc|skiller)?)\b"), "warcries"),
+    (re.compile(r"(?i)\b(?:barb\s*combat|combat\s*(?:mastery|masteries))\b"), "combat_masteries"),
+    # Druid trees
+    (re.compile(r"(?i)\b(?:ele(?:mental)?\s*(?:gc|skiller)|elemental\s*skill)\b"), "elemental"),
+    (re.compile(r"(?i)\b(?:shape\s*shift|shape\s*shifting)\b"), "shape_shifting"),
+    (re.compile(r"(?i)\b(?:druid\s*summon)\b"), "druid_summoning"),
+    # Assassin trees
+    (re.compile(r"(?i)\b(?:trap(?:s|sin)?\s*(?:gc|skiller)?|chaos\s*(?:gc|skiller))\b"), "traps"),
+    (re.compile(r"(?i)\b(?:ma\s*(?:gc|skiller)|martial\s*arts?\s*(?:gc|skiller)?)\b"), "martial_arts"),
+    (re.compile(r"(?i)\b(?:shadow\s*(?:disc|discipline)?\s*(?:gc|skiller)?)\b"), "shadow_disciplines"),
+    # Warlock (RotW) trees
+    (re.compile(r"(?i)\b(?:eldritch\s*(?:gc|skiller))\b"), "eldritch"),
+    (re.compile(r"(?i)\b(?:chaos\s*(?:magic)?\s*(?:gc|skiller))\b"), "chaos"),
+]
+_SKILLER_RE = re.compile(r"(?i)\b(?:skiller|skill\s*(?:gc|grand\s*charm))\b")
+
+# Sunder Charms (D2R 2.5+)
+_SUNDER_RE = re.compile(r"(?i)\b(?:sunder\s*(?:charm)?)\b")
+_SUNDER_ELEMENT_HINTS: list[tuple[re.Pattern[str], str]] = [
+    (re.compile(r"(?i)\b(?:cold|frozen|fathom)\b"), "cold"),
+    (re.compile(r"(?i)\b(?:fire|flame|rift)\b"), "fire"),
+    (re.compile(r"(?i)\b(?:light(?:ning)?|crack|heaven)\b"), "lightning"),
+    (re.compile(r"(?i)\b(?:poison|venom|bane)\b"), "poison"),
+    (re.compile(r"(?i)\b(?:magic|arcane)\b"), "magic"),
+    (re.compile(r"(?i)\b(?:phys(?:ical)?|bone|break)\b"), "physical"),
+]
+
+# More uniques not yet covered
+_VAMP_GAZE_RE = re.compile(r"(?i)\b(?:vamp(?:ire)?(?:'?s?)?\s*gaze)\b")
+_SNOWCLASH_RE = re.compile(r"(?i)\b(?:snowclash)\b")
+_ARKAINES_RE = re.compile(r"(?i)\b(?:arkaine'?s?\s+valor)\b")
+_GUARDIAN_ANGEL_RE = re.compile(r"(?i)\b(?:guardian\s+angel)\b")
+_SHAFTSTOP_RE = re.compile(r"(?i)\b(?:shaftstop)\b")
+_DURIELS_RE = re.compile(r"(?i)\b(?:duriel'?s?\s+shell)\b")
+_SKULDERS_ALT_RE = re.compile(r"(?i)\b(?:skullder'?s?\s+ire)\b")
+_BURIZA_RE = re.compile(r"(?i)\b(?:buriza|buriza-do\s+kyanon)\b")
+_FROSTBURN_RE = re.compile(r"(?i)\b(?:frostburn)\b")
+
 _CTA_RE = re.compile(r"(?i)\b(?:cta|call\s+to\s+arms)\b")
 _HOTO_RE = re.compile(r"(?i)\b(?:hoto|heart\s+of\s+the\s+oak)\b")
 _BOTD_RE = re.compile(r"(?i)\b(?:e?botd(?:z)?|breath\s+of\s+the\s+dying)\b")
@@ -235,29 +356,63 @@ def load_slang_aliases(db_path: str) -> dict[str, list[dict]]:
     try:
         conn = sqlite3.connect(db_path)
         conn.row_factory = sqlite3.Row
-        cur = conn.execute(
-            """
-            SELECT term_norm, term_type, canonical_item_id, replacement_text, confidence
-            FROM slang_aliases
-            WHERE enabled = 1
-            ORDER BY confidence DESC, term_norm
-            """
-        )
+        
         aliases: dict[str, list[dict]] = {}
-        for row in cur:
-            term = row["term_norm"]
-            if term not in aliases:
-                aliases[term] = []
-            aliases[term].append({
-                "term_type": row["term_type"],
-                "canonical_item_id": row["canonical_item_id"],
-                "replacement_text": row["replacement_text"],
-                "confidence": row["confidence"],
-            })
+        
+        # Load slang aliases
+        try:
+            cur = conn.execute(
+                """
+                SELECT term_norm, term_type, canonical_item_id, replacement_text, confidence
+                FROM slang_aliases
+                WHERE enabled = 1
+                ORDER BY confidence DESC, term_norm
+                """
+            )
+            for row in cur:
+                term = row["term_norm"]
+                if term not in aliases:
+                    aliases[term] = []
+                aliases[term].append({
+                    "term_type": row["term_type"],
+                    "canonical_item_id": row["canonical_item_id"],
+                    "replacement_text": row["replacement_text"],
+                    "confidence": row["confidence"],
+                })
+        except sqlite3.OperationalError:
+            pass
+
+        # Load catalog aliases
+        try:
+            cur = conn.execute(
+                """
+                SELECT alias_norm, alias_type, canonical_item_id, priority
+                FROM catalog_aliases
+                """
+            )
+            for row in cur:
+                term = row["alias_norm"]
+                
+                # Transform catalog alias into a slang-like alias
+                term_type = "item_alias"
+                if row["alias_type"] == "code":
+                    term_type = "trade_term"
+                    
+                if term not in aliases:
+                    aliases[term] = []
+                
+                aliases[term].append({
+                    "term_type": term_type,
+                    "canonical_item_id": row["canonical_item_id"],
+                    "replacement_text": "", # catalog_aliases don't have replacement text, they map directly to canonical
+                    "confidence": min(0.99, row["priority"] / 100.0),
+                })
+        except sqlite3.OperationalError:
+            pass
+            
         conn.close()
         return aliases
-    except (sqlite3.OperationalError, sqlite3.DatabaseError):
-        # Table doesn't exist or DB not accessible - return empty dict
+    except sqlite3.DatabaseError:
         return {}
 
 
@@ -466,6 +621,15 @@ def normalize_item_hint(text: str) -> tuple[str, str] | None:
     if _SLANG_CACHE is not None:
         t = apply_slang_normalization(t)
     
+    # After slang replacement, try full-text alias lookup
+    if _SLANG_CACHE is not None:
+        # Sort by length descending to match longest terms first (e.g. "spectral shard" before "shard")
+        for term in sorted(_SLANG_CACHE.keys(), key=len, reverse=True):
+            if re.search(r"\b" + re.escape(term) + r"\b", t):
+                for alias in _SLANG_CACHE[term]:
+                    if alias["canonical_item_id"]:
+                        return (alias["canonical_item_id"], alias["canonical_item_id"])
+
     # Apply legacy base shorthand substitutions (kept for backward compatibility)
     for rx, repl in _BASE_SHORTHAND_SUBS:
         t = rx.sub(repl, t)
@@ -552,6 +716,22 @@ def normalize_item_hint(text: str) -> tuple[str, str] | None:
         return ("token:absolution", "token:absolution")
     if _ESS_RE.search(t):
         return ("essence:mixed", "essence:mixed")
+
+    # Skiller Grand Charms — must be before torch/unique checks to avoid
+    # "chaos skiller" matching as a runeword or "light skiller" as a rune.
+    if _SKILLER_RE.search(t):
+        for class_re, skill_tree in _SKILLER_CLASS_HINTS:
+            if class_re.search(t):
+                return ("charm:skiller", f"charm:skiller:{skill_tree}")
+        return ("charm:skiller", "charm:skiller")
+
+    # Sunder Charms (D2R 2.5+)
+    if _SUNDER_RE.search(t):
+        for elem_re, element in _SUNDER_ELEMENT_HINTS:
+            if elem_re.search(t):
+                return ("charm:sunder", f"charm:sunder:{element}")
+        return ("charm:sunder", "charm:sunder")
+
     if _TORCH_RE.search(t):
         for class_re, torch_class in _TORCH_CLASS_HINTS:
             if class_re.search(t):
@@ -569,6 +749,145 @@ def normalize_item_hint(text: str) -> tuple[str, str] | None:
         return ("unique:herald_of_zakarum", "unique:herald_of_zakarum")
     if _NIGHTWING_RE.search(t):
         return ("unique:nightwings_veil", "unique:nightwings_veil")
+
+    # --- Additional unique items ---
+    if _ARACH_RE.search(t):
+        return ("unique:arachnid_mesh", "unique:arachnid_mesh")
+    if _MARAS_RE.search(t):
+        return ("unique:maras_kaleidoscope", "unique:maras_kaleidoscope")
+    if _HIGHLORD_RE.search(t):
+        return ("unique:highlords_wrath", "unique:highlords_wrath")
+    if _WAR_TRAV_RE.search(t):
+        return ("unique:war_traveler", "unique:war_traveler")
+    if _SOJ_RE.search(t):
+        return ("unique:stone_of_jordan", "unique:stone_of_jordan")
+    if _OCULUS_RE.search(t):
+        return ("unique:the_oculus", "unique:the_oculus")
+    if _SKULLDERS_RE.search(t):
+        return ("unique:skulders_ire", "unique:skulders_ire")
+    if _GHEEDS_RE.search(t):
+        return ("unique:gheeds_fortune", "unique:gheeds_fortune")
+    if _CHANCE_RE.search(t):
+        return ("unique:chance_guards", "unique:chance_guards")
+    if _DRACULS_RE.search(t):
+        return ("unique:draculs_grasp", "unique:draculs_grasp")
+    if _GORE_RE.search(t):
+        return ("unique:gore_rider", "unique:gore_rider")
+    if _GUILLAUMES_RE.search(t):
+        return ("unique:guillaumes_face", "unique:guillaumes_face")
+    if _HOMUNCULUS_RE.search(t):
+        return ("unique:homunculus", "unique:homunculus")
+    if _RAVEN_RE.search(t):
+        return ("unique:raven_frost", "unique:raven_frost")
+    if _VERDUNGOS_RE.search(t):
+        return ("unique:verdungos_hearty_cord", "unique:verdungos_hearty_cord")
+    if _WIZSPIKE_RE.search(t):
+        return ("unique:wizardspike", "unique:wizardspike")
+    if _MAGEFIST_RE.search(t):
+        return ("unique:magefist", "unique:magefist")
+    if _NAGEL_RE.search(t):
+        return ("unique:nagelring", "unique:nagelring")
+    if _VIPERMAGI_RE.search(t):
+        return ("unique:skin_of_the_vipermagi", "unique:skin_of_the_vipermagi")
+    if _TITANS_RE.search(t):
+        return ("unique:titans_revenge", "unique:titans_revenge")
+    if _ANDARIELS_RE.search(t):
+        return ("unique:andariels_visage", "unique:andariels_visage")
+    if _REAPERS_RE.search(t):
+        return ("unique:reapers_toll", "unique:reapers_toll")
+    if _COA_RE.search(t):
+        return ("unique:crown_of_ages", "unique:crown_of_ages")
+    if _DFATHOM_RE.search(t):
+        return ("unique:deaths_fathom", "unique:deaths_fathom")
+    if _DWEB_RE.search(t):
+        return ("unique:deaths_web", "unique:deaths_web")
+    if _TYRAELS_RE.search(t):
+        return ("unique:tyraels_might", "unique:tyraels_might")
+    if _WISP_RE.search(t):
+        return ("unique:wisp_projector", "unique:wisp_projector")
+    if _METALGRID_RE.search(t):
+        return ("unique:metalgrid", "unique:metalgrid")
+    if _ONDALS_RE.search(t):
+        return ("unique:ondals_wisdom", "unique:ondals_wisdom")
+    if _ORMUS_RE.search(t):
+        return ("unique:ormus_robes", "unique:ormus_robes")
+    if _THUNDERSTROKE_RE.search(t):
+        return ("unique:thunderstroke", "unique:thunderstroke")
+    if _JALALS_RE.search(t):
+        return ("unique:jalals_mane", "unique:jalals_mane")
+    if _KIRAS_RE.search(t):
+        return ("unique:kiras_guardian", "unique:kiras_guardian")
+    if _LOH_RE.search(t):
+        return ("unique:laying_of_hands", "unique:laying_of_hands")
+    if _GOLDWRAP_RE.search(t):
+        return ("unique:goldwrap", "unique:goldwrap")
+    if _DWARF_STAR_RE.search(t):
+        return ("unique:dwarf_star", "unique:dwarf_star")
+    if _BK_RING_RE.search(t):
+        return ("unique:bul_kathos_wedding_band", "unique:bul_kathos_wedding_band")
+    if _TGODS_RE.search(t):
+        return ("unique:thundergods_vigor", "unique:thundergods_vigor")
+    if _STORMSHIELD_RE.search(t):
+        return ("unique:stormshield", "unique:stormshield")
+    if _LIDLESS_RE.search(t):
+        return ("unique:lidless_wall", "unique:lidless_wall")
+    if _STRING_OF_EARS_RE.search(t):
+        return ("unique:string_of_ears", "unique:string_of_ears")
+    if _LEVIATHAN_RE.search(t):
+        return ("unique:leviathan", "unique:leviathan")
+    if _WINDFORCE_RE.search(t):
+        return ("unique:windforce", "unique:windforce")
+    if _GRANDFATHER_RE.search(t):
+        return ("unique:the_grandfather", "unique:the_grandfather")
+    if _ESCHUTA_RE.search(t):
+        return ("unique:eschutas_temper", "unique:eschutas_temper")
+    if _RAVENLORE_RE.search(t):
+        return ("unique:ravenlore", "unique:ravenlore")
+    if _SANDSTORM_RE.search(t):
+        return ("unique:sandstorm_trek", "unique:sandstorm_trek")
+    if _WATERWALK_RE.search(t):
+        return ("unique:waterwalk", "unique:waterwalk")
+    if _NOSFERATU_RE.search(t):
+        return ("unique:nosferatus_coil", "unique:nosferatus_coil")
+    if _ARREAT_RE.search(t):
+        return ("unique:arreats_face", "unique:arreats_face")
+    if _STEELREND_RE.search(t):
+        return ("unique:steelrend", "unique:steelrend")
+    if _VAMP_GAZE_RE.search(t):
+        return ("unique:vampire_gaze", "unique:vampire_gaze")
+    if _SNOWCLASH_RE.search(t):
+        return ("unique:snowclash", "unique:snowclash")
+    if _ARKAINES_RE.search(t):
+        return ("unique:arkaines_valor", "unique:arkaines_valor")
+    if _GUARDIAN_ANGEL_RE.search(t):
+        return ("unique:guardian_angel", "unique:guardian_angel")
+    if _SHAFTSTOP_RE.search(t):
+        return ("unique:shaftstop", "unique:shaftstop")
+    if _DURIELS_RE.search(t):
+        return ("unique:duriels_shell", "unique:duriels_shell")
+    if _BURIZA_RE.search(t):
+        return ("unique:buriza_do_kyanon", "unique:buriza_do_kyanon")
+    if _FROSTBURN_RE.search(t):
+        return ("unique:frostburn", "unique:frostburn")
+
+    # --- Additional set items ---
+    if _IK_ARMOR_RE.search(t):
+        return ("set:immortal_kings_soul_cage", "set:immortal_kings_soul_cage")
+    if _IK_MAUL_RE.search(t):
+        return ("set:immortal_kings_stone_crusher", "set:immortal_kings_stone_crusher")
+    if _TRANG_ARMOR_RE.search(t):
+        return ("set:trang_ouls_scales", "set:trang_ouls_scales")
+    if _NATS_ARMOR_RE.search(t):
+        return ("set:natalyas_shadow", "set:natalyas_shadow")
+    if _NATS_CLAW_RE.search(t):
+        return ("set:natalyas_mark", "set:natalyas_mark")
+    if _GRISWOLD_ARMOR_RE.search(t):
+        return ("set:griswolds_heart", "set:griswolds_heart")
+    if _MAVINA_BOW_RE.search(t):
+        return ("set:mavinas_caster", "set:mavinas_caster")
+    if _ALDUR_ARMOR_RE.search(t):
+        return ("set:aldurs_deception", "set:aldurs_deception")
+
     if _CTA_RE.search(t):
         return ("runeword:call_to_arms", "runeword:call_to_arms")
     if _HOTO_RE.search(t):

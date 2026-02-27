@@ -22,7 +22,7 @@ from d2lut.storage.sqlite import D2LutDB
 
 
 def row_to_observed(row: dict) -> ObservedPrice:
-    sig = row["signal_kind"]
+    sig = row["signal_kind"].lower()  # Normalize to lowercase
     value = float(row["price_fg"])
     trade_type = (row.get("thread_trade_type") or "unknown").lower()
     category_id = row.get("thread_category_id")

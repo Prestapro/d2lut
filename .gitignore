@@ -27,4 +27,4 @@ data/cache/*.html
 # Optional local envs
 .venv/
 venv/
-
+.env

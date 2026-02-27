@@ -47,6 +47,37 @@ CUSTOM_ALIASES = {
     "set:tal_rashas_guardianship": ["tal armor", "tals armor"],
     "unique:harlequin_crest": ["shako"],
     "unique:arachnid_mesh": ["arach", "arachs", "arach belt"],
+    "unique:maras_kaleidoscope": ["maras", "mara"],
+    "unique:highlords_wrath": ["highlords", "highlord"],
+    "unique:stone_of_jordan": ["soj", "stone of jordan"],
+    "unique:nagelring": ["nagel", "nagelring"],
+    "unique:raven_frost": ["ravenfrost", "raven frost"],
+    "unique:dwarf_star": ["dwarf star"],
+    "unique:bul_kathos_wedding_band": ["bk ring", "bk wedding band"],
+    "unique:thundergods_vigor": ["tgods", "thundergods"],
+    "unique:nosferatus_coil": ["nosferatus coil"],
+    "unique:wisp_projector": ["wisp projector", "wisp"],
+    "unique:metalgrid": ["metalgrid"],
+    "unique:the_oculus": ["occy", "oculus"],
+    "unique:ormus_robes": ["ormus robes", "ormus"],
+    "unique:tyraels_might": ["tyraels might", "tyraels"],
+    "unique:windforce": ["windforce"],
+    "unique:the_grandfather": ["grandfather"],
+    "unique:leviathan": ["leviathan"],
+    "unique:ravenlore": ["ravenlore"],
+    "unique:vampire_gaze": ["vampire gaze", "vamp gaze"],
+    "unique:snowclash": ["snowclash"],
+    "unique:arkaines_valor": ["arkaines valor"],
+    "unique:guardian_angel": ["guardian angel"],
+    "unique:shaftstop": ["shaftstop"],
+    "unique:duriels_shell": ["duriels shell"],
+    "unique:buriza_do_kyanon": ["buriza", "buriza-do kyanon"],
+    "unique:frostburn": ["frostburn"],
+    "charm:skiller": ["skiller", "skill gc"],
+    "charm:sunder": ["sunder charm", "sunder"],
+    "unique:blade": ["spectral shard"],
+    "unique:cap": ["biggins bonnet", "biggin bonnet"],
+    "set:belt": ["hwanins blessing", "hwanin blessing", "hwanins belt", "hwanin belt"],
 }
 
 
@@ -562,6 +593,10 @@ def build_catalog_items_and_aliases(db: CatalogDB) -> tuple[int, int]:
                 display = rest.replace("_", " ").title()
                 category = kind
                 quality = "misc" if kind == "token" else kind
+            elif kind == "charm":
+                display = rest.replace("_", " ").title()
+                category = "charm"
+                quality = "misc"
             else:
                 # Skip broken manual alias mapping instead of crashing import.
                 print(f"warn: missing canonical target for alias seed, skipping aliases for {canonical}")
