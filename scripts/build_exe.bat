@@ -27,6 +27,7 @@ pyinstaller ^
     --name "D2R_Loot_Filter_Builder" ^
     --onefile ^
     --clean ^
+    --hidden-import "yaml" ^
     --distpath "dist" ^
     --workpath "build" ^
     scripts\build_d2r_filter.py
@@ -43,10 +44,15 @@ echo You can find your executable at: dist\D2R_Loot_Filter_Builder.exe
 echo Creating deployment folder structure...
 mkdir "dist\D2R_Filter_Generator\data\cache" 2>nul
 mkdir "dist\D2R_Filter_Generator\data\templates" 2>nul
+mkdir "dist\D2R_Filter_Generator\config" 2>nul
 mkdir "dist\D2R_Filter_Generator\output" 2>nul
 
 copy /y "dist\D2R_Loot_Filter_Builder.exe" "dist\D2R_Filter_Generator\" >nul
 copy /y "data\templates\item-names.json" "dist\D2R_Filter_Generator\data\templates\" >nul
+if exist "config" (
+    copy /y "config\*.yml" "dist\D2R_Filter_Generator\config\" >nul
+    copy /y "config\*.yaml" "dist\D2R_Filter_Generator\config\" >nul
+)
 
 if exist "data\cache\d2lut.db" (
     copy /y "data\cache\d2lut.db" "dist\D2R_Filter_Generator\data\cache\" >nul
