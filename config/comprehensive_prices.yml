@@ -1,397 +1,606 @@
-# Comprehensive static FG prices for D2R items
-# Combined from multiple sources and market knowledge
+# Complete D2R Price Database
+# Organized by category, normalized names for matching
 
 # ============================================================================
-# RUNES (high liquidity currency)
+# RUNES
 # ============================================================================
 rune:
-  r01: 0.1      # El
-  r02: 0.1      # Eld
-  r03: 0.1      # Tir
-  r04: 0.2      # Nef (crafting)
-  r05: 0.1      # Eth
-  r06: 0.1      # Ith
-  r07: 0.2      # Tal (Insight)
-  r08: 0.5      # Ral (crafting)
-  r09: 0.1      # Ort
-  r10: 0.1      # Thul
-  r11: 0.2      # Amn
-  r12: 0.5      # Sol (crafting)
-  r13: 0.2      # Shael
-  r14: 0.1      # Dol
-  r15: 0.5      # Hel (rerolling)
-  r16: 0.1      # Io
-  r17: 0.2      # Lum
-  r18: 0.2      # Ko
-  r19: 0.2      # Fal
-  r20: 0.5      # Lem
-  r21: 1        # Pul
-  r22: 2        # Um
-  r23: 3        # Mal
-  r24: 4        # Ist
-  r25: 5        # Gul
-  r26: 8        # Vex
-  r27: 15       # Ohm
-  r28: 12       # Lo
-  r29: 25       # Sur
-  r30: 55       # Ber
-  r31: 50       # Jah
-  r32: 10       # Cham
-  r33: 10       # Zod
+  el: 0.1
+  elrune: 0.1
+  r01: 0.1
+  eldrune: 0.1
+  r02: 0.1
+  tirrune: 0.1
+  r03: 0.1
+  nefrune: 0.2
+  r04: 0.2
+  ethrune: 0.1
+  r05: 0.1
+  ithrune: 0.1
+  r06: 0.1
+  talrune: 0.2
+  r07: 0.2
+  ralrune: 0.5
+  r08: 0.5
+  ortrune: 0.1
+  r09: 0.1
+  thulrune: 0.1
+  r10: 0.1
+  amnrune: 0.2
+  r11: 0.2
+  solrune: 0.5
+  r12: 0.5
+  shaelrune: 0.2
+  r13: 0.2
+  dolrune: 0.1
+  r14: 0.1
+  helrune: 0.5
+  r15: 0.5
+  iorune: 0.1
+  r16: 0.1
+  lumrune: 0.2
+  r17: 0.2
+  korune: 0.2
+  r18: 0.2
+  falrune: 0.2
+  r19: 0.2
+  lemrune: 0.5
+  r20: 0.5
+  pulrune: 1
+  r21: 1
+  umrune: 2
+  r22: 2
+  malrune: 3
+  r23: 3
+  istrune: 4
+  r24: 4
+  gulrune: 5
+  r25: 5
+  vexrune: 8
+  r26: 8
+  ohmrune: 15
+  r27: 15
+  lorune: 12
+  r28: 12
+  surrune: 25
+  r29: 25
+  berrune: 55
+  r30: 55
+  jahrune: 50
+  r31: 50
+  chamrune: 10
+  r32: 10
+  zodrune: 10
+  r33: 10
+
+# ============================================================================
+# GEMS
+# ============================================================================
+gem:
+  # Perfect
+  perfectsapphire: 0.5
+  gpb: 0.5
+  perfectemerald: 0.5
+  gpg: 0.5
+  perfectruby: 0.5
+  gpr: 0.5
+  perfectamethyst: 0.5
+  gpv: 0.5
+  perfectdiamond: 0.5
+  gpw: 0.5
+  perfecttopaz: 0.5
+  gpy: 0.5
+  perfectskull: 1
+  skz: 1
+  # Flawless
+  flawlesslessapphire: 0.2
+  gmb: 0.2
+  flawlessemerald: 0.2
+  gmg: 0.2
+  flawlessruby: 0.2
+  gmr: 0.2
+  flawlessamethyst: 0.2
+  gmv: 0.2
+  flawlessdiamond: 0.2
+  gmw: 0.2
+  flawlesstopaz: 0.2
+  gmy: 0.2
+  flawlessskull: 0.3
+  skm: 0.3
 
 # ============================================================================
 # KEYS & ORGANS
 # ============================================================================
 key:
-  pk1: 3        # Key of Terror
-  pk2: 3        # Key of Hate
-  pk3: 3        # Key of Destruction
-  organ_set: 12 # Set of 3 keys
-  
-# ============================================================================
-# PERFECT GEMS
-# ============================================================================
-gem:
-  gpb: 0.5      # Perfect Sapphire
-  gpg: 0.5      # Perfect Emerald
-  gpr: 0.5      # Perfect Ruby
-  gpv: 0.5      # Perfect Amethyst
-  gpw: 0.5      # Perfect Diamond
-  gpy: 0.5      # Perfect Topaz
-  skz: 1        # Perfect Skull
-  # Flawless
-  gmb: 0.2      # Flawless Sapphire
-  gmg: 0.2      # Flawless Emerald
-  gmr: 0.2      # Flawless Ruby
-  gmv: 0.2      # Flawless Amethyst
-  gmw: 0.2      # Flawless Diamond
-  gmy: 0.2      # Flawless Topaz
-  skm: 0.3      # Flawless Skull
+  keyofterror: 3
+  pk1: 3
+  keyofhate: 3
+  pk2: 3
+  keyofdestruction: 3
+  pk3: 3
+  organ_set: 12
+  keyset: 12
 
 # ============================================================================
 # CHARMS
 # ============================================================================
 charm:
   annihilus: 25
-  hellfire_torch: 15
-  gheeds_fortune: 5
+  annihilation: 25
+  hellfiretorch: 15
+  torch: 15
+  gheedsfortune: 5
+  gheeds: 5
 
 # ============================================================================
-# TOKENS & ESSENCES
+# TOKENS
 # ============================================================================
-misc:
-  token_of_absolution: 3
-  twisting_essence_of_suffering: 0.5
-  charged_essence_of_hatred: 0.5
-  burning_essence_of_terror: 0.5
-  festering_essence_of_destruction: 0.5
+token:
+  tokenofabsolution: 3
+  absolution: 3
 
 # ============================================================================
-# HIGH VALUE UNIQUES
+# UNIQUES - HELMS
 # ============================================================================
-unique_high:
-  # ============ SORC HELMS ============
-  griffons_eye: 80
-  nightwings_veil: 30
-  harlequin_crest: 8
-  valkyrie_wing: 5
-  kiras_guardian: 8
-  
-  # ============ PALLY SHIELDS ============
-  herald_of_zakarum: 10
-  alma_negra: 5
-  akaran_targe: 3
-  sigons_cover: 1
-  
-  # ============ BELTS ============
-  arachnid_mesh: 15
-  verdungos_hearty_cord: 8
-  thundergods_vigor: 5
-  strings_of_ears: 3
-  razortail: 3
-  tal_rashas_fine_spun_cloth: 5
-  nosferatus_coil: 5
-  goldwrap: 2
-  lenymo: 0.5
-  
-  # ============ BOOTS ============
-  wartraveler: 8
-  sandstorm_trek: 8
-  marrowwalk: 5
-  waterwalk: 3
-  silkweave: 2
-  gore_rider: 5
-  shadow_dancer: 8
-  aldurs_advance: 3
-  tearhaunch: 1
-  treads_of_cthbon: 0.5
-  goblin_toe: 0.5
-  
-  # ============ GLOVES ============
-  magefist: 3
-  frostburn: 3
-  chance_guards: 3
-  draculs_grasp: 8
-  steelrend: 5
-  laying_of_hands: 3
-  bloodfist: 1
-  sigon_gloves: 1
-  deaths_hand: 0.5
-  
-  # ============ RINGS ============
-  stone_of_jordan: 8
-  bul_kathos_wedding_band: 8
-  raven_frost: 5
-  dwarf_star: 3
-  wisp_projector: 40
-  natures_peace: 5
-  carrion_wind: 5
-  nagelring: 0.5
-  manald_heal: 0.5
-  duriels_ring: 1
-  
-  # ============ AMULETS ============
-  maras_kaleidoscope: 15
-  tal_rashas_adjudication: 8
-  highlords_wrath: 8
-  cats_eye: 5
-  atmas_scarab: 3
-  seraphs_hymn: 5
-  nokozan_relic: 0.5
-  tancreds_crow: 0.5
-  angelic_wings: 1
-  saracens_chance: 2
-  
-  # ============ ARMOR ============
-  tal_rashas_guardianship: 20
-  skin_of_the_vipermagi: 5
-  shaftstop: 3
-  skullders_ire: 5
-  guardian_angel: 5
-  arkaines_valor: 3
-  tyraels_might: 5
-  ormus_robes: 5
-  twitchthroe: 1
-  crow_caw: 2
-  duriels_shell: 2
-  spiritforge: 3
-  que_hegans_wisdom: 1
-  skin_of_the_vipermagi: 5
-  
-  # ============ HELMS ============
-  vampire_gaze: 5
-  giant_skull: 3
-  andariels_visage: 5
-  stealskull: 2
-  arreats_face: 8
-  jalals_mane: 5
-  crown_of_ages: 15
+uniquehelm:
+  # Elite
+  griffonseye: 80
+  griffons: 80
+  griffon: 80
+  diademgriffon: 80
+  nightwingsveil: 30
+  nightwing: 30
+  harlequincrest: 8
+  shako: 8
+  harlequin: 8
+  crownofages: 15
+  coa: 15
+  kirasguardian: 8
+  kirass: 8
+  valkyriewing: 5
+  valkwing: 5
   steelshade: 3
+  giant skull: 3
+  vampiregaze: 5
+  vgaze: 5
+  andarielsvisage: 5
+  andariels: 5
+  arreatsface: 8
+  arreats: 8
+  jalalsmane: 5
+  jalals: 5
+  stealskull: 2
   rockstopper: 2
-  peasant_crown: 2
+  peasantcrown: 2
+  peasant: 2
   tarnhelm: 0.5
-  darksight_helm: 1
+  tarn: 0.5
+  darksighthelm: 1
   wormskull: 1
+  howltusk: 0.5
+  bigginsbonnet: 0.5
+  biggins: 0.5
+  deathsmask: 0.5
+  bloodmask: 0.5
+  coifofglory: 0.5
+  undershaftcrown: 0.5
+  wonngirdle: 0.5
+  duskdeep: 1
+  blackhornsface: 2
+  blackhorn: 2
+
+# ============================================================================
+# UNIQUES - ARMOR
+# ============================================================================
+uniquearmor:
+  # Elite/Popular
+  talrashasguardianship: 20
+  talsarmor: 20
+  skinofthevipermagi: 5
+  vipermagi: 5
+  shaftstop: 3
+  shaft: 3
+  skulldersire: 5
+  skullders: 5
+  guardianangel: 5
+  arkainesvalor: 3
+  arkaines: 3
+  tyraelsmight: 5
+  tyraels: 5
+  ormusrobes: 5
+  ormus: 5
+  durielsshell: 2
+  duriels: 2
+  spiritforge: 3
+  crowcaw: 2
+  twitchthroe: 1
+  queheganswisdom: 1
+  quehegans: 1
+  ironpelt: 2
+  toothrow: 1
+  spiritguard: 1
+  rockfleece: 1
+  venomsward: 1
+  sparkermail: 1
+  greyshape: 1
+  thecenturian: 0.5
+  lionheart: 0.5
+  twichthroe: 1
+  sparklmail: 0.5
+  boulder: 0.5
+  pompeii: 0.5
+  gear: 0.5
+
+# ============================================================================
+# UNIQUES - SHIELDS
+# ============================================================================
+uniqueshield:
+  heraldofzakarum: 10
+  hoz: 10
+  hoza: 10
+  almanegra: 5
+  akarantarge: 3
+  medusasgaze: 5
+  medusas: 5
+  sigonscover: 1
+  sigonsshield: 1
+  spiritforgeshield: 3
+  tiamatsrebuke: 2
+  tiamats: 2
+  radimantssphere: 1
+  radimants: 1
+  lanceguard: 1
+  steelclash: 0.5
+  wallsofeyeless: 0.5
+  theward: 0.5
+
+# ============================================================================
+# UNIQUES - BELTS
+# ============================================================================
+uniquebelt:
+  arachniddmesh: 15
+  arach: 15
+  verdungosheartycord: 8
+  verdungos: 8
+  thundergodsvigor: 5
+  tgods: 5
+  tgod: 5
+  stringsofears: 3
+  string: 3
+  razortail: 3
+  razor: 3
+  talrashasfinespuncloth: 5
+  talsbelt: 5
+  nosferatuscoil: 5
+  nosferatus: 5
+  goldwrap: 2
+  snowclash: 2
+  gloomsstrap: 1
+  nightsmoke: 1
+  snakecord: 0.5
+  lenymo: 0.5
+  bladebuckle: 0.5
+
+# ============================================================================
+# UNIQUES - BOOTS
+# ============================================================================
+uniqueboots:
+  wartraveler: 8
+  wt: 8
+  wartravs: 8
+  sandstormtrek: 8
+  sandstorm: 8
+  sst: 8
+  marrowwalk: 5
+  marrow: 5
+  waterwalk: 3
+  waterwalks: 3
+  silkweave: 2
+  silk: 2
+  gorerider: 5
+  gore: 5
+  shadowdancer: 8
+  shadow: 8
+  aldursadvance: 5
+  aldursboots: 5
+  infernostride: 2
+  inferno: 2
+  tearhaunch: 1
+  treadsofcthbon: 0.5
+  gobbintoe: 0.5
+  gorefoot: 0.5
+  hotspur: 0.5
+
+# ============================================================================
+# UNIQUES - GLOVES
+# ============================================================================
+uniquegloves:
+  magefist: 3
+  magefists: 3
+  frostburn: 3
+  frostburns: 3
+  chanceguards: 3
+  chancies: 3
+  draculsgrasp: 8
+  draculs: 8
+  steelrend: 5
+  steelrends: 5
+  layingofhands: 3
+  laying: 3
+  loh: 3
+  bloodfist: 1
+  bloodfists: 1
+  sigonsgloves: 1
+  deathshand: 0.5
+  lavagout: 1
+  hellmouth: 1
+  gravepalm: 1
+  vampiregloves: 1
+  souldrain: 1
+
+# ============================================================================
+# UNIQUES - RINGS
+# ============================================================================
+uniquering:
+  stoneofjordan: 8
+  soj: 8
+  bulkathosweddingband: 8
+  bk: 8
+  bkring: 8
+  ravenfrost: 5
+  raven: 5
+  dwarfstar: 3
+  dwarf: 3
+  wispprojector: 40
+  wisp: 40
+  naturespeace: 5
+  natures: 5
+  carrionwind: 5
+  carrion: 5
+  nagelring: 0.5
+  nagel: 0.5
+  manaldheal: 0.5
+  manald: 0.5
+
+# ============================================================================
+# UNIQUES - AMULETS
+# ============================================================================
+uniqueamulet:
+  maraskaleidoscope: 15
+  maras: 15
+  highlordswrath: 8
+  highlords: 8
+  catseye: 5
+  catseyes: 5
+  atmascarab: 3
+  atmas: 3
+  seraphshymn: 5
+  seraphs: 5
+  nokozanrelic: 0.5
+  nokozan: 0.5
+  tancredscrow: 0.5
+  angelicwings: 1
+  saracenschance: 2
+  saracens: 2
+  halaberds_reign: 1
+  halaberds: 1
+  the_cats_eye: 5
+  thecatseye: 5
+
+# ============================================================================
+# UNIQUES - WEAPONS (by category)
+# ============================================================================
+uniqueweapon:
+  # Sorc Orbs
+  deathsfathom: 30
+  fathom: 30
+  eschutastemper: 15
+  eschutas: 15
+  occulus: 3
+  occy: 3
+  talrashaslidlesseye: 10
+  talsorb: 10
   
-  # ============ WEAPONS - JAVELINS ============
-  titans_revenge: 8
-  thunderstroke: 15
-  stygian_pillar: 3
-  lanzagato: 1
-  
-  # ============ WEAPONS - BOWS ============
-  windforce: 15
-  eaglehorn: 5
-  witchwild_string: 3
-  buriza_do_kyanon: 3
-  cliffkiller: 1
-  lycanders_aim: 2
-  
-  # ============ WEAPONS - WANDS ============
-  deaths_web: 50
-  arm_of_king_leoric: 8
+  # Necro Wands
+  deathsweb: 50
+  dweb: 50
+  armofkingleoric: 8
+  leoric: 8
+  armofking: 8
   boneflame: 5
   homunculus: 5
-  darkforge_spawn: 3
   
-  # ============ WEAPONS - ORBS ============
-  deaths_fathom: 30
-  eschutas_temper: 15
-  occulus: 3
-  dimensional_shard: 2
-  swirling_crystal: 1
+  # Javelins
+  titansrevenge: 8
+  titans: 8
+  thunderstroke: 15
+  tstroke: 15
+  thunderstoke: 15
   
-  # ============ WEAPONS - SCEPTERS ============
-  zakarums_hand: 3
-  lash: 2
-  bloodrise: 1
+  # Bows
+  windforce: 15
+  wf: 15
+  eaglehorn: 5
+  eagle: 5
+  witchwildstring: 3
+  witchwild: 3
+  wws: 3
+  burizadokyanon: 3
+  buriza: 3
+  kuko: 2
+  kukoshakaku: 2
   
-  # ============ WEAPONS - SWORDS ============
+  # Swords
   azurewrath: 5
+  azure: 5
   lightsabre: 3
+  lightsaber: 3
   doombringer: 2
   bloodmoon: 2
-  headstriker: 2
-  baranar: 1
-  coldkill: 1
+  deathcleaver: 10
+  dcleaver: 10
   
-  # ============ WEAPONS - AXES ============
-  death_cleaver: 10
-  blades_of_agony: 1
+  # Axes
+  deathcleaveraxe: 10
   
-  # ============ WEAPONS - POLEARMS ============
-  tomb_reaver: 30
+  # Polearms
+  tombreaver: 30
+  tomb: 30
   stormspire: 3
   
-  # ============ WEAPONS - HAMMERS ============
+  # Hammers
   stormlash: 15
-  schaefers_hammer: 10
+  slashe: 15
+  slask: 15
+  schaefershammer: 10
+  schaefers: 10
   earthshifter: 5
-  horizons_tornado: 2
+  horizonstornado: 2
+  baranarstar: 5
+  baranars: 5
   
-  # ============ WEAPONS - ASSASSIN CLAWS ============
-  bartucs_cutthroat: 3
-  jade_talon: 3
-  shadow_killer: 2
+  # Assassin Claws
+  bartucscutthroat: 3
+  bartucs: 3
+  jadetalon: 3
+  jade: 3
+  shadowkiller: 2
+  firelizardstalons: 2
+  firelizards: 2
   
-  # ============ WEAPONS - BARBARIAN ============
-  blade_of_barbarian_king: 5
-  bul_kathos_sacred_charge: 5
-  bul_kathos_mythical_sword: 3
+  # Barbarian
+  bladeofbarbarianking: 5
+  barbarianking: 5
+  bulkathossacredcharge: 5
+  bulkathoss: 5
   
-  # ============ WEAPONS - MISC ============
+  # Throwing
   gimmershred: 3
-  demons_arch: 2
-  flamebellow: 2
-  demonlimb: 2
+  gimmershreds: 3
+  demonsarch: 2
+  demonarch: 2
 
 # ============================================================================
-# SET ITEMS (valuable ones)
+# SETS
 # ============================================================================
-set_items:
-  # Tal Rasha's (popular sorc set)
-  tal_rashas_lidless_eye: 10
-  tal_rashas_adjudication: 8
-  tal_rashas_horadric_crest: 5
-  tal_rashas_guardianship: 20
-  tal_rashas_fine_spun_cloth: 5
+set:
+  # Tal Rasha's
+  talrashaslidlesseye: 10
+  talrashasadjudication: 8
+  talrashashoradriccrest: 5
+  talrashasguardianship: 20
+  talrashasfinespuncloth: 5
   
-  # Immortal King (barb set)
-  immortal_kings_will: 3
-  immortal_kings_soul_cage: 5
-  immortal_kings_gauntlets: 2
-  immortal_kings_belt: 2
-  immortal_kings_pillar: 3
-  immortal_kings_maul: 5
+  # Immortal King's
+  immortalkingswill: 3
+  immortalkingshelm: 3
+  immortalkingssoulcage: 5
+  immortalkingsarmor: 5
+  immortalkingsgauntlets: 2
+  immortalkingsgloves: 2
+  immortalkingsbelt: 2
+  immortalkingspillar: 3
+  immortalkingsboots: 3
+  immortalkingsmaul: 5
+  immortalkingsweapon: 5
   
-  # Trang-Oul's (necro set)
-  trang_ouls_wing: 5
-  trang_ouls_scale: 3
-  trang_ouls_girth: 2
-  trang_ouls_claws: 2
-  trang_ouls_guise: 2
+  # Trang-Oul's
+  trangoulswing: 5
+  trangoulsscale: 3
+  trangoulsgirth: 2
+  trangoulsclaws: 2
+  trangoulsguise: 2
   
-  # Natalya's (assa set)
-  natalyas_totem: 3
-  natalyas_shell: 3
-  natalyas_mark: 5
-  natalyas_soul: 2
+  # Natalya's
+  natalyastotem: 3
+  natalyashelm: 3
+  natalyasshell: 3
+  natalyasarmor: 3
+  natalyasmark: 5
+  natalyasweapon: 5
+  natalyassoul: 2
+  natalyasboots: 2
   
-  # Aldur's (druid set)
-  aldurs_eyes: 3
-  aldurs_advance: 5
-  aldurs_deception: 3
-  aldurs_royalty: 2
+  # Aldur's
+  aldurseyes: 3
+  aldurshelm: 3
+  aldursadvance: 5
+  aldursboots: 5
+  aldursdeception: 3
+  aldursarmor: 3
+  aldursroyalty: 2
+  aldursweapon: 2
   
-  # Griswold's (pally set)
-  griswolds_heart: 10
-  griswolds_redemption: 8
-  griswolds_valor: 3
-  griswolds_honor: 5
-  
-  # Heaven's Brethren
-  haemosus_adament: 3
-  dangoths_teachings: 2
-  twylawns_fury: 2
-  
-  # Angelic (cheap but useful)
-  angelic_halo: 1
-  angelic_wings: 1
-  angelic_mantle: 0.5
-  
-  # Sigon's (early game)
-  sigons_cover: 1
-  sigons_shelter: 0.5
-  sigons_gloves: 1
-  
-  # Iratha's
-  irathas_collar: 1
-  irathas_coil: 0.5
-  
-  # Cathan's
-  cathans_ring: 0.5
-  cathans_amulet: 0.5
+  # Griswold's
+  griswoldsheart: 10
+  griswoldsarmor: 10
+  griswoldsredemption: 8
+  griswoldsweapon: 8
+  griswoldsvalor: 3
+  griswoldshelm: 3
+  griswoldshonor: 5
+  griswoldsshield: 5
 
 # ============================================================================
-# ELITE BASES (for runewords)
+# BASE ITEMS (Elite for runewords)
 # ============================================================================
-bases:
-  # Polearms (Infinity/Insight/Obedience)
-  cryptic_axe: 8
-  giant_thresher: 30
+base:
+  # Polearms
   thresher: 25
-  colossus_voulge: 15
-  great_poleaxe: 10
+  giantthresher: 30
+  colossusvoulge: 15
+  crypticaxe: 8
+  greatpoleaxe: 10
   scythe: 1
   poleaxe: 1
   
-  # Swords (Grief/Last Wish/Spirit)
-  phase_blade: 15
-  crystal_sword: 8
-  balrog_blade: 10
-  legendary_sword: 8
-  colossus_blade: 10
-  colossus_sword: 8
+  # Swords
+  phaseblade: 15
+  crystalsword: 8
+  balrogblade: 10
+  legendarysword: 8
+  colossusblade: 10
+  colossussword: 8
   
-  # Axes (Grief/Beast/Death)
-  berserker_axe: 20
-  silver_edged_axe: 8
+  # Axes
+  berserkeraxe: 20
+  silverwedgedaxe: 8
   
-  # Shields (Spirit/Phoenix/Exile)
+  # Shields
   monarch: 8
-  sacred_targe: 15
-  sacred_rondache: 12
-  kurast_shield: 10
-  vortex_shield: 12
+  sacredtarge: 15
+  sacredrondache: 12
+  kurastshield: 10
+  vortexshield: 12
   luna: 5
   targe: 8
   
-  # Armor (Enigma/Fortitude/CoH)
-  archon_plate: 15
-  balrog_skin: 8
-  wire_fleece: 8
-  great_hauberk: 10
-  sacred_armor: 5
-  dusk_shroud: 12
+  # Armor
+  archonplate: 15
+  balrogskin: 8
+  wirefleece: 8
+  greathauberk: 10
+  sacredarmor: 5
+  duskshroud: 12
   wyrmhide: 8
-  mage_plate: 20
+  mageplate: 20
   
-  # Assassin Claws (Chaos/Fury)
+  # Assassin Claws
   suwayyah: 15
-  runic_talons: 15
-  scissors_suwayyah: 12
-  greater_talons: 12
-  feral_claws: 8
+  runictalons: 15
+  scissorssuwayyah: 12
+  greatertalons: 12
+  feralclaws: 8
   
-  # Scepters (FoH/Hammerdin)
+  # Scepters
   caduceus: 10
-  war_scepter: 5
+  warscepter: 5
   
-  # Wands (White runeword)
-  lich_wand: 10
-  unearthed_wand: 15
+  # Wands
+  lichwand: 10
+  unearthedwand: 15
   
-  # Flail (CTA/HOTO)
+  # Flail
   flail: 3
   
   # Helms

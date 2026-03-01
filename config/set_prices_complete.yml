@@ -1,0 +1,328 @@
+# Complete D2R Set Items Prices Database
+# All set items organized by set name
+# Prices are FG estimates for Ladder Softcore
+
+# ============================================================================
+# TAL RASHAS ADJUDICATION (Sorceress Set)
+# ============================================================================
+tal_rasha:
+  tal_rashas_lidless_eye: 10      # Swirling Crystal
+  tal_rashas_adjudication: 8      # Amulet
+  tal_rashas_horadric_crest: 5    # Death Mask
+  tal_rashas_guardianship: 20     # Lacquered Plate
+  tal_rashas_fine_spun_cloth: 5   # Mesh Belt
+
+# ============================================================================
+# IMMORTAL KING (Barbarian Set)
+# ============================================================================
+immortal_king:
+  immortal_kings_will: 3          # Avenger Guard
+  immortal_kings_soul_cage: 5     # Sacred Armor
+  immortal_kings_gauntlets: 2     # War Gauntlets
+  immortal_kings_belt: 2          # War Belt
+  immortal_kings_pillar: 3        # War Boots
+  immortal_kings_maul: 5          # Ogre Maul
+
+# ============================================================================
+# TRANG-OUL'S AVATAR (Necromancer Set)
+# ============================================================================
+trang_oul:
+  trang_ouls_wing: 5              # Cantor Trophy
+  trang_ouls_scale: 3             # Chaos Armor
+  trang_ouls_girth: 2             # Troll Belt
+  trang_ouls_claws: 2             # Heavy Bracers
+  trang_ouls_guise: 2             # Bone Visage
+
+# ============================================================================
+# NATALYA'S ODIO (Assassin Set)
+# ============================================================================
+natalya:
+  natalyas_totem: 3               # Grim Helm
+  natalyas_shell: 3               # Loricated Mail
+  natalyas_mark: 5                # Scissors Suwayyah
+  natalyas_soul: 2                # Mesh Boots
+
+# ============================================================================
+# ALDUR'S WATCHTOWER (Druid Set)
+# ============================================================================
+aldur:
+  aldurs_eyes: 3                  # Hunter's Guise
+  aldurs_advance: 5               # Demonhide Boots
+  aldurs_deception: 3             # Shadow Plate
+  aldurs_royalty: 2               # Crescent Moon Axe
+
+# ============================================================================
+# GRISWOLD'S LEGACY (Paladin Set)
+# ============================================================================
+griswold:
+  griswolds_heart: 10             # Ornate Plate
+  griswolds_redemption: 8         # Caduceus
+  griswolds_valor: 3              # Corona
+  griswolds_honor: 5              # Vortex Shield
+
+# ============================================================================
+# HEAVEN'S BRETHREN
+# ============================================================================
+heavens_brethren:
+  haemosus_adament: 3             # Cuirass
+  dangoths_teachings: 2           # Spike Shield
+  twylawns_fury: 2                # Conquest Sword
+  tellings_of_beads: 1            # Amulet
+
+# ============================================================================
+# ANGELIC RAIMENT
+# ============================================================================
+angelic:
+  angelic_halo: 1                 # Ring
+  angelic_wings: 1                # Amulet
+  angelic_mantle: 0.5             # Ring Mail
+  angelic_sickle: 0.5             # Sabre
+  angelic_trench: 0.5             # Leather Armor
+
+# ============================================================================
+# ARCANNAS TRICKS
+# ============================================================================
+arcanna:
+  arcannas_sign: 0.5              # Ring
+  arcannas_flesh: 0.5             # Light Plate
+  arcannas_head: 0.5              # Skull Cap
+  arcannas_deathwand: 0.5         # Wand
+
+# ============================================================================
+# ARTEX OF VIRTUE
+# ============================================================================
+artex:
+  artex_of_virtue: 0.5            # Armor
+  artex_crown: 0.5                # Helm
+
+# ============================================================================
+# BERSERKERS ARSENAL
+# ============================================================================
+berserker:
+  berserkers_headgear: 0.5        # Helm
+  berserkers_haft: 0.5            # Axe
+  berserkers_armor: 0.5           # Armor
+
+# ============================================================================
+# BERSERKER
+# ============================================================================
+beserkers:
+  berserkers_gauntlets: 0.5       # Gloves
+
+# ============================================================================
+# CATHANS TRINKETS
+# ============================================================================
+cathan:
+  cathans_ring: 0.5               # Ring
+  cathans_amulet: 0.5             # Amulet
+  cathans_mesh: 0.5               # Chain Mail
+  cathans_sigil: 0.5              # Shield
+  cathans_rule: 0.5               # Battle Staff
+
+# ============================================================================
+# CIVERBS VESTMENTS
+# ============================================================================
+civerb:
+  civerbs_crown: 0.5              # Helm
+  civerbs_glyph: 0.5              # Shield
+  civerb_scepter: 0.5             # Scepter
+
+# ============================================================================
+# COW KINGS HIDE
+# ============================================================================
+cow_king:
+  cow_kings_horns: 1              # Helm
+  cow_kings_hide: 1               # Studded Leather
+  cow_kings_boots: 1              # Boots
+
+# ============================================================================
+# CRESCENT MOON
+# ============================================================================
+crescent:
+  crescent_moon_sword: 0.5        # Sword
+
+# ============================================================================
+# DEATHS DISGUISE
+# ============================================================================
+death:
+  deaths_hand: 0.5                # Gloves
+  deaths_guard: 0.5               # Sash
+
+# ============================================================================
+# DISCIPLE
+# ============================================================================
+disciple:
+  disciple_darkscale: 0.5         # Armor
+  disciple_dracule: 0.5           # Gloves
+
+# ============================================================================
+# HALABREDS REIGN
+# ============================================================================
+halabred:
+  halabreds_reign: 0.5            # Weapon
+
+# ============================================================================
+# HAWAIIANS SET
+# ============================================================================
+hwanin:
+  hwanins_blessing: 2             # Armor
+  hwanins_justice: 2              # Bill
+  hwanins_refuge: 1               # Sharkskin Belt
+  hwanins_spirit: 1               # Grand Scepter
+
+# ============================================================================
+# INFERnal TOOLS
+# ============================================================================
+infernal:
+  infernal_cap: 0.5               # Helm
+  infernal_sign: 0.5              # Ring
+  infernal_mantle: 0.5            # Armor
+  infernal_tool: 0.5              # Wand
+
+# ============================================================================
+# IRATHAS FINERY
+# ============================================================================
+iratha:
+  irathas_collar: 1               # Amulet
+  irathas_coil: 0.5               # Belt
+  irathas_crown: 0.5              # Crown
+  irathas_cuff: 0.5               # Light Gauntlets
+
+# ============================================================================
+# ISNHEARTS ARMORY
+# ============================================================================
+isenhart:
+  isenharts_case: 0.5             # Breast Plate
+  isenharts_horn: 0.5             # Helm
+  isenharts_light: 0.5            # Shield
+  isenharts_parasol: 0.5          # Sword
+
+# ============================================================================
+# LAYING OF HANDS (Set)
+# ============================================================================
+laying_hands:
+  laying_of_hands: 3              # Bramble Mitts
+
+# ============================================================================
+# LICH EATER
+# ============================================================================
+lich:
+  lich_eater: 0.5                 # Item
+
+# ============================================================================
+# MAGICAL TRINKETS
+# ============================================================================
+magical:
+  magical_ring: 0.5               # Ring
+  magical_amulet: 0.5             # Amulet
+
+# ============================================================================
+# MAVINAS BATTLE HYMN
+# ============================================================================
+mavina:
+  mavinas_caster: 3               # Grand Matron Bow
+  mavinas_embrace: 3              # Kraken Shell
+  mavinas_icy_clutch: 2           # Battle Gauntlets
+  mavinas_true_sight: 2           # Diadem
+  mavinas_tenet: 1                # Sharkskin Belt
+
+# ============================================================================
+# MILABREGAS REGALIA
+# ============================================================================
+milabrega:
+  milabregas_crown: 0.5           # Helm
+  milabregas_jewel: 0.5           # Shield
+  milabregas_orb: 0.5             # Armor
+  milabregas_rod: 0.5             # War Staff
+  milabregas_weave: 0.5           # Boots
+
+# ============================================================================
+# NANMANS HEIRLOOM
+# ============================================================================
+nanman:
+  nanmans_heirloom: 0.5           # Item
+
+# ============================================================================
+# ORPHANS HAVEN
+# ============================================================================
+orphan:
+  orphans_hat: 0.5                # Helm
+  orphans_robe: 0.5               # Armor
+
+# ============================================================================
+# PEASANT CROWN
+# ============================================================================
+peasant:
+  peasant_crown: 2                # Helm
+
+# ============================================================================
+# SAZABIS GRAND CHILDREN
+# ============================================================================
+sazabi:
+  sazabis_cobalt_redeemer: 2      # Cryptic Sword
+  sazabis_mental_sheath: 2        # Basinet
+  sazabis_total_giant: 1          # Tower Shield
+
+# ============================================================================
+# SANDERS PARAGON
+# ============================================================================
+sander:
+  sanders_cap: 0.5                # Helm
+  sanders_folly: 0.5              # Boots
+  sanders_riparian: 0.5           # Gloves
+  sanders_stout_nag: 0.5          # Ring
+  sanders_taboo: 0.5              # Wand
+
+# ============================================================================
+# SIGONS COMPLETE STEEL
+# ============================================================================
+sigon:
+  sigons_cover: 1                 # Tower Shield
+  sigons_gauntlets: 1             # Gauntlets
+  sigons_girdle: 0.5              # Belt
+  sigons_helm: 0.5                # Helm
+  sigons_shelter: 0.5             # Armor
+  sigons_sabot: 0.5               # Boots
+
+# ============================================================================
+# TANCRED
+# ============================================================================
+tancred:
+  tancreds_crow: 0.5              # Amulet
+  tancreds_horn: 0.5              # Bone Helm
+  tancreds_hobnails: 0.5          # Boots
+  tancreds_skull: 0.5             # Shield
+  tancreds_spine: 0.5             # Armor
+  tancreds_weird: 0.5             # Weapon
+
+# ============================================================================
+# THE DISCIPLES
+# ============================================================================
+disciples:
+  tellings_of_beads: 1            # Amulet
+  dark_adhesion: 0.5              # Demonhide Armor
+  trade_vise: 0.5                 # Gauntlets
+  sash_of_the_damned: 0.5         # Belt
+  boosted_brethren: 0.5           # Boots
+
+# ============================================================================
+# VIDALAS RIG
+# ============================================================================
+vidala:
+  vidalas_amulet: 0.5             # Amulet
+  vidalas_barb: 0.5               # Spear
+  vidalas_lock: 0.5               # Armor
+  vidalas_ambush: 0.5             # Boots
+
+# ============================================================================
+# WILHELMS PEACE
+# ============================================================================
+wilhelm:
+  wilhelms_face: 0.5              # Helm
+  wilhelms_pride: 0.5             # Belt
+
+# ============================================================================
+# YARI
+# ============================================================================
+yari:
+  yari_set: 0.5                   # Item

@@ -1,0 +1,393 @@
+# Complete D2R Unique Prices Database
+# All uniques organized by item type
+# Prices are FG estimates for Ladder Softcore
+
+# ============================================================================
+# SORCERESS HELMS
+# ============================================================================
+unique_sorc_helms:
+  griffons_eye: 80        # Diadem - Light Sorc BIS
+  nightwings_veil: 30     # Diadem - Cold Sorc
+  harlequin_crest: 8      # Shako - All classes
+  valkyrie_wing: 5        # Winged Helm
+  kiras_guardian: 8       # Tiara - Res stacker
+  steelshade: 3           # Spired Helm
+
+# ============================================================================
+# PALADIN SHIELDS
+# ============================================================================
+unique_pally_shields:
+  herald_of_zakarum: 10   # Gilded Shield
+  alma_negra: 5           # Sacred Rondache
+  akaran_targe: 3         # Akaran Targe
+  sigons_cover: 1         # Tower Shield
+  medusas_gaze: 5         # Aegis - Caster pvp
+  spiritforge: 3          # Heraldic Shield
+  tiamats_rebuke: 2       # Dragon Shield
+  radimants_sphere: 1     # Ancient Shield
+
+# ============================================================================
+# NECROMANCER HEADS
+# ============================================================================
+unique_necro_heads:
+  homunculus: 5           # Zombie Head - Summoner
+  boneflame: 5            # Succubus Skull
+  darkforge_spawn: 3      # Bloodlord Skull
+  deaths_web: 50          # Unearthed Wand (wait, this is wand)
+  trang_ouls_wing: 5      # Cantor Trophy (set)
+  golem_master: 2         # Hierophant Trophy
+
+# ============================================================================
+# BELTS
+# ============================================================================
+unique_belts:
+  arachnid_mesh: 15       # Spiderweb Sash - Caster BIS
+  verdungos_hearty_cord: 8 # Mithril Coil - DR
+  thundergods_vigor: 5    # War Belt - Light absorb
+  strings_of_ears: 3      # Demonhide Sash - LL/DR
+  razortail: 3            # Sharkskin Belt - Pierce
+  tal_rashas_fine_spun_cloth: 5 # Mesh Belt (set but popular)
+  nosferatus_coil: 5      # Vampirefang Belt - IAS/LL
+  goldwrap: 2             # Heavy Belt - MF
+  lenymo: 0.5             # Sash - Mana regen
+  nightsmoke: 1           # Belt - MDR
+  snakecord: 0.5          # Heavy Belt
+  bladebuckle: 0.5        # Plated Belt
+  snowclash: 2            # Battle Belt - Cold absorb
+  glooms_trap: 1          # Mesh Belt
+  hone_sundan_belt: 0.5   # Battle Belt
+
+# ============================================================================
+# BOOTS
+# ============================================================================
+unique_boots:
+  wartraveler: 8          # Silkweave Boots - MF/FRW
+  sandstorm_trek: 8       # Scarabshell Boots - Str/FHR
+  marrowwalk: 5           # Boneweave Boots - Bone skills
+  waterwalk: 3            # Sharkskin Boots - Life/FRW
+  silkweave: 2            # Mesh Boots - Mana
+  gore_rider: 5           # Myrmidon Greaves - CB/OW/DS
+  shadow_dancer: 8        # Myrmidon Greaves - Shadow skills
+  aldurs_advance: 3       # Demonhide Boots (set)
+  tearhaunch: 1           # Greaves - FRW
+  treads_of_cthbon: 0.5   # Chain Boots - FRW
+  goblin_toe: 0.5         # Light Plated Boots - CB
+  gore_foot: 0.5          # Heavy Boots - OW
+  infernostride: 2        # Demonhide Boots - Fire
+  hotspur: 0.5            # Boots - Fire res
+  infernostride: 2        # Demonhide Boots
+  boneflesh: 0.5          # Greaves
+  gorerider: 5            # Myrmidon Greaves
+
+# ============================================================================
+# GLOVES
+# ============================================================================
+unique_gloves:
+  magefist: 3             # Light Gauntlets - FCR
+  frostburn: 3            # Gauntlets - Mana
+  chance_guards: 3        # Chain Gloves - MF
+  draculs_grasp: 8        # Vampirebone Gloves - OW/LL
+  steelrend: 5            # Ogre Gauntlets - ED/CB
+  laying_of_hands: 3      # Bramble Mitts - IAS/demons
+  bloodfist: 1            # Heavy Gloves - IAS/FHR
+  sigon_gloves: 1         # Gauntlets (set)
+  deaths_hand: 0.5        # Leather Gloves - Res
+  bloodgloves: 0.5        # Chain Gloves
+  lava_gout: 1            # Battle Gauntlets - IAS/Enchant
+  hellmouth: 1            # War Gauntlets - Fire
+  gravepalm: 1            # Sharkskin Gloves
+  vampire_gloves: 1       # Demonhide Gloves
+  soul_drain: 1           # Bramble Mitts
+
+# ============================================================================
+# RINGS
+# ============================================================================
+unique_rings:
+  stone_of_jordan: 8      # All casters
+  bul_kathos_wedding_band: 8 # Melee casters
+  raven_frost: 5          # CBF/DEX - Melee BIS
+  dwarf_star: 3           # Fire absorb
+  wisp_projector: 40      # Light absorb/Spirit
+  natures_peace: 5        # RIP - Nihlathak
+  carrion_wind: 5         # Twister charges
+  nagelring: 0.5          # MF
+  manald_heal: 0.5        # Mana leech
+  meyer_schluessel: 0.5   # Ring
+  ring_of_light: 0.5      # Ring
+  ring_of_engagement: 1   # Ring
+
+# ============================================================================
+# AMULETS
+# ============================================================================
+unique_amulets:
+  maras_kaleidoscope: 15  # All res/+skills - BIS
+  tal_rashas_adjudication: 8 # Sorc (set)
+  highlords_wrath: 8      # Melee - DS/IAS
+  cats_eye: 5             # FRW/Dex
+  atmas_scarab: 3         # Amp damage
+  seraphs_hymn: 5         # Pally - Defensive auras
+  nokozan_relic: 0.5      # Fire res
+  tancreds_crow: 0.5      # MF
+  angelic_wings: 1        # AR bonus (set)
+  saracens_chance: 2      # All stats
+  the_rising_tide: 1      # Amulet
+  azure_jewel: 0.5        # Amulet
+  magic_marrow: 0.5       # Amulet
+  infernal_strategies: 0.5 # Amulet
+  iron_pelt: 0.5          # Amulet
+  atmas_amulet: 3         # Amulet
+
+# ============================================================================
+# ARMOR
+# ============================================================================
+unique_armor:
+  # Elite
+  tal_rashas_guardianship: 20 # Larzuk (set)
+  skin_of_the_vipermagi: 5    # Serpentskin Armor - FCR/Res
+  shaftstop: 3                # Mesh Armor - DR
+  skullders_ire: 5            # Russet Armor - MF
+  guardian_angel: 5           # Templar Coat - Max res
+  arkaines_valor: 3           # Balrog Skin - Life/DR
+  tyraels_might: 5            # Sacred Armor - Def
+  ormus_robes: 5              # Dusk Shroud - Skill damage
+  crow_caw: 2                 # Studded Leather - IAS
+  twitchthroe: 1              # Studded Leather - IAS/Block
+  duriels_shell: 2            # Cuirass - Res/Def
+  spiritforge: 3              # Linked Mail
+  que_hegans_wisdom: 1        # Light Plate
+  ironpelt: 2                 # Trellised Armor
+  toothrow: 1                 # Rippled Leather
+  spiritguard: 1              # Leather Armor
+  rockfleece: 1               # Field Plate
+  venomsward: 1               # Breast Plate
+  sparker_mail: 1             # Chain Mail
+  viper_pelt: 1               # Armor
+  greyshape: 1                # Armor
+  lionheart: 0.5              # Armor
+  the_centurian: 0.5          # Armor
+  twichthroe: 1               # Studded Leather
+
+# ============================================================================
+# HELMS
+# ============================================================================
+unique_helms:
+  vampire_gaze: 5         # Grim Helm - LL/DR
+  giant_skull: 3          # Bone Visage - CB/Sockets
+  andariels_visage: 5     # Demonhead - IAS/LL
+  stealskull: 2           # Casque - MF/IAS
+  arreats_face: 8         # Slayer Guard - Barb BIS
+  jalals_mane: 5          # Totemic Mask - Druid BIS
+  crown_of_ages: 15       # Corona - DR/Sockets
+  rockstopper: 2          # Sallet - DR/Res
+  peasant_crown: 2        # War Hat - +1 skills
+  tarnhelm: 0.5           # Skull Cap - +1 skills/MF
+  darksight_helm: 1       # Basinet - Dim Vision
+  wormskull: 1            # Bone Helm - Necro
+  howltusk: 0.5           # Great Helm
+  biggins_bonnet: 0.5     # Cap
+  deaths_mask: 0.5        # Mask
+  blood_mask: 0.5         # Mask
+  the_salmon: 0.5         # Helm
+  coif_of_glory: 0.5      # Helm
+  undershaft_crown: 0.5   # Crown
+  blackhorns_face: 2      # Death Mask - Slow
+  duskdeep: 1             # Full Helm
+  wonn_girdle: 0.5        # Helm
+
+# ============================================================================
+# WEAPONS - JAVELINS
+# ============================================================================
+unique_javelins:
+  titans_revenge: 8       # Ceremonial Javelin - Javazon BIS
+  thunderstroke: 15       # Matriarchal Javelin - CS/LF
+  stygian_pillar: 3       # Hydra Edge
+  lanzagato: 1            # Spiculum
+  pluckeye: 0.5           # Javelin
+  nodachi: 1              # Elite unique
+  the_blood_thief: 0.5    # Javelin
+  stygian_pike: 2         # Javelin
+
+# ============================================================================
+# WEAPONS - BOWS
+# ============================================================================
+unique_bows:
+  windforce: 15           # Hydra Bow - Bowazon BIS
+  eaglehorn: 5            # Crusader Bow - Amazon
+  witchwild_string: 3     # Diamond Bow - Amp
+  buriza_do_kyanon: 3     # Ballista - Pierce
+  cliffkiller: 1          # Long Battle Bow
+  lycanders_aim: 2        # Ceremonial Bow - Amazon
+  kuko_shakaku: 2         # Cedar Bow - Exploding arrow
+  skystrike: 1            # Edge Bow
+  wizendraw: 0.5          # Long Bow - Cold
+  bow_of_the_dead: 0.5    # Short Bow
+  riphook: 0.5            # Long War Bow - Pierce
+  hellclap: 0.5           # Long Bow
+  plague_strike: 0.5      # Short War Bow
+  blastbark: 0.5          # Edge Bow
+  leadcrow: 0.5           # Short Battle Bow
+  doomslinger: 1          # Repeating Crossbow
+
+# ============================================================================
+# WEAPONS - WANDS
+# ============================================================================
+unique_wands:
+  deaths_web: 50          # Unearthed Wand - Poison Necro BIS
+  arm_of_king_leoric: 8   # Tomb Wand - Summoner BIS
+  boneslayer: 3           # Wand
+  suicidewand: 0.5        # Wand
+  orb_of_jim: 0.5         # Wand
+  blackhand_key: 1        # Grave Wand
+  war_psiphon: 1          # Wand
+  conjuring_glove: 0.5    # Wand
+
+# ============================================================================
+# WEAPONS - ORBS
+# ============================================================================
+unique_orbs:
+  deaths_fathom: 30       # Dimensional Shard - Cold Sorc BIS
+  eschutas_temper: 15     # Dimensional Shard - Fire/Light
+  occulus: 3              # Swirling Crystal - All Sorc
+  tal_rashas_lidless_eye: 10 # Swirling Crystal (set)
+  the_oceanus: 1          # Orb
+  soul_carapace: 1        # Orb
+  maelstrom: 1            # Orb
+  spellsteel: 0.5         # Orb
+
+# ============================================================================
+# WEAPONS - SCEPTERS
+# ============================================================================
+unique_scepters:
+  zakarums_hand: 3        # Caduceus
+  lash: 2                 # Scourge
+  bloodrise: 1            # Morning Star
+  stormeye: 1             # War Scepter
+  the_bellows: 0.5        # Scepter
+  civerb_scepter: 0.5     # Grand Scepter (set)
+  magefist_scepter: 0.5   # Scepter
+
+# ============================================================================
+# WEAPONS - SWORDS
+# ============================================================================
+unique_swords:
+  azurewrath: 5           # Phase Blade - Cold
+  lightsabre: 3           # Phase Blade - Lightning
+  doombringer: 2          # Champion Sword
+  bloodmoon: 2            # Tulwar
+  headstriker: 2          # Conquest Sword
+  baranar: 1              # Battle Sword
+  coldkill: 1             # Battle Sword
+  the_viper: 1            # Battle Sword
+  bloodletter: 2          # Gladius
+  swordback: 0.5          # Bone Sword
+  hellplague: 0.5         # Two-Handed Sword
+  vomica: 0.5             # Sword
+  shadowfang: 1           # Two-Handed Sword
+  the_diggler: 0.5        # Dirk
+  goblin_toe_sword: 0.5   # Short Sword
+  rixots_keen: 0.5        # Short Sword
+  tantrums: 0.5           # Falchion
+  skimmers: 0.5           # Long Sword
+  gleamscythe: 0.5        # Falchion
+  islestrike: 1           # Ancient Sword
+  swordsman_hold: 0.5     # Long Sword
+  blancmange: 0.5         # Broad Sword
+  gingercrush: 0.5        # Broad Sword
+  the patriarch: 0.5      # Long War Sword
+  cranium_bash: 0.5       # Two-Handed Sword
+  plasmahilts: 0.5        # Sword
+  bladefury: 0.5          # Sword
+
+# ============================================================================
+# WEAPONS - AXES
+# ============================================================================
+unique_axes:
+  death_cleaver: 10       # Berserker Axe - ED/DS
+  blades_of_agony: 1      # Twin Axe
+  pire_gore: 0.5          # Axe
+  hawkhelm: 0.5           # Axe
+  reapers_toll: 3         # Thresher (polearm but used like axe)
+  bonesnap: 0.5           # Maul
+  bonesaw: 0.5            # Edge
+  brain_ripper: 0.5       # Axe
+  bogdaan: 0.5            # Axe
+  blackrazor: 0.5         # Axe
+  cleaver: 0.5            # Axe
+  the_butcher: 0.5        # Cleaver
+  sharp_bones: 0.5        # Axe
+  saw_tooth: 0.5          # Axe
+  rakescar: 0.5           # Axe
+  humongous: 0.5          # Large Axe
+  deathspade: 0.5         # Axe
+  stonecleaver: 0.5       # Large Axe
+  the_meat_cleaver: 0.5   # Axe
+
+# ============================================================================
+# WEAPONS - POLEARMS
+# ============================================================================
+unique_polearms:
+  tomb_reaver: 30         # Stygian Pike - SOS/ED
+  stormspire: 3           # Scythe - Lightning
+  the_spirit_shroud: 0.5  # Grim Scythe
+  husch: 0.5              # Polearm
+  gallowspan: 0.5         # Grim Scythe
+  rodimans_colossus: 0.5  # Voulge
+  hades_gate: 0.5         # Polearm
+  blackhogs: 0.5          # Polearm
+  nightrunners: 0.5       # Polearm
+  battle_scourge: 0.5     # Polearm
+
+# ============================================================================
+# WEAPONS - HAMMERS/MACES
+# ============================================================================
+unique_hammers:
+  stormlash: 15           # Scourge - CB/Lightning
+  schaefers_hammer: 10    # Legendary Mallet - Lightning
+  earthshifter: 5         # Thunder Maul
+  horizons_tornado: 2     # Scourge
+  the_gavel: 0.5          # Hammer
+  bloodrise: 1            # Morning Star
+  baranar_star: 5         # Devil Star - Elemental
+  gleamscythe: 0.5        # Mace
+  bloodmoon_mace: 0.5     # Mace
+  stun_baton: 0.5         # Club
+  baezils_vortex: 0.5     # Hammer
+  the_crush_flange: 0.5   # Club
+  bloodstone: 0.5         # Club
+  maul_slayer: 0.5        # Maul
+  bonesnap: 1             # Maul
+  stealclan: 0.5          # Maul
+  cranium_basher: 1       # Thunder Maul
+  milabregais_rod: 0.5    # Mace
+
+# ============================================================================
+# WEAPONS - ASSASSIN CLAWS
+# ============================================================================
+unique_claws:
+  bartucs_cutthroat: 3    # Suwayyah - Martial Arts
+  jade_talon: 3           # Suwayyah - Trapsin
+  shadow_killer: 2        # Battle Cestus
+  firelizards_talons: 2   # Scissors Suwayyah
+  flamebellow_claw: 0.5   # Claw
+  jaws_of_itchi: 0.5      # Claw
+  the_cat_of_blood: 0.5   # Claw
+  greater_claws: 0.5      # Claw
+  shadowfang_claw: 0.5    # Claw
+
+# ============================================================================
+# WEAPONS - BARBARIAN
+# ============================================================================
+unique_barb:
+  blade_of_barbarian_king: 5 # Colossus Blade
+  bul_kathos_sacred_charge: 5 # Colossus Blade
+  bul_kathos_mythical_sword: 3 # Mythical Sword
+  
+# ============================================================================
+# WEAPONS - THROWING
+# ============================================================================
+unique_throwing:
+  gimmershred: 3          # Flying Axe - Elemental
+  demons_arch: 2          # Balrog Spear
+  deathbit: 0.5           # Battle Dart
+  the_scalper: 0.5        # Throwing Axe
+  duriels_cage: 0.5       # Throwing

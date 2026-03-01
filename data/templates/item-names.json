@@ -9,7 +9,7 @@
   {
     "id": 2,
     "Key": "base:2hs",
-    "enUS": "Two-Handed Sword",
+    "enUS": "Two-Handed Sword | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -23,7 +23,7 @@
   {
     "id": 4,
     "Key": "base:6cb",
-    "enUS": "Great Bow",
+    "enUS": "Great Bow | 2 FG",
     "category": "base",
     "quality": "base"
   },
@@ -37,28 +37,28 @@
   {
     "id": 6,
     "Key": "base:6hb",
-    "enUS": "Blade Bow",
+    "enUS": "Blade Bow | 3 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 7,
     "Key": "base:6hx",
-    "enUS": "Colossus Crossbow",
+    "enUS": "Colossus Crossbow | 3 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 8,
     "Key": "base:6l7",
-    "enUS": "Crusader Bow",
+    "enUS": "Crusader Bow | 5 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 9,
     "Key": "base:6lb",
-    "enUS": "Shadow Bow",
+    "enUS": "Shadow Bow | 2 FG",
     "category": "base",
     "quality": "base"
   },
@@ -72,7 +72,7 @@
   {
     "id": 11,
     "Key": "base:6lw",
-    "enUS": "Hydra Bow",
+    "enUS": "Hydra Bow | 8 FG",
     "category": "base",
     "quality": "base"
   },
@@ -93,7 +93,7 @@
   {
     "id": 14,
     "Key": "base:6rx",
-    "enUS": "Demon Crossbow",
+    "enUS": "Demon Crossbow | 2 FG",
     "category": "base",
     "quality": "base"
   },
@@ -135,7 +135,7 @@
   {
     "id": 20,
     "Key": "base:72a",
-    "enUS": "Ettin Axe",
+    "enUS": "Ettin Axe | 5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -163,7 +163,7 @@
   {
     "id": 24,
     "Key": "base:7b7",
-    "enUS": "Champion Sword",
+    "enUS": "Champion Sword | 5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -212,7 +212,7 @@
   {
     "id": 31,
     "Key": "base:7bt",
-    "enUS": "Decapitator",
+    "enUS": "Decapitator | 3 FG",
     "category": "base",
     "quality": "base"
   },
@@ -226,7 +226,7 @@
   {
     "id": 33,
     "Key": "base:7cl",
-    "enUS": "Truncheon",
+    "enUS": "Truncheon | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -247,7 +247,7 @@
   {
     "id": 36,
     "Key": "base:7cs",
-    "enUS": "Battle Cestus",
+    "enUS": "Battle Cestus | 3 FG",
     "category": "base",
     "quality": "base"
   },
@@ -289,7 +289,7 @@
   {
     "id": 42,
     "Key": "base:7ga",
-    "enUS": "Champion Axe",
+    "enUS": "Champion Axe | 5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -303,7 +303,7 @@
   {
     "id": 44,
     "Key": "base:7gi",
-    "enUS": "Glorious Axe",
+    "enUS": "Glorious Axe | 3 FG",
     "category": "base",
     "quality": "base"
   },
@@ -317,7 +317,7 @@
   {
     "id": 46,
     "Key": "base:7gm",
-    "enUS": "Thunder Maul",
+    "enUS": "Thunder Maul | 5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -345,7 +345,7 @@
   {
     "id": 50,
     "Key": "base:7ha",
-    "enUS": "Tomahawk",
+    "enUS": "Tomahawk | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -387,7 +387,7 @@
   {
     "id": 56,
     "Key": "base:7m7",
-    "enUS": "Ogre Maul",
+    "enUS": "Ogre Maul | 3 FG",
     "category": "base",
     "quality": "base"
   },
@@ -534,7 +534,7 @@
   {
     "id": 77,
     "Key": "base:7tr",
-    "enUS": "Stygian Pike",
+    "enUS": "Stygian Pike | 2 FG",
     "category": "base",
     "quality": "base"
   },
@@ -569,7 +569,7 @@
   {
     "id": 82,
     "Key": "base:7wb",
-    "enUS": "Wrist Sword",
+    "enUS": "Wrist Sword | 2 FG",
     "category": "base",
     "quality": "base"
   },
@@ -590,14 +590,14 @@
   {
     "id": 85,
     "Key": "base:7wh",
-    "enUS": "Legendary Mallet",
+    "enUS": "Legendary Mallet | 8 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 86,
     "Key": "base:7wn",
-    "enUS": "Polished Wand",
+    "enUS": "Polished Wand | 1 FG",
     "category": "base",
     "quality": "base"
   },
@@ -632,7 +632,7 @@
   {
     "id": 91,
     "Key": "base:8cb",
-    "enUS": "Double Bow",
+    "enUS": "Double Bow | 1 FG",
     "category": "base",
     "quality": "base"
   },
@@ -653,7 +653,7 @@
   {
     "id": 94,
     "Key": "base:8hx",
-    "enUS": "Ballista",
+    "enUS": "Ballista | 2 FG",
     "category": "base",
     "quality": "base"
   },
@@ -667,7 +667,7 @@
   {
     "id": 96,
     "Key": "base:8lb",
-    "enUS": "Cedar Bow",
+    "enUS": "Cedar Bow | 1 FG",
     "category": "base",
     "quality": "base"
   },
@@ -681,28 +681,28 @@
   {
     "id": 98,
     "Key": "base:8lw",
-    "enUS": "Gothic Bow",
+    "enUS": "Gothic Bow | 2 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 99,
     "Key": "base:8lx",
-    "enUS": "Arbalest",
+    "enUS": "Arbalest | 1 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 100,
     "Key": "base:8mx",
-    "enUS": "Siege Crossbow",
+    "enUS": "Siege Crossbow | 1 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 101,
     "Key": "base:8rx",
-    "enUS": "Chu-Ko-Nu",
+    "enUS": "Chu-Ko-Nu | 1 FG",
     "category": "base",
     "quality": "base"
   },
@@ -716,7 +716,7 @@
   {
     "id": 103,
     "Key": "base:8sb",
-    "enUS": "Edge Bow",
+    "enUS": "Edge Bow | 2 FG",
     "category": "base",
     "quality": "base"
   },
@@ -758,14 +758,14 @@
   {
     "id": 109,
     "Key": "base:9ar",
-    "enUS": "Quhab",
+    "enUS": "Quhab | 2 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 110,
     "Key": "base:9ax",
-    "enUS": "Cleaver",
+    "enUS": "Cleaver | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -793,7 +793,7 @@
   {
     "id": 114,
     "Key": "base:9ba",
-    "enUS": "Bearded Axe",
+    "enUS": "Bearded Axe | 1 FG",
     "category": "base",
     "quality": "base"
   },
@@ -821,28 +821,28 @@
   {
     "id": 118,
     "Key": "base:9bs",
-    "enUS": "Battle Sword",
+    "enUS": "Battle Sword | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 119,
     "Key": "base:9bt",
-    "enUS": "Tabar",
+    "enUS": "Tabar | 1 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 120,
     "Key": "base:9bw",
-    "enUS": "Tomb Wand",
+    "enUS": "Tomb Wand | 3 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 121,
     "Key": "base:9cl",
-    "enUS": "Cudgel",
+    "enUS": "Cudgel | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -856,14 +856,14 @@
   {
     "id": 123,
     "Key": "base:9cr",
-    "enUS": "Dimensional Blade",
+    "enUS": "Dimensional Blade | 5 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 124,
     "Key": "base:9cs",
-    "enUS": "Hand Scythe",
+    "enUS": "Hand Scythe | 3 FG",
     "category": "base",
     "quality": "base"
   },
@@ -912,7 +912,7 @@
   {
     "id": 131,
     "Key": "base:9gd",
-    "enUS": "Executioner Sword",
+    "enUS": "Executioner Sword | 2 FG",
     "category": "base",
     "quality": "base"
   },
@@ -933,7 +933,7 @@
   {
     "id": 134,
     "Key": "base:9gm",
-    "enUS": "Martel de Fer",
+    "enUS": "Martel de Fer | 2 FG",
     "category": "base",
     "quality": "base"
   },
@@ -947,14 +947,14 @@
   {
     "id": 136,
     "Key": "base:9gw",
-    "enUS": "Grave Wand",
+    "enUS": "Grave Wand | 3 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 137,
     "Key": "base:9h9",
-    "enUS": "Bec-de-Corbin",
+    "enUS": "Bec-de-Corbin | 1 FG",
     "category": "base",
     "quality": "base"
   },
@@ -989,14 +989,14 @@
   {
     "id": 142,
     "Key": "base:9ls",
-    "enUS": "Rune Sword",
+    "enUS": "Rune Sword | 1 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 143,
     "Key": "base:9lw",
-    "enUS": "Greater Claws",
+    "enUS": "Greater Claws | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -1010,7 +1010,7 @@
   {
     "id": 145,
     "Key": "base:9ma",
-    "enUS": "Flanged Mace",
+    "enUS": "Flanged Mace | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -1052,7 +1052,7 @@
   {
     "id": 151,
     "Key": "base:9qr",
-    "enUS": "Scissors Quhab",
+    "enUS": "Scissors Quhab | 2 FG",
     "category": "base",
     "quality": "base"
   },
@@ -1094,7 +1094,7 @@
   {
     "id": 157,
     "Key": "base:9sm",
-    "enUS": "Cutlass",
+    "enUS": "Cutlass | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -1115,7 +1115,7 @@
   {
     "id": 160,
     "Key": "base:9ss",
-    "enUS": "Gladius",
+    "enUS": "Gladius | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -1143,7 +1143,7 @@
   {
     "id": 164,
     "Key": "base:9tr",
-    "enUS": "Fuscina",
+    "enUS": "Fuscina | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -1164,35 +1164,35 @@
   {
     "id": 167,
     "Key": "base:9vo",
-    "enUS": "Bill",
+    "enUS": "Bill | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 168,
     "Key": "base:9wa",
-    "enUS": "Naga",
+    "enUS": "Naga | 2 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 169,
     "Key": "base:9wb",
-    "enUS": "Wrist Spike",
+    "enUS": "Wrist Spike | 3 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 170,
     "Key": "base:9wc",
-    "enUS": "Grim Scythe",
+    "enUS": "Grim Scythe | 2 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 171,
     "Key": "base:9wd",
-    "enUS": "Ancient Sword",
+    "enUS": "Ancient Sword | 1 FG",
     "category": "base",
     "quality": "base"
   },
@@ -1206,14 +1206,14 @@
   {
     "id": 173,
     "Key": "base:9wn",
-    "enUS": "Burnt Wand",
+    "enUS": "Burnt Wand | 2 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 174,
     "Key": "base:9ws",
-    "enUS": "Divine Scepter",
+    "enUS": "Divine Scepter | 5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -1234,7 +1234,7 @@
   {
     "id": 177,
     "Key": "base:aar",
-    "enUS": "Ancient Armor",
+    "enUS": "Ancient Armor | 1 FG",
     "category": "base",
     "quality": "base"
   },
@@ -1297,7 +1297,7 @@
   {
     "id": 186,
     "Key": "base:am9",
-    "enUS": "Ceremonial Pike",
+    "enUS": "Ceremonial Pike | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -1311,14 +1311,14 @@
   {
     "id": 188,
     "Key": "base:amb",
-    "enUS": "Matriarchal Bow",
+    "enUS": "Matriarchal Bow | 3 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 189,
     "Key": "base:amc",
-    "enUS": "Grand Matron Bow",
+    "enUS": "Grand Matron Bow | 5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -1353,7 +1353,7 @@
   {
     "id": 194,
     "Key": "base:axf",
-    "enUS": "Hatchet Hands",
+    "enUS": "Hatchet Hands | 2 FG",
     "category": "base",
     "quality": "base"
   },
@@ -1388,7 +1388,7 @@
   {
     "id": 199,
     "Key": "base:ba5",
-    "enUS": "Avenger Guard",
+    "enUS": "Avenger Guard | 2 FG",
     "category": "base",
     "quality": "base"
   },
@@ -1423,7 +1423,7 @@
   {
     "id": 204,
     "Key": "base:baa",
-    "enUS": "Slayer Guard",
+    "enUS": "Slayer Guard | 3 FG",
     "category": "base",
     "quality": "base"
   },
@@ -1437,28 +1437,28 @@
   {
     "id": 206,
     "Key": "base:bac",
-    "enUS": "Fury Visor",
+    "enUS": "Fury Visor | 2 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 207,
     "Key": "base:bad",
-    "enUS": "Destroyer Helm",
+    "enUS": "Destroyer Helm | 2 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 208,
     "Key": "base:bae",
-    "enUS": "Conqueror Crown",
+    "enUS": "Conqueror Crown | 2 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 209,
     "Key": "base:baf",
-    "enUS": "Guardian Crown",
+    "enUS": "Guardian Crown | 2 FG",
     "category": "base",
     "quality": "base"
   },
@@ -1472,14 +1472,14 @@
   {
     "id": 211,
     "Key": "base:bar",
-    "enUS": "Bardiche",
+    "enUS": "Bardiche | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 212,
     "Key": "base:bax",
-    "enUS": "Broad Axe",
+    "enUS": "Broad Axe | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -1507,21 +1507,21 @@
   {
     "id": 216,
     "Key": "base:brn",
-    "enUS": "Brandistock",
+    "enUS": "Brandistock | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 217,
     "Key": "base:brs",
-    "enUS": "Breast Plate",
+    "enUS": "Breast Plate | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 218,
     "Key": "base:bsd",
-    "enUS": "Broad Sword",
+    "enUS": "Broad Sword | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -1542,21 +1542,21 @@
   {
     "id": 221,
     "Key": "base:bsw",
-    "enUS": "Bastard Sword",
+    "enUS": "Bastard Sword | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 222,
     "Key": "base:btl",
-    "enUS": "Blade Talons",
+    "enUS": "Blade Talons | 5 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 223,
     "Key": "base:btx",
-    "enUS": "Battle Axe",
+    "enUS": "Battle Axe | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -1570,7 +1570,7 @@
   {
     "id": 225,
     "Key": "base:bwn",
-    "enUS": "Bone Wand",
+    "enUS": "Bone Wand | 1 FG",
     "category": "base",
     "quality": "base"
   },
@@ -1584,21 +1584,21 @@
   {
     "id": 227,
     "Key": "base:cbw",
-    "enUS": "Composite Bow",
+    "enUS": "Composite Bow | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 228,
     "Key": "base:ces",
-    "enUS": "Cestus",
+    "enUS": "Cestus | 2 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 229,
     "Key": "base:chn",
-    "enUS": "Chain Mail",
+    "enUS": "Chain Mail | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -1633,14 +1633,14 @@
   {
     "id": 234,
     "Key": "base:clb",
-    "enUS": "Club",
+    "enUS": "Club | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 235,
     "Key": "base:clm",
-    "enUS": "Claymore",
+    "enUS": "Claymore | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -1682,35 +1682,35 @@
   {
     "id": 241,
     "Key": "base:dgr",
-    "enUS": "Dagger",
+    "enUS": "Dagger | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 242,
     "Key": "base:dir",
-    "enUS": "Dirk",
+    "enUS": "Dirk | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 243,
     "Key": "base:dr1",
-    "enUS": "Wolf Head",
+    "enUS": "Wolf Head | 1 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 244,
     "Key": "base:dr2",
-    "enUS": "Hawk Helm",
+    "enUS": "Hawk Helm | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 245,
     "Key": "base:dr3",
-    "enUS": "Antlers",
+    "enUS": "Antlers | 1 FG",
     "category": "base",
     "quality": "base"
   },
@@ -1724,14 +1724,14 @@
   {
     "id": 247,
     "Key": "base:dr5",
-    "enUS": "Spirit Mask",
+    "enUS": "Spirit Mask | 1 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 248,
     "Key": "base:dr6",
-    "enUS": "Alpha Helm",
+    "enUS": "Alpha Helm | 2 FG",
     "category": "base",
     "quality": "base"
   },
@@ -1759,35 +1759,35 @@
   {
     "id": 252,
     "Key": "base:dra",
-    "enUS": "Totemic Mask",
+    "enUS": "Totemic Mask | 2 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 253,
     "Key": "base:drb",
-    "enUS": "Blood Spirit",
+    "enUS": "Blood Spirit | 1 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 254,
     "Key": "base:drc",
-    "enUS": "Sun Spirit",
+    "enUS": "Sun Spirit | 2 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 255,
     "Key": "base:drd",
-    "enUS": "Earth Spirit",
+    "enUS": "Earth Spirit | 2 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 256,
     "Key": "base:dre",
-    "enUS": "Sky Spirit",
+    "enUS": "Sky Spirit | 2 FG",
     "category": "base",
     "quality": "base"
   },
@@ -1822,21 +1822,21 @@
   {
     "id": 261,
     "Key": "base:flc",
-    "enUS": "Falchion",
+    "enUS": "Falchion | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 262,
     "Key": "base:fld",
-    "enUS": "Field Plate",
+    "enUS": "Field Plate | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 263,
     "Key": "base:ful",
-    "enUS": "Full Plate Mail",
+    "enUS": "Full Plate Mail | 1 FG",
     "category": "base",
     "quality": "base"
   },
@@ -1850,7 +1850,7 @@
   {
     "id": 265,
     "Key": "base:gax",
-    "enUS": "Great Axe",
+    "enUS": "Great Axe | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -1871,7 +1871,7 @@
   {
     "id": 268,
     "Key": "base:gix",
-    "enUS": "Giant Axe",
+    "enUS": "Giant Axe | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -1885,7 +1885,7 @@
   {
     "id": 270,
     "Key": "base:gma",
-    "enUS": "Great Maul",
+    "enUS": "Great Maul | 2 FG",
     "category": "base",
     "quality": "base"
   },
@@ -1927,7 +1927,7 @@
   {
     "id": 276,
     "Key": "base:gth",
-    "enUS": "Gothic Plate",
+    "enUS": "Gothic Plate | 1 FG",
     "category": "base",
     "quality": "base"
   },
@@ -1941,14 +1941,14 @@
   {
     "id": 278,
     "Key": "base:gwn",
-    "enUS": "Grim Wand",
+    "enUS": "Grim Wand | 1 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 279,
     "Key": "base:hal",
-    "enUS": "Halberd",
+    "enUS": "Halberd | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -2025,7 +2025,7 @@
   {
     "id": 290,
     "Key": "base:hxb",
-    "enUS": "Heavy Crossbow",
+    "enUS": "Heavy Crossbow | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -2039,7 +2039,7 @@
   {
     "id": 292,
     "Key": "base:kit",
-    "enUS": "Kite Shield",
+    "enUS": "Kite Shield | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -2053,14 +2053,14 @@
   {
     "id": 294,
     "Key": "base:ktr",
-    "enUS": "Katar",
+    "enUS": "Katar | 1 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 295,
     "Key": "base:lax",
-    "enUS": "Large Axe",
+    "enUS": "Large Axe | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -2088,14 +2088,14 @@
   {
     "id": 299,
     "Key": "base:lbw",
-    "enUS": "Long Bow",
+    "enUS": "Long Bow | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 300,
     "Key": "base:lea",
-    "enUS": "Leather Armor",
+    "enUS": "Leather Armor | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -2123,7 +2123,7 @@
   {
     "id": 304,
     "Key": "base:lsd",
-    "enUS": "Long Sword",
+    "enUS": "Long Sword | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -2137,21 +2137,21 @@
   {
     "id": 306,
     "Key": "base:ltp",
-    "enUS": "Light Plate",
+    "enUS": "Light Plate | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 307,
     "Key": "base:lwb",
-    "enUS": "Long War Bow",
+    "enUS": "Long War Bow | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 308,
     "Key": "base:lxb",
-    "enUS": "Light Crossbow",
+    "enUS": "Light Crossbow | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -2165,7 +2165,7 @@
   {
     "id": 310,
     "Key": "base:mau",
-    "enUS": "Maul",
+    "enUS": "Maul | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -2193,7 +2193,7 @@
   {
     "id": 314,
     "Key": "base:mpi",
-    "enUS": "Military Pick",
+    "enUS": "Military Pick | 1 FG",
     "category": "base",
     "quality": "base"
   },
@@ -2214,14 +2214,14 @@
   {
     "id": 317,
     "Key": "base:mst",
-    "enUS": "Morning Star",
+    "enUS": "Morning Star | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 318,
     "Key": "base:mxb",
-    "enUS": "Crossbow",
+    "enUS": "Crossbow | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -2235,7 +2235,7 @@
   {
     "id": 320,
     "Key": "base:ne2",
-    "enUS": "Zombie Head",
+    "enUS": "Zombie Head | 2 FG",
     "category": "base",
     "quality": "base"
   },
@@ -2256,7 +2256,7 @@
   {
     "id": 323,
     "Key": "base:ne5",
-    "enUS": "Demon Head",
+    "enUS": "Demon Head | 3 FG",
     "category": "base",
     "quality": "base"
   },
@@ -2284,7 +2284,7 @@
   {
     "id": 327,
     "Key": "base:ne9",
-    "enUS": "Cantor Trophy",
+    "enUS": "Cantor Trophy | 2 FG",
     "category": "base",
     "quality": "base"
   },
@@ -2312,14 +2312,14 @@
   {
     "id": 331,
     "Key": "base:nee",
-    "enUS": "Succubus Skull",
+    "enUS": "Succubus Skull | 3 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 332,
     "Key": "base:nef",
-    "enUS": "Bloodlord Skull",
+    "enUS": "Bloodlord Skull | 3 FG",
     "category": "base",
     "quality": "base"
   },
@@ -2368,7 +2368,7 @@
   {
     "id": 339,
     "Key": "base:ob6",
-    "enUS": "Glowing Orb",
+    "enUS": "Glowing Orb | 1 FG",
     "category": "base",
     "quality": "base"
   },
@@ -2410,7 +2410,7 @@
   {
     "id": 345,
     "Key": "base:obc",
-    "enUS": "Eldritch Orb",
+    "enUS": "Eldritch Orb | 2 FG",
     "category": "base",
     "quality": "base"
   },
@@ -2473,7 +2473,7 @@
   {
     "id": 354,
     "Key": "base:pa3",
-    "enUS": "Heraldic Shield",
+    "enUS": "Heraldic Shield | 2 FG",
     "category": "base",
     "quality": "base"
   },
@@ -2487,7 +2487,7 @@
   {
     "id": 356,
     "Key": "base:pa5",
-    "enUS": "Crown Shield",
+    "enUS": "Crown Shield | 2 FG",
     "category": "base",
     "quality": "base"
   },
@@ -2501,7 +2501,7 @@
   {
     "id": 358,
     "Key": "base:pa7",
-    "enUS": "Akaran Rondache",
+    "enUS": "Akaran Rondache | 2 FG",
     "category": "base",
     "quality": "base"
   },
@@ -2515,7 +2515,7 @@
   {
     "id": 360,
     "Key": "base:pa9",
-    "enUS": "Gilded Shield",
+    "enUS": "Gilded Shield | 3 FG",
     "category": "base",
     "quality": "base"
   },
@@ -2550,7 +2550,7 @@
   {
     "id": 365,
     "Key": "base:pae",
-    "enUS": "Zakarum Shield",
+    "enUS": "Zakarum Shield | 5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -2571,7 +2571,7 @@
   {
     "id": 368,
     "Key": "base:pik",
-    "enUS": "Pike",
+    "enUS": "Pike | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -2585,7 +2585,7 @@
   {
     "id": 370,
     "Key": "base:plt",
-    "enUS": "Plate Mail",
+    "enUS": "Plate Mail | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -2606,7 +2606,7 @@
   {
     "id": 373,
     "Key": "base:qui",
-    "enUS": "Quilted Armor",
+    "enUS": "Quilted Armor | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -2641,14 +2641,14 @@
   {
     "id": 378,
     "Key": "base:sbw",
-    "enUS": "Short Bow",
+    "enUS": "Short Bow | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 379,
     "Key": "base:scl",
-    "enUS": "Scale Mail",
+    "enUS": "Scale Mail | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -2718,7 +2718,7 @@
   {
     "id": 389,
     "Key": "base:spr",
-    "enUS": "Spear",
+    "enUS": "Spear | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -2732,7 +2732,7 @@
   {
     "id": 391,
     "Key": "base:ssd",
-    "enUS": "Short Sword",
+    "enUS": "Short Sword | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -2746,21 +2746,21 @@
   {
     "id": 393,
     "Key": "base:sst",
-    "enUS": "Short Staff",
+    "enUS": "Short Staff | 8 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 394,
     "Key": "base:stu",
-    "enUS": "Studded Leather",
+    "enUS": "Studded Leather | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 395,
     "Key": "base:swb",
-    "enUS": "Short War Bow",
+    "enUS": "Short War Bow | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -2802,7 +2802,7 @@
   {
     "id": 401,
     "Key": "base:tow",
-    "enUS": "Tower Shield",
+    "enUS": "Tower Shield | 1 FG",
     "category": "base",
     "quality": "base"
   },
@@ -2851,7 +2851,7 @@
   {
     "id": 408,
     "Key": "base:uh9",
-    "enUS": "Bone Visage",
+    "enUS": "Bone Visage | 2 FG",
     "category": "base",
     "quality": "base"
   },
@@ -2956,7 +2956,7 @@
   {
     "id": 423,
     "Key": "base:ult",
-    "enUS": "Hellforge Plate",
+    "enUS": "Hellforge Plate | 5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -2998,14 +2998,14 @@
   {
     "id": 429,
     "Key": "base:uow",
-    "enUS": "Aegis",
+    "enUS": "Aegis | 2 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 430,
     "Key": "base:upk",
-    "enUS": "Blade Barrier",
+    "enUS": "Blade Barrier | 1 FG",
     "category": "base",
     "quality": "base"
   },
@@ -3019,14 +3019,14 @@
   {
     "id": 432,
     "Key": "base:urg",
-    "enUS": "Hyperion",
+    "enUS": "Hyperion | 3 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 433,
     "Key": "base:urn",
-    "enUS": "Corona",
+    "enUS": "Corona | 8 FG",
     "category": "base",
     "quality": "base"
   },
@@ -3075,7 +3075,7 @@
   {
     "id": 440,
     "Key": "base:uth",
-    "enUS": "Lacquered Plate",
+    "enUS": "Lacquered Plate | 2 FG",
     "category": "base",
     "quality": "base"
   },
@@ -3089,7 +3089,7 @@
   {
     "id": 442,
     "Key": "base:uts",
-    "enUS": "Ward",
+    "enUS": "Ward | 2 FG",
     "category": "base",
     "quality": "base"
   },
@@ -3117,7 +3117,7 @@
   {
     "id": 446,
     "Key": "base:uul",
-    "enUS": "Shadow Plate",
+    "enUS": "Shadow Plate | 3 FG",
     "category": "base",
     "quality": "base"
   },
@@ -3166,7 +3166,7 @@
   {
     "id": 453,
     "Key": "base:vou",
-    "enUS": "Voulge",
+    "enUS": "Voulge | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -3278,21 +3278,21 @@
   {
     "id": 469,
     "Key": "base:wax",
-    "enUS": "War Axe",
+    "enUS": "War Axe | 1 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 470,
     "Key": "base:whm",
-    "enUS": "War Hammer",
+    "enUS": "War Hammer | 1 FG",
     "category": "base",
     "quality": "base"
   },
   {
     "id": 471,
     "Key": "base:wnd",
-    "enUS": "Wand",
+    "enUS": "Wand | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -3362,7 +3362,7 @@
   {
     "id": 481,
     "Key": "base:xh9",
-    "enUS": "Grim Helm",
+    "enUS": "Grim Helm | 2 FG",
     "category": "base",
     "quality": "base"
   },
@@ -3411,7 +3411,7 @@
   {
     "id": 488,
     "Key": "base:xkp",
-    "enUS": "Sallet",
+    "enUS": "Sallet | 2 FG",
     "category": "base",
     "quality": "base"
   },
@@ -3446,7 +3446,7 @@
   {
     "id": 493,
     "Key": "base:xlm",
-    "enUS": "Casque",
+    "enUS": "Casque | 2 FG",
     "category": "base",
     "quality": "base"
   },
@@ -3474,7 +3474,7 @@
   {
     "id": 497,
     "Key": "base:xml",
-    "enUS": "Round Shield",
+    "enUS": "Round Shield | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -3488,7 +3488,7 @@
   {
     "id": 499,
     "Key": "base:xow",
-    "enUS": "Pavise",
+    "enUS": "Pavise | 1 FG",
     "category": "base",
     "quality": "base"
   },
@@ -3537,7 +3537,7 @@
   {
     "id": 506,
     "Key": "base:xsk",
-    "enUS": "Death Mask",
+    "enUS": "Death Mask | 2 FG",
     "category": "base",
     "quality": "base"
   },
@@ -3586,7 +3586,7 @@
   {
     "id": 513,
     "Key": "base:xuc",
-    "enUS": "Defender",
+    "enUS": "Defender | 0.5 FG",
     "category": "base",
     "quality": "base"
   },
@@ -3600,7 +3600,7 @@
   {
     "id": 515,
     "Key": "base:xul",
-    "enUS": "Chaos Armor",
+    "enUS": "Chaos Armor | 2 FG",
     "category": "base",
     "quality": "base"
   },
@@ -3621,7 +3621,7 @@
   {
     "id": 518,
     "Key": "base:ywn",
-    "enUS": "Yew Wand",
+    "enUS": "Yew Wand | 1 FG",
     "category": "base",
     "quality": "base"
   },
@@ -3733,21 +3733,21 @@
   {
     "id": 534,
     "Key": "key:destruction",
-    "enUS": "Key of Destruction",
+    "enUS": "Key of Destruction | 3 FG",
     "category": "key",
     "quality": "misc"
   },
   {
     "id": 535,
     "Key": "key:hate",
-    "enUS": "Key of Hate",
+    "enUS": "Key of Hate | 3 FG",
     "category": "key",
     "quality": "misc"
   },
   {
     "id": 536,
     "Key": "key:terror",
-    "enUS": "Key of Terror",
+    "enUS": "Key of Terror | 3 FG",
     "category": "key",
     "quality": "misc"
   },
@@ -4013,70 +4013,70 @@
   {
     "id": 574,
     "Key": "misc:glg",
-    "enUS": "Flawless Emerald",
+    "enUS": "Flawless Emerald | 0.2 FG",
     "category": "misc",
     "quality": "misc"
   },
   {
     "id": 575,
     "Key": "misc:glr",
-    "enUS": "Flawless Ruby",
+    "enUS": "Flawless Ruby | 0.2 FG",
     "category": "misc",
     "quality": "misc"
   },
   {
     "id": 576,
     "Key": "misc:glw",
-    "enUS": "Flawless Diamond",
+    "enUS": "Flawless Diamond | 0.2 FG",
     "category": "misc",
     "quality": "misc"
   },
   {
     "id": 577,
     "Key": "misc:gly",
-    "enUS": "Flawless Topaz",
+    "enUS": "Flawless Topaz | 0.2 FG",
     "category": "misc",
     "quality": "misc"
   },
   {
     "id": 578,
     "Key": "misc:gpb",
-    "enUS": "Perfect Sapphire",
+    "enUS": "Perfect Sapphire | 0.5 FG",
     "category": "misc",
     "quality": "misc"
   },
   {
     "id": 579,
     "Key": "misc:gpg",
-    "enUS": "Perfect Emerald",
+    "enUS": "Perfect Emerald | 0.5 FG",
     "category": "misc",
     "quality": "misc"
   },
   {
     "id": 580,
     "Key": "misc:gpr",
-    "enUS": "Perfect Ruby",
+    "enUS": "Perfect Ruby | 0.5 FG",
     "category": "misc",
     "quality": "misc"
   },
   {
     "id": 581,
     "Key": "misc:gpv",
-    "enUS": "Perfect Amethyst",
+    "enUS": "Perfect Amethyst | 0.5 FG",
     "category": "misc",
     "quality": "misc"
   },
   {
     "id": 582,
     "Key": "misc:gpw",
-    "enUS": "Perfect Diamond",
+    "enUS": "Perfect Diamond | 0.5 FG",
     "category": "misc",
     "quality": "misc"
   },
   {
     "id": 583,
     "Key": "misc:gpy",
-    "enUS": "Perfect Topaz",
+    "enUS": "Perfect Topaz | 0.5 FG",
     "category": "misc",
     "quality": "misc"
   },
@@ -4125,7 +4125,7 @@
   {
     "id": 590,
     "Key": "misc:gzv",
-    "enUS": "Flawless Amethyst",
+    "enUS": "Flawless Amethyst | 0.2 FG",
     "category": "misc",
     "quality": "misc"
   },
@@ -4398,7 +4398,7 @@
   {
     "id": 629,
     "Key": "misc:skl",
-    "enUS": "Flawless Skull",
+    "enUS": "Flawless Skull | 0.3 FG",
     "category": "misc",
     "quality": "misc"
   },
@@ -4412,7 +4412,7 @@
   {
     "id": 631,
     "Key": "misc:skz",
-    "enUS": "Perfect Skull",
+    "enUS": "Perfect Skull | 1 FG",
     "category": "misc",
     "quality": "misc"
   },
@@ -4440,7 +4440,7 @@
   {
     "id": 635,
     "Key": "misc:tch",
-    "enUS": "Torch",
+    "enUS": "Torch | 15 FG",
     "category": "misc",
     "quality": "misc"
   },
@@ -4846,14 +4846,14 @@
   {
     "id": 693,
     "Key": "rune:sol",
-    "enUS": "Soul",
+    "enUS": "Soul | 0.5 FG",
     "category": "rune",
     "quality": "misc"
   },
   {
     "id": 694,
     "Key": "rune:tal",
-    "enUS": "Tail",
+    "enUS": "Tail | 0.2 FG",
     "category": "rune",
     "quality": "misc"
   },
@@ -4867,7 +4867,7 @@
   {
     "id": 696,
     "Key": "set:ancient_armor",
-    "enUS": "Milabrega's Robe",
+    "enUS": "Milabrega's Robe | 1 FG",
     "category": "set",
     "quality": "set"
   },
@@ -4888,14 +4888,14 @@
   {
     "id": 699,
     "Key": "set:basinet",
-    "enUS": "Sazabi's Mental Sheath",
+    "enUS": "Sazabi's Mental Sheath | 2 FG",
     "category": "set",
     "quality": "set"
   },
   {
     "id": 700,
     "Key": "set:battle_belt",
-    "enUS": "Wilhelm's Pride",
+    "enUS": "Wilhelm's Pride | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
@@ -4909,14 +4909,14 @@
   {
     "id": 702,
     "Key": "set:battle_gauntlets",
-    "enUS": "M'avina's Icy Clutch",
+    "enUS": "M'avina's Icy Clutch | 2 FG",
     "category": "set",
     "quality": "set"
   },
   {
     "id": 703,
     "Key": "set:battle_staff",
-    "enUS": "Cathan's Rule",
+    "enUS": "Cathan's Rule | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
@@ -4930,14 +4930,14 @@
   {
     "id": 705,
     "Key": "set:bill",
-    "enUS": "Hwanin's Justice",
+    "enUS": "Hwanin's Justice | 2 FG",
     "category": "set",
     "quality": "set"
   },
   {
     "id": 706,
     "Key": "set:bone_helm",
-    "enUS": "Tancred's Skull",
+    "enUS": "Tancred's Skull | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
@@ -4951,14 +4951,14 @@
   {
     "id": 708,
     "Key": "set:bone_wand",
-    "enUS": "McAuley's Superstition",
+    "enUS": "McAuley's Superstition | 1 FG",
     "category": "set",
     "quality": "set"
   },
   {
     "id": 709,
     "Key": "set:boots",
-    "enUS": "Tancred's Hobnails",
+    "enUS": "Tancred's Hobnails | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
@@ -4972,14 +4972,14 @@
   {
     "id": 711,
     "Key": "set:breast_plate",
-    "enUS": "Isenhart's Case",
+    "enUS": "Isenhart's Case | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
   {
     "id": 712,
     "Key": "set:broad_sword",
-    "enUS": "Isenhart's Lightbrand",
+    "enUS": "Isenhart's Lightbrand | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5028,14 +5028,14 @@
   {
     "id": 719,
     "Key": "set:chain_mail",
-    "enUS": "Cathan's Mesh",
+    "enUS": "Cathan's Mesh | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
   {
     "id": 720,
     "Key": "set:chaos_armor",
-    "enUS": "Trang-Oul's Scales",
+    "enUS": "Trang-Oul's Scales | 2 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5070,7 +5070,7 @@
   {
     "id": 725,
     "Key": "set:cryptic_sword",
-    "enUS": "Sazabi's Cobalt Redeemer",
+    "enUS": "Sazabi's Cobalt Redeemer | 2 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5091,7 +5091,7 @@
   {
     "id": 728,
     "Key": "set:demonhead",
-    "enUS": "Horazon's Countenance",
+    "enUS": "Horazon's Countenance | 3 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5154,7 +5154,7 @@
   {
     "id": 737,
     "Key": "set:full_plate_mail",
-    "enUS": "Warlord's Mantle",
+    "enUS": "Warlord's Mantle | 1 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5189,7 +5189,7 @@
   {
     "id": 742,
     "Key": "set:grand_matron_bow",
-    "enUS": "M'avina's Caster",
+    "enUS": "M'avina's Caster | 3 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5224,7 +5224,7 @@
   {
     "id": 747,
     "Key": "set:grim_wand",
-    "enUS": "Infernal Torch",
+    "enUS": "Infernal Torch | 1 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5238,7 +5238,7 @@
   {
     "id": 749,
     "Key": "set:heavy_belt",
-    "enUS": "Infernal Sign",
+    "enUS": "Infernal Sign | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5266,14 +5266,14 @@
   {
     "id": 753,
     "Key": "set:hellforge_plate",
-    "enUS": "Naj's Light Plate",
+    "enUS": "Naj's Light Plate | 5 FG",
     "category": "set",
     "quality": "set"
   },
   {
     "id": 754,
     "Key": "set:helm",
-    "enUS": "Berserker's Headgear",
+    "enUS": "Berserker's Headgear | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5294,14 +5294,14 @@
   {
     "id": 757,
     "Key": "set:kite_shield",
-    "enUS": "Milabrega's Orb",
+    "enUS": "Milabrega's Orb | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
   {
     "id": 758,
     "Key": "set:kraken_shell",
-    "enUS": "M'avina's Embrace",
+    "enUS": "M'avina's Embrace | 3 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5315,7 +5315,7 @@
   {
     "id": 760,
     "Key": "set:lacquered_plate",
-    "enUS": "Tal Rasha's Howling Wind",
+    "enUS": "Tal Rasha's Howling Wind | 2 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5329,7 +5329,7 @@
   {
     "id": 762,
     "Key": "set:leather_armor",
-    "enUS": "Vidala's Ambush",
+    "enUS": "Vidala's Ambush | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5357,7 +5357,7 @@
   {
     "id": 766,
     "Key": "set:light_plate",
-    "enUS": "Arcanna's Flesh",
+    "enUS": "Arcanna's Flesh | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5371,14 +5371,14 @@
   {
     "id": 768,
     "Key": "set:long_battle_bow",
-    "enUS": "Vidala's Barb",
+    "enUS": "Vidala's Barb | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
   {
     "id": 769,
     "Key": "set:long_sword",
-    "enUS": "Cleglaw's Tooth",
+    "enUS": "Cleglaw's Tooth | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5413,7 +5413,7 @@
   {
     "id": 774,
     "Key": "set:military_pick",
-    "enUS": "Tancred's Crowbill",
+    "enUS": "Tancred's Crowbill | 1 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5448,7 +5448,7 @@
   {
     "id": 779,
     "Key": "set:ogre_maul",
-    "enUS": "Immortal King's Stone Crusher",
+    "enUS": "Immortal King's Stone Crusher | 3 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5469,7 +5469,7 @@
   {
     "id": 782,
     "Key": "set:quilted_armor",
-    "enUS": "Arctic Furs",
+    "enUS": "Arctic Furs | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5497,7 +5497,7 @@
   {
     "id": 786,
     "Key": "set:round_shield",
-    "enUS": "Wihtstan's Guard",
+    "enUS": "Wihtstan's Guard | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5511,7 +5511,7 @@
   {
     "id": 788,
     "Key": "set:sabre",
-    "enUS": "Angelic Sickle",
+    "enUS": "Angelic Sickle | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5525,7 +5525,7 @@
   {
     "id": 790,
     "Key": "set:sash",
-    "enUS": "Death's Guard",
+    "enUS": "Death's Guard | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5546,7 +5546,7 @@
   {
     "id": 793,
     "Key": "set:sharkskin_belt",
-    "enUS": "M'avina's Tenet",
+    "enUS": "M'avina's Tenet | 1 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5560,14 +5560,14 @@
   {
     "id": 795,
     "Key": "set:short_war_bow",
-    "enUS": "Arctic Horn",
+    "enUS": "Arctic Horn | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
   {
     "id": 796,
     "Key": "set:skull_cap",
-    "enUS": "Arcanna's Head",
+    "enUS": "Arcanna's Head | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5581,7 +5581,7 @@
   {
     "id": 798,
     "Key": "set:spired_helm",
-    "enUS": "Ondal's Almighty",
+    "enUS": "Ondal's Almighty | 3 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5595,7 +5595,7 @@
   {
     "id": 800,
     "Key": "set:studded_leather",
-    "enUS": "Cow King's Hide",
+    "enUS": "Cow King's Hide | 1 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5644,14 +5644,14 @@
   {
     "id": 807,
     "Key": "set:tigulated_mail",
-    "enUS": "Hwanin's Refuge",
+    "enUS": "Hwanin's Refuge | 1 FG",
     "category": "set",
     "quality": "set"
   },
   {
     "id": 808,
     "Key": "set:tower_shield",
-    "enUS": "Sigon's Guard",
+    "enUS": "Sigon's Guard | 1 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5693,7 +5693,7 @@
   {
     "id": 814,
     "Key": "set:war_hat",
-    "enUS": "Cow King's Horns",
+    "enUS": "Cow King's Horns | 1 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5707,7 +5707,7 @@
   {
     "id": 816,
     "Key": "set:war_staff",
-    "enUS": "Arcanna's Deathwand",
+    "enUS": "Arcanna's Deathwand | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5721,7 +5721,7 @@
   {
     "id": 818,
     "Key": "set:ward",
-    "enUS": "Heaven's Taebaek",
+    "enUS": "Heaven's Taebaek | 2 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5742,14 +5742,14 @@
   {
     "id": 821,
     "Key": "unique:2_handed_sword",
-    "enUS": "Shadowfang",
+    "enUS": "Shadowfang | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 822,
     "Key": "unique:aegis",
-    "enUS": "Medusa's Gaze",
+    "enUS": "Medusa's Gaze | 5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -5777,21 +5777,21 @@
   {
     "id": 826,
     "Key": "unique:ancient_shield",
-    "enUS": "Radimant's Sphere",
+    "enUS": "Radimant's Sphere | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 827,
     "Key": "unique:ancient_sword",
-    "enUS": "The Atlantian",
+    "enUS": "The Atlantian | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 828,
     "Key": "unique:ancientarmor",
-    "enUS": "Victors Silk",
+    "enUS": "Victors Silk | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -5812,14 +5812,14 @@
   {
     "id": 831,
     "Key": "unique:arbalest",
-    "enUS": "Langer Briser",
+    "enUS": "Langer Briser | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 832,
     "Key": "unique:archon_staff",
-    "enUS": "Mang Song's Lesson",
+    "enUS": "Mang Song's Lesson | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -5854,7 +5854,7 @@
   {
     "id": 837,
     "Key": "unique:axe",
-    "enUS": "Deathspade",
+    "enUS": "Deathspade | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -5896,14 +5896,14 @@
   {
     "id": 843,
     "Key": "unique:barbed_shield",
-    "enUS": "Lance Guard",
+    "enUS": "Lance Guard | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 844,
     "Key": "unique:bardiche",
-    "enUS": "Dimoaks Hew",
+    "enUS": "Dimoaks Hew | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -5917,21 +5917,21 @@
   {
     "id": 846,
     "Key": "unique:bastard_sword",
-    "enUS": "Blacktongue",
+    "enUS": "Blacktongue | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 847,
     "Key": "unique:battle_axe",
-    "enUS": "The Chieftan",
+    "enUS": "The Chieftan | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 848,
     "Key": "unique:battle_belt",
-    "enUS": "Snowclash",
+    "enUS": "Snowclash | 2 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -5952,35 +5952,35 @@
   {
     "id": 851,
     "Key": "unique:battle_dart",
-    "enUS": "Deathbit",
+    "enUS": "Deathbit | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 852,
     "Key": "unique:battle_guantlets",
-    "enUS": "Lavagout",
+    "enUS": "Lavagout | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 853,
     "Key": "unique:battle_hammer",
-    "enUS": "Earthshaker",
+    "enUS": "Earthshaker | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 854,
     "Key": "unique:battle_scythe",
-    "enUS": "Athena's Wrath",
+    "enUS": "Athena's Wrath | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 855,
     "Key": "unique:battle_staff",
-    "enUS": "The Salamander",
+    "enUS": "The Salamander | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -5994,21 +5994,21 @@
   {
     "id": 857,
     "Key": "unique:bearded_axe",
-    "enUS": "Spellsteel",
+    "enUS": "Spellsteel | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 858,
     "Key": "unique:bec_de_corbin",
-    "enUS": "Husoldal Evo",
+    "enUS": "Husoldal Evo | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 859,
     "Key": "unique:belt",
-    "enUS": "Nightsmoke",
+    "enUS": "Nightsmoke | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6022,21 +6022,21 @@
   {
     "id": 861,
     "Key": "unique:bill",
-    "enUS": "Blackleach Blade",
+    "enUS": "Blackleach Blade | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 862,
     "Key": "unique:blade",
-    "enUS": "Irices Shard",
+    "enUS": "Irices Shard | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 863,
     "Key": "unique:blade_barrier",
-    "enUS": "Spike Thorn",
+    "enUS": "Spike Thorn | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6057,7 +6057,7 @@
   {
     "id": 866,
     "Key": "unique:blood_spirit",
-    "enUS": "Cerebus",
+    "enUS": "Cerebus | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6078,14 +6078,14 @@
   {
     "id": 869,
     "Key": "unique:bone_knife",
-    "enUS": "Wizardspike",
+    "enUS": "Wizardspike | 3 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 870,
     "Key": "unique:bone_shield",
-    "enUS": "Wall of the Eyeless",
+    "enUS": "Wall of the Eyeless | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6099,7 +6099,7 @@
   {
     "id": 872,
     "Key": "unique:bone_wand",
-    "enUS": "Gravenspine",
+    "enUS": "Gravenspine | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6120,35 +6120,35 @@
   {
     "id": 875,
     "Key": "unique:brandistock",
-    "enUS": "Bloodthief",
+    "enUS": "Bloodthief | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 876,
     "Key": "unique:breast_plate",
-    "enUS": "Venomsward",
+    "enUS": "Venomsward | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 877,
     "Key": "unique:broad_axe",
-    "enUS": "Goreshovel",
+    "enUS": "Goreshovel | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 878,
     "Key": "unique:broad_sword",
-    "enUS": "Griswolds Edge",
+    "enUS": "Griswolds Edge | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 879,
     "Key": "unique:buckler",
-    "enUS": "Pelta Lunata",
+    "enUS": "Pelta Lunata | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6176,7 +6176,7 @@
   {
     "id": 883,
     "Key": "unique:burnt_wand",
-    "enUS": "Suicide Branch",
+    "enUS": "Suicide Branch | 2 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6190,7 +6190,7 @@
   {
     "id": 885,
     "Key": "unique:cap",
-    "enUS": "War Bonnet",
+    "enUS": "War Bonnet | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6204,14 +6204,14 @@
   {
     "id": 887,
     "Key": "unique:cedar_staff",
-    "enUS": "Chromatic Ire",
+    "enUS": "Chromatic Ire | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 888,
     "Key": "unique:cedarbow",
-    "enUS": "Kuko Shakaku",
+    "enUS": "Kuko Shakaku | 2 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6232,7 +6232,7 @@
   {
     "id": 891,
     "Key": "unique:ceremonial_pike",
-    "enUS": "Lycander's Flank",
+    "enUS": "Lycander's Flank | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6246,14 +6246,14 @@
   {
     "id": 893,
     "Key": "unique:chain_mail",
-    "enUS": "Sparking Mail",
+    "enUS": "Sparking Mail | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 894,
     "Key": "unique:champion_axe",
-    "enUS": "Messerschmidt's Reaver",
+    "enUS": "Messerschmidt's Reaver | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6267,7 +6267,7 @@
   {
     "id": 896,
     "Key": "unique:chaos_armor",
-    "enUS": "Black Hades",
+    "enUS": "Black Hades | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6281,14 +6281,14 @@
   {
     "id": 898,
     "Key": "unique:chu_ko_nu",
-    "enUS": "Demon Machine",
+    "enUS": "Demon Machine | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 899,
     "Key": "unique:cinquedeas",
-    "enUS": "Blackbog's Sharp",
+    "enUS": "Blackbog's Sharp | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6302,21 +6302,21 @@
   {
     "id": 901,
     "Key": "unique:claymore",
-    "enUS": "Soulflay",
+    "enUS": "Soulflay | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 902,
     "Key": "unique:cleaver",
-    "enUS": "Butcher's Pupil",
+    "enUS": "Butcher's Pupil | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 903,
     "Key": "unique:club",
-    "enUS": "Felloak",
+    "enUS": "Felloak | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6330,21 +6330,21 @@
   {
     "id": 905,
     "Key": "unique:colossus_crossbow",
-    "enUS": "Hellrack",
+    "enUS": "Hellrack | 2 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 906,
     "Key": "unique:composite_bow",
-    "enUS": "Piercerib",
+    "enUS": "Piercerib | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 907,
     "Key": "unique:conqueror_crown",
-    "enUS": "Halaberd's Reign",
+    "enUS": "Halaberd's Reign | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6358,7 +6358,7 @@
   {
     "id": 909,
     "Key": "unique:crossbow",
-    "enUS": "Ichorsting",
+    "enUS": "Ichorsting | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6372,7 +6372,7 @@
   {
     "id": 911,
     "Key": "unique:crown",
-    "enUS": "Undead Crown",
+    "enUS": "Undead Crown | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6393,14 +6393,14 @@
   {
     "id": 914,
     "Key": "unique:cryptic_sword",
-    "enUS": "Frostwind",
+    "enUS": "Frostwind | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 915,
     "Key": "unique:cudgel",
-    "enUS": "Dark Clan Crusher",
+    "enUS": "Dark Clan Crusher | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6414,49 +6414,49 @@
   {
     "id": 917,
     "Key": "unique:cutlass",
-    "enUS": "Coldsteel Eye",
+    "enUS": "Coldsteel Eye | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 918,
     "Key": "unique:dacian_falx",
-    "enUS": "Bing Sz Wang",
+    "enUS": "Bing Sz Wang | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 919,
     "Key": "unique:dagger",
-    "enUS": "Gull",
+    "enUS": "Gull | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 920,
     "Key": "unique:death_mask",
-    "enUS": "Unique Warlock Helm",
+    "enUS": "Unique Warlock Helm | 2 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 921,
     "Key": "unique:decapitator",
-    "enUS": "Hellslayer",
+    "enUS": "Hellslayer | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 922,
     "Key": "unique:defender",
-    "enUS": "Visceratuant",
+    "enUS": "Visceratuant | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 923,
     "Key": "unique:demon_crossbow",
-    "enUS": "Gutsiphon",
+    "enUS": "Gutsiphon | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6477,28 +6477,28 @@
   {
     "id": 926,
     "Key": "unique:demonhide_boots",
-    "enUS": "Infernostride",
+    "enUS": "Infernostride | 2 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 927,
     "Key": "unique:demonhide_gloves",
-    "enUS": "Venom Grip",
+    "enUS": "Venom Grip | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 928,
     "Key": "unique:demonhide_sash",
-    "enUS": "String of Ears",
+    "enUS": "String of Ears | 3 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 929,
     "Key": "unique:destroyer_helm",
-    "enUS": "Demonhorn's Edge",
+    "enUS": "Demonhorn's Edge | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6519,7 +6519,7 @@
   {
     "id": 932,
     "Key": "unique:dimensional_blade",
-    "enUS": "Ginther's Rift",
+    "enUS": "Ginther's Rift | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6533,35 +6533,35 @@
   {
     "id": 934,
     "Key": "unique:dirk",
-    "enUS": "The Diggler",
+    "enUS": "The Diggler | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 935,
     "Key": "unique:divine_scepter",
-    "enUS": "Hand of Blessed Light",
+    "enUS": "Hand of Blessed Light | 2 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 936,
     "Key": "unique:double_axe",
-    "enUS": "Bladebone",
+    "enUS": "Bladebone | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 937,
     "Key": "unique:double_bow",
-    "enUS": "Endlesshail",
+    "enUS": "Endlesshail | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 938,
     "Key": "unique:dragon_shield",
-    "enUS": "Tiamat's Rebuke",
+    "enUS": "Tiamat's Rebuke | 2 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6596,21 +6596,21 @@
   {
     "id": 943,
     "Key": "unique:earth_spirit",
-    "enUS": "Spiritkeeper",
+    "enUS": "Spiritkeeper | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 944,
     "Key": "unique:edge_bow",
-    "enUS": "Skystrike",
+    "enUS": "Skystrike | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 945,
     "Key": "unique:elder_staff",
-    "enUS": "Ondal's Wisdom",
+    "enUS": "Ondal's Wisdom | 2 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6638,7 +6638,7 @@
   {
     "id": 949,
     "Key": "unique:embossed_plate",
-    "enUS": "Atma's Wail",
+    "enUS": "Atma's Wail | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6652,14 +6652,14 @@
   {
     "id": 951,
     "Key": "unique:ettin_axe",
-    "enUS": "Runemaster",
+    "enUS": "Runemaster | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 952,
     "Key": "unique:executioner_sword",
-    "enUS": "Swordguard",
+    "enUS": "Swordguard | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6673,14 +6673,14 @@
   {
     "id": 954,
     "Key": "unique:falchion",
-    "enUS": "Gleamscythe",
+    "enUS": "Gleamscythe | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 955,
     "Key": "unique:fanged_knife",
-    "enUS": "Fleshripper",
+    "enUS": "Fleshripper | 2 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6694,7 +6694,7 @@
   {
     "id": 957,
     "Key": "unique:field_plate",
-    "enUS": "Rockfleece",
+    "enUS": "Rockfleece | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6708,14 +6708,14 @@
   {
     "id": 959,
     "Key": "unique:flamberge",
-    "enUS": "Ripsaw",
+    "enUS": "Ripsaw | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 960,
     "Key": "unique:flanged_mace",
-    "enUS": "Sureshrill Frost",
+    "enUS": "Sureshrill Frost | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6729,7 +6729,7 @@
   {
     "id": 962,
     "Key": "unique:francisca",
-    "enUS": "The Scalper",
+    "enUS": "The Scalper | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6743,28 +6743,28 @@
   {
     "id": 964,
     "Key": "unique:full_helm",
-    "enUS": "Duskdeep",
+    "enUS": "Duskdeep | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 965,
     "Key": "unique:full_plate_mail",
-    "enUS": "Goldskin",
+    "enUS": "Goldskin | 2 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 966,
     "Key": "unique:fury_visor",
-    "enUS": "Wolfhowl",
+    "enUS": "Wolfhowl | 2 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 967,
     "Key": "unique:fuscina",
-    "enUS": "Kelpie Snare",
+    "enUS": "Kelpie Snare | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6778,21 +6778,21 @@
   {
     "id": 969,
     "Key": "unique:ghost_armor",
-    "enUS": "The Spirit Shroud",
+    "enUS": "The Spirit Shroud | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 970,
     "Key": "unique:ghost_glaive",
-    "enUS": "Wraithflight",
+    "enUS": "Wraithflight | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 971,
     "Key": "unique:giant_axe",
-    "enUS": "The Humongous",
+    "enUS": "The Humongous | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6820,35 +6820,35 @@
   {
     "id": 975,
     "Key": "unique:girdle",
-    "enUS": "Bladebuckle",
+    "enUS": "Bladebuckle | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 976,
     "Key": "unique:gladius",
-    "enUS": "Bloodletter",
+    "enUS": "Bloodletter | 2 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 977,
     "Key": "unique:glorious_axe",
-    "enUS": "Executioner's Justice",
+    "enUS": "Executioner's Justice | 2 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 978,
     "Key": "unique:gloves",
-    "enUS": "The Hand of Broc",
+    "enUS": "The Hand of Broc | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 979,
     "Key": "unique:gnarled_staff",
-    "enUS": "Lazarus Spire",
+    "enUS": "Lazarus Spire | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6869,21 +6869,21 @@
   {
     "id": 982,
     "Key": "unique:gothic_bow",
-    "enUS": "Godstrike Arch",
+    "enUS": "Godstrike Arch | 2 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 983,
     "Key": "unique:gothic_plate",
-    "enUS": "Rattlecage",
+    "enUS": "Rattlecage | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 984,
     "Key": "unique:gothic_shield",
-    "enUS": "The Ward",
+    "enUS": "The Ward | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6918,35 +6918,35 @@
   {
     "id": 989,
     "Key": "unique:grave_wand",
-    "enUS": "Blackhand Key",
+    "enUS": "Blackhand Key | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 990,
     "Key": "unique:great_axe",
-    "enUS": "Brainhew",
+    "enUS": "Brainhew | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 991,
     "Key": "unique:great_helm",
-    "enUS": "Howltusk",
+    "enUS": "Howltusk | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 992,
     "Key": "unique:great_maul",
-    "enUS": "Steeldriver",
+    "enUS": "Steeldriver | 2 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 993,
     "Key": "unique:great_sword",
-    "enUS": "The Patriarch",
+    "enUS": "The Patriarch | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6960,7 +6960,7 @@
   {
     "id": 995,
     "Key": "unique:grim_scythe",
-    "enUS": "Grim's Burning Dead",
+    "enUS": "Grim's Burning Dead | 2 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6974,7 +6974,7 @@
   {
     "id": 997,
     "Key": "unique:grim_wand",
-    "enUS": "Umes Lament",
+    "enUS": "Umes Lament | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -6988,7 +6988,7 @@
   {
     "id": 999,
     "Key": "unique:halberd",
-    "enUS": "Woestave",
+    "enUS": "Woestave | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -7037,7 +7037,7 @@
   {
     "id": 1006,
     "Key": "unique:heavy_boots",
-    "enUS": "Gorefoot",
+    "enUS": "Gorefoot | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -7051,7 +7051,7 @@
   {
     "id": 1008,
     "Key": "unique:heavy_crossbow",
-    "enUS": "Hellcast",
+    "enUS": "Hellcast | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -7079,7 +7079,7 @@
   {
     "id": 1012,
     "Key": "unique:helm",
-    "enUS": "Coif of Glory",
+    "enUS": "Coif of Glory | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -7142,21 +7142,21 @@
   {
     "id": 1021,
     "Key": "unique:kite_shield",
-    "enUS": "Steelclash",
+    "enUS": "Steelclash | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 1022,
     "Key": "unique:knout",
-    "enUS": "Baezil's Vortex",
+    "enUS": "Baezil's Vortex | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 1023,
     "Key": "unique:kraken_shell",
-    "enUS": "Leviathan",
+    "enUS": "Leviathan | 5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -7177,7 +7177,7 @@
   {
     "id": 1026,
     "Key": "unique:large_axe",
-    "enUS": "Fechmars Axe",
+    "enUS": "Fechmars Axe | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -7198,14 +7198,14 @@
   {
     "id": 1029,
     "Key": "unique:leather_armor",
-    "enUS": "Blinkbats Form",
+    "enUS": "Blinkbats Form | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 1030,
     "Key": "unique:leather_boots",
-    "enUS": "Hotspur",
+    "enUS": "Hotspur | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -7226,7 +7226,7 @@
   {
     "id": 1033,
     "Key": "unique:legendary_mallet",
-    "enUS": "Stone Crusher",
+    "enUS": "Stone Crusher | 8 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -7247,14 +7247,14 @@
   {
     "id": 1036,
     "Key": "unique:light_belt",
-    "enUS": "Snakecord",
+    "enUS": "Snakecord | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 1037,
     "Key": "unique:light_crossbow",
-    "enUS": "Leadcrow",
+    "enUS": "Leadcrow | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -7268,7 +7268,7 @@
   {
     "id": 1039,
     "Key": "unique:light_plate",
-    "enUS": "Heavenly Garb",
+    "enUS": "Heavenly Garb | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -7296,14 +7296,14 @@
   {
     "id": 1043,
     "Key": "unique:long_battle_bow",
-    "enUS": "Wizendraw",
+    "enUS": "Wizendraw | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 1044,
     "Key": "unique:long_bow",
-    "enUS": "Rimeraven",
+    "enUS": "Rimeraven | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -7324,14 +7324,14 @@
   {
     "id": 1047,
     "Key": "unique:long_sword",
-    "enUS": "Hellplague",
+    "enUS": "Hellplague | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 1048,
     "Key": "unique:long_war_bow",
-    "enUS": "Blastbark",
+    "enUS": "Blastbark | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -7366,7 +7366,7 @@
   {
     "id": 1053,
     "Key": "unique:martel_de_fer",
-    "enUS": "The Gavel of Pain",
+    "enUS": "The Gavel of Pain | 2 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -7380,7 +7380,7 @@
   {
     "id": 1055,
     "Key": "unique:matriarchal_bow",
-    "enUS": "Bloodraven's Charge",
+    "enUS": "Bloodraven's Charge | 3 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -7401,7 +7401,7 @@
   {
     "id": 1058,
     "Key": "unique:maul",
-    "enUS": "Bonesob",
+    "enUS": "Bonesob | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -7422,7 +7422,7 @@
   {
     "id": 1061,
     "Key": "unique:mesh_belt",
-    "enUS": "Gloomstrap",
+    "enUS": "Gloomstrap | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -7457,7 +7457,7 @@
   {
     "id": 1066,
     "Key": "unique:military_pick",
-    "enUS": "Mindrend",
+    "enUS": "Mindrend | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -7506,7 +7506,7 @@
   {
     "id": 1073,
     "Key": "unique:naga",
-    "enUS": "Guardian Naga",
+    "enUS": "Guardian Naga | 2 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -7562,7 +7562,7 @@
   {
     "id": 1081,
     "Key": "unique:ogre_maul",
-    "enUS": "Windhammer",
+    "enUS": "Windhammer | 3 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -7590,7 +7590,7 @@
   {
     "id": 1085,
     "Key": "unique:pavise",
-    "enUS": "Kerke's Sanctuary",
+    "enUS": "Kerke's Sanctuary | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -7611,7 +7611,7 @@
   {
     "id": 1088,
     "Key": "unique:pike",
-    "enUS": "The Tannr Gorerod",
+    "enUS": "The Tannr Gorerod | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -7625,7 +7625,7 @@
   {
     "id": 1090,
     "Key": "unique:plate_mail",
-    "enUS": "Boneflesh",
+    "enUS": "Boneflesh | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -7653,7 +7653,7 @@
   {
     "id": 1094,
     "Key": "unique:quilted_armor",
-    "enUS": "Greyform",
+    "enUS": "Greyform | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -7674,7 +7674,7 @@
   {
     "id": 1097,
     "Key": "unique:razor_bow",
-    "enUS": "Riphook",
+    "enUS": "Riphook | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -7716,7 +7716,7 @@
   {
     "id": 1103,
     "Key": "unique:round_shield",
-    "enUS": "Mosers Blessed Circle",
+    "enUS": "Mosers Blessed Circle | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -7744,7 +7744,7 @@
   {
     "id": 1107,
     "Key": "unique:rune_sword",
-    "enUS": "Plague Bearer",
+    "enUS": "Plague Bearer | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -7800,7 +7800,7 @@
   {
     "id": 1115,
     "Key": "unique:scale_mail",
-    "enUS": "Hawkmail",
+    "enUS": "Hawkmail | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -7856,7 +7856,7 @@
   {
     "id": 1123,
     "Key": "unique:shadow_plate",
-    "enUS": "Steel Carapice",
+    "enUS": "Steel Carapice | 3 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -7898,14 +7898,14 @@
   {
     "id": 1129,
     "Key": "unique:sharkskin_gloves",
-    "enUS": "Gravepalm",
+    "enUS": "Gravepalm | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 1130,
     "Key": "unique:sharktooth_armor",
-    "enUS": "Toothrow",
+    "enUS": "Toothrow | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -7919,7 +7919,7 @@
   {
     "id": 1132,
     "Key": "unique:short_bow",
-    "enUS": "Pluckeye",
+    "enUS": "Pluckeye | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -7940,21 +7940,21 @@
   {
     "id": 1135,
     "Key": "unique:short_sword",
-    "enUS": "Rixots Keen",
+    "enUS": "Rixots Keen | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 1136,
     "Key": "unique:short_war_bow",
-    "enUS": "Hellclap",
+    "enUS": "Hellclap | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 1137,
     "Key": "unique:siege_crossbow",
-    "enUS": "Pus Spiter",
+    "enUS": "Pus Spiter | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -7982,7 +7982,7 @@
   {
     "id": 1141,
     "Key": "unique:sky_spirit",
-    "enUS": "Ravenlore",
+    "enUS": "Ravenlore | 2 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -8003,14 +8003,14 @@
   {
     "id": 1144,
     "Key": "unique:snowclash",
-    "enUS": "unique:snowclash",
+    "enUS": "unique:snowclash | 2 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 1145,
     "Key": "unique:spear",
-    "enUS": "The Dragon Chang",
+    "enUS": "The Dragon Chang | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -8101,7 +8101,7 @@
   {
     "id": 1158,
     "Key": "unique:tabar",
-    "enUS": "Stormrider",
+    "enUS": "Stormrider | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -8122,7 +8122,7 @@
   {
     "id": 1161,
     "Key": "unique:the_oculus",
-    "enUS": "unique:the_oculus",
+    "enUS": "unique:the_oculus | 3 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -8164,7 +8164,7 @@
   {
     "id": 1167,
     "Key": "unique:tomahawk",
-    "enUS": "Razoredge",
+    "enUS": "Razoredge | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -8178,14 +8178,14 @@
   {
     "id": 1169,
     "Key": "unique:tower_shield",
-    "enUS": "Bverrit Keep",
+    "enUS": "Bverrit Keep | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 1170,
     "Key": "unique:tresllised_armor",
-    "enUS": "Ironpelt",
+    "enUS": "Ironpelt | 2 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -8213,7 +8213,7 @@
   {
     "id": 1174,
     "Key": "unique:truncheon",
-    "enUS": "Nord's Tenderizer",
+    "enUS": "Nord's Tenderizer | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -8234,7 +8234,7 @@
   {
     "id": 1177,
     "Key": "unique:twin_axe",
-    "enUS": "Islestrike",
+    "enUS": "Islestrike | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -8262,7 +8262,7 @@
   {
     "id": 1181,
     "Key": "unique:vambraces",
-    "enUS": "Souldrain",
+    "enUS": "Souldrain | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -8290,21 +8290,21 @@
   {
     "id": 1185,
     "Key": "unique:voulge",
-    "enUS": "Steelgoad",
+    "enUS": "Steelgoad | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 1186,
     "Key": "unique:wand",
-    "enUS": "Iros Torch",
+    "enUS": "Iros Torch | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 1187,
     "Key": "unique:war_axe",
-    "enUS": "Rakescar",
+    "enUS": "Rakescar | 0.5 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -8339,14 +8339,14 @@
   {
     "id": 1192,
     "Key": "unique:war_gauntlets",
-    "enUS": "Hellmouth",
+    "enUS": "Hellmouth | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 1193,
     "Key": "unique:war_hammer",
-    "enUS": "Ironstone",
+    "enUS": "Ironstone | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -8409,7 +8409,7 @@
   {
     "id": 1202,
     "Key": "unique:ward",
-    "enUS": "Spirit Ward",
+    "enUS": "Spirit Ward | 2 FG",
     "category": "unique",
     "quality": "unique"
   },
@@ -8500,14 +8500,14 @@
   {
     "id": 1215,
     "Key": "unique:yew_wand",
-    "enUS": "Maelstromwrath",
+    "enUS": "Maelstromwrath | 1 FG",
     "category": "unique",
     "quality": "unique"
   },
   {
     "id": 1216,
     "Key": "unique:zakarum_shield",
-    "enUS": "Dragonscale",
+    "enUS": "Dragonscale | 5 FG",
     "category": "unique",
     "quality": "unique"
   },
