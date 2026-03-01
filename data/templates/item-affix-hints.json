@@ -1,0 +1,212 @@
+[
+  {
+    "id": 20000,
+    "Key": "Jeweler's",
+    "enUS": "Jeweler's | Max: 8000 FG | + of Deflecting",
+    "tier": "GG",
+    "max_combo_price": 8000
+  },
+  {
+    "id": 20001,
+    "Key": "of Deflecting",
+    "enUS": "of Deflecting | Max: 8000 FG | + Jeweler's",
+    "tier": "GG",
+    "max_combo_price": 8000
+  },
+  {
+    "id": 20002,
+    "Key": "Venomous",
+    "enUS": "Venomous | Max: 20000 FG | + of the Magus",
+    "tier": "GG",
+    "max_combo_price": 20000
+  },
+  {
+    "id": 20003,
+    "Key": "of the Magus",
+    "enUS": "of the Magus | Max: 20000 FG | + Arch-Angel's | + Assassin's | + Charged",
+    "tier": "GG",
+    "max_combo_price": 20000
+  },
+  {
+    "id": 20004,
+    "Key": "Necromancer's",
+    "enUS": "Necromancer's | Max: 15000 FG | + of Teleportation | + of the Magus",
+    "tier": "GG",
+    "max_combo_price": 15000
+  },
+  {
+    "id": 20005,
+    "Key": "Berserker's",
+    "enUS": "Berserker's | Max: 15000 FG | + of Teleportation",
+    "tier": "GG",
+    "max_combo_price": 15000
+  },
+  {
+    "id": 20006,
+    "Key": "of Teleportation",
+    "enUS": "of Teleportation | Max: 15000 FG | + Berserker's | + Necromancer's | + Witch-hunter's",
+    "tier": "GG",
+    "max_combo_price": 15000
+  },
+  {
+    "id": 20007,
+    "Key": "Druid's",
+    "enUS": "Druid's | Max: 10000 FG | + of the Magus",
+    "tier": "GG",
+    "max_combo_price": 10000
+  },
+  {
+    "id": 20008,
+    "Key": "Hierophant's",
+    "enUS": "Hierophant's | Max: 10000 FG | + of the Magus",
+    "tier": "GG",
+    "max_combo_price": 10000
+  },
+  {
+    "id": 20009,
+    "Key": "Arch-Angel's",
+    "enUS": "Arch-Angel's | Max: 5000 FG | + of the Magus",
+    "tier": "GG",
+    "max_combo_price": 5000
+  },
+  {
+    "id": 20010,
+    "Key": "Paladin's",
+    "enUS": "Paladin's | Max: 7000 FG | + of the Magus",
+    "tier": "GG",
+    "max_combo_price": 7000
+  },
+  {
+    "id": 20011,
+    "Key": "Powered",
+    "enUS": "Powered | Max: 8000 FG | + of the Magus",
+    "tier": "GG",
+    "max_combo_price": 8000
+  },
+  {
+    "id": 20012,
+    "Key": "Charged",
+    "enUS": "Charged | Max: 7000 FG | + of the Magus",
+    "tier": "GG",
+    "max_combo_price": 7000
+  },
+  {
+    "id": 20013,
+    "Key": "Keeper's",
+    "enUS": "Keeper's | Max: 8000 FG | + of the Magus",
+    "tier": "GG",
+    "max_combo_price": 8000
+  },
+  {
+    "id": 20014,
+    "Key": "Echoing",
+    "enUS": "Echoing | Max: 8000 FG | + of the Magus",
+    "tier": "GG",
+    "max_combo_price": 8000
+  },
+  {
+    "id": 20015,
+    "Key": "Cunning",
+    "enUS": "Cunning | Max: 6000 FG | + of the Magus",
+    "tier": "GG",
+    "max_combo_price": 6000
+  },
+  {
+    "id": 20016,
+    "Key": "Golemlord's",
+    "enUS": "Golemlord's | Max: 6000 FG | + of the Magus",
+    "tier": "GG",
+    "max_combo_price": 6000
+  },
+  {
+    "id": 20017,
+    "Key": "Shimmering",
+    "enUS": "Shimmering | Max: 2500 FG | + of Vita",
+    "tier": "HIGH",
+    "max_combo_price": 2500
+  },
+  {
+    "id": 20018,
+    "Key": "of Vita",
+    "enUS": "of Vita | Max: 2500 FG | + Shimmering",
+    "tier": "HIGH",
+    "max_combo_price": 2500
+  },
+  {
+    "id": 20019,
+    "Key": "Crimson",
+    "enUS": "Crimson | Max: 5000 FG | + of Fervent",
+    "tier": "GG",
+    "max_combo_price": 5000
+  },
+  {
+    "id": 20020,
+    "Key": "of Fervent",
+    "enUS": "of Fervent | Max: 5000 FG | + Crimson",
+    "tier": "GG",
+    "max_combo_price": 5000
+  },
+  {
+    "id": 20021,
+    "Key": "Fervent",
+    "enUS": "Fervent | Max: 2000 FG | + of Freedom",
+    "tier": "HIGH",
+    "max_combo_price": 2000
+  },
+  {
+    "id": 20022,
+    "Key": "of Freedom",
+    "enUS": "of Freedom | Max: 2000 FG | + Fervent",
+    "tier": "HIGH",
+    "max_combo_price": 2000
+  },
+  {
+    "id": 20023,
+    "Key": "Lion Branded",
+    "enUS": "Lion Branded | Max: 6000 FG | + of the Magus",
+    "tier": "GG",
+    "max_combo_price": 6000
+  },
+  {
+    "id": 20024,
+    "Key": "Shadow",
+    "enUS": "Shadow | Max: 6000 FG | + of the Magus",
+    "tier": "GG",
+    "max_combo_price": 6000
+  },
+  {
+    "id": 20025,
+    "Key": "Freezing",
+    "enUS": "Freezing | Max: 6000 FG | + of the Magus",
+    "tier": "GG",
+    "max_combo_price": 6000
+  },
+  {
+    "id": 20026,
+    "Key": "Grim",
+    "enUS": "Grim | Max: 5000 FG | + of the Magus",
+    "tier": "GG",
+    "max_combo_price": 5000
+  },
+  {
+    "id": 20027,
+    "Key": "Witch-hunter's",
+    "enUS": "Witch-hunter's | Max: 10000 FG | + of Teleportation",
+    "tier": "GG",
+    "max_combo_price": 10000
+  },
+  {
+    "id": 20028,
+    "Key": "Assassin's",
+    "enUS": "Assassin's | Max: 4500 FG | + of the Magus",
+    "tier": "HIGH",
+    "max_combo_price": 4500
+  },
+  {
+    "id": 20029,
+    "Key": "Sorceress's",
+    "enUS": "Sorceress's | Max: 6000 FG | + of the Magus",
+    "tier": "GG",
+    "max_combo_price": 6000
+  }
+]

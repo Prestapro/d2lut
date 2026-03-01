@@ -64,18 +64,25 @@ def load_all_prices(app_dir: Path) -> dict:
             if not data:
                 continue
         
-        def extract(obj, prefix=''):
+        def extract(obj, prefix='', category=''):
             if isinstance(obj, dict):
                 for k, v in obj.items():
                     if isinstance(v, (int, float)):
-                        key = f"{prefix}{k}" if prefix else k
-                        prices[key] = float(v)
+                        # Store with full prefix (category:key)
+                        key_with_prefix = f"{prefix}{k}" if prefix else k
+                        prices[key_with_prefix] = float(v)
+                        
+                        # Also store just the key name (for exact matching)
+                        prices[k] = float(v)
+                        
+                        # Normalized version
                         prices[normalize(k)] = float(v)
-                        # Also add underscore version
+                        
+                        # Underscore version
                         underscore = k.replace(" ", "_").replace("'", "").replace("-", "_").lower()
                         prices[underscore] = float(v)
                     elif isinstance(v, dict):
-                        extract(v, f"{prefix}{k}:")
+                        extract(v, f"{prefix}{k}:" if prefix else f"{k}:", k)
         
         extract(data)
     
@@ -103,6 +110,10 @@ def match_price(item: dict, prices: dict) -> float:
     enus_base = re.sub(r'\s*\|.*$', '', enus).strip()
     enus_norm = normalize(enus_base)
     
+    # Try exact enUS match first (for quoted YAML keys like "Healing Potion")
+    if enus_base in prices:
+        return prices[enus_base]
+    
     # Direct matches
     if key in prices:
         return prices[key]
@@ -116,17 +127,30 @@ def match_price(item: dict, prices: dict) -> float:
         if norm in prices:
             return prices[norm]
     
-    # enUS variations
+    # enUS variations - try many different formats
     variations = [
         normalize(enus_base),
         enus_base.lower().replace(" ", "_"),
         enus_base.lower().replace(" ", "_").replace("'", ""),
         enus_base.lower().replace("'", ""),
         enus_base.lower().replace("-", "_"),
+        enus_base.lower().replace(" ", ""),  # No spaces
+        enus_base.replace(" ", ""),  # No spaces, keep case
+        enus_base.lower(),
+        enus_base.lower().replace(" ", "").replace("'", "").replace("-", ""),
+        # Try partial matches
+        normalize(enus_base.split()[0]) if enus_base else "",  # First word
     ]
+    
     for var in variations:
-        if var in prices:
+        if var and var in prices:
             return prices[var]
+    
+    # Try partial matching - if any price key is contained in the item name
+    for price_key, price_val in prices.items():
+        if len(price_key) >= 4:  # Only for reasonably long keys
+            if price_key in enus_norm or enus_norm in price_key:
+                return price_val
     
     return 0
 

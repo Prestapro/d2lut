@@ -120,9 +120,11 @@ key:
   pk3: 3
   organ_set: 12
   keyset: 12
+  3x3keyset: 12
+  3x3key: 12
 
 # ============================================================================
-# CHARMS
+# CHARMS - Special Uber Charms
 # ============================================================================
 charm:
   annihilus: 25
@@ -131,6 +133,80 @@ charm:
   torch: 15
   gheedsfortune: 5
   gheeds: 5
+  # Generic charms (base price)
+  smallcharm: 0.5
+  largecharm: 0.1
+  grandcharm: 0.5
+  skiller: 3
+  sunder: 8
+  
+# ============================================================================
+# SMALL CHARMS (SC) - Valuable mod combinations
+# ============================================================================
+smallcharm:
+  # Life + Resists
+  sc3fhr: 15
+  sc5fhr: 20
+  sc11res: 8
+  sc15res: 15
+  sc20life: 3
+  sc15life: 2
+  # Skillers (grand charms)
+  skillergc: 3
+  pcomb: 8
+  
+# ============================================================================
+# LARGE CHARMS (LC) - Rarely valuable
+# ============================================================================
+largecharm:
+  lcgrandcharm: 0.1
+  
+# ============================================================================
+# GRAND CHARMS (GC) - Skillers very valuable
+# ============================================================================
+grandcharm:
+  # Paladin Combat Skills
+  pcombatskiller: 8
+  pcomb: 8
+  paladinskiller: 5
+  
+  # Sorceress Skills
+  lightninggc: 3
+  firegc: 2
+  coldgc: 2
+  sorceressskiller: 2
+  
+  # Necromancer Skills
+  pnb: 5
+  poisonbonegc: 5
+  summongc: 3
+  necromancerskiller: 3
+  
+  # Assassin Skills
+  trapskiller: 3
+  martialartsskiller: 2
+  shadowskiller: 2
+  
+  # Barbarian Skills
+  combatskiller: 2
+  warcriesskiller: 2
+  barbarianskiller: 2
+  
+  # Druid Skills
+  elementalgc: 2
+  summondruidgc: 2
+  shapeshiftgc: 2
+  druidskiller: 2
+  
+  # Amazon Skills
+  javelingc: 3
+  bowgc: 2
+  passivegc: 2
+  amazonsskiller: 2
+  
+  # Baal GC (ilvl 99)
+  baalgc: 1
+  baalskiller: 3
 
 # ============================================================================
 # TOKENS
@@ -479,6 +555,1145 @@ uniqueweapon:
   gimmershreds: 3
   demonsarch: 2
   demonarch: 2
+  
+  # More Swords
+  grandfather: 3
+  swordguard: 1
+  headstriker: 3
+  coldkill: 2
+  bladeturn: 1
+  ginthermalignity: 2
+  ginthers: 2
+  cloudcrack: 1
+  boneslayer: 2
+  craintevomir: 1
+  crainte: 1
+  
+  # More Axes
+  bonecleaver: 2
+  butcherspupil: 2
+  butcher: 2
+  islestrike: 1
+  hypersonic: 1
+  
+  # More Bows
+  cliffkiller: 2
+  witchwild: 3
+  kuko: 2
+  skystrike: 1
+  platemail: 1
+  riphook: 1
+  wizendraw: 1
+  arreats: 1
+  
+  # More Hammers/Maces
+  bloodtreestump: 2
+  bloodtree: 2
+  skullcrusher: 1
+  steeldriver: 1
+  bonesnap: 1
+  fleshrender: 1
+  sandersparagon: 0.5
+  
+  # Daggers
+  gull: 3
+  spacetime: 2
+  spireofstone: 1
+  spectralshard: 2
+  spectral: 2
+  heartcarver: 2
+  blackbogsharps: 1
+  blackbog: 1
+  
+  # Spears
+  honeysundan: 3
+  honey: 3
+  steelpillar: 2
+  steelpillars: 2
+  impaler: 2
+  kelpiesnare: 2
+  kelpie: 2
+  
+  # Polearms
+  blackleachblade: 1
+  blackleach: 1
+  husabdolsspirit: 1
+  husabdol: 1
+  ariocsneddler: 1
+  ariocs: 1
+  
+  # Scepters
+  heavenlystrenger: 3
+  astrenght: 3
+  zakarumhand: 2
+  handofzakarum: 2
+  razorgreft: 1
+  knellstrummer: 0.5
+  
+  # Crossbows
+  cliffkiller: 2
+  hellcast: 1
+  demonmachine: 3
+  demonmach: 3
+  picemaid: 1
+  
+  # Staves
+  ribcracker: 2
+  chromaticir Staff: 2
+  spireoflazarus: 2
+  razortine: 1
+  
+  # Orbs
+  eyeofetch: 2
+  etch: 2
+  oculus: 3
+  theoculus: 3
+  talrashasadjucation: 3
+  
+  # Amazon
+  lycandersflank: 2
+  lycanders: 2
+  lycandersaim: 3
+  titans: 8
+  stygianpill: 2
+  thunderstroke: 15
+  
+  # Assassin
+  firelizard: 2
+  shadowdancer: 2
+  wristsspike: 1
+  jadetalon: 3
+  bartucs: 3
+  
+  # Druid Pelts
+  cerebusedge: 3
+  cerebus: 3
+  spirestorm: 1
+  
+  # Necro Heads
+  darkglgskull: 3
+  tdmortigas: 2
+  damnaakbarsp: 1
+  headofgarum: 1
+  darkswarm: 1
+  
+  # Barbarian
+  arreatsface: 8
+  wolfhowl: 2
+  wolfhowler: 2
+  halaberdsraign: 1
+  
+  # Paladin
+  grizwoldledgn: 5
+  almainegra: 5
+  
+  # Class specific other
+  darkglgs: 2
+  totemicskull: 2
+
+# ============================================================================
+# MORE UNIQUE HELMS
+# ============================================================================
+uniquehelm2:
+  # Exceptional
+  crownofthieves: 3
+  thieves: 3
+  cowkingshorns: 1
+  cowking: 1
+  worms SKULL: 1
+  darksight: 1
+  vampgaze: 5
+  stealSKULL: 2
+  blackhorn: 2
+  
+  # Normal
+  bigginsbonnet: 0.5
+  tarnhelm: 0.5
+  coifofglory: 0.5
+  duskdeep: 1
+  howltusk: 0.5
+  deathshead: 0.5
+  bloodmasque: 0.5
+  undershaftcrown: 0.5
+
+# ============================================================================
+# MORE UNIQUE ARMOR  
+# ============================================================================
+uniquearmor2:
+  # Exceptional
+  skinofvipermagi: 5
+  vipermagi: 5
+  shaftstop: 3
+  skulldersire: 5
+  skullders: 5
+  guardianangel: 5
+  arkainesvalor: 3
+  tyraelsmight: 5
+  ormusrobes: 5
+  durielsshell: 2
+  toothrow: 1
+  crowcaw: 2
+  ironpelt: 2
+  atmaswail: 2
+  blackhadrs: 1
+  
+  # Normal
+  quheganswisdom: 1
+  sparkermail: 1
+  greyshape: 1
+  venomsward: 1
+  rockfleece: 1
+  spiritguard: 1
+  twitchthroe: 1
+  thecenturion: 0.5
+  boulderchucker: 0.5
+  pompiiswrath: 0.5
+  gleamscythe: 1
+  imbuedplate: 0.5
+  plateggs: 0.5
+
+# ============================================================================
+# MISC ITEMS
+# ============================================================================
+misc:
+  # ============ POTIONS ============
+  "Minor Healing Potion": 0.01
+  "Light Healing Potion": 0.01
+  "Healing Potion": 0.01
+  "Greater Healing Potion": 0.01
+  "Super Healing Potion": 0.01
+  "Full Healing Potion": 0.02
+  "Minor Mana Potion": 0.01
+  "Light Mana Potion": 0.01
+  "Mana Potion": 0.01
+  "Greater Mana Potion": 0.01
+  "Super Mana Potion": 0.01
+  "Full Mana Potion": 0.02
+  "Large Blue Potion": 0.01
+  "Small Blue Potion": 0.01
+  "Large Red Potion": 0.01
+  "Small Red Potion": 0.01
+  "Stamina Potion": 0.01
+  "Antidote Potion": 0.01
+  "Thawing Potion": 0.01
+  "Potion of Life": 0.05
+  "Malah's Potion": 0.05
+  
+  # ============ SCROLLS ============
+  "Scroll of Town Portal": 0.01
+  "Scroll of Identify": 0.01
+  "Scroll of Knowledge": 0.05
+  "Scroll of Resistance": 1
+  "Scroll of Inifuss": 0.05
+  
+  # ============ GEMS ============
+  "Chipped Sapphire": 0.05
+  "Chipped Emerald": 0.05
+  "Chipped Ruby": 0.05
+  "Chipped Amethyst": 0.05
+  "Chipped Diamond": 0.05
+  "Chipped Topaz": 0.05
+  "Chipped Skull": 0.05
+  "Flawed Sapphire": 0.1
+  "Flawed Emerald": 0.1
+  "Flawed Ruby": 0.1
+  "Flawed Amethyst": 0.1
+  "Flawed Diamond": 0.1
+  "Flawed Topaz": 0.1
+  "Flawed Skull": 0.1
+  "Flawless Sapphire": 0.2
+  "Sapphire": 0.2
+  "Emerald": 0.2
+  "Ruby": 0.2
+  "Amethyst": 0.2
+  "Diamond": 0.2
+  "Topaz": 0.2
+  "Skull": 0.3
+  "Gold": 0.001
+  
+  # ============ QUEST ITEMS ============
+  "Horadric Cube": 0.1
+  "Horadric Scroll": 0.1
+  "Key to the Cairn Stones": 0.1
+  "The Black Tower Key": 0.1
+  "Khalim's Brain": 0.1
+  "Khalim's Eye": 0.1
+  "Khalim's Heart": 0.1
+  "Baal's Eye": 0.1
+  "Diablo's Horn": 0.1
+  "Mephisto's Brain": 0.1
+  "Mephisto's Soulstone": 0.1
+  "The Golden Bird": 0.1
+  "A Jade Figurine": 0.1
+  "Lam Esen's Tome": 0.1
+  "Book of Skill": 2
+  "Amulet of the Viper": 0.5
+  
+  # ============ ORGANS ============
+  "Brain": 0.1
+  "Heart": 0.1
+  "Eye": 0.1
+  "Jawbone": 0.1
+  "Horn": 0.1
+  "Fang": 0.1
+  "Scalp": 0.1
+  "Spleen": 0.1
+  "Quill": 0.1
+  "Ear": 0.1
+  "Flag": 0.1
+  "Herb": 0.1
+  
+  # ============ UBER ITEMS ============
+  "Standard of Heroes": 1
+  "Uber Ancient Summon Material Act 1": 2
+  "Uber Ancient Summon Material Act 2": 2
+  "Uber Ancient Summon Material Act 3": 2
+  "Uber Ancient Summon Material Act 4": 2
+  "Uber Ancient Summon Material Act5": 2
+  "Uber Ancient Upgrade Material  Fire": 2
+  "Uber Ancient Upgrade Material Poison": 2
+  "Uber Ancient Upgrade Material  Cold": 2
+  "Uber Ancient Upgrade Material Physical": 2
+  "Uber Ancient Upgrade Material Lightning": 2
+  "Uber Ancient Upgrade Material Magic": 2
+  "Western Worldstone Shard": 1
+  "Eastern Worldstone Shard": 1
+  "Southern Worldstone Shard": 1
+  "Northern Worldstone Shard": 1
+  "Deep Worldstone Shard": 1
+  
+  # ============ OTHER ============
+  "Amulet": 0.5
+  "Ring": 0.5
+  "Arrows": 0.01
+  "Bolts": 0.01
+  "Crafted Sunder Charm": 5
+  "Charged Essense of Hatred": 0.5
+  
+  # ============ MORE BASE ITEMS ============
+  "Colossal Sword": 1
+  "Stiletto": 0.1
+  "Military Axe": 0.1
+  "Simbilan": 0.1
+  "Fascia": 0.1
+  "Decoy Gidbinn": 0.1
+  "The Gidbinn": 0.1
+  "Falcon Mask": 0.1
+  "Hand Axe": 0.1
+  "Hunter's Bow": 0.1
+  "Horadric Malus": 0.1
+  "Hellforge Hammer": 0.1
+  "Strangling Gas Potion": 0.05
+  "Choking Gas Potion": 0.05
+  "Rancid Gas Potion": 0.05
+  "Exploding Potion": 0.05
+  "Fulminating Potion": 0.05
+  "Oil Potion": 0.05
+  
+  # ============ MORE UNIQUES ============
+  "Darkfear": 1
+  "Ars Tor'Baalos": 3
+  "Ars Al'Diablolos": 3
+  "Measured Wrath": 2
+  "Treads of Cthon": 2
+  "Crafted Black Cleft": 1
+  "Skin of the Flayerd One": 1
+  "Giantmaimer": 1
+  "Hell Forge Hammer": 0.5
+  "The Gnasher": 0.5
+  "Ghoulhide": 1
+  "Stormguild": 1
+  "Bladebone": 1
+  "Crushflange": 1
+  "Bloodrise": 1
+  "The Chief": 0.5
+  "Diggler": 0.5
+  "Dimoak's Hew": 0.5
+  "Husoldal Evo": 1
+  "The Patriarch": 1
+  "Spire of Lazarus": 1
+  "Pluckeye": 0.5
+  "Leadcrow": 0.5
+  "Swampstomp": 1
+  "Ripslaw": 1
+  "Plaguebore": 1
+  "Pus Spiter": 2
+  "Stonedust": 1
+  "Blackhand Key": 1
+  "Maelstrom": 2
+  "Windstrike": 1
+  "Gull": 2
+  "The Hand of Broc": 0.5
+  "Nightsmoke": 1
+  "Lenymo": 0.5
+  "Snakecord": 0.5
+  "Bladebuckle": 0.5
+  "Umbral Disk": 1
+  "Goldark Strap": 1
+  "Sazabi's Mental Sheath": 2
+  "Sazabi's Cobalt Redeemer": 3
+  "Sazabi's Ghost Liberator": 2
+  "Bul-Kathos' Sacred Charge": 5
+  "Bul-Kathos' Tribal Guardian": 3
+  "The Oculus": 3
+  "Mang Song's Lesson": 3
+  "Dimensional Shard": 2
+  "Eagle Orb": 1
+  "Jared's Stone": 0.5
+  "Swirling Crystal": 2
+  "Cloudy Sphere": 1
+  "Crystalline Globe": 1
+  "Clasped Orb": 1
+  "Heavenly Stone": 2
+  "Demon Heart": 2
+  "Vortex Orb": 2
+  "Eldritch Orb": 2
+  "Shrine of the Djiin": 1
+  "Shrine of the Elements": 1
+  
+  # ============ MORE SETS ============
+  "Bane's Wraithskin": 2
+  "Bane's Oathmaker": 2
+  "Bane's Authority": 3
+  "Cathan's Visage": 1
+  "Horazon's Legacy": 2
+  "Horazon's Secrets": 1
+  "Horazon's Dominion": 1
+  "Credendum": 2
+  "Warlord's Authority": 2
+  "Magnus' Skin": 1
+  "Cleglaw's Claw": 1
+  "Cleglaw's Tooth": 1
+  "Cleglaw's Pincers": 1
+  "Berserker's Hauberk": 1
+  "Berserker's Headgear": 1
+  "Berserker's Hatchet": 1
+  "Immortal King's Detail": 2
+  "Immortal King's Forge": 2
+  "Sazabi's Mental Sheath": 2
+  "Sazabi's Cobalt Redeemer": 3
+  "Tal Rasha's Adjudication": 5
+  "Tal Rasha's Horadric Crest": 3
+  "Tal Rasha's Fire-Spun Cloth": 5
+  "Death's Touch": 3
+  "Guillaume's Face": 5
+  "Dangoon's Teaching": 2
+  
+  # ============ REMAINING UNIQUES ============
+  "Entropy Locket": 2
+  "The Minataur": 1
+  "Djinnslayer": 3
+  "Pompe's Wrath": 1
+  "Baranar's Star": 5
+  "Crainte Vomir": 1
+  "Kinemils Awl": 1
+  "Gore Ripper": 2
+  "Boneslayer Blade": 2
+  "Warpspear": 2
+  "Cloudcrack": 2
+  "Crown of Thieves": 3
+  "Rusthandle": 1
+  "Lidless Wall": 3
+  "The Fetid Sprinkler": 2
+  "Witherstring": 1
+  "Arioc's Needle": 3
+  "Moonfall": 2
+  "Guardian's Light": 2
+  "Razorswitch": 2
+  "The Jade Tan Do": 1
+  "Spire of Honor": 2
+  "Larzuk's Champion": 2
+  "Ghostflame": 2
+  "Dreadfang": 2
+  "The Meat Scraper": 3
+  "Serpent Lord": 2
+  "The Face of Horror": 1
+  "Stoneraven": 2
+  "Merman's Speed": 2
+  "The Reedeemer": 2
+  "Warlord's Trust": 2
+  "Wraithstep": 2
+  "Verdugo's Hearty Cord": 8
+  "Bloodpact Shard": 2
+  "Nethercrow": 2
+  "Ars Dul'Mephistos": 3
+  "Odium": 2
+  "Bonehew": 3
+  "Corpsemourn": 2
+  "Pierre Tombale Couant": 2
+  "Carin Shard": 2
+  "Spineripper": 2
+  "Ribcracker": 3
+  "Doomspittle": 2
+  "Opalvein": 2
+  "Darkglow": 1
+  "Heart Carver": 2
+  "Magewrath": 2
+  "Skullcollector": 2
+  "Krintizs Skewer": 2
+  "Lenyms Cord": 1
+  "Knell Striker": 1
+  "Blood Crescent": 1
+  "Stormchaser": 2
+  "Hexfire": 2
+  "Pullspite": 2
+  "Whichwild String": 2
+  "Bane Ash": 1
+  "Sigurd's Staunch": 1
+  "Lance of Yaggai": 2
+  "Stoutnail": 1
+  "Swordback Hold": 1
+  "Iceblink": 2
+  "Stormspike": 2
+  "Razortine": 2
+  "Gheed's Wager": 1
+  "Headhunter's Glory": 2
+  "Blade of Ali Baba": 3
+  "The Vile Husk": 2
+  "Thudergod's Vigor": 5
+  "Bloodtree Stump": 2
+  "Viperfork": 2
+  "Peasent Crown": 2
+  "Steelpillar": 3
+  "The Grim Reaper": 2
+  "The Impaler": 3
+  "Cranebeak": 3
+  "The Iron Jang Bong": 2
+  "Culwens Point": 2
+  "Widowmaker": 3
+  "Lacerator": 2
+  "Gargoyle's Bite": 2
+  "Valkiry Wing": 3
+  "Warshrike": 2
+  "Hone Sundan": 3
+  "Zakarum's Salvation": 2
+  "Todesfaelle Flamme": 2
+  "Metalgrid": 5
+  "Leviathan": 3
+  "Ravenlore": 3
+  "The Grandfather": 5
+  
+  # ============ REMAINING BASES ============
+  "Double Axe": 0.1
+  "Shillelagh": 0.1
+  "Elder Staff": 0.1
+  "Stalagmite": 0.1
+  "Pellet Bow": 0.1
+  "Gorgon Crossbow": 0.1
+  "Diamond Bow": 0.5
+  "Spider Bow": 0.1
+  "Walking Stick": 0.1
+  "Ward Bow": 0.5
+  "Archon Staff": 1
+  "Legend Sword": 0.5
+  "Winged Axe": 0.5
+  "Winged Knife": 0.5
+  "Legend Spike": 0.5
+  "Mancatcher": 0.5
+  "Highland Blade": 1
+  "Bone Knife": 0.5
+  "Mithral Point": 0.5
+  "Colossal Sword": 0.5
+  "Hydra Edge": 1
+  "Ghost Glaive": 0.5
+  "Hyperion Javelin": 0.5
+  "Fanged Knife": 0.5
+  "Reinforced Mace": 0.1
+  "War Spike": 0.5
+  "Devil Star": 0.5
+  "Ogre Axe": 0.5
+  "War Pike": 1
+  "Stygian Pilum": 0.5
+  "Seraph Rod": 0.5
+  "Balrog Spear": 0.5
+  "Elegant Blade": 0.5
+  "Ataghan": 0.5
+  "Tyrant Club": 0.1
+  "Hyperion Spear": 0.5
+  "Falcata": 0.5
+  "Ghost Spear": 0.5
+  "Flying Axe": 0.1
+  "Flying Knife": 0.1
+  "Winged Harpoon": 0.5
+  "Mythical Sword": 0.5
+  "War Fist": 0.5
+  "Ghost Wand": 0.5
+  "Gothic Staff": 0.1
+  "Cedar Staff": 0.1
+  "Razor Bow": 0.1
+  "Long Siege Bow": 0.1
+  "Quarterstaff": 0.1
+  "Short Siege Bow": 0.1
+  "Jo Staff": 0.1
+  "Rune Bow": 0.1
+  "Rune Staff": 0.1
+  "Twin Axe": 0.1
+  "Espandon": 0.1
+  "Lochaber Axe": 0.1
+  "Hurlbat": 0.1
+  "Gothic Sword": 0.1
+  "War Dart": 0.1
+  "Stilleto": 0.1
+  "War Fork": 0.1
+  "Dacian Falx": 0.1
+  "Poignard": 0.1
+  "Rondel": 0.1
+  "Zweihander": 0.1
+  "Tulwar": 0.1
+  "Knout": 0.1
+  "Gothic Axe": 0.1
+  "Ancient Axe": 0.1
+  "Spiculum": 0.1
+  "Tusk Sword": 0.1
+  "Hatchet": 0.1
+  "War Javelin": 0.1
+  "Cinquedeas": 0.1
+  "Military Axe": 0.1
+  "War Club": 0.1
+  "Crowbill": 0.1
+  "Jagged Star": 0.1
+  "Lance": 0.5
+  "Partizan": 0.1
+  "Great Pilum": 0.1
+  "Holy Water Sprinkler": 0.1
+  "Battle Scythe": 0.1
+  "Simbilan": 0.1
+  "Shamshir": 0.1
+  "Rune Scepter": 0.1
+  "Barbed Club": 0.1
+  "War Spear": 0.1
+  "Yari": 0.1
+  "Francisca": 0.1
+  "Battle Dart": 0.1
+  "Harpoon": 0.1
+  "Battle Hammer": 0.1
+  "Fascia": 0.1
+  "Petrified Wand": 0.1
+  "Stag Bow": 0.1
+  "Reflex Bow": 0.1
+  "Maiden Spear": 0.1
+  "Maiden Pike": 0.1
+  "Maiden Javelin": 0.1
+  "Ashwood Bow": 0.5
+  "Ceremonial Bow": 0.5
+  "Ceremonial Spear": 0.1
+  "Ceremonial Javelin": 0.5
+  "Matriarchal Spear": 0.1
+  "Matriarchal Pike": 0.1
+  "Matriarchal Javelin": 0.5
+  "Axe": 0.1
+  "Jawbone Cap": 0.1
+  "Fanged Helm": 0.1
+  "Horned Helm": 0.1
+  "Assault Helmet": 0.1
+  "Jawbone Visor": 0.1
+  "Lion Helm": 0.1
+  "Rage Mask": 0.1
+  "Savage Helmet": 0.1
+  "Carnage Helm": 0.1
+  "Balanced Axe": 0.1
+  "Bone Helm": 0.1
+  "Balanced Knife": 0.1
+  "Blade": 0.1
+  "Bone Shield": 0.1
+  "Battle Staff": 0.1
+  "Buckler": 0.1
+  "Cap": 0.1
+  "Claws": 0.1
+  "Crown": 0.1
+  "Gnarled Staff": 0.1
+  "Decoy Gidbinn": 0.1
+  "Falcon Mask": 0.1
+  "Griffon Headress": 0.5
+  "Hunter's Guise": 0.1
+  "Sacred Feathers": 0.1
+  "Dream Spirit": 0.5
+  "Full Helm": 0.1
+  "Flamberge": 0.1
+  "The Gidbinn": 0.1
+  "Great Helm": 0.1
+  "Giant Sword": 0.1
+  "Glaive": 0.1
+  "Grand Scepter": 0.1
+  "Great Sword": 0.1
+  "Gothic Shield": 0.1
+  "Hand Axe": 0.1
+  "Plated Belt": 0.1
+  "Greaves": 0.1
+  "Hunter's Bow": 0.1
+  "Horadric Malus": 0.1
+  "Hellforge Hammer": 0.1
+  "Gauntlets": 0.1
+  "Hard Leather Armor": 0.1
+  "Helm": 0.1
+  "Horadric Staff": 0.1
+  "Javelin": 0.1
+  "Kriss": 0.1
+  "Long Battle Bow": 0.1
+  "Sash": 0.1
+  "Boots": 0.1
+  "Wirt's Leg": 0.1
+  "Leather Gloves": 0.1
+  "Large Shield": 0.1
+  "Long Staff": 0.1
+  "Mace": 0.1
+  "Belt": 0.1
+  "Chain Boots": 0.1
+  "Chain Gloves": 0.1
+  "Staff of Kings": 0.1
+  "Mask": 0.1
+  "Preserved Head": 0.5
+  "Unraveller Head": 0.5
+  "Gargoyle Head": 0.5
+  "Mummified Trophy": 0.5
+  "Fetish Trophy": 0.5
+  "Sexton Trophy": 0.5
+  "Heirophant Trophy": 0.5
+  "Minion Skull": 0.5
+  "Overseer Skull": 0.5
+  "Hellspawn Skull": 0.5
+  "Eagle Orb": 0.5
+  "Sacred Globe": 0.5
+  "Smoked Sphere": 0.5
+  "Sparkling Ball": 0.5
+  "Jared's Stone": 0.5
+  "Crystalline Globe": 0.5
+  "Cloudy Sphere": 0.5
+  "Rondache": 0.5
+  "Aerin Shield": 0.5
+  "Protector Shield": 0.5
+  "Royal Shield": 0.5
+  "Pilum": 0.1
+  "Khalim's Flail": 0.1
+  "Khalim's Will": 0.1
+  "Ring Mail": 0.1
+  "Repeating Crossbow": 0.1
+  "Short Battle Bow": 0.1
+  "Saber": 0.1
+  "Scimitar": 0.1
+  "Scepter": 0.1
+  "Skull Cap": 0.1
+  "Scissors Katar": 0.1
+  "Small Shield": 0.1
+  "Spiked Club": 0.1
+  "Spiked Shield": 0.1
+  "Splint Mail": 0.1
+  "Spetum": 0.1
+  "Short Spear": 0.1
+  "Throwing Axe": 0.1
+  "Heavy Belt": 0.1
+  "Light Plated Boots": 0.1
+  "Light Gauntlets": 0.1
+  "Throwing Knife": 0.1
+  "Trident": 0.1
+  "Throwing Spear": 0.1
+  "Loricated Mail": 0.5
+  "Myrmidon Greaves": 1
+  "Colossus Girdle": 1
+  "Ogre Gauntlets": 1
+  "Giant Conch": 0.5
+  "Boneweave": 0.5
+  "Hydraskull": 0.5
+  "Wyrmhide Boots": 0.5
+  "Spiderweb Sash": 0.5
+  "Armet": 0.5
+  "Boneweave Boots": 0.5
+  "Mithril Coil": 0.5
+  "Vambraces": 0.5
+  "Mirrored Boots": 0.5
+  "Troll Belt": 0.5
+  "Crusader Gauntlets": 0.5
+  "Scarabshell Boots": 0.5
+  "Vampirefang Belt": 0.5
+  "Vampirebone Gloves": 0.5
+  "Light Belt": 0.1
+  "Heavy Boots": 0.1
+  "Heavy Gloves": 0.1
+  "Tome": 0.1
+  "Codex": 0.1
+  "Compendium": 0.1
+  "Grimoire": 0.1
+  "Burnt Text": 0.1
+  "Dark Tome": 0.1
+  "Dark Codex": 0.1
+  "Wrist Blade": 0.5
+  "War Scythe": 0.1
+  "War Sword": 0.1
+  "War Staff": 0.1
+  "Ornate Armor": 0.5
+  "Tigulated Mail": 0.5
+  "Serpentskin Armor": 0.5
+  "War Boots": 0.5
+  "War Gauntlets": 0.5
+  "Basinet": 0.5
+  "Winged Helm": 0.5
+  "Mesh Armor": 0.5
+  "Dragon Shield": 0.5
+  "Demonhide Armor": 0.5
+  "Demonhide Boots": 0.5
+  "Sharktooth Armor": 0.5
+  "Demonhide Gloves": 0.5
+  "Templar Coat": 0.5
+  "Mesh Boots": 0.5
+  "Heavy Bracers": 0.5
+  "Linked Mail": 0.5
+  "Russet Armor": 0.5
+  "Scutum": 0.5
+  "Grand Crown": 0.5
+  "Cuirass": 0.5
+  "Grim Shield": 0.5
+  "Battle Boots": 0.5
+  "Battle Gauntlets": 0.5
+  "Embossed Plate": 0.5
+  "Ancient Shield": 0.5
+  "Trellised Armor": 0.5
+  "Ghost Armor": 0.5
+  "Sharkskin Boots": 0.5
+  "Sharkskin Gloves": 0.5
+  "War Belt": 0.5
+  "Demonhide Sash": 0.5
+  "Mesh Belt": 0.5
+  "Battle Belt": 0.5
+  "Sharkskin Belt": 0.5
+  "Strangling Gas Potion": 0.05
+  "Choking Gas Potion": 0.05
+  "Rancid Gas Potion": 0.05
+  "Fulminating Potion": 0.05
+  "Exploding Potion": 0.05
+  "Oil Potion": 0.05
+  
+  # ============================================================================
+  # MAGIC AFFIXES - Prefixes & Suffixes for Magic Items
+  # ============================================================================
+  
+  # ============ VALUABLE PREFIXES ============
+  # Socket prefixes (very valuable)
+  "Jeweler's": 15
+  "Artisan's": 5
+  
+  # ED% prefixes for weapons
+  "Cruel": 10
+  "Merciless": 5
+  "Ferocious": 3
+  "Savage": 3
+  "Vicious": 2
+  "Deadly": 2
+  "Brutal": 2
+  "Massive": 1
+  
+  # ED% prefixes for armor
+  "Godly": 8
+  "Holy": 3
+  "Saintly": 2
+  "Blessed": 1
+  "Glorious": 1
+  "Stalwart": 1
+  "Sturdy": 0.5
+  "Strong": 0.5
+  "Rugged": 0.5
+  
+  # AR/MaxDamage prefixes
+  "King's": 3
+  "Lord's": 2
+  "Knight's": 1
+  "Soldier's": 0.5
+  "Warrior's": 0.5
+  "Sharp": 1
+  "Fine": 0.5
+  
+  # Skill prefixes (very valuable)
+  "Lion Branded": 5
+  "Rose Branded": 5
+  "Mentalist's": 5
+  "Entrapping": 5
+  "Shogukusha's": 5
+  "Graverobber's": 5
+  "Fungal": 5
+  "Spiritual": 5
+  "Nature's": 5
+  "Trainer's": 5
+  "Sounding": 5
+  "Fanatic": 5
+  "Expert's": 5
+  "Acrobatic": 3
+  "Harpoonist's": 3
+  "Lancer's": 3
+  "Fletcher's": 3
+  
+  # Elemental damage prefixes
+  "Sparking": 2
+  "Chilling": 2
+  "Burning": 2
+  
+  # Resist prefixes (very valuable)
+  "Prismatic": 10
+  "Chromatic": 5
+  "Spectral": 3
+  
+  # Mana prefixes
+  "Dragon's": 3
+  "Wyrm's": 5
+  "Drake's": 1
+  "Lizard's": 0.5
+  
+  # Class-specific
+  "Blood": 3
+  
+  # ============ VALUABLE SUFFIXES ============
+  
+  # All Resist suffixes (VERY valuable)
+  "of the Zodiac": 20
+  "of the Heavens": 10
+  "of the Stars": 5
+  "of the Moon": 2
+  
+  # Life suffixes (valuable)
+  "of the Whale": 15
+  "of the Mammoth": 8
+  "of the Tiger": 3
+  "of the Wolf": 1
+  "of the Fox": 0.5
+  "of the Jackal": 0.1
+  "of Vita": 3
+  "of Sustenance": 2
+  "of Simplicity": 0.5
+  
+  # Mana suffixes
+  "of the Titan": 3
+  "of the Bear": 1
+  
+  # Life Leech suffixes (valuable)
+  "of the Vampire": 8
+  "of the Bat": 3
+  "of the Leech": 5
+  
+  # IAS suffixes (valuable)
+  "of Quickness": 10
+  "of Alacrity": 5
+  "of Readiness": 2
+  
+  # FCR suffixes (valuable for casters)
+  "of the Magus": 8
+  "of the Apprentice": 3
+  
+  # MF/GF suffixes
+  "of Good Luck": 3
+  "of Fortune": 5
+  
+  # Block/FHR suffixes (valuable for shields)
+  "of Deflecting": 10
+  
+  # Cold damage suffixes (PvP valuable)
+  "of Winter": 5
+  "of Glaciers": 5
+  "of Icicles": 2
+  "of Frost": 2
+  
+  # Damage suffixes
+  "of Performance": 3
+  "of Transcendence": 5
+  "of Victory": 2
+  "of the Cosmos": 8
+  "of Destruction": 5
+  "of Catastrophe": 5
+  
+  # Other valuable suffixes
+  "of Accuracy": 2
+  "of Light": 1
+  "of Illumination": 1
+  "of Regeneration": 3
+  "of Life Everlasting": 5
+  "of Reflection": 2
+  "of Absorption": 3
+  "of Aurora": 2
+  "of Atlas": 2
+  "of the Rising Sun": 3
+  
+  # ============ GEM PREFIXES ============
+  "Ruby": 1
+  "Sapphire": 1
+  "Emerald": 1
+  "Amethyst": 1
+  "Topaz": 1
+  "Diamond": 1
+  "Skull": 1
+  
+  # ============ REMAINING ITEMS ============
+  "Old Book": 0.1
+  "Forgotten Volume": 0.1
+  "Expansion": 0.1
+  "Class Specific": 0.1
+  "Elite Uniques": 0.1
+  "Warlock Class Pack": 2
+  
+  # ============ LOWERCASE VERSIONS ============
+  healingpotion: 0
+  manapotion: 0
+  rejuvenationpotion: 0.5
+  fullrejuvenationpotion: 1
+  fullrejuv: 1
+  rejuv: 0.5
+  superhealingpotion: 0
+  supermanapotion: 0
+  minorhealingpotion: 0
+  lighthealingpotion: 0
+  greaterhealingpotion: 0
+  minormanapotion: 0
+  lightmanapotion: 0
+  greatermanapotion: 0
+  fullhealingpotion: 0
+  fullmanapotion: 0
+  townportalscroll: 0
+  identifiescroll: 0
+  tp: 0
+  id: 0
+  bookoftownportal: 0
+  bookofidentify: 0
+  tb: 0
+  ib: 0
+  scrolloftownportal: 0
+  scrollofidentify: 0
+  scrollofknowledge: 0
+  scrollofresistance: 1
+  scrollofinifuss: 0
+  gold: 0.001
+  arrow: 0
+  bolt: 0
+  arrows: 0
+  bolts: 0
+  twistedessenceofsuffering: 0.5
+  chargedessenceofhatred: 0.5
+  burningessenceofterror: 0.5
+  festeringessenceofdestruction: 0.5
+  essenceofsuffering: 0.5
+  essenceofhatred: 0.5
+  essenceofterror: 0.5
+  essenceofdestruction: 0.5
+  horadriccube: 0
+  horadricscroll: 0
+  keytothecairnstones: 0
+  theblacktowerkey: 0
+  khalimsbrain: 0
+  khalimseye: 0
+  khalimsheart: 0
+  khalimsflail: 0
+  baalseye: 0
+  diabloshorn: 0
+  mephstosbrain: 0
+  mephistossoulstone: 0
+  thegoldenbird: 0
+  jadefigurine: 0
+  ajadefigurine: 0
+  lamess tome: 0
+  lamesenstome: 0
+  lam esens tome: 0
+  lam esen's tome: 0
+  bookofskill: 1
+  potionoflife: 0
+  malahspotion: 0
+  standardofheroes: 1
+  uberancientsummonmaterialact1: 2
+  uberancientsummonmaterialact2: 2
+  uberancientsummonmaterialact3: 2
+  uberancientsummonmaterialact4: 2
+  uberancientsummonmaterialact5: 2
+  uberancientsummonmaterialact 5: 2
+  uberancientupgradematerialfire: 2
+  uberancientupgradematerialpoison: 2
+  uberancientupgradematerialcold: 2
+  uberancientupgradematerialphysical: 2
+  uberancientupgrademateriallightning: 2
+  uberancientupgradematerialmagic: 2
+  westernworldstoneshard: 1
+  easternworldstoneshard: 1
+  southernworldstoneshard: 1
+  northernworldstoneshard: 1
+  deepworldstoneshard: 1
+  worldstoneshard: 1
+  brain: 0
+  heart: 0
+  eye: 0
+  jawbone: 0
+  horn: 0
+  tail: 0
+  fang: 0
+  scalp: 0
+  spleen: 0
+  quill: 0
+  ear: 0
+  chippedsapphire: 0.05
+  chippedemerald: 0.05
+  chippedruby: 0.05
+  chippedamethyst: 0.05
+  chippeddiamond: 0.05
+  chippedtopaz: 0.05
+  chippedskull: 0.05
+  flawedsapphire: 0.1
+  flawedemerald: 0.1
+  flawedruby: 0.1
+  flawedamethyst: 0.1
+  flaweddiamond: 0.1
+  flawedtopaz: 0.1
+  flawedskull: 0.1
+  flawlesssapphire: 0.2
+  sapphire: 0.2
+  emerald: 0.2
+  ruby: 0.2
+  amethyst: 0.2
+  diamond: 0.2
+  topaz: 0.2
+  skull: 0.3
+  staminapotion: 0
+  antidotepotion: 0
+  thawingpotion: 0
+  ring: 0.5
+  amulet: 0.5
+  amuletoftheviper: 0.5
+  craftedsundercharm: 5
+  flag: 0
+  herb: 0
+
+# ============================================================================
+# JEWELS
+# ============================================================================
+jewel:
+  # Perfect mods
+  rainbowfacet: 3
+  facet: 3
+  firefacet: 3
+  coldfacet: 3
+  lightningfacet: 3
+  poisonfacet: 3
+  
+  # Common jewels
+  jewel: 0.5
+  rarejewel: 1
+  magicjewel: 0.5
+  colossaljewel: 1
+  
+  # 40/15 jewels (very valuable)
+  iasjewel: 2
+  maxdamagejewel: 1
+  edjewel: 1
+  
+  # Resist jewels
+  resistjewel: 1
+  
+  # Other valuable mods
+  fhrjewel: 1
+  lifejewel: 1
+  manajewel: 0.5
+
+# ============================================================================
+# SUDDER CHARMS (New D2R items)
+# ============================================================================
+sudder:
+  sundercharm: 8
+  firehearthelix: 10
+  bonebrokehelix: 10
+  flashglowhelix: 10
+  pestilenttoxin: 10
+  sparkinghelix: 10
 
 # ============================================================================
 # SETS
@@ -542,10 +1757,10 @@ set:
   griswoldsshield: 5
 
 # ============================================================================
-# BASE ITEMS (Elite for runewords)
+# BASE ITEMS - Elite (Most Valuable for Runewords)
 # ============================================================================
 base:
-  # Polearms
+  # =========== POLEARMS (Insight/Infinity/Crescent Moon) ===========
   thresher: 25
   giantthresher: 30
   colossusvoulge: 15
@@ -553,29 +1768,127 @@ base:
   greatpoleaxe: 10
   scythe: 1
   poleaxe: 1
+  ogreaxe: 5
+  bill: 2
+  lochaberaxe: 1
+  partizan: 1
+  becdecorbin: 2
+  bardiche: 1
+  voulge: 2
+  grimscythe: 3
+  battlescythe: 2
+  warscythe: 3
+  mancatcher: 2
+  spetum: 1
+  trident: 1
+  brandistock: 1
+  fuscina: 1
+  yari: 2
+  naginata: 3
+  lance: 2
+  pike: 2
+  warpike: 5
+  ghost spear: 3
+  hyperion spear: 2
+  war spear: 2
+  stygianpike: 3
+  stygianpilum: 2
   
-  # Swords
+  # =========== SWORDS (Spirit/Grief/Last Wish/Fortitude) ===========
   phaseblade: 15
   crystalsword: 8
   balrogblade: 10
   legendarysword: 8
   colossusblade: 10
   colossussword: 8
+  mythicalsword: 5
+  conceptionsword: 10
+  highlandblade: 5
+  championsword: 5
+  espandon: 2
+  dacianfalx: 1
+  tusk sword: 1
+  gothicsword: 1
+  executionsword: 2
+  zweihander: 1
+  bastard sword: 1
+  twohandedsword: 1
+  claymore: 1
+  greatsword: 1
+  battlesword: 2
+  rune sword: 2
+  ancient sword: 2
+  dimensionsword: 5
+  tulwar: 1
+  shamshir: 1
+  cutlass: 1
+  gladius: 1
+  short sword: 1
+  long sword: 1
+  broad sword: 1
+  scimitar: 1
+  ataghan: 2
+  elegantsword: 2
+  hydraedge: 5
+  falcata: 2
+  legendsword: 3
+  dimensionalsword: 5
+  hydrasword: 3
   
-  # Axes
+  # =========== AXES (Beast/Doom/Eternity) ===========
   berserkeraxe: 20
   silverwedgedaxe: 8
+  ettinaxe: 8
+  smallcrescent: 15
+  decapitator: 5
+  championaxe: 8
+  gloriousaxe: 5
+  feralaxe: 8
+  gothicaxe: 2
+  ancientaxe: 2
+  broadaxe: 1
+  battleaxe: 1
+  greataxe: 1
+  twinaxe: 1
+  tabar: 1
+  naga: 2
+  beardedaxe: 1
+  militarypick: 1
+  crowbill: 1
+  tomahawk: 1
+  hatchet: 1
+  axe: 1
+  wingedaxe: 2
+  flyingaxe: 2
+  hurlbat: 1
+  doubleaxe: 0.5
   
-  # Shields
+  # =========== SHIELDS (Spirit/Exile/Hoz base) ===========
   monarch: 8
   sacredtarge: 15
   sacredrondache: 12
   kurastshield: 10
   vortexshield: 12
   luna: 5
-  targe: 8
+  targe: 5
+  akarantarge: 3
+  gildedshield: 5
+  zakarumshield: 8
+  roundshield: 2
+  dragonshield: 3
+  pavise: 2
+  towershield: 2
+  gothicshield: 2
+  ancientshield: 2
+  ward: 3
+  heater: 3
+  bone shield: 1
+  grimshield: 2
+  boneshield: 1
+  spikedshield: 2
+  barbedshield: 2
   
-  # Armor
+  # =========== ARMOR (Enigma/CoH/Fortitude) ===========
   archonplate: 15
   balrogskin: 8
   wirefleece: 8
@@ -584,28 +1897,327 @@ base:
   duskshroud: 12
   wyrmhide: 8
   mageplate: 20
+  scarabhusk: 5
+  sharktootharmor: 5
+  hydraedge: 5
+  hellforgeplate: 5
+  krakenshell: 5
+  leviathan: 3
+  boneweave: 5
+  diamondmail: 3
+  loricatedmail: 3
+  fullplate: 2
+  ancientarmor: 2
+  fieldplate: 1
+  gothicplate: 1
+  fullplatemail: 2
+  breastedplate: 1
+  chainmail: 1
+  scalemail: 1
+  ringmail: 1
+  studdedleather: 1
+  quiltedarmor: 1
+  leatherarmor: 1
+  lightplate: 2
+  plate: 1
   
-  # Assassin Claws
+  # =========== ASSASSIN CLAWS (Chaos/Fury/Death Sentry) ===========
   suwayyah: 15
   runictalons: 15
   scissorssuwayyah: 12
   greatertalons: 12
   feralclaws: 8
+  wrist sword: 3
+  hand scythe: 3
+  battle cestus: 5
+  quhab: 2
+  scissorsquhab: 3
+  wrist spike: 3
+  bladetalons: 5
+  cestus: 3
+  claws: 2
+  greaterclaws: 3
   
-  # Scepters
+  # =========== SCEPTERS (Cta/Hoto/Spirit) ===========
   caduceus: 10
   warscepter: 5
+  divine scepter: 8
+  mighty scepter: 5
+  grand scepter: 3
+  holy water sprinkler: 2
+  seraphrod: 2
+  runescepter: 2
+  scepter: 1
   
-  # Wands
+  # =========== WANDS (White/Leaf) ===========
   lichwand: 10
   unearthedwand: 15
+  tombwand: 5
+  gravewand: 5
+  burntwand: 3
+  bone wand: 2
+  wand: 1
+  yew wand: 1
+  polished wand: 2
+  ghost wand: 3
+  petrified wand: 2
   
-  # Flail
+  # =========== FLAIL (Call to Arms/Hoto) ===========
   flail: 3
+  knout: 2
+  scourge: 5
   
-  # Helms
+  # =========== STAVES (Memory/Leaf) ===========
+  archonstaff: 3
+  walkerspice: 1
+  stalagmite: 1
+  elderstaff: 1
+  quarterstaff: 1
+  cedarstaff: 1
+  runestaff: 2
+  gothicstaff: 1
+  battlestaff: 1
+  gnarledstaff: 1
+  longstaff: 1
+  shortstaff: 1
+  shillelagh: 1
+  walking stick: 1
+  jo staff: 1
+  
+  # =========== HELMS (Delirium/Dream) ===========
   diadem: 10
   shako: 5
   tiara: 8
   coronet: 5
   circlet: 3
+  slayerguard: 5
+  furyvisor: 3
+  destroyerhelm: 3
+  conquerorcrown: 3
+  guardiancrown: 3
+  avengerguard: 3
+  jawbonevisor: 2
+  rage mask: 2
+  carnagehelm: 2
+  savagehelmet: 2
+  lionhelm: 2
+  assaulthelmet: 1
+  fangedhelm: 1
+  hornedhelm: 1
+  jawbonecap: 1
+  
+  # =========== DRUID PELTS (Spirit/Beast bases) ===========
+  totemicmask: 5
+  sky spirit: 3
+  earthspirit: 3
+  sunspirit: 3
+  bloodspirit: 3
+  dreamspirit: 3
+  alphas helm: 3
+  griffonheaddress: 2
+  huntersguise: 2
+  sacredfeathers: 2
+  wolfhead: 2
+  hawkhelm: 1
+  antlers: 2
+  spiritmask: 2
+  
+  # =========== BARBARIAN HELMS ===========
+  furyvisor: 3
+  slayerguard: 5
+  conquerorcrown: 3
+  guardiancrown: 3
+  
+  # =========== PALADIN SHIELDS ===========
+  sacredtarge: 15
+  sacredrondache: 12
+  kurastshield: 10
+  vortexshield: 12
+  zakarumshield: 8
+  akarantarge: 5
+  gildedshield: 5
+  
+  # =========== BOWS (Faith/Windforce base) ===========
+  hydrabow: 10
+  crusaderbow: 5
+  wardbow: 3
+  diamondbow: 3
+  shadowbow: 3
+  bladebow: 5
+  spiderbow: 2
+  greatbow: 2
+  demoncrossbow: 3
+  gorgoncrossbow: 2
+  colossuscrossbow: 3
+  ballista: 2
+  gothicbow: 2
+  razorbow: 1
+  edgebow: 2
+  longbow: 1
+  shortbow: 1
+  hunterbow: 1
+  compositebow: 1
+  longbattlebow: 2
+  shortbattlebow: 1
+  longwarbow: 2
+  shortwarbow: 1
+  pelletbow: 0.5
+  longsiegebow: 1
+  shortsiegebow: 1
+  runebow: 1
+  
+  # =========== AMAZON BOWS ===========
+  grandmatronbow: 8
+  matriarchalbow: 5
+  ceremonialbow: 3
+  ashwoodbow: 2
+  reflexbow: 2
+  stagbow: 1
+  
+  # =========== JAVELINS (Titans/Thunderstroke base) ===========
+  matriarchaljavelin: 3
+  ceremonialjavelin: 2
+  maidenjavelin: 1
+  hyperionjavelin: 2
+  stygianpilum: 2
+  greatpilum: 1
+  warjavelin: 1
+  javelin: 1
+  throwing spear: 1
+  pilum: 1
+  winged harpoon: 2
+  
+  # =========== THROWING WEAPONS ===========
+  wingedknife: 2
+  flyingknife: 1
+  battle dart: 1
+  wardart: 1
+  throwingknife: 1
+  dagger: 1
+  poignard: 1
+  rondel: 1
+  stiletto: 1
+  cinquedeas: 1
+  fangedknife: 2
+  boneknife: 2
+  mithralpoint: 2
+  ghost glaive: 1
+  
+  # =========== MACE/HAMMER (Hoto/Heaven's Brethren) ===========
+  legendarymallet: 8
+  thundermaul: 5
+  ogremaul: 3
+  martelde fer: 2
+  battlehammer: 2
+  warclub: 1
+  devilstar: 2
+  reinforcedmace: 1
+  flangedmace: 1
+  cudgel: 1
+  club: 1
+  spiredhelm: 2
+  truncheon: 1
+  tyrantclub: 1
+  warspike: 2
+  crowbill: 1
+  barbedclub: 1
+  spikedclub: 1
+  mace: 1
+  morningstar: 1
+  jaggedstar: 1
+  
+  # =========== SPEARS ===========
+  legendpike: 3
+  ghostspear: 3
+  warspear: 2
+  hyperionspear: 2
+  stygianpike: 3
+  warpike: 5
+  pike: 2
+  spear: 1
+  trident: 1
+  brandistock: 1
+  spetum: 1
+  fuscina: 1
+  yari: 2
+  naginata: 3
+  warfork: 1
+  fuscina: 1
+  
+  # =========== CLASS-SPECIFIC ===========
+  # Amazon
+  amazonbow: 3
+  amazonjavelin: 2
+  amazonspear: 2
+  
+  # Assassin
+  assassinclaw: 5
+  
+  # Necro wands
+  necromancerwand: 5
+  
+  # Paladin shields
+  paladinshield: 5
+  
+  # Barbarian helms
+  barbarianhelm: 3
+  
+  # Druid pelts
+  druidpelt: 3
+  
+  # Sorc orbs
+  sorceressorb: 2
+  
+  # Orbs (Sorceress)
+  swirlingcrystal: 3
+  dimensionalshard: 3
+  eldershard: 2
+  eaglesorb: 2
+  heavenlystone: 2
+  bloodlordskull: 2
+  demonheart: 2
+  vortexorb: 2
+  shrunkenhead: 2
+  
+  # =========== OTHER WEAPONS ===========
+  doubleaxe: 0.5
+  twinaxe: 1
+  espandon: 1
+  lochaberaxe: 1
+  hurlbat: 1
+  gothicsword: 1
+  wardart: 1
+  stiletto: 1
+  knout: 1
+  spiculum: 1
+  tusksword: 1
+  warclub: 1
+  crowbill: 1
+  jaggedstar: 1
+  lance: 2
+  partizan: 1
+  seraphrod: 1
+  balrogspear: 2
+  elegantblade: 1
+  ataghan: 1
+  tyrantclub: 1
+  hyperionspear: 1
+  falcata: 1
+  ghostspear: 2
+  flyingaxe: 1
+  flyingknife: 1
+  wingedharpoon: 1
+  mythicalsword: 2
+  warfist: 2
+  ghostwand: 1
+  legendspike: 1
+  mancather: 1
+  hydraedge: 2
+  hyperionjavelin: 1
+  fangedknife: 1
+  reinforcedmace: 0.5
+  warspike: 1
+  devilstar: 1
+  ogreaxe: 2
+  warpike: 3
+ 

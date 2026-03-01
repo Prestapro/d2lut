@@ -1,115 +1,5199 @@
 [
-  {"id": 1, "Key": "Jeweler's", "enUS": "Jeweler's"},
-  {"id": 2, "Key": "Artisan's", "enUS": "Artisan's"},
-  {"id": 3, "Key": "Cruel", "enUS": "Cruel"},
-  {"id": 4, "Key": "Blood", "enUS": "Blood"},
-  {"id": 5, "Key": "Fletcher's", "enUS": "Fletcher's"},
-  {"id": 6, "Key": "Lancer's", "enUS": "Lancer's"},
-  {"id": 7, "Key": "Acrobatic", "enUS": "Acrobatic"},
-  {"id": 8, "Key": "Rose Branded", "enUS": "Rose Branded"},
-  {"id": 9, "Key": "Lion Branded", "enUS": "Lion Branded"},
-  {"id": 10, "Key": "Harpoonist's", "enUS": "Harpoonist's"},
-  {"id": 11, "Key": "Sparking", "enUS": "Sparking"},
-  {"id": 12, "Key": "Chilling", "enUS": "Chilling"},
-  {"id": 13, "Key": "Burning", "enUS": "Burning"},
-  {"id": 14, "Key": "Mentalist's", "enUS": "Mentalist's"},
-  {"id": 15, "Key": "Entrapping", "enUS": "Entrapping"},
-  {"id": 16, "Key": "Shogukusha's", "enUS": "Shogukusha's"},
-  {"id": 17, "Key": "Graverobber's", "enUS": "Graverobber's"},
-  {"id": 18, "Key": "Fungal", "enUS": "Fungal"},
-  {"id": 19, "Key": "Spiritual", "enUS": "Spiritual"},
-  {"id": 20, "Key": "Nature's", "enUS": "Nature's"},
-  {"id": 21, "Key": "Trainer's", "enUS": "Trainer's"},
-  {"id": 22, "Key": "Sounding", "enUS": "Sounding"},
-  {"id": 23, "Key": "Fanatic", "enUS": "Fanatic"},
-  {"id": 24, "Key": "Expert's", "enUS": "Expert's"},
-  {"id": 25, "Key": "of Deflecting", "enUS": "of Deflecting"},
-  {"id": 26, "Key": "of Vita", "enUS": "of Vita"},
-  {"id": 27, "Key": "of Sustenance", "enUS": "of Sustenance"},
-  {"id": 28, "Key": "of Quickness", "enUS": "of Quickness"},
-  {"id": 29, "Key": "of Alacrity", "enUS": "of Alacrity"},
-  {"id": 30, "Key": "of Readiness", "enUS": "of Readiness"},
-  {"id": 31, "Key": "of the Magus", "enUS": "of the Magus"},
-  {"id": 32, "Key": "of the Apprentice", "enUS": "of the Apprentice"},
-  {"id": 33, "Key": "of the Titan", "enUS": "of the Titan"},
-  {"id": 34, "Key": "of the Bear", "enUS": "of the Bear"},
-  {"id": 35, "Key": "of Good Luck", "enUS": "of Good Luck"},
-  {"id": 36, "Key": "of Fortune", "enUS": "of Fortune"},
-  {"id": 37, "Key": "of the Whale", "enUS": "of the Whale"},
-  {"id": 38, "Key": "of the Squid", "enUS": "of the Squid"},
-  {"id": 39, "Key": "of Simplicity", "enUS": "of Simplicity"},
-  {"id": 40, "Key": "of Accuracy", "enUS": "of Accuracy"},
-  {"id": 41, "Key": "of Light", "enUS": "of Light"},
-  {"id": 42, "Key": "of Illumination", "enUS": "of Illumination"},
-  {"id": 43, "Key": "Drake's", "enUS": "Drake's"},
-  {"id": 44, "Key": "Lizard's", "enUS": "Lizard's"},
-  {"id": 45, "Key": "Dragon's", "enUS": "Dragon's"},
-  {"id": 46, "Key": "Wyrm's", "enUS": "Wyrm's"},
-  {"id": 47, "Key": "of the Jackal", "enUS": "of the Jackal"},
-  {"id": 48, "Key": "of the Fox", "enUS": "of the Fox"},
-  {"id": 49, "Key": "of the Wolf", "enUS": "of the Wolf"},
-  {"id": 50, "Key": "of the Tiger", "enUS": "of the Tiger"},
-  {"id": 51, "Key": "of the Mammoth", "enUS": "of the Mammoth"},
-  {"id": 52, "Key": "Mecenary's", "enUS": "Mercenary's"},
-  {"id": 53, "Key": "Soldier's", "enUS": "Soldier's"},
-  {"id": 54, "Key": "Knight's", "enUS": "Knight's"},
-  {"id": 55, "Key": "Lord's", "enUS": "Lord's"},
-  {"id": 56, "Key": "King's", "enUS": "King's"},
-  {"id": 57, "Key": "Sharp", "enUS": "Sharp"},
-  {"id": 58, "Key": "Fine", "enUS": "Fine"},
-  {"id": 59, "Key": "Warrior's", "enUS": "Warrior's"},
-  {"id": 60, "Key": "Soldier's", "enUS": "Soldier's"},
-  {"id": 61, "Key": "Rugged", "enUS": "Rugged"},
-  {"id": 62, "Key": "Stalwart", "enUS": "Stalwart"},
-  {"id": 63, "Key": "Sturdy", "enUS": "Sturdy"},
-  {"id": 64, "Key": "Strong", "enUS": "Strong"},
-  {"id": 65, "Key": "Glorious", "enUS": "Glorious"},
-  {"id": 66, "Key": "Blessed", "enUS": "Blessed"},
-  {"id": 67, "Key": "Saintly", "enUS": "Saintly"},
-  {"id": 68, "Key": "Holy", "enUS": "Holy"},
-  {"id": 69, "Key": "Godly", "enUS": "Godly"},
-  {"id": 70, "Key": "Visionary", "enUS": "Visionary"},
-  {"id": 71, "Key": "of the Leech", "enUS": "of the Leech"},
-  {"id": 72, "Key": "of the Bat", "enUS": "of the Bat"},
-  {"id": 73, "Key": "of the Vampire", "enUS": "of the Vampire"},
-  {"id": 74, "Key": "of Frost", "enUS": "of Frost"},
-  {"id": 75, "Key": "of Icicles", "enUS": "of Icicles"},
-  {"id": 76, "Key": "of Glaciers", "enUS": "of Glaciers"},
-  {"id": 77, "Key": "of Winter", "enUS": "of Winter"},
-  {"id": 78, "Key": "of the Moon", "enUS": "of the Moon"},
-  {"id": 79, "Key": "of the Stars", "enUS": "of the Stars"},
-  {"id": 80, "Key": "of the Heavens", "enUS": "of the Heavens"},
-  {"id": 81, "Key": "of the Zodiac", "enUS": "of the Zodiac"},
-  {"id": 82, "Key": "Ruby", "enUS": "Ruby"},
-  {"id": 83, "Key": "Sapphire", "enUS": "Sapphire"},
-  {"id": 84, "Key": "Emerald", "enUS": "Emerald"},
-  {"id": 85, "Key": "Amethyst", "enUS": "Amethyst"},
-  {"id": 86, "Key": "Topaz", "enUS": "Topaz"},
-  {"id": 87, "Key": "Diamond", "enUS": "Diamond"},
-  {"id": 88, "Key": "Skull", "enUS": "Skull"},
-  {"id": 89, "Key": "Jagged", "enUS": "Jagged"},
-  {"id": 90, "Key": "Deadly", "enUS": "Deadly"},
-  {"id": 91, "Key": "Vicious", "enUS": "Vicious"},
-  {"id": 92, "Key": " Brutal", "enUS": "Brutal"},
-  {"id": 93, "Key": "Massive", "enUS": "Massive"},
-  {"id": 94, "Key": "Savage", "enUS": "Savage"},
-  {"id": 95, "Key": "Merciless", "enUS": "Merciless"},
-  {"id": 96, "Key": "Ferocious", "enUS": "Ferocious"},
-  {"id": 97, "Key": "of Performance", "enUS": "of Performance"},
-  {"id": 98, "Key": "of Transcendence", "enUS": "of Transcendence"},
-  {"id": 99, "Key": "of Victory", "enUS": "of Victory"},
-  {"id": 100, "Key": "of the Cosmos", "enUS": "of the Cosmos"},
-  {"id": 101, "Key": "of Destruction", "enUS": "of Destruction"},
-  {"id": 102, "Key": "of Catastrophe", "enUS": "of Catastrophe"},
-  {"id": 103, "Key": "Hibernian", "enUS": "Hibernian"},
-  {"id": 104, "Key": "of Atlas", "enUS": "of Atlas"},
-  {"id": 105, "Key": "of Aurora", "enUS": "of Aurora"},
-  {"id": 106, "Key": "of the Rising Sun", "enUS": "of the Rising Sun"},
-  {"id": 107, "Key": "Prismatic", "enUS": "Prismatic"},
-  {"id": 108, "Key": "Chromatic", "enUS": "Chromatic"},
-  {"id": 109, "Key": "Spectral", "enUS": "Spectral"},
-  {"id": 110, "Key": "of Reflection", "enUS": "of Reflection"},
-  {"id": 111, "Key": "of Absorption", "enUS": "of Absorption"},
-  {"id": 112, "Key": "of Regeneration", "enUS": "of Regeneration"},
-  {"id": 113, "Key": "of Life Everlasting", "enUS": "of Life Everlasting"}
+  {
+    "id": 1,
+    "Key": "Jeweler's Hyperion of the Titan",
+    "enUS": "Jeweler's Hyperion of the Titan | 600-1500 FG | 4os/30str",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ush",
+    "base_price": 600,
+    "perfect_price": 1500,
+    "perfect_rolls": "4os/30str",
+    "notes": "Spirit shield variant"
+  },
+  {
+    "id": 2,
+    "Key": "Jeweler's Luna of the Titan",
+    "enUS": "Jeweler's Luna of the Titan | 600-1500 FG | 4os/30str",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ulg",
+    "base_price": 600,
+    "perfect_price": 1500,
+    "perfect_rolls": "4os/30str",
+    "notes": "Spirit shield variant"
+  },
+  {
+    "id": 3,
+    "Key": "Jeweler's Monarch of the Titan",
+    "enUS": "Jeweler's Monarch of the Titan | 600-1500 FG | 4os/30str",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "uit",
+    "base_price": 600,
+    "perfect_price": 1500,
+    "perfect_rolls": "4os/30str",
+    "notes": "Spirit shield variant"
+  },
+  {
+    "id": 4,
+    "Key": "Jeweler's Ward of the Titan",
+    "enUS": "Jeweler's Ward of the Titan | 600-1500 FG | 4os/30str",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "uws",
+    "base_price": 600,
+    "perfect_price": 1500,
+    "perfect_rolls": "4os/30str",
+    "notes": "Spirit shield variant"
+  },
+  {
+    "id": 5,
+    "Key": "Fervent Jewel of Freedom",
+    "enUS": "Fervent Jewel of Freedom | 600-2000 FG | 15ias/-15req",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "jew",
+    "base_price": 600,
+    "perfect_price": 2000,
+    "perfect_rolls": "15ias/-15req",
+    "notes": "GG LLD Jewel"
+  },
+  {
+    "id": 6,
+    "Key": "Barbarian's Amulet of the Magus",
+    "enUS": "Barbarian's Amulet of the Magus | 800-2500 FG | +2Barb/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "amu",
+    "base_price": 800,
+    "perfect_price": 2500,
+    "perfect_rolls": "+2Barb/20fcr",
+    "notes": "GG Warcry Barb amulet"
+  },
+  {
+    "id": 7,
+    "Key": "Jeweler's Hyperion of the Whale",
+    "enUS": "Jeweler's Hyperion of the Whale | 800-2500 FG | 4os/100life",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ush",
+    "base_price": 800,
+    "perfect_price": 2500,
+    "perfect_rolls": "4os/100life",
+    "notes": "High value shield"
+  },
+  {
+    "id": 8,
+    "Key": "Jeweler's Luna of the Whale",
+    "enUS": "Jeweler's Luna of the Whale | 800-2500 FG | 4os/100life",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ulg",
+    "base_price": 800,
+    "perfect_price": 2500,
+    "perfect_rolls": "4os/100life",
+    "notes": "High value shield"
+  },
+  {
+    "id": 9,
+    "Key": "Jeweler's Monarch of the Whale",
+    "enUS": "Jeweler's Monarch of the Whale | 800-2500 FG | 4os/100life",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "uit",
+    "base_price": 800,
+    "perfect_price": 2500,
+    "perfect_rolls": "4os/100life",
+    "notes": "High value shield"
+  },
+  {
+    "id": 10,
+    "Key": "Jeweler's Ward of the Whale",
+    "enUS": "Jeweler's Ward of the Whale | 800-2500 FG | 4os/100life",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "uws",
+    "base_price": 800,
+    "perfect_price": 2500,
+    "perfect_rolls": "4os/100life",
+    "notes": "High value shield"
+  },
+  {
+    "id": 11,
+    "Key": "Shimmering Grand Charm of Vita",
+    "enUS": "Shimmering Grand Charm of Vita | 800-2500 FG | +1sk/45life",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "cm3",
+    "base_price": 800,
+    "perfect_price": 2500,
+    "perfect_rolls": "+1sk/45life",
+    "notes": "GG Skiller GC"
+  },
+  {
+    "id": 12,
+    "Key": "Amazon's Amulet of the Magus",
+    "enUS": "Amazon's Amulet of the Magus | 1000-3500 FG | +2Zon/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "amu",
+    "base_price": 1000,
+    "perfect_price": 3500,
+    "perfect_rolls": "+2Zon/20fcr",
+    "notes": "GG Zon amulet"
+  },
+  {
+    "id": 13,
+    "Key": "Assassin's Amulet of the Magus",
+    "enUS": "Assassin's Amulet of the Magus | 1200-4500 FG | +2Assa/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "amu",
+    "base_price": 1200,
+    "perfect_price": 4500,
+    "perfect_rolls": "+2Assa/20fcr",
+    "notes": "GG Trapsin amulet"
+  },
+  {
+    "id": 14,
+    "Key": "Arch-Angel's Amulet of the Magus",
+    "enUS": "Arch-Angel's Amulet of the Magus | 1500-5000 FG | +2all/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "amu",
+    "base_price": 1500,
+    "perfect_price": 5000,
+    "perfect_rolls": "+2all/20fcr",
+    "notes": "GG caster amulet"
+  },
+  {
+    "id": 15,
+    "Key": "Artisan's Hyperion of Deflecting",
+    "enUS": "Artisan's Hyperion of Deflecting | 1500-5000 FG | 3os/20fbr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ush",
+    "base_price": 1500,
+    "perfect_price": 5000,
+    "perfect_rolls": "3os/20fbr",
+    "notes": "3os JMOD variant"
+  },
+  {
+    "id": 16,
+    "Key": "Artisan's Luna of Deflecting",
+    "enUS": "Artisan's Luna of Deflecting | 1500-5000 FG | 3os/20fbr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ulg",
+    "base_price": 1500,
+    "perfect_price": 5000,
+    "perfect_rolls": "3os/20fbr",
+    "notes": "3os JMOD variant"
+  },
+  {
+    "id": 17,
+    "Key": "Artisan's Monarch of Deflecting",
+    "enUS": "Artisan's Monarch of Deflecting | 1500-5000 FG | 3os/20fbr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "uit",
+    "base_price": 1500,
+    "perfect_price": 5000,
+    "perfect_rolls": "3os/20fbr",
+    "notes": "3os JMOD variant"
+  },
+  {
+    "id": 18,
+    "Key": "Artisan's Ward of Deflecting",
+    "enUS": "Artisan's Ward of Deflecting | 1500-5000 FG | 3os/20fbr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "uws",
+    "base_price": 1500,
+    "perfect_price": 5000,
+    "perfect_rolls": "3os/20fbr",
+    "notes": "3os JMOD variant"
+  },
+  {
+    "id": 19,
+    "Key": "Crimson Jewel of Fervent",
+    "enUS": "Crimson Jewel of Fervent | 1500-5000 FG | 40ed/15ias",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "jew",
+    "base_price": 1500,
+    "perfect_price": 5000,
+    "perfect_rolls": "40ed/15ias",
+    "notes": "GG 40/15 Jewel"
+  },
+  {
+    "id": 20,
+    "Key": "Grim Circlet of the Magus",
+    "enUS": "Grim Circlet of the Magus | 1200-5000 FG | +3Fire/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci0",
+    "base_price": 1200,
+    "perfect_price": 5000,
+    "perfect_rolls": "+3Fire/20fcr",
+    "notes": "GG Fire Sorc circlet"
+  },
+  {
+    "id": 21,
+    "Key": "Grim Coronet of the Magus",
+    "enUS": "Grim Coronet of the Magus | 1200-5000 FG | +3Fire/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci1",
+    "base_price": 1200,
+    "perfect_price": 5000,
+    "perfect_rolls": "+3Fire/20fcr",
+    "notes": "GG Fire Sorc circlet"
+  },
+  {
+    "id": 22,
+    "Key": "Grim Diadem of the Magus",
+    "enUS": "Grim Diadem of the Magus | 1200-5000 FG | +3Fire/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci3",
+    "base_price": 1200,
+    "perfect_price": 5000,
+    "perfect_rolls": "+3Fire/20fcr",
+    "notes": "GG Fire Sorc circlet"
+  },
+  {
+    "id": 23,
+    "Key": "Grim Tiara of the Magus",
+    "enUS": "Grim Tiara of the Magus | 1200-5000 FG | +3Fire/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci2",
+    "base_price": 1200,
+    "perfect_price": 5000,
+    "perfect_rolls": "+3Fire/20fcr",
+    "notes": "GG Fire Sorc circlet"
+  },
+  {
+    "id": 24,
+    "Key": "Blazing Circlet of the Magus",
+    "enUS": "Blazing Circlet of the Magus | 1500-6000 FG | +3Fire/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci0",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3Fire/20fcr",
+    "notes": "GG Fire Sorc circlet"
+  },
+  {
+    "id": 25,
+    "Key": "Blazing Coronet of the Magus",
+    "enUS": "Blazing Coronet of the Magus | 1500-6000 FG | +3Fire/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci1",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3Fire/20fcr",
+    "notes": "GG Fire Sorc circlet"
+  },
+  {
+    "id": 26,
+    "Key": "Blazing Diadem of the Magus",
+    "enUS": "Blazing Diadem of the Magus | 1500-6000 FG | +3Fire/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci3",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3Fire/20fcr",
+    "notes": "GG Fire Sorc circlet"
+  },
+  {
+    "id": 27,
+    "Key": "Blazing Tiara of the Magus",
+    "enUS": "Blazing Tiara of the Magus | 1500-6000 FG | +3Fire/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci2",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3Fire/20fcr",
+    "notes": "GG Fire Sorc circlet"
+  },
+  {
+    "id": 28,
+    "Key": "Cunning Circlet of the Magus",
+    "enUS": "Cunning Circlet of the Magus | 1500-6000 FG | +3Trap/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci0",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3Trap/20fcr",
+    "notes": "GG Trapsin circlet"
+  },
+  {
+    "id": 29,
+    "Key": "Cunning Coronet of the Magus",
+    "enUS": "Cunning Coronet of the Magus | 1500-6000 FG | +3Trap/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci1",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3Trap/20fcr",
+    "notes": "GG Trapsin circlet"
+  },
+  {
+    "id": 30,
+    "Key": "Cunning Diadem of the Magus",
+    "enUS": "Cunning Diadem of the Magus | 1500-6000 FG | +3Trap/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci3",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3Trap/20fcr",
+    "notes": "GG Trapsin circlet"
+  },
+  {
+    "id": 31,
+    "Key": "Cunning Tiara of the Magus",
+    "enUS": "Cunning Tiara of the Magus | 1500-6000 FG | +3Trap/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci2",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3Trap/20fcr",
+    "notes": "GG Trapsin circlet"
+  },
+  {
+    "id": 32,
+    "Key": "Freezing Circlet of the Magus",
+    "enUS": "Freezing Circlet of the Magus | 1500-6000 FG | +3Cold/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci0",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3Cold/20fcr",
+    "notes": "GG Cold Sorc circlet"
+  },
+  {
+    "id": 33,
+    "Key": "Freezing Coronet of the Magus",
+    "enUS": "Freezing Coronet of the Magus | 1500-6000 FG | +3Cold/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci1",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3Cold/20fcr",
+    "notes": "GG Cold Sorc circlet"
+  },
+  {
+    "id": 34,
+    "Key": "Freezing Diadem of the Magus",
+    "enUS": "Freezing Diadem of the Magus | 1500-6000 FG | +3Cold/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci3",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3Cold/20fcr",
+    "notes": "GG Cold Sorc circlet"
+  },
+  {
+    "id": 35,
+    "Key": "Freezing Tiara of the Magus",
+    "enUS": "Freezing Tiara of the Magus | 1500-6000 FG | +3Cold/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci2",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3Cold/20fcr",
+    "notes": "GG Cold Sorc circlet"
+  },
+  {
+    "id": 36,
+    "Key": "Glacial Circlet of the Magus",
+    "enUS": "Glacial Circlet of the Magus | 1500-6000 FG | +3Cold/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci0",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3Cold/20fcr",
+    "notes": "GG Cold Druid circlet"
+  },
+  {
+    "id": 37,
+    "Key": "Glacial Coronet of the Magus",
+    "enUS": "Glacial Coronet of the Magus | 1500-6000 FG | +3Cold/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci1",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3Cold/20fcr",
+    "notes": "GG Cold Druid circlet"
+  },
+  {
+    "id": 38,
+    "Key": "Glacial Diadem of the Magus",
+    "enUS": "Glacial Diadem of the Magus | 1500-6000 FG | +3Cold/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci3",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3Cold/20fcr",
+    "notes": "GG Cold Druid circlet"
+  },
+  {
+    "id": 39,
+    "Key": "Glacial Tiara of the Magus",
+    "enUS": "Glacial Tiara of the Magus | 1500-6000 FG | +3Cold/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci2",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3Cold/20fcr",
+    "notes": "GG Cold Druid circlet"
+  },
+  {
+    "id": 40,
+    "Key": "Golemlord's Circlet of the Magus",
+    "enUS": "Golemlord's Circlet of the Magus | 1500-6000 FG | +3Sum/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci0",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3Sum/20fcr",
+    "notes": "GG Summon Necro circlet"
+  },
+  {
+    "id": 41,
+    "Key": "Golemlord's Coronet of the Magus",
+    "enUS": "Golemlord's Coronet of the Magus | 1500-6000 FG | +3Sum/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci1",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3Sum/20fcr",
+    "notes": "GG Summon Necro circlet"
+  },
+  {
+    "id": 42,
+    "Key": "Golemlord's Diadem of the Magus",
+    "enUS": "Golemlord's Diadem of the Magus | 1500-6000 FG | +3Sum/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci3",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3Sum/20fcr",
+    "notes": "GG Summon Necro circlet"
+  },
+  {
+    "id": 43,
+    "Key": "Golemlord's Tiara of the Magus",
+    "enUS": "Golemlord's Tiara of the Magus | 1500-6000 FG | +3Sum/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci2",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3Sum/20fcr",
+    "notes": "GG Summon Necro circlet"
+  },
+  {
+    "id": 44,
+    "Key": "Lion Branded Circlet of the Magus",
+    "enUS": "Lion Branded Circlet of the Magus | 1500-6000 FG | +3Com/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci0",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3Com/20fcr",
+    "notes": "GG Pally Combat circlet"
+  },
+  {
+    "id": 45,
+    "Key": "Lion Branded Coronet of the Magus",
+    "enUS": "Lion Branded Coronet of the Magus | 1500-6000 FG | +3Com/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci1",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3Com/20fcr",
+    "notes": "GG Pally Combat circlet"
+  },
+  {
+    "id": 46,
+    "Key": "Lion Branded Diadem of the Magus",
+    "enUS": "Lion Branded Diadem of the Magus | 1500-6000 FG | +3Com/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci3",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3Com/20fcr",
+    "notes": "GG Pally Combat circlet"
+  },
+  {
+    "id": 47,
+    "Key": "Lion Branded Tiara of the Magus",
+    "enUS": "Lion Branded Tiara of the Magus | 1500-6000 FG | +3Com/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci2",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3Com/20fcr",
+    "notes": "GG Pally Combat circlet"
+  },
+  {
+    "id": 48,
+    "Key": "Shadow Circlet of the Magus",
+    "enUS": "Shadow Circlet of the Magus | 1500-6000 FG | +3SD/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci0",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3SD/20fcr",
+    "notes": "GG Shadow Dancer circlet"
+  },
+  {
+    "id": 49,
+    "Key": "Shadow Coronet of the Magus",
+    "enUS": "Shadow Coronet of the Magus | 1500-6000 FG | +3SD/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci1",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3SD/20fcr",
+    "notes": "GG Shadow Dancer circlet"
+  },
+  {
+    "id": 50,
+    "Key": "Shadow Diadem of the Magus",
+    "enUS": "Shadow Diadem of the Magus | 1500-6000 FG | +3SD/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci3",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3SD/20fcr",
+    "notes": "GG Shadow Dancer circlet"
+  },
+  {
+    "id": 51,
+    "Key": "Shadow Tiara of the Magus",
+    "enUS": "Shadow Tiara of the Magus | 1500-6000 FG | +3SD/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci2",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3SD/20fcr",
+    "notes": "GG Shadow Dancer circlet"
+  },
+  {
+    "id": 52,
+    "Key": "Sorceress's Amulet of the Magus",
+    "enUS": "Sorceress's Amulet of the Magus | 1500-6000 FG | +2Sorc/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "amu",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+2Sorc/20fcr",
+    "notes": "GG Sorc amulet"
+  },
+  {
+    "id": 53,
+    "Key": "Volcanic Circlet of the Magus",
+    "enUS": "Volcanic Circlet of the Magus | 1500-6000 FG | +3Fire/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci0",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3Fire/20fcr",
+    "notes": "GG Fire Druid circlet"
+  },
+  {
+    "id": 54,
+    "Key": "Volcanic Coronet of the Magus",
+    "enUS": "Volcanic Coronet of the Magus | 1500-6000 FG | +3Fire/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci1",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3Fire/20fcr",
+    "notes": "GG Fire Druid circlet"
+  },
+  {
+    "id": 55,
+    "Key": "Volcanic Diadem of the Magus",
+    "enUS": "Volcanic Diadem of the Magus | 1500-6000 FG | +3Fire/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci3",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3Fire/20fcr",
+    "notes": "GG Fire Druid circlet"
+  },
+  {
+    "id": 56,
+    "Key": "Volcanic Tiara of the Magus",
+    "enUS": "Volcanic Tiara of the Magus | 1500-6000 FG | +3Fire/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci2",
+    "base_price": 1500,
+    "perfect_price": 6000,
+    "perfect_rolls": "+3Fire/20fcr",
+    "notes": "GG Fire Druid circlet"
+  },
+  {
+    "id": 57,
+    "Key": "Charged Circlet of the Magus",
+    "enUS": "Charged Circlet of the Magus | 1800-7000 FG | +3Lit/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci0",
+    "base_price": 1800,
+    "perfect_price": 7000,
+    "perfect_rolls": "+3Lit/20fcr",
+    "notes": "GG Lightning Sorc (alt)"
+  },
+  {
+    "id": 58,
+    "Key": "Charged Coronet of the Magus",
+    "enUS": "Charged Coronet of the Magus | 1800-7000 FG | +3Lit/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci1",
+    "base_price": 1800,
+    "perfect_price": 7000,
+    "perfect_rolls": "+3Lit/20fcr",
+    "notes": "GG Lightning Sorc (alt)"
+  },
+  {
+    "id": 59,
+    "Key": "Charged Diadem of the Magus",
+    "enUS": "Charged Diadem of the Magus | 1800-7000 FG | +3Lit/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci3",
+    "base_price": 1800,
+    "perfect_price": 7000,
+    "perfect_rolls": "+3Lit/20fcr",
+    "notes": "GG Lightning Sorc (alt)"
+  },
+  {
+    "id": 60,
+    "Key": "Charged Tiara of the Magus",
+    "enUS": "Charged Tiara of the Magus | 1800-7000 FG | +3Lit/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci2",
+    "base_price": 1800,
+    "perfect_price": 7000,
+    "perfect_rolls": "+3Lit/20fcr",
+    "notes": "GG Lightning Sorc (alt)"
+  },
+  {
+    "id": 61,
+    "Key": "Paladin's Amulet of the Magus",
+    "enUS": "Paladin's Amulet of the Magus | 1800-7000 FG | +2Pal/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "amu",
+    "base_price": 1800,
+    "perfect_price": 7000,
+    "perfect_rolls": "+2Pal/20fcr",
+    "notes": "GG Hammerdin amulet"
+  },
+  {
+    "id": 62,
+    "Key": "Echoing Circlet of the Magus",
+    "enUS": "Echoing Circlet of the Magus | 2000-8000 FG | +3War/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci0",
+    "base_price": 2000,
+    "perfect_price": 8000,
+    "perfect_rolls": "+3War/20fcr",
+    "notes": "GG Warcry Barb circlet"
+  },
+  {
+    "id": 63,
+    "Key": "Echoing Coronet of the Magus",
+    "enUS": "Echoing Coronet of the Magus | 2000-8000 FG | +3War/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci1",
+    "base_price": 2000,
+    "perfect_price": 8000,
+    "perfect_rolls": "+3War/20fcr",
+    "notes": "GG Warcry Barb circlet"
+  },
+  {
+    "id": 64,
+    "Key": "Echoing Diadem of the Magus",
+    "enUS": "Echoing Diadem of the Magus | 2000-8000 FG | +3War/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci3",
+    "base_price": 2000,
+    "perfect_price": 8000,
+    "perfect_rolls": "+3War/20fcr",
+    "notes": "GG Warcry Barb circlet"
+  },
+  {
+    "id": 65,
+    "Key": "Echoing Tiara of the Magus",
+    "enUS": "Echoing Tiara of the Magus | 2000-8000 FG | +3War/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci2",
+    "base_price": 2000,
+    "perfect_price": 8000,
+    "perfect_rolls": "+3War/20fcr",
+    "notes": "GG Warcry Barb circlet"
+  },
+  {
+    "id": 66,
+    "Key": "Jeweler's Hyperion of Deflecting",
+    "enUS": "Jeweler's Hyperion of Deflecting | 2000-8000 FG | 4os/20fbr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ush",
+    "base_price": 2000,
+    "perfect_price": 8000,
+    "perfect_rolls": "4os/20fbr",
+    "notes": "JMOD - GG for Spirit/Phoenix"
+  },
+  {
+    "id": 67,
+    "Key": "Jeweler's Luna of Deflecting",
+    "enUS": "Jeweler's Luna of Deflecting | 2000-8000 FG | 4os/20fbr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ulg",
+    "base_price": 2000,
+    "perfect_price": 8000,
+    "perfect_rolls": "4os/20fbr",
+    "notes": "JMOD - GG for Spirit/Phoenix"
+  },
+  {
+    "id": 68,
+    "Key": "Jeweler's Monarch of Deflecting",
+    "enUS": "Jeweler's Monarch of Deflecting | 2000-8000 FG | 4os/20fbr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "uit",
+    "base_price": 2000,
+    "perfect_price": 8000,
+    "perfect_rolls": "4os/20fbr",
+    "notes": "JMOD - GG for Spirit/Phoenix"
+  },
+  {
+    "id": 69,
+    "Key": "Jeweler's Ward of Deflecting",
+    "enUS": "Jeweler's Ward of Deflecting | 2000-8000 FG | 4os/20fbr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "uws",
+    "base_price": 2000,
+    "perfect_price": 8000,
+    "perfect_rolls": "4os/20fbr",
+    "notes": "JMOD - GG for Spirit/Phoenix"
+  },
+  {
+    "id": 70,
+    "Key": "Keeper's Circlet of the Magus",
+    "enUS": "Keeper's Circlet of the Magus | 2000-8000 FG | +3Sum/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci0",
+    "base_price": 2000,
+    "perfect_price": 8000,
+    "perfect_rolls": "+3Sum/20fcr",
+    "notes": "GG Summon Druid circlet"
+  },
+  {
+    "id": 71,
+    "Key": "Keeper's Coronet of the Magus",
+    "enUS": "Keeper's Coronet of the Magus | 2000-8000 FG | +3Sum/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci1",
+    "base_price": 2000,
+    "perfect_price": 8000,
+    "perfect_rolls": "+3Sum/20fcr",
+    "notes": "GG Summon Druid circlet"
+  },
+  {
+    "id": 72,
+    "Key": "Keeper's Diadem of the Magus",
+    "enUS": "Keeper's Diadem of the Magus | 2000-8000 FG | +3Sum/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci3",
+    "base_price": 2000,
+    "perfect_price": 8000,
+    "perfect_rolls": "+3Sum/20fcr",
+    "notes": "GG Summon Druid circlet"
+  },
+  {
+    "id": 73,
+    "Key": "Keeper's Tiara of the Magus",
+    "enUS": "Keeper's Tiara of the Magus | 2000-8000 FG | +3Sum/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci2",
+    "base_price": 2000,
+    "perfect_price": 8000,
+    "perfect_rolls": "+3Sum/20fcr",
+    "notes": "GG Summon Druid circlet"
+  },
+  {
+    "id": 74,
+    "Key": "Powered Circlet of the Magus",
+    "enUS": "Powered Circlet of the Magus | 2000-8000 FG | +3Lit/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci0",
+    "base_price": 2000,
+    "perfect_price": 8000,
+    "perfect_rolls": "+3Lit/20fcr",
+    "notes": "GG Lightning Sorc circlet"
+  },
+  {
+    "id": 75,
+    "Key": "Powered Coronet of the Magus",
+    "enUS": "Powered Coronet of the Magus | 2000-8000 FG | +3Lit/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci1",
+    "base_price": 2000,
+    "perfect_price": 8000,
+    "perfect_rolls": "+3Lit/20fcr",
+    "notes": "GG Lightning Sorc circlet"
+  },
+  {
+    "id": 76,
+    "Key": "Powered Diadem of the Magus",
+    "enUS": "Powered Diadem of the Magus | 2000-8000 FG | +3Lit/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci3",
+    "base_price": 2000,
+    "perfect_price": 8000,
+    "perfect_rolls": "+3Lit/20fcr",
+    "notes": "GG Lightning Sorc circlet"
+  },
+  {
+    "id": 77,
+    "Key": "Powered Tiara of the Magus",
+    "enUS": "Powered Tiara of the Magus | 2000-8000 FG | +3Lit/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci2",
+    "base_price": 2000,
+    "perfect_price": 8000,
+    "perfect_rolls": "+3Lit/20fcr",
+    "notes": "GG Lightning Sorc circlet"
+  },
+  {
+    "id": 78,
+    "Key": "Druid's Amulet of the Magus",
+    "enUS": "Druid's Amulet of the Magus | 2500-10000 FG | +2Dru/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "amu",
+    "base_price": 2500,
+    "perfect_price": 10000,
+    "perfect_rolls": "+2Dru/20fcr",
+    "notes": "GG Windy Druid circlet"
+  },
+  {
+    "id": 79,
+    "Key": "Druid's Circlet of the Magus",
+    "enUS": "Druid's Circlet of the Magus | 2500-10000 FG | +2Dru/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci0",
+    "base_price": 2500,
+    "perfect_price": 10000,
+    "perfect_rolls": "+2Dru/20fcr",
+    "notes": "GG Windy Druid circlet"
+  },
+  {
+    "id": 80,
+    "Key": "Druid's Coronet of the Magus",
+    "enUS": "Druid's Coronet of the Magus | 2500-10000 FG | +2Dru/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci1",
+    "base_price": 2500,
+    "perfect_price": 10000,
+    "perfect_rolls": "+2Dru/20fcr",
+    "notes": "GG Windy Druid circlet"
+  },
+  {
+    "id": 81,
+    "Key": "Druid's Diadem of the Magus",
+    "enUS": "Druid's Diadem of the Magus | 2500-10000 FG | +2Dru/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci3",
+    "base_price": 2500,
+    "perfect_price": 10000,
+    "perfect_rolls": "+2Dru/20fcr",
+    "notes": "GG Windy Druid circlet"
+  },
+  {
+    "id": 82,
+    "Key": "Druid's Tiara of the Magus",
+    "enUS": "Druid's Tiara of the Magus | 2500-10000 FG | +2Dru/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci2",
+    "base_price": 2500,
+    "perfect_price": 10000,
+    "perfect_rolls": "+2Dru/20fcr",
+    "notes": "GG Windy Druid circlet"
+  },
+  {
+    "id": 83,
+    "Key": "Hierophant's Circlet of the Magus",
+    "enUS": "Hierophant's Circlet of the Magus | 2500-10000 FG | +3Com/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci0",
+    "base_price": 2500,
+    "perfect_price": 10000,
+    "perfect_rolls": "+3Com/20fcr",
+    "notes": "GG Hammerdin circlet"
+  },
+  {
+    "id": 84,
+    "Key": "Hierophant's Coronet of the Magus",
+    "enUS": "Hierophant's Coronet of the Magus | 2500-10000 FG | +3Com/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci1",
+    "base_price": 2500,
+    "perfect_price": 10000,
+    "perfect_rolls": "+3Com/20fcr",
+    "notes": "GG Hammerdin circlet"
+  },
+  {
+    "id": 85,
+    "Key": "Hierophant's Diadem of the Magus",
+    "enUS": "Hierophant's Diadem of the Magus | 2500-10000 FG | +3Com/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci3",
+    "base_price": 2500,
+    "perfect_price": 10000,
+    "perfect_rolls": "+3Com/20fcr",
+    "notes": "GG Hammerdin circlet"
+  },
+  {
+    "id": 86,
+    "Key": "Hierophant's Tiara of the Magus",
+    "enUS": "Hierophant's Tiara of the Magus | 2500-10000 FG | +3Com/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci2",
+    "base_price": 2500,
+    "perfect_price": 10000,
+    "perfect_rolls": "+3Com/20fcr",
+    "notes": "GG Hammerdin circlet"
+  },
+  {
+    "id": 87,
+    "Key": "Witch-hunter's Circlet of Teleportation",
+    "enUS": "Witch-hunter's Circlet of Teleportation | 3000-10000 FG | +2Assa/Tele",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci0",
+    "base_price": 3000,
+    "perfect_price": 10000,
+    "perfect_rolls": "+2Assa/Tele",
+    "notes": "GG PvP Trapsin Teleport"
+  },
+  {
+    "id": 88,
+    "Key": "Witch-hunter's Coronet of Teleportation",
+    "enUS": "Witch-hunter's Coronet of Teleportation | 3000-10000 FG | +2Assa/Tele",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci1",
+    "base_price": 3000,
+    "perfect_price": 10000,
+    "perfect_rolls": "+2Assa/Tele",
+    "notes": "GG PvP Trapsin Teleport"
+  },
+  {
+    "id": 89,
+    "Key": "Witch-hunter's Diadem of Teleportation",
+    "enUS": "Witch-hunter's Diadem of Teleportation | 3000-10000 FG | +2Assa/Tele",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci3",
+    "base_price": 3000,
+    "perfect_price": 10000,
+    "perfect_rolls": "+2Assa/Tele",
+    "notes": "GG PvP Trapsin Teleport"
+  },
+  {
+    "id": 90,
+    "Key": "Witch-hunter's Tiara of Teleportation",
+    "enUS": "Witch-hunter's Tiara of Teleportation | 3000-10000 FG | +2Assa/Tele",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci2",
+    "base_price": 3000,
+    "perfect_price": 10000,
+    "perfect_rolls": "+2Assa/Tele",
+    "notes": "GG PvP Trapsin Teleport"
+  },
+  {
+    "id": 91,
+    "Key": "Necromancer's Circlet of Teleportation",
+    "enUS": "Necromancer's Circlet of Teleportation | 4000-12000 FG | +2Nec/Tele",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci0",
+    "base_price": 4000,
+    "perfect_price": 12000,
+    "perfect_rolls": "+2Nec/Tele",
+    "notes": "GG PvP Necro Teleport"
+  },
+  {
+    "id": 92,
+    "Key": "Necromancer's Coronet of Teleportation",
+    "enUS": "Necromancer's Coronet of Teleportation | 4000-12000 FG | +2Nec/Tele",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci1",
+    "base_price": 4000,
+    "perfect_price": 12000,
+    "perfect_rolls": "+2Nec/Tele",
+    "notes": "GG PvP Necro Teleport"
+  },
+  {
+    "id": 93,
+    "Key": "Necromancer's Diadem of Teleportation",
+    "enUS": "Necromancer's Diadem of Teleportation | 4000-12000 FG | +2Nec/Tele",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci3",
+    "base_price": 4000,
+    "perfect_price": 12000,
+    "perfect_rolls": "+2Nec/Tele",
+    "notes": "GG PvP Necro Teleport"
+  },
+  {
+    "id": 94,
+    "Key": "Necromancer's Tiara of Teleportation",
+    "enUS": "Necromancer's Tiara of Teleportation | 4000-12000 FG | +2Nec/Tele",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci2",
+    "base_price": 4000,
+    "perfect_price": 12000,
+    "perfect_rolls": "+2Nec/Tele",
+    "notes": "GG PvP Necro Teleport"
+  },
+  {
+    "id": 95,
+    "Key": "Berserker's Circlet of Teleportation",
+    "enUS": "Berserker's Circlet of Teleportation | 5000-15000 FG | +3War/Tele",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci0",
+    "base_price": 5000,
+    "perfect_price": 15000,
+    "perfect_rolls": "+3War/Tele",
+    "notes": "GG PvP Barb Teleport circlet"
+  },
+  {
+    "id": 96,
+    "Key": "Berserker's Coronet of Teleportation",
+    "enUS": "Berserker's Coronet of Teleportation | 5000-15000 FG | +3War/Tele",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci1",
+    "base_price": 5000,
+    "perfect_price": 15000,
+    "perfect_rolls": "+3War/Tele",
+    "notes": "GG PvP Barb Teleport circlet"
+  },
+  {
+    "id": 97,
+    "Key": "Berserker's Diadem of Teleportation",
+    "enUS": "Berserker's Diadem of Teleportation | 5000-15000 FG | +3War/Tele",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci3",
+    "base_price": 5000,
+    "perfect_price": 15000,
+    "perfect_rolls": "+3War/Tele",
+    "notes": "GG PvP Barb Teleport circlet"
+  },
+  {
+    "id": 98,
+    "Key": "Berserker's Tiara of Teleportation",
+    "enUS": "Berserker's Tiara of Teleportation | 5000-15000 FG | +3War/Tele",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci2",
+    "base_price": 5000,
+    "perfect_price": 15000,
+    "perfect_rolls": "+3War/Tele",
+    "notes": "GG PvP Barb Teleport circlet"
+  },
+  {
+    "id": 99,
+    "Key": "Necromancer's Amulet of the Magus",
+    "enUS": "Necromancer's Amulet of the Magus | 3000-15000 FG | +2Nec/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "amu",
+    "base_price": 3000,
+    "perfect_price": 15000,
+    "perfect_rolls": "+2Nec/20fcr",
+    "notes": "GG Necro circlet/amulet"
+  },
+  {
+    "id": 100,
+    "Key": "Necromancer's Circlet of the Magus",
+    "enUS": "Necromancer's Circlet of the Magus | 3000-15000 FG | +2Nec/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci0",
+    "base_price": 3000,
+    "perfect_price": 15000,
+    "perfect_rolls": "+2Nec/20fcr",
+    "notes": "GG Necro circlet/amulet"
+  },
+  {
+    "id": 101,
+    "Key": "Necromancer's Coronet of the Magus",
+    "enUS": "Necromancer's Coronet of the Magus | 3000-15000 FG | +2Nec/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci1",
+    "base_price": 3000,
+    "perfect_price": 15000,
+    "perfect_rolls": "+2Nec/20fcr",
+    "notes": "GG Necro circlet/amulet"
+  },
+  {
+    "id": 102,
+    "Key": "Necromancer's Diadem of the Magus",
+    "enUS": "Necromancer's Diadem of the Magus | 3000-15000 FG | +2Nec/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci3",
+    "base_price": 3000,
+    "perfect_price": 15000,
+    "perfect_rolls": "+2Nec/20fcr",
+    "notes": "GG Necro circlet/amulet"
+  },
+  {
+    "id": 103,
+    "Key": "Necromancer's Tiara of the Magus",
+    "enUS": "Necromancer's Tiara of the Magus | 3000-15000 FG | +2Nec/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci2",
+    "base_price": 3000,
+    "perfect_price": 15000,
+    "perfect_rolls": "+2Nec/20fcr",
+    "notes": "GG Necro circlet/amulet"
+  },
+  {
+    "id": 104,
+    "Key": "Venomous Circlet of the Magus",
+    "enUS": "Venomous Circlet of the Magus | 4000-20000 FG | +3PnB/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci0",
+    "base_price": 4000,
+    "perfect_price": 20000,
+    "perfect_rolls": "+3PnB/20fcr",
+    "notes": "GG Poison Necro circlet"
+  },
+  {
+    "id": 105,
+    "Key": "Venomous Coronet of the Magus",
+    "enUS": "Venomous Coronet of the Magus | 4000-20000 FG | +3PnB/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci1",
+    "base_price": 4000,
+    "perfect_price": 20000,
+    "perfect_rolls": "+3PnB/20fcr",
+    "notes": "GG Poison Necro circlet"
+  },
+  {
+    "id": 106,
+    "Key": "Venomous Diadem of the Magus",
+    "enUS": "Venomous Diadem of the Magus | 4000-20000 FG | +3PnB/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci3",
+    "base_price": 4000,
+    "perfect_price": 20000,
+    "perfect_rolls": "+3PnB/20fcr",
+    "notes": "GG Poison Necro circlet"
+  },
+  {
+    "id": 107,
+    "Key": "Venomous Tiara of the Magus",
+    "enUS": "Venomous Tiara of the Magus | 4000-20000 FG | +3PnB/20fcr",
+    "category": "magic_combo",
+    "quality": "magic",
+    "base_code": "ci2",
+    "base_price": 4000,
+    "perfect_price": 20000,
+    "perfect_rolls": "+3PnB/20fcr",
+    "notes": "GG Poison Necro circlet"
+  },
+  {
+    "id": 108,
+    "Key": "Accursed",
+    "enUS": "Accursed | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 109,
+    "Key": "Acrobat's",
+    "enUS": "Acrobat's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 110,
+    "Key": "Amazon's",
+    "enUS": "Amazon's | 120 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 111,
+    "Key": "Amber",
+    "enUS": "Amber | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 112,
+    "Key": "Ambergris",
+    "enUS": "Ambergris | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 113,
+    "Key": "Angel's",
+    "enUS": "Angel's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 114,
+    "Key": "Antimagic",
+    "enUS": "Antimagic | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 115,
+    "Key": "Apprentice's",
+    "enUS": "Apprentice's | 100 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 116,
+    "Key": "Arcadian",
+    "enUS": "Arcadian | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 117,
+    "Key": "Arch-Angel's",
+    "enUS": "Arch-Angel's | 400 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 118,
+    "Key": "Archer's",
+    "enUS": "Archer's | 150 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 119,
+    "Key": "Arcing",
+    "enUS": "Arcing | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 120,
+    "Key": "Argent",
+    "enUS": "Argent | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 121,
+    "Key": "Armageddon",
+    "enUS": "Armageddon | 120 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 122,
+    "Key": "Artificer's",
+    "enUS": "Artificer's | 100 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 123,
+    "Key": "Assamic",
+    "enUS": "Assamic | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 124,
+    "Key": "Assassin's",
+    "enUS": "Assassin's | 200 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 125,
+    "Key": "Astral",
+    "enUS": "Astral | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 126,
+    "Key": "Athlete's",
+    "enUS": "Athlete's | 80 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 127,
+    "Key": "Aureolin",
+    "enUS": "Aureolin | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 128,
+    "Key": "Azure",
+    "enUS": "Azure | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 129,
+    "Key": "Bahamut's",
+    "enUS": "Bahamut's | 80 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 130,
+    "Key": "Barbarian's",
+    "enUS": "Barbarian's | 150 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 131,
+    "Key": "Beast",
+    "enUS": "Beast | 150 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 132,
+    "Key": "Berserker's",
+    "enUS": "Berserker's | 150 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 133,
+    "Key": "Beryl",
+    "enUS": "Beryl | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 134,
+    "Key": "Blanched",
+    "enUS": "Blanched | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 135,
+    "Key": "Blank",
+    "enUS": "Blank | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 136,
+    "Key": "Blazing",
+    "enUS": "Blazing | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 137,
+    "Key": "Blessed",
+    "enUS": "Blessed | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 138,
+    "Key": "Blighting",
+    "enUS": "Blighting | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 139,
+    "Key": "Bloody",
+    "enUS": "Bloody | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 140,
+    "Key": "Bone",
+    "enUS": "Bone | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 141,
+    "Key": "Boreal",
+    "enUS": "Boreal | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 142,
+    "Key": "Bowyer's",
+    "enUS": "Bowyer's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 143,
+    "Key": "Bright",
+    "enUS": "Bright | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 144,
+    "Key": "Bronze",
+    "enUS": "Bronze | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 145,
+    "Key": "Brown",
+    "enUS": "Brown | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 146,
+    "Key": "Brutal",
+    "enUS": "Brutal | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 147,
+    "Key": "Burgundy",
+    "enUS": "Burgundy | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 148,
+    "Key": "Burly",
+    "enUS": "Burly | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 149,
+    "Key": "Burning",
+    "enUS": "Burning | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 150,
+    "Key": "Buzzing",
+    "enUS": "Buzzing | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 151,
+    "Key": "Calling",
+    "enUS": "Calling | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 152,
+    "Key": "Camphor",
+    "enUS": "Camphor | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 153,
+    "Key": "Captain's",
+    "enUS": "Captain's | 150 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 154,
+    "Key": "Carbuncle",
+    "enUS": "Carbuncle | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 155,
+    "Key": "Caretaker's",
+    "enUS": "Caretaker's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 156,
+    "Key": "Carmine",
+    "enUS": "Carmine | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 157,
+    "Key": "Celestial",
+    "enUS": "Celestial | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 158,
+    "Key": "Charged",
+    "enUS": "Charged | 280 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 159,
+    "Key": "Chestnut",
+    "enUS": "Chestnut | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 160,
+    "Key": "Chilling",
+    "enUS": "Chilling | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 161,
+    "Key": "Chromatic",
+    "enUS": "Chromatic | 150 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 162,
+    "Key": "Cinnabar",
+    "enUS": "Cinnabar | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 163,
+    "Key": "Cobalt",
+    "enUS": "Cobalt | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 164,
+    "Key": "Commander's",
+    "enUS": "Commander's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 165,
+    "Key": "Communal",
+    "enUS": "Communal | 120 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 166,
+    "Key": "Compact",
+    "enUS": "Compact | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 167,
+    "Key": "Consecrated",
+    "enUS": "Consecrated | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 168,
+    "Key": "Coral",
+    "enUS": "Coral | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 169,
+    "Key": "Corosive",
+    "enUS": "Corosive | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 170,
+    "Key": "Crimson",
+    "enUS": "Crimson | 200 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 171,
+    "Key": "Cruel",
+    "enUS": "Cruel | 150 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 172,
+    "Key": "Cunning",
+    "enUS": "Cunning | 400 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 173,
+    "Key": "Deadly",
+    "enUS": "Deadly | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 174,
+    "Key": "Dense",
+    "enUS": "Dense | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 175,
+    "Key": "Devious",
+    "enUS": "Devious | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 176,
+    "Key": "Diamond",
+    "enUS": "Diamond | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 177,
+    "Key": "Divine",
+    "enUS": "Divine | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 178,
+    "Key": "Dragon's",
+    "enUS": "Dragon's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 179,
+    "Key": "Drake's",
+    "enUS": "Drake's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 180,
+    "Key": "Druid's",
+    "enUS": "Druid's | 300 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 181,
+    "Key": "Dun",
+    "enUS": "Dun | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 182,
+    "Key": "Eagleeye",
+    "enUS": "Eagleeye | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 183,
+    "Key": "Eburin",
+    "enUS": "Eburin | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 184,
+    "Key": "Echoing",
+    "enUS": "Echoing | 400 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 185,
+    "Key": "Elysian",
+    "enUS": "Elysian | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 186,
+    "Key": "Ember",
+    "enUS": "Ember | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 187,
+    "Key": "Emerald",
+    "enUS": "Emerald | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 188,
+    "Key": "Entrapping",
+    "enUS": "Entrapping | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 189,
+    "Key": "Envenomed",
+    "enUS": "Envenomed | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 190,
+    "Key": "Eocene",
+    "enUS": "Eocene | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 191,
+    "Key": "Expansion",
+    "enUS": "Expansion | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 192,
+    "Key": "Expert's",
+    "enUS": "Expert's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 193,
+    "Key": "Falconeye",
+    "enUS": "Falconeye | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 194,
+    "Key": "Fanatic",
+    "enUS": "Fanatic | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 195,
+    "Key": "Felicitous",
+    "enUS": "Felicitous | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 196,
+    "Key": "Feral",
+    "enUS": "Feral | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 197,
+    "Key": "Ferocious",
+    "enUS": "Ferocious | 120 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 198,
+    "Key": "Fervent",
+    "enUS": "Fervent | 150 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 199,
+    "Key": "Fine",
+    "enUS": "Fine | 50 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 200,
+    "Key": "Flaming",
+    "enUS": "Flaming | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 201,
+    "Key": "Fletcher's",
+    "enUS": "Fletcher's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 202,
+    "Key": "Forked",
+    "enUS": "Forked | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 203,
+    "Key": "Fortified",
+    "enUS": "Fortified | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 204,
+    "Key": "Fortuitous",
+    "enUS": "Fortuitous | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 205,
+    "Key": "Freezing",
+    "enUS": "Freezing | 200 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 206,
+    "Key": "Fungal",
+    "enUS": "Fungal | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 207,
+    "Key": "Furious",
+    "enUS": "Furious | 150 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 208,
+    "Key": "Gaea's",
+    "enUS": "Gaea's | 500 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 209,
+    "Key": "Garnet",
+    "enUS": "Garnet | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 210,
+    "Key": "Glacial",
+    "enUS": "Glacial | 250 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 211,
+    "Key": "Glimmering",
+    "enUS": "Glimmering | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 212,
+    "Key": "Glorious",
+    "enUS": "Glorious | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 213,
+    "Key": "Glowing",
+    "enUS": "Glowing | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 214,
+    "Key": "Glyph",
+    "enUS": "Glyph | 250 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 215,
+    "Key": "Godly",
+    "enUS": "Godly | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 216,
+    "Key": "Gold",
+    "enUS": "Gold | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 217,
+    "Key": "Golemlord's",
+    "enUS": "Golemlord's | 250 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 218,
+    "Key": "Grandmaster's",
+    "enUS": "Grandmaster's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 219,
+    "Key": "Graverobber's",
+    "enUS": "Graverobber's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 220,
+    "Key": "Great Wyrm's",
+    "enUS": "Great Wyrm's | 100 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 221,
+    "Key": "Grim",
+    "enUS": "Grim | 180 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 222,
+    "Key": "Gritty",
+    "enUS": "Gritty | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 223,
+    "Key": "Guardian's",
+    "enUS": "Guardian's | 150 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 224,
+    "Key": "Gymnast's",
+    "enUS": "Gymnast's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 225,
+    "Key": "Hallowed",
+    "enUS": "Hallowed | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 226,
+    "Key": "Harpoonist's",
+    "enUS": "Harpoonist's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 227,
+    "Key": "Harpy's",
+    "enUS": "Harpy's | 100 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 228,
+    "Key": "Hawk Branded",
+    "enUS": "Hawk Branded | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 229,
+    "Key": "Hawkeye",
+    "enUS": "Hawkeye | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 230,
+    "Key": "Hexing",
+    "enUS": "Hexing | 100 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 231,
+    "Key": "Hibernal",
+    "enUS": "Hibernal | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 232,
+    "Key": "Hierophant's",
+    "enUS": "Hierophant's | 350 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 233,
+    "Key": "Holy",
+    "enUS": "Holy | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 234,
+    "Key": "Howling",
+    "enUS": "Howling | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 235,
+    "Key": "Iron",
+    "enUS": "Iron | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 236,
+    "Key": "Ivory",
+    "enUS": "Ivory | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 237,
+    "Key": "Jacinth",
+    "enUS": "Jacinth | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 238,
+    "Key": "Jack's",
+    "enUS": "Jack's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 239,
+    "Key": "Jade",
+    "enUS": "Jade | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 240,
+    "Key": "Jagged",
+    "enUS": "Jagged | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 241,
+    "Key": "Jester's",
+    "enUS": "Jester's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 242,
+    "Key": "Jeweler's",
+    "enUS": "Jeweler's | 500 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 243,
+    "Key": "Joker's",
+    "enUS": "Joker's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 244,
+    "Key": "Keeper's",
+    "enUS": "Keeper's | 300 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 245,
+    "Key": "Kenshi's",
+    "enUS": "Kenshi's | 150 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 246,
+    "Key": "King's",
+    "enUS": "King's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 247,
+    "Key": "Knave's",
+    "enUS": "Knave's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 248,
+    "Key": "Knight's",
+    "enUS": "Knight's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 249,
+    "Key": "Lancer's",
+    "enUS": "Lancer's | 200 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 250,
+    "Key": "Lapis",
+    "enUS": "Lapis | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 251,
+    "Key": "Lapis Lazuli",
+    "enUS": "Lapis Lazuli | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 252,
+    "Key": "Lion Branded",
+    "enUS": "Lion Branded | 250 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 253,
+    "Key": "Lizard's",
+    "enUS": "Lizard's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 254,
+    "Key": "Lord's",
+    "enUS": "Lord's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 255,
+    "Key": "Loud",
+    "enUS": "Loud | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 256,
+    "Key": "Lucky",
+    "enUS": "Lucky | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 257,
+    "Key": "Magekiller's",
+    "enUS": "Magekiller's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 258,
+    "Key": "Maiden's",
+    "enUS": "Maiden's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 259,
+    "Key": "Maroon",
+    "enUS": "Maroon | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 260,
+    "Key": "Marshal's",
+    "enUS": "Marshal's | 200 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 261,
+    "Key": "Massive",
+    "enUS": "Massive | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 262,
+    "Key": "Master's",
+    "enUS": "Master's | 250 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 263,
+    "Key": "Mechanist's",
+    "enUS": "Mechanist's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 264,
+    "Key": "Mentalist's",
+    "enUS": "Mentalist's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 265,
+    "Key": "Merciless",
+    "enUS": "Merciless | 90 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 266,
+    "Key": "Meteoric",
+    "enUS": "Meteoric | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 267,
+    "Key": "Miocene",
+    "enUS": "Miocene | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 268,
+    "Key": "Mithral",
+    "enUS": "Mithral | 100 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 269,
+    "Key": "Mnemonic",
+    "enUS": "Mnemonic | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 270,
+    "Key": "Monk's",
+    "enUS": "Monk's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 271,
+    "Key": "Nature's",
+    "enUS": "Nature's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 272,
+    "Key": "Necromancer's",
+    "enUS": "Necromancer's | 300 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 273,
+    "Key": "Nickel",
+    "enUS": "Nickel | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 274,
+    "Key": "Noxious",
+    "enUS": "Noxious | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 275,
+    "Key": "Null",
+    "enUS": "Null | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 276,
+    "Key": "Ocher",
+    "enUS": "Ocher | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 277,
+    "Key": "Oligocene",
+    "enUS": "Oligocene | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 278,
+    "Key": "Paladin's",
+    "enUS": "Paladin's | 280 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 279,
+    "Key": "Paleocene",
+    "enUS": "Paleocene | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 280,
+    "Key": "Paradox",
+    "enUS": "Paradox | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 281,
+    "Key": "Pearl",
+    "enUS": "Pearl | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 282,
+    "Key": "Pestilent",
+    "enUS": "Pestilent | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 283,
+    "Key": "Platinum",
+    "enUS": "Platinum | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 284,
+    "Key": "Powered",
+    "enUS": "Powered | 300 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 285,
+    "Key": "Preserver's",
+    "enUS": "Preserver's | 100 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 286,
+    "Key": "Priest's",
+    "enUS": "Priest's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 287,
+    "Key": "Prismatic",
+    "enUS": "Prismatic | 100 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 288,
+    "Key": "Psychic",
+    "enUS": "Psychic | 180 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 289,
+    "Key": "Pure",
+    "enUS": "Pure | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 290,
+    "Key": "Raging",
+    "enUS": "Raging | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 291,
+    "Key": "Rainbow",
+    "enUS": "Rainbow | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 292,
+    "Key": "Realgar",
+    "enUS": "Realgar | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 293,
+    "Key": "Red",
+    "enUS": "Red | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 294,
+    "Key": "Resonant",
+    "enUS": "Resonant | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 295,
+    "Key": "Robineye",
+    "enUS": "Robineye | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 296,
+    "Key": "Rose Branded",
+    "enUS": "Rose Branded | 500 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 297,
+    "Key": "Ruby",
+    "enUS": "Ruby | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 298,
+    "Key": "Rugged",
+    "enUS": "Rugged | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 299,
+    "Key": "Russet",
+    "enUS": "Russet | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 300,
+    "Key": "Rusty",
+    "enUS": "Rusty | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 301,
+    "Key": "Sacred",
+    "enUS": "Sacred | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 302,
+    "Key": "Saintly",
+    "enUS": "Saintly | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 303,
+    "Key": "Sanguinary",
+    "enUS": "Sanguinary | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 304,
+    "Key": "Sapphire",
+    "enUS": "Sapphire | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 305,
+    "Key": "Savage",
+    "enUS": "Savage | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 306,
+    "Key": "Scarlet",
+    "enUS": "Scarlet | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 307,
+    "Key": "Scintillating",
+    "enUS": "Scintillating | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 308,
+    "Key": "Scorching",
+    "enUS": "Scorching | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 309,
+    "Key": "Screaming",
+    "enUS": "Screaming | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 310,
+    "Key": "Sensei's",
+    "enUS": "Sensei's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 311,
+    "Key": "Septic",
+    "enUS": "Septic | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 312,
+    "Key": "Serpent's",
+    "enUS": "Serpent's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 313,
+    "Key": "Serrated",
+    "enUS": "Serrated | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 314,
+    "Key": "Shadow",
+    "enUS": "Shadow | 200 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 315,
+    "Key": "Shaman's",
+    "enUS": "Shaman's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 316,
+    "Key": "Sharp",
+    "enUS": "Sharp | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 317,
+    "Key": "Shimmering",
+    "enUS": "Shimmering | 250 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 318,
+    "Key": "Shivering",
+    "enUS": "Shivering | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 319,
+    "Key": "Shocking",
+    "enUS": "Shocking | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 320,
+    "Key": "Shogukusha's",
+    "enUS": "Shogukusha's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 321,
+    "Key": "Shouting",
+    "enUS": "Shouting | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 322,
+    "Key": "Silver",
+    "enUS": "Silver | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 323,
+    "Key": "Slayer's",
+    "enUS": "Slayer's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 324,
+    "Key": "Smoking",
+    "enUS": "Smoking | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 325,
+    "Key": "Smoldering",
+    "enUS": "Smoldering | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 326,
+    "Key": "Snake's",
+    "enUS": "Snake's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 327,
+    "Key": "Snowflake",
+    "enUS": "Snowflake | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 328,
+    "Key": "Soldier's",
+    "enUS": "Soldier's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 329,
+    "Key": "Sorceress's",
+    "enUS": "Sorceress's | 250 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 330,
+    "Key": "Sounding",
+    "enUS": "Sounding | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 331,
+    "Key": "Sparking",
+    "enUS": "Sparking | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 332,
+    "Key": "Sparroweye",
+    "enUS": "Sparroweye | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 333,
+    "Key": "Spearmaiden's",
+    "enUS": "Spearmaiden's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 334,
+    "Key": "Spiritual",
+    "enUS": "Spiritual | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 335,
+    "Key": "Stalwart",
+    "enUS": "Stalwart | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 336,
+    "Key": "Static",
+    "enUS": "Static | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 337,
+    "Key": "Steel",
+    "enUS": "Steel | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 338,
+    "Key": "Stout",
+    "enUS": "Stout | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 339,
+    "Key": "Strange",
+    "enUS": "Strange | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 340,
+    "Key": "Strong",
+    "enUS": "Strong | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 341,
+    "Key": "Sturdy",
+    "enUS": "Sturdy | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 342,
+    "Key": "Summoner's",
+    "enUS": "Summoner's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 343,
+    "Key": "Tangerine",
+    "enUS": "Tangerine | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 344,
+    "Key": "Terra's",
+    "enUS": "Terra's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 345,
+    "Key": "Thin",
+    "enUS": "Thin | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 346,
+    "Key": "Tin",
+    "enUS": "Tin | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 347,
+    "Key": "Tireless",
+    "enUS": "Tireless | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 348,
+    "Key": "Toxic",
+    "enUS": "Toxic | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 349,
+    "Key": "Trainer's",
+    "enUS": "Trainer's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 350,
+    "Key": "Trickster's",
+    "enUS": "Trickster's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 351,
+    "Key": "Triumphant",
+    "enUS": "Triumphant | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 352,
+    "Key": "Trump",
+    "enUS": "Trump | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 353,
+    "Key": "Turquoise",
+    "enUS": "Turquoise | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 354,
+    "Key": "Unearthly",
+    "enUS": "Unearthly | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 355,
+    "Key": "Valkyrie's",
+    "enUS": "Valkyrie's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 356,
+    "Key": "Venomous",
+    "enUS": "Venomous | 400 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 357,
+    "Key": "Vermillion",
+    "enUS": "Vermillion | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 358,
+    "Key": "Veteran's",
+    "enUS": "Veteran's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 359,
+    "Key": "Vicious",
+    "enUS": "Vicious | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 360,
+    "Key": "Victorious",
+    "enUS": "Victorious | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 361,
+    "Key": "Vigorous",
+    "enUS": "Vigorous | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 362,
+    "Key": "Viper",
+    "enUS": "Viper | 200 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 363,
+    "Key": "Viridian",
+    "enUS": "Viridian | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 364,
+    "Key": "Visionary",
+    "enUS": "Visionary | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 365,
+    "Key": "Vodoun",
+    "enUS": "Vodoun | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 366,
+    "Key": "Volcanic",
+    "enUS": "Volcanic | 250 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 367,
+    "Key": "Vulpine",
+    "enUS": "Vulpine | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 368,
+    "Key": "Wailing",
+    "enUS": "Wailing | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 369,
+    "Key": "Warder's",
+    "enUS": "Warder's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 370,
+    "Key": "Warrior's",
+    "enUS": "Warrior's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 371,
+    "Key": "Weird",
+    "enUS": "Weird | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 372,
+    "Key": "Witch-hunter's",
+    "enUS": "Witch-hunter's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 373,
+    "Key": "Wyrm's",
+    "enUS": "Wyrm's | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 374,
+    "Key": "Yelling",
+    "enUS": "Yelling | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 375,
+    "Key": "Zircon",
+    "enUS": "Zircon | 1 FG",
+    "category": "prefix",
+    "quality": "magic"
+  },
+  {
+    "id": 376,
+    "Key": "Expansion",
+    "enUS": "Expansion | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 377,
+    "Key": "of Absorption",
+    "enUS": "of Absorption | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 378,
+    "Key": "of Acceleration",
+    "enUS": "of Acceleration | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 379,
+    "Key": "of Accuracy",
+    "enUS": "of Accuracy | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 380,
+    "Key": "of Ages",
+    "enUS": "of Ages | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 381,
+    "Key": "of Alacrity",
+    "enUS": "of Alacrity | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 382,
+    "Key": "of Amelioration",
+    "enUS": "of Amelioration | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 383,
+    "Key": "of Amianthus",
+    "enUS": "of Amianthus | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 384,
+    "Key": "of Amicae",
+    "enUS": "of Amicae | 100 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 385,
+    "Key": "of Amplify Damage",
+    "enUS": "of Amplify Damage | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 386,
+    "Key": "of Anima",
+    "enUS": "of Anima | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 387,
+    "Key": "of Anthrax",
+    "enUS": "of Anthrax | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 388,
+    "Key": "of Armageddon",
+    "enUS": "of Armageddon | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 389,
+    "Key": "of Atlas",
+    "enUS": "of Atlas | 80 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 390,
+    "Key": "of Atlus",
+    "enUS": "of Atlus | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 391,
+    "Key": "of Attraction",
+    "enUS": "of Attraction | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 392,
+    "Key": "of Avarice",
+    "enUS": "of Avarice | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 393,
+    "Key": "of Balance",
+    "enUS": "of Balance | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 394,
+    "Key": "of Bashing",
+    "enUS": "of Bashing | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 395,
+    "Key": "of Battle Command",
+    "enUS": "of Battle Command | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 396,
+    "Key": "of Battle Cry",
+    "enUS": "of Battle Cry | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 397,
+    "Key": "of Battle Orders",
+    "enUS": "of Battle Orders | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 398,
+    "Key": "of Blaze",
+    "enUS": "of Blaze | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 399,
+    "Key": "of Blazing",
+    "enUS": "of Blazing | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 400,
+    "Key": "of Blessed Hammers",
+    "enUS": "of Blessed Hammers | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 401,
+    "Key": "of Blight",
+    "enUS": "of Blight | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 402,
+    "Key": "of Bliss",
+    "enUS": "of Bliss | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 403,
+    "Key": "of Blizzard",
+    "enUS": "of Blizzard | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 404,
+    "Key": "of Blizzards",
+    "enUS": "of Blizzards | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 405,
+    "Key": "of Blocking",
+    "enUS": "of Blocking | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 406,
+    "Key": "of Blood Golem Summoning",
+    "enUS": "of Blood Golem Summoning | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 407,
+    "Key": "of Bone Armor",
+    "enUS": "of Bone Armor | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 408,
+    "Key": "of Bone Imprisonment",
+    "enUS": "of Bone Imprisonment | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 409,
+    "Key": "of Bone Spears",
+    "enUS": "of Bone Spears | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 410,
+    "Key": "of Bone Spirits",
+    "enUS": "of Bone Spirits | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 411,
+    "Key": "of Bone Walls",
+    "enUS": "of Bone Walls | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 412,
+    "Key": "of Brilliance",
+    "enUS": "of Brilliance | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 413,
+    "Key": "of Burning",
+    "enUS": "of Burning | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 414,
+    "Key": "of Butchery",
+    "enUS": "of Butchery | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 415,
+    "Key": "of Carnage",
+    "enUS": "of Carnage | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 416,
+    "Key": "of Chain Lightning",
+    "enUS": "of Chain Lightning | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 417,
+    "Key": "of Chance",
+    "enUS": "of Chance | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 418,
+    "Key": "of Charged Bolts",
+    "enUS": "of Charged Bolts | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 419,
+    "Key": "of Charged Shield",
+    "enUS": "of Charged Shield | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 420,
+    "Key": "of Charged Strike",
+    "enUS": "of Charged Strike | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 421,
+    "Key": "of Chilling Armor",
+    "enUS": "of Chilling Armor | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 422,
+    "Key": "of Clay Golem Summoning",
+    "enUS": "of Clay Golem Summoning | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 423,
+    "Key": "of Cold Arrows",
+    "enUS": "of Cold Arrows | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 424,
+    "Key": "of Concentration",
+    "enUS": "of Concentration | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 425,
+    "Key": "of Confusion",
+    "enUS": "of Confusion | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 426,
+    "Key": "of Conversion",
+    "enUS": "of Conversion | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 427,
+    "Key": "of Coolness",
+    "enUS": "of Coolness | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 428,
+    "Key": "of Corpse Explosions",
+    "enUS": "of Corpse Explosions | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 429,
+    "Key": "of Craftsmanship",
+    "enUS": "of Craftsmanship | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 430,
+    "Key": "of Cyclone Armor",
+    "enUS": "of Cyclone Armor | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 431,
+    "Key": "of Damage Amplification",
+    "enUS": "of Damage Amplification | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 432,
+    "Key": "of Daring",
+    "enUS": "of Daring | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 433,
+    "Key": "of Dawn",
+    "enUS": "of Dawn | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 434,
+    "Key": "of Decrepification",
+    "enUS": "of Decrepification | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 435,
+    "Key": "of Defiance",
+    "enUS": "of Defiance | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 436,
+    "Key": "of Deflecting",
+    "enUS": "of Deflecting | 300 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 437,
+    "Key": "of Desire",
+    "enUS": "of Desire | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 438,
+    "Key": "of Dexterity",
+    "enUS": "of Dexterity | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 439,
+    "Key": "of Dim Vision",
+    "enUS": "of Dim Vision | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 440,
+    "Key": "of Ease",
+    "enUS": "of Ease | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 441,
+    "Key": "of Enchant",
+    "enUS": "of Enchant | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 442,
+    "Key": "of Enchantment",
+    "enUS": "of Enchantment | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 443,
+    "Key": "of Energy",
+    "enUS": "of Energy | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 444,
+    "Key": "of Energy Shield",
+    "enUS": "of Energy Shield | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 445,
+    "Key": "of Enlightenment",
+    "enUS": "of Enlightenment | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 446,
+    "Key": "of Ennui",
+    "enUS": "of Ennui | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 447,
+    "Key": "of Envy",
+    "enUS": "of Envy | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 448,
+    "Key": "of Equilibrium",
+    "enUS": "of Equilibrium | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 449,
+    "Key": "of Eruption",
+    "enUS": "of Eruption | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 450,
+    "Key": "of Evisceration",
+    "enUS": "of Evisceration | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 451,
+    "Key": "of Excellence",
+    "enUS": "of Excellence | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 452,
+    "Key": "of Exploding Arrows",
+    "enUS": "of Exploding Arrows | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 453,
+    "Key": "of Faith",
+    "enUS": "of Faith | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 454,
+    "Key": "of Fast Repair",
+    "enUS": "of Fast Repair | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 455,
+    "Key": "of Fending",
+    "enUS": "of Fending | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 456,
+    "Key": "of Fervor",
+    "enUS": "of Fervor | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 457,
+    "Key": "of Fire",
+    "enUS": "of Fire | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 458,
+    "Key": "of Fire Arrows",
+    "enUS": "of Fire Arrows | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 459,
+    "Key": "of Fire Ball",
+    "enUS": "of Fire Ball | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 460,
+    "Key": "of Fire Balls",
+    "enUS": "of Fire Balls | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 461,
+    "Key": "of Fire Bolts",
+    "enUS": "of Fire Bolts | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 462,
+    "Key": "of Fire Golem Summoning",
+    "enUS": "of Fire Golem Summoning | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 463,
+    "Key": "of Fire Quenching",
+    "enUS": "of Fire Quenching | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 464,
+    "Key": "of Fire Wall",
+    "enUS": "of Fire Wall | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 465,
+    "Key": "of Fire Walls",
+    "enUS": "of Fire Walls | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 466,
+    "Key": "of Firebolts",
+    "enUS": "of Firebolts | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 467,
+    "Key": "of Firestorms",
+    "enUS": "of Firestorms | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 468,
+    "Key": "of Fist of the Heavens",
+    "enUS": "of Fist of the Heavens | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 469,
+    "Key": "of Flame",
+    "enUS": "of Flame | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 470,
+    "Key": "of Fortune",
+    "enUS": "of Fortune | 50 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 471,
+    "Key": "of Freedom",
+    "enUS": "of Freedom | 100 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 472,
+    "Key": "of Freezing Arrows",
+    "enUS": "of Freezing Arrows | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 473,
+    "Key": "of Frigidity",
+    "enUS": "of Frigidity | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 474,
+    "Key": "of Frost",
+    "enUS": "of Frost | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 475,
+    "Key": "of Frost Novas",
+    "enUS": "of Frost Novas | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 476,
+    "Key": "of Frost Shield",
+    "enUS": "of Frost Shield | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 477,
+    "Key": "of Frozen Armor",
+    "enUS": "of Frozen Armor | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 478,
+    "Key": "of Frozen Orb",
+    "enUS": "of Frozen Orb | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 479,
+    "Key": "of Frozen Orbs",
+    "enUS": "of Frozen Orbs | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 480,
+    "Key": "of Glacial Spike",
+    "enUS": "of Glacial Spike | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 481,
+    "Key": "of Glacial Spikes",
+    "enUS": "of Glacial Spikes | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 482,
+    "Key": "of Good Luck",
+    "enUS": "of Good Luck | 50 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 483,
+    "Key": "of Gore",
+    "enUS": "of Gore | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 484,
+    "Key": "of Grace",
+    "enUS": "of Grace | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 485,
+    "Key": "of Grace and Power",
+    "enUS": "of Grace and Power | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 486,
+    "Key": "of Greed",
+    "enUS": "of Greed | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 487,
+    "Key": "of Grim Ward",
+    "enUS": "of Grim Ward | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 488,
+    "Key": "of Grounding",
+    "enUS": "of Grounding | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 489,
+    "Key": "of Guarding",
+    "enUS": "of Guarding | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 490,
+    "Key": "of Guided Arrows",
+    "enUS": "of Guided Arrows | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 491,
+    "Key": "of Haste",
+    "enUS": "of Haste | 80 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 492,
+    "Key": "of Health",
+    "enUS": "of Health | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 493,
+    "Key": "of Holy Bolts",
+    "enUS": "of Holy Bolts | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 494,
+    "Key": "of Honor",
+    "enUS": "of Honor | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 495,
+    "Key": "of Hope",
+    "enUS": "of Hope | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 496,
+    "Key": "of Howling",
+    "enUS": "of Howling | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 497,
+    "Key": "of Hurricane",
+    "enUS": "of Hurricane | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 498,
+    "Key": "of Hydra Shield",
+    "enUS": "of Hydra Shield | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 499,
+    "Key": "of Hydras",
+    "enUS": "of Hydras | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 500,
+    "Key": "of Ice Arrows",
+    "enUS": "of Ice Arrows | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 501,
+    "Key": "of Ice Blast",
+    "enUS": "of Ice Blast | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 502,
+    "Key": "of Ice Blasts",
+    "enUS": "of Ice Blasts | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 503,
+    "Key": "of Ice Bolts",
+    "enUS": "of Ice Bolts | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 504,
+    "Key": "of Icebolt",
+    "enUS": "of Icebolt | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 505,
+    "Key": "of Immolating Arrows",
+    "enUS": "of Immolating Arrows | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 506,
+    "Key": "of Impaling Strike",
+    "enUS": "of Impaling Strike | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 507,
+    "Key": "of Incineration",
+    "enUS": "of Incineration | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 508,
+    "Key": "of Incombustibility",
+    "enUS": "of Incombustibility | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 509,
+    "Key": "of Inertia",
+    "enUS": "of Inertia | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 510,
+    "Key": "of Inner Sight",
+    "enUS": "of Inner Sight | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 511,
+    "Key": "of Insulation",
+    "enUS": "of Insulation | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 512,
+    "Key": "of Ire",
+    "enUS": "of Ire | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 513,
+    "Key": "of Iron Golem Creation",
+    "enUS": "of Iron Golem Creation | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 514,
+    "Key": "of Iron Maiden",
+    "enUS": "of Iron Maiden | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 515,
+    "Key": "of Item Finding",
+    "enUS": "of Item Finding | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 516,
+    "Key": "of Jabbing",
+    "enUS": "of Jabbing | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 517,
+    "Key": "of Joyfulness",
+    "enUS": "of Joyfulness | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 518,
+    "Key": "of Knowledge",
+    "enUS": "of Knowledge | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 519,
+    "Key": "of Life",
+    "enUS": "of Life | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 520,
+    "Key": "of Life Everlasting",
+    "enUS": "of Life Everlasting | 100 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 521,
+    "Key": "of Life Tap",
+    "enUS": "of Life Tap | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 522,
+    "Key": "of Light",
+    "enUS": "of Light | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 523,
+    "Key": "of Lightning",
+    "enUS": "of Lightning | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 524,
+    "Key": "of Lightning Fury",
+    "enUS": "of Lightning Fury | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 525,
+    "Key": "of Lightning Javelin",
+    "enUS": "of Lightning Javelin | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 526,
+    "Key": "of Lightning Strike",
+    "enUS": "of Lightning Strike | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 527,
+    "Key": "of Lower Resistance",
+    "enUS": "of Lower Resistance | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 528,
+    "Key": "of Luck",
+    "enUS": "of Luck | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 529,
+    "Key": "of Magic Arrows",
+    "enUS": "of Magic Arrows | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 530,
+    "Key": "of Maiming",
+    "enUS": "of Maiming | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 531,
+    "Key": "of Malice",
+    "enUS": "of Malice | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 532,
+    "Key": "of Measure",
+    "enUS": "of Measure | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 533,
+    "Key": "of Memory",
+    "enUS": "of Memory | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 534,
+    "Key": "of Meteor",
+    "enUS": "of Meteor | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 535,
+    "Key": "of Meteors",
+    "enUS": "of Meteors | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 536,
+    "Key": "of Might",
+    "enUS": "of Might | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 537,
+    "Key": "of Molten Boulders",
+    "enUS": "of Molten Boulders | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 538,
+    "Key": "of Multiple Shot",
+    "enUS": "of Multiple Shot | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 539,
+    "Key": "of Negation",
+    "enUS": "of Negation | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 540,
+    "Key": "of Nirvana",
+    "enUS": "of Nirvana | 50 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 541,
+    "Key": "of Nova",
+    "enUS": "of Nova | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 542,
+    "Key": "of Nova Shield",
+    "enUS": "of Nova Shield | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 543,
+    "Key": "of Novas",
+    "enUS": "of Novas | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 544,
+    "Key": "of Pacing",
+    "enUS": "of Pacing | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 545,
+    "Key": "of Passion",
+    "enUS": "of Passion | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 546,
+    "Key": "of Perfection",
+    "enUS": "of Perfection | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 547,
+    "Key": "of Performance",
+    "enUS": "of Performance | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 548,
+    "Key": "of Pestilence",
+    "enUS": "of Pestilence | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 549,
+    "Key": "of Piercing",
+    "enUS": "of Piercing | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 550,
+    "Key": "of Plague Jab",
+    "enUS": "of Plague Jab | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 551,
+    "Key": "of Poison Dagger",
+    "enUS": "of Poison Dagger | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 552,
+    "Key": "of Poison Explosion",
+    "enUS": "of Poison Explosion | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 553,
+    "Key": "of Poison Jab",
+    "enUS": "of Poison Jab | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 554,
+    "Key": "of Poison Novas",
+    "enUS": "of Poison Novas | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 555,
+    "Key": "of Potion Finding",
+    "enUS": "of Potion Finding | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 556,
+    "Key": "of Power",
+    "enUS": "of Power | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 557,
+    "Key": "of Power Strike",
+    "enUS": "of Power Strike | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 558,
+    "Key": "of Precision",
+    "enUS": "of Precision | 30 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 559,
+    "Key": "of Propogation",
+    "enUS": "of Propogation | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 560,
+    "Key": "of Prosperity",
+    "enUS": "of Prosperity | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 561,
+    "Key": "of Protection",
+    "enUS": "of Protection | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 562,
+    "Key": "of Puncturing",
+    "enUS": "of Puncturing | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 563,
+    "Key": "of Quality",
+    "enUS": "of Quality | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 564,
+    "Key": "of Quickness",
+    "enUS": "of Quickness | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 565,
+    "Key": "of Radiance",
+    "enUS": "of Radiance | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 566,
+    "Key": "of Raise Skeletal Mages",
+    "enUS": "of Raise Skeletal Mages | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 567,
+    "Key": "of Raise Skeletons",
+    "enUS": "of Raise Skeletons | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 568,
+    "Key": "of Razors",
+    "enUS": "of Razors | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 569,
+    "Key": "of Readiness",
+    "enUS": "of Readiness | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 570,
+    "Key": "of Regeneration",
+    "enUS": "of Regeneration | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 571,
+    "Key": "of Regrowth",
+    "enUS": "of Regrowth | 30 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 572,
+    "Key": "of Remedy",
+    "enUS": "of Remedy | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 573,
+    "Key": "of Replenishing",
+    "enUS": "of Replenishing | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 574,
+    "Key": "of Resistance",
+    "enUS": "of Resistance | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 575,
+    "Key": "of Revivification",
+    "enUS": "of Revivification | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 576,
+    "Key": "of Sacrifice",
+    "enUS": "of Sacrifice | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 577,
+    "Key": "of Self-Repair",
+    "enUS": "of Self-Repair | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 578,
+    "Key": "of Shiver Armor",
+    "enUS": "of Shiver Armor | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 579,
+    "Key": "of Shock",
+    "enUS": "of Shock | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 580,
+    "Key": "of Shouting",
+    "enUS": "of Shouting | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 581,
+    "Key": "of Simplicity",
+    "enUS": "of Simplicity | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 582,
+    "Key": "of Skill",
+    "enUS": "of Skill | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 583,
+    "Key": "of Slaughter",
+    "enUS": "of Slaughter | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 584,
+    "Key": "of Slaying",
+    "enUS": "of Slaying | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 585,
+    "Key": "of Slow Missiles",
+    "enUS": "of Slow Missiles | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 586,
+    "Key": "of Sorcery",
+    "enUS": "of Sorcery | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 587,
+    "Key": "of Speed",
+    "enUS": "of Speed | 80 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 588,
+    "Key": "of Spikes",
+    "enUS": "of Spikes | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 589,
+    "Key": "of Spirit",
+    "enUS": "of Spirit | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 590,
+    "Key": "of Stability",
+    "enUS": "of Stability | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 591,
+    "Key": "of Static Field",
+    "enUS": "of Static Field | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 592,
+    "Key": "of Stoicism",
+    "enUS": "of Stoicism | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 593,
+    "Key": "of Storms",
+    "enUS": "of Storms | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 594,
+    "Key": "of Strength",
+    "enUS": "of Strength | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 595,
+    "Key": "of Stunning",
+    "enUS": "of Stunning | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 596,
+    "Key": "of Substinence",
+    "enUS": "of Substinence | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 597,
+    "Key": "of Sunlight",
+    "enUS": "of Sunlight | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 598,
+    "Key": "of Swiftness",
+    "enUS": "of Swiftness | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 599,
+    "Key": "of Swords",
+    "enUS": "of Swords | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 600,
+    "Key": "of Taunting",
+    "enUS": "of Taunting | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 601,
+    "Key": "of Teeth",
+    "enUS": "of Teeth | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 602,
+    "Key": "of Telekinesis",
+    "enUS": "of Telekinesis | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 603,
+    "Key": "of Teleport Shield",
+    "enUS": "of Teleport Shield | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 604,
+    "Key": "of Teleportation",
+    "enUS": "of Teleportation | 1000 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 605,
+    "Key": "of Terror",
+    "enUS": "of Terror | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 606,
+    "Key": "of Thawing",
+    "enUS": "of Thawing | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 607,
+    "Key": "of Thorns",
+    "enUS": "of Thorns | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 608,
+    "Key": "of Thunder",
+    "enUS": "of Thunder | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 609,
+    "Key": "of Thunder Storm",
+    "enUS": "of Thunder Storm | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 610,
+    "Key": "of Tornado",
+    "enUS": "of Tornado | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 611,
+    "Key": "of Transcendence",
+    "enUS": "of Transcendence | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 612,
+    "Key": "of Traveling",
+    "enUS": "of Traveling | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 613,
+    "Key": "of Truth",
+    "enUS": "of Truth | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 614,
+    "Key": "of Twister",
+    "enUS": "of Twister | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 615,
+    "Key": "of Vengeance",
+    "enUS": "of Vengeance | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 616,
+    "Key": "of Venom",
+    "enUS": "of Venom | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 617,
+    "Key": "of Vileness",
+    "enUS": "of Vileness | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 618,
+    "Key": "of Virility",
+    "enUS": "of Virility | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 619,
+    "Key": "of Vita",
+    "enUS": "of Vita | 100 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 620,
+    "Key": "of Volcano",
+    "enUS": "of Volcano | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 621,
+    "Key": "of War Cry",
+    "enUS": "of War Cry | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 622,
+    "Key": "of Warding",
+    "enUS": "of Warding | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 623,
+    "Key": "of Warming",
+    "enUS": "of Warming | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 624,
+    "Key": "of Warmth",
+    "enUS": "of Warmth | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 625,
+    "Key": "of Weaken",
+    "enUS": "of Weaken | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 626,
+    "Key": "of Wealth",
+    "enUS": "of Wealth | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 627,
+    "Key": "of Winter",
+    "enUS": "of Winter | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 628,
+    "Key": "of Wizardry",
+    "enUS": "of Wizardry | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 629,
+    "Key": "of Worth",
+    "enUS": "of Worth | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 630,
+    "Key": "of Wrath",
+    "enUS": "of Wrath | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 631,
+    "Key": "of Zeal",
+    "enUS": "of Zeal | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 632,
+    "Key": "of the Apprentice",
+    "enUS": "of the Apprentice | 150 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 633,
+    "Key": "of the Bat",
+    "enUS": "of the Bat | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 634,
+    "Key": "of the Bear",
+    "enUS": "of the Bear | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 635,
+    "Key": "of the Cobra",
+    "enUS": "of the Cobra | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 636,
+    "Key": "of the Colosuss",
+    "enUS": "of the Colosuss | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 637,
+    "Key": "of the Dunes",
+    "enUS": "of the Dunes | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 638,
+    "Key": "of the Dynamo",
+    "enUS": "of the Dynamo | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 639,
+    "Key": "of the Efreeti",
+    "enUS": "of the Efreeti | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 640,
+    "Key": "of the Elements",
+    "enUS": "of the Elements | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 641,
+    "Key": "of the Elephant",
+    "enUS": "of the Elephant | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 642,
+    "Key": "of the Fox",
+    "enUS": "of the Fox | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 643,
+    "Key": "of the Giant",
+    "enUS": "of the Giant | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 644,
+    "Key": "of the Glacier",
+    "enUS": "of the Glacier | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 645,
+    "Key": "of the Icicle",
+    "enUS": "of the Icicle | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 646,
+    "Key": "of the Jackal",
+    "enUS": "of the Jackal | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 647,
+    "Key": "of the Kraken",
+    "enUS": "of the Kraken | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 648,
+    "Key": "of the Lamprey",
+    "enUS": "of the Lamprey | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 649,
+    "Key": "of the Leech",
+    "enUS": "of the Leech | 100 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 650,
+    "Key": "of the Locust",
+    "enUS": "of the Locust | 80 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 651,
+    "Key": "of the Magus",
+    "enUS": "of the Magus | 200 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 652,
+    "Key": "of the Mammoth",
+    "enUS": "of the Mammoth | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 653,
+    "Key": "of the Mind",
+    "enUS": "of the Mind | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 654,
+    "Key": "of the Ox",
+    "enUS": "of the Ox | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 655,
+    "Key": "of the Phoenix",
+    "enUS": "of the Phoenix | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 656,
+    "Key": "of the Sentinel",
+    "enUS": "of the Sentinel | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 657,
+    "Key": "of the Sirocco",
+    "enUS": "of the Sirocco | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 658,
+    "Key": "of the Squid",
+    "enUS": "of the Squid | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 659,
+    "Key": "of the Sun",
+    "enUS": "of the Sun | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 660,
+    "Key": "of the Tiger",
+    "enUS": "of the Tiger | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 661,
+    "Key": "of the Titan",
+    "enUS": "of the Titan | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 662,
+    "Key": "of the Vampire",
+    "enUS": "of the Vampire | 80 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 663,
+    "Key": "of the Whale",
+    "enUS": "of the Whale | 150 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 664,
+    "Key": "of the Wolf",
+    "enUS": "of the Wolf | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 665,
+    "Key": "of the Wraith",
+    "enUS": "of the Wraith | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  },
+  {
+    "id": 666,
+    "Key": "of the Yeti",
+    "enUS": "of the Yeti | 1 FG",
+    "category": "suffix",
+    "quality": "magic"
+  }
 ]
