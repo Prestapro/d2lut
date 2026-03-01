@@ -1,0 +1,279 @@
+# Static FG prices for D2R items
+# These are baseline prices that don't require d2jsp access
+# Prices are approximate Ladder Softcore values
+
+# ============================================================================
+# HIGH RUNES (most liquid currency)
+# ============================================================================
+rune:
+  r01: 0.1      # El
+  r02: 0.1      # Eld
+  r03: 0.1      # Tir
+  r04: 0.2      # Nef (crafting)
+  r05: 0.1      # Eth
+  r06: 0.1      # Ith
+  r07: 0.2      # Tal (Insight)
+  r08: 0.5      # Ral (crafting)
+  r09: 0.1      # Ort
+  r10: 0.1      # Thul
+  r11: 0.2      # Amn
+  r12: 0.5      # Sol (crafting)
+  r13: 0.2      # Shael
+  r14: 0.1      # Dol
+  r15: 0.5      # Hel (rerolling)
+  r16: 0.1      # Io
+  r17: 0.2      # Lum
+  r18: 0.2      # Ko
+  r19: 0.2      # Fal
+  r20: 0.5      # Lem
+  r21: 1        # Pul
+  r22: 2        # Um
+  r23: 3        # Mal
+  r24: 4        # Ist
+  r25: 5        # Gul
+  r26: 8        # Vex
+  r27: 15       # Ohm
+  r28: 12       # Lo
+  r29: 25       # Sur
+  r30: 55       # Ber
+  r31: 50       # Jah
+  r32: 10       # Cham
+  r33: 10       # Zod
+
+# ============================================================================
+# KEYS / ORGANS
+# ============================================================================
+key:
+  pk1: 3        # Key of Terror
+  pk2: 3        # Key of Hate
+  pk3: 3        # Key of Destruction
+  organ_set: 15 # Set of 3 keys
+
+# ============================================================================
+# PERFECT GEMS
+# ============================================================================
+gem:
+  gpb: 0.5      # Perfect Sapphire
+  gpg: 0.5      # Perfect Emerald
+  gpr: 0.5      # Perfect Ruby
+  gpv: 0.5      # Perfect Amethyst
+  gpw: 0.5      # Perfect Diamond
+  gpy: 0.5      # Perfect Topaz
+  skz: 1        # Perfect Skull
+
+# ============================================================================
+# CHARMS (base values - actual depends on mods)
+# ============================================================================
+charm:
+  annihilus: 25
+  hellfire_torch: 15
+  gheeds_fortune: 5
+  small_charm: 0
+  grand_charm: 0
+  large_charm: 0
+
+# ============================================================================
+# HIGH VALUE UNIQUES
+# ============================================================================
+unique_high:
+  # Sorc helms
+  griffons_eye: 80
+  nightwings_veil: 30
+  harlequin_crest: 8
+
+  # Pally shields
+  herald_of_zakarum: 10
+  alma_negra: 5
+
+  # Belts
+  arachnid_mesh: 15
+  verdungos_hearty_cord: 8
+  thundergods_vigor: 5
+  strings_of_ears: 3
+  razortail: 3
+  tal_rashas_fine_spun_cloth: 5
+
+  # Boots
+  wartraveler: 8
+  sandstorm_trek: 8
+  marrowwalk: 5
+  waterwalk: 3
+  silkweave: 2
+  gore_rider: 5
+  immortal_king pillar: 3
+
+  # Gloves
+  magefist: 3
+  frostburn: 3
+  chance_guards: 3
+  stone_of_jordan: 8
+  bul_kathos_wedding_band: 8
+  raven_frost: 5
+  dwarf_star: 3
+  wisp_projector: 40
+  natures_peace: 5
+  carrion_wind: 5
+
+  # Amulets
+  maras_kaleidoscope: 15
+  tal_rashas_adjudication: 8
+  saracens_chance: 3
+  crescent_moon: 2
+  atmas_scarab: 3
+  highlords_wrath: 8
+  cats_eye: 5
+  angelic_wings: 2
+
+  # Armor
+  tal_rashas_guardianship: 20
+  skin_of_the_vipermagi: 5
+  shaftstop: 3
+  skullders_ire: 5
+  guardian_angel: 5
+  arkaines_valor: 3
+  tyraels_might: 5
+  ormus_robes: 5
+  chains_of_honor_base: 0  # Runeword
+
+  # Weapons - Javelins
+  titans_revenge: 8
+  eth_titans_revenge: 15
+  thunderstroke: 15
+
+  # Weapons - Bows
+  windforce: 15
+  eaglehorn: 5
+
+  # Weapons - Scepters
+  zaka_rums_hand: 3
+  arm_of_king_leoric: 8
+
+  # Weapons - Wands
+  deaths_web: 50
+
+  # Weapons - Orbs
+  deaths_fathom: 30
+  eschutas_temper: 15
+  occulus: 3
+
+  # Weapons - Swords
+  azurewrath: 5
+  lightsabre: 3
+  doombringer: 2
+
+  # Weapons - Axes
+  death_cleaver: 10
+
+  # Weapons - Polearms
+  tomb_reaver: 30
+
+  # Weapons - Assassin Claws
+  bartucs_cutthroat: 3
+  jade_talons: 3
+
+  # Weapons - Barbarian
+  blade_of_barbarian_king: 5
+  bul_kathos_sacred_charge: 5
+  bul_kathos_mythical_sword: 5
+
+# ============================================================================
+# SET ITEMS (popular ones)
+# ============================================================================
+set_items:
+  # Tal Rasha's
+  tal_rashas_lidless_eye: 10
+  tal_rashas_adjudication: 8
+  tal_rashas_horadric_crest: 5
+  tal_rashas_guardianship: 20
+  tal_rashas_fine_spun_cloth: 5
+
+  # Immortal King
+  immortal_king_helm: 3
+  immortal_king_armor: 5
+  immortal_king_gloves: 2
+  immortal_king_belt: 2
+  immortal_king_pillar: 3
+  immortal_king_maul: 5
+
+  # Trang-Oul's
+  trang_ouls_wing: 5
+  trang_ouls_scale: 3
+  trang_ouls_girth: 2
+  trang_ouls_claws: 2
+
+  # Natalya's
+  natalyas_totem: 3
+  natalyas_shell: 3
+  natalyas_mark: 5
+
+  # Aldur's
+  aldurs_eyes: 3
+  aldurs_advance: 5
+  aldurs_deception: 3
+
+  # Griswold's
+  griswolds_heart: 10
+  griswolds_redemption: 8
+
+  # Heaven's Brethren
+  haemosu_s_adament: 3
+
+# ============================================================================
+# RUNEWORD BASES (Elite/Ethereal)
+# ============================================================================
+bases:
+  # Polearms (Infinity/Insight)
+  thresher: 25
+  giant_thresher: 30
+  colossus_voulge: 15
+  cryptic_axe: 8
+  great_poleaxe: 10
+  scythe: 1
+  poleaxe: 1
+
+  # Swords (Grief/Last Wish)
+  phase_blade: 15
+  berserker_axe: 20
+  colossus_sword: 8
+  colossus_blade: 10
+
+  # Shields (Spirit/Phoenix)
+  monarch: 8
+  sacred_targe: 15
+  kurast_shield: 10
+  vortex_shield: 12
+
+  # Armor (Enigma/Fortitude)
+  archon_plate: 15
+  dusk_shroud: 12
+  wire_fleece: 8
+  great_hauberk: 10
+  balrog_skin: 8
+  scarab_hull: 5
+  sacred_armor: 5
+  mage_plate: 20  # Low str requirement
+
+  # Assassin Claws (Chaos/Fury)
+  suwayyah: 15
+  greater_talons: 12
+  runic_talons: 15
+  scissors_suwayyah: 12
+  feral_claws: 8
+
+  # Scepters (FoH/Hammerdin)
+  caduceus: 10
+  war_scepter: 5
+
+  # Wands (White runeword)
+  lich_wand: 10
+  unearthed_wand: 15
+
+# ============================================================================
+# TOKENS / ESSENCES
+# ============================================================================
+misc:
+  token_of_absolution: 3
+  twisting_essence_of_suffering: 0.5
+  charged_essence_of_hatred: 0.5
+  burning_essence_of_terror: 0.5
+  festering_essence_of_destruction: 0.5
