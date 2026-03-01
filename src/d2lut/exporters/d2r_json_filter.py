@@ -35,6 +35,7 @@ class D2RJsonFilterExporter:
         base_hint_generator: Optional['BaseHintGenerator'] = None,
         perfect_rolls_path: Optional[str | Path] = None,
         rune_converter: Optional['RuneConverter'] = None,
+        magic_combos_path: Optional[str | Path] = None,
     ):
         self.min_fg = min_fg
         self.format_str = format_str
@@ -48,6 +49,14 @@ class D2RJsonFilterExporter:
         self.affix_highlighter = affix_highlighter
         self.base_hint_generator = base_hint_generator
         self.rune_converter = rune_converter
+        
+        # Load magic item combinations (GG combos with full item name pricing)
+        self.magic_combos: List[Dict] = []
+        if magic_combos_path:
+            p = Path(magic_combos_path)
+            if p.exists():
+                with p.open("r", encoding="utf-8") as f:
+                    self.magic_combos = json.load(f)
         
         self.perfect_rolls: Dict[str, str] = {}
         if perfect_rolls_path:
@@ -413,6 +422,30 @@ class D2RJsonFilterExporter:
             self.runes_mod_data_out = json.dumps(runes_mod_data, indent=2, ensure_ascii=False)
 
         return json.dumps(mod_data, indent=2, ensure_ascii=False)
+
+    def export_magic_combos(self) -> str:
+        """
+        Export magic item combinations as a JSON array for D2R loot filter.
+        
+        Format: [{"id": 10000, "Key": "magic:uit:Jeweler's:of Deflecting", 
+                 "enUS": "Jeweler's Monarch of Deflecting | 2000-8000 FG | 4os/20fbr"}]
+        """
+        if not self.magic_combos:
+            return "[]"
+        
+        entries = []
+        for combo in self.magic_combos:
+            # Each combo already has the formatted enUS string
+            entry = {
+                "id": combo.get("id", 0),
+                "Key": combo.get("Key", ""),
+                "enUS": combo.get("enUS", ""),
+                "category": combo.get("category", "magic"),
+                "quality": combo.get("quality", "magic"),
+            }
+            entries.append(entry)
+        
+        return json.dumps(entries, indent=2, ensure_ascii=False)
 
     def export_affixes(self, base_affix_json_path: str) -> str:
         """

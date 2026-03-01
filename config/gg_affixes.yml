@@ -1,162 +1,530 @@
+# GG Affixes for D2R Loot Filter
+# Reference: MrLlamaSC 2021 Spreadsheet + d2jsp market data
+# https://docs.google.com/spreadsheets/d/1NXw_-O56bsOZOzWmLtaWdeZLdr8BEBr3FPXUTvklws0
+# S-tier = GG (highlight red), A-tier = HIGH (purple), B-tier = MID (orange)
+
 prefixes:
+  # ===== S-TIER GG PREFIXES =====
+
+  # 4 Sockets - GG for runeword bases (JMOD = Jeweler's Monarch of Deflecting)
   "Jeweler's":
     color: "ÿc1"
     tag: "[$$$]"
     tier: "GG"
+    effect: "Add 4 Sockets"
+    price: "500-5000 FG (depends on base)"
   "Artisan's":
-    color: "ÿc1"
-    tag: "[$$$]"
-    tier: "GG"
-  "Cruel":
     color: "ÿc;"
     tag: "[★]"
     tier: "HIGH"
-  "Blood":
-    color: "ÿc;"
-    tag: ""
-    tier: "CRAFT"
-  "Fletcher's":
+    effect: "Add 3 Sockets"
+
+  # +2 Class Skills (can spawn on amulets/circlets at ilvl 90+)
+  "Valkyrie's":
     color: "ÿc1"
     tag: "[$$$]"
     tier: "GG"
-  "Lancer's":
+    effect: "+2 Amazon Skills"
+  "Berserker's":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+2 Barbarian Skills"
+  "Priest's":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+2 Paladin Skills"
+  "Necromancer's":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+2 Necromancer Skills"
+  "Arch-Angel's":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+2 Sorceress Skills"
+  "Hierophant's":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+2 Druid Skills"
+  "Witch-hunter's":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+2 Assassin Skills"
+
+  # +3 Skill Trees (highly valuable for specific builds)
+  "Venomous":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+3 Poison/Bone (Necro)"
+    best_combo: "of the Magus = 4000-20000 FG"
+  "Powered":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+3 Lightning (Sorc)"
+  "Charged":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+3 Lightning (Sorc alt)"
+  "Glacial":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+3 Cold (Sorc)"
+  "Freezing":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+3 Cold (Sorc alt)"
+  "Volcanic":
     color: "ÿc;"
     tag: "[★]"
     tier: "HIGH"
+    effect: "+3 Fire (Sorc)"
+  "Grim":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+3 Fire (Sorc alt)"
+  "Burning":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+3 Fire (Sorc alt)"
+  "Echoing":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+3 Warcries (Barb)"
+  "Cunning":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+3 Traps (Assa)"
+  "Entrapping":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+3 Traps (Assa alt)"
+  "Keeper's":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+3 Summoning (Druid)"
+  "Trainer's":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+3 Summoning (Druid alt)"
+  "Golemlord's":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+3 Summoning (Necro)"
+  "Graverobber's":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+3 Summoning (Necro alt)"
+  "Shadow":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+3 Shadow Disciplines (Assa)"
+  "Mentalist's":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+3 Shadow Disciplines (Assa alt)"
+  "Rose Branded":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+3 Combat (Paladin)"
+  "Lion Branded":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+3 Combat (Paladin alt)"
+  "Marshal's":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+3 Offensive Auras (Paladin)"
+  "Guardian's":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+3 Defensive Auras (Paladin)"
+  "Master's":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+3 Combat (Barbarian)"
+  "Expert's":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+3 Combat (Barbarian alt)"
+  "Furious":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+3 Combat Masteries (Barb)"
+  "Fanatic":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+3 Combat Masteries (Barb alt)"
+  "Sounding":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+3 Warcries (Barb alt)"
+  "Communal":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+3 Shapeshifting (Druid)"
+  "Spiritual":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+3 Shapeshifting (Druid alt)"
+  "Gaean":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+3 Elemental (Druid)"
+  "Nature's":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+3 Elemental (Druid alt)"
+  "Kenshi's":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+3 Martial Arts (Assa)"
+  "Shogukusha's":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+3 Martial Arts (Assa alt)"
+  "Athletic":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+3 Passive/Magic (Zon)"
   "Acrobatic":
     color: "ÿc;"
     tag: "[★]"
     tier: "HIGH"
-  "Rose Branded": # Paladin Combat Skills
-    color: "ÿc1"
-    tag: "[$$$]"
-    tier: "GG"
-  "Lion Branded": # Paladin Combat Skills
-    color: "ÿc1"
-    tag: "[$$$]"
-    tier: "GG"
-  "Harpoonist's": # Amazon Javelin and Spear Skills
-    color: "ÿc1"
-    tag: "[$$$]"
-    tier: "GG"
-  "Sparking": # Sorceress Lightning Skills
-    color: "ÿc1"
-    tag: "[$$$]"
-    tier: "GG"
-  "Chilling": # Sorceress Cold Skills
+    effect: "+3 Passive/Magic (Zon alt)"
+  "Cursing":
     color: "ÿc;"
     tag: "[★]"
     tier: "HIGH"
-  "Burning": # Sorceress Fire Skills
+    effect: "+3 Curses (Necro)"
+  "Fungal":
     color: "ÿc;"
     tag: "[★]"
     tier: "HIGH"
-  "Mentalist's": # Assassin Shadow Disciplines
-    color: "ÿc;"
-    tag: ""
-    tier: "MID"
-  "Entrapping": # Assassin Traps
-    color: "ÿc1"
-    tag: "[$$$]"
-    tier: "GG"
-  "Shogukusha's": # Assassin Martial Arts
+    effect: "+3 Poison/Bone (Necro alt)"
+
+  # +3 Weapon Skills
+  "Archer's":
     color: "ÿc;"
     tag: "[★]"
     tier: "HIGH"
-  "Graverobber's": # Necromancer Summoning Skills
+    effect: "+3 Bow/Crossbow (Zon)"
+  "Fletcher's":
     color: "ÿc;"
     tag: "[★]"
     tier: "HIGH"
-  "Fungal": # Necromancer Poison and Bone Skills
-    color: "ÿc1"
-    tag: "[$$$]"
-    tier: "GG"
-  "Spiritual": # Druid Shape Shifting Skills
+    effect: "+3 Bow/Crossbow (Zon alt)"
+  "Lancer's":
     color: "ÿc;"
     tag: "[★]"
     tier: "HIGH"
-  "Nature's": # Druid Elemental Skills
-    color: "ÿc1"
-    tag: "[$$$]"
-    tier: "GG"
-  "Trainer's": # Druid Summoning Skills
-    color: "ÿc;"
-    tag: ""
-    tier: "MID"
-  "Sounding": # Barbarian Warcries
+    effect: "+3 Jav/Spear (Zon)"
+  "Harpoonist's":
     color: "ÿc;"
     tag: "[★]"
     tier: "HIGH"
-  "Fanatic": # Barbarian Masteries
+    effect: "+3 Jav/Spear (Zon alt)"
+
+  # Weapon damage
+  "Cruel":
     color: "ÿc;"
-    tag: ""
-    tier: "MID"
-  "Expert's": # Barbarian Combat Skills
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+200-300% Damage"
+  "Grandmaster's":
     color: "ÿc;"
-    tag: ""
-    tier: "MID"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+251-300 AR, +151-200 Damage"
+  "Fool's":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+16.5 AR/0.5 Dmg per level"
+
+  # Resists
+  "Chromatic":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "All Res +21-30%"
+
+  # MF
+  "Fortuitous":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+11-15% Magic Find"
+
+  # Mana
+  "Bahamut's":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+91-120 Mana"
+
+  # Craft prefixes
+  "Blood":
+    color: "ÿc8"
+    tag: "[CRAFT]"
+    tier: "CRAFT"
+  "Caster":
+    color: "ÿc8"
+    tag: "[CRAFT]"
+    tier: "CRAFT"
+  "Hitpower":
+    color: "ÿc8"
+    tag: "[CRAFT]"
+    tier: "CRAFT"
+  "Safety":
+    color: "ÿc8"
+    tag: "[CRAFT]"
+    tier: "CRAFT"
 
 suffixes:
-  "of Deflecting":
-    color: "ÿc1"
-    tag: "[$$$]"
-    tier: "GG"
-  "of Vita":
-    color: "ÿc;"
-    tag: "[★]"
-    tier: "HIGH"
-  "of Sustenance":
-    color: "ÿc8"
-    tag: ""
-    tier: "MID"
-  "of Quickness":
-    color: "ÿc1"
-    tag: "[$$$]"
-    tier: "GG"
-  "of Alacrity":
-    color: "ÿc;"
-    tag: "[★]"
-    tier: "HIGH"
-  "of Readiness":
-    color: "ÿc8"
-    tag: ""
-    tier: "MID"
+  # ===== S-TIER GG SUFFIXES =====
+
+  # FCR - Faster Cast Rate (most important caster stat)
   "of the Magus":
     color: "ÿc1"
     tag: "[$$$]"
     tier: "GG"
+    effect: "20% Faster Cast Rate"
+    best_combo: "Venomous/Necro's + Magus = 15000-20000 FG"
   "of the Apprentice":
     color: "ÿc;"
     tag: "[★]"
     tier: "HIGH"
-  "of the Titan":
+    effect: "10% Faster Cast Rate"
+
+  # Block - GG for shields (JMOD = Jeweler's Monarch of Deflecting)
+  "of Deflecting":
     color: "ÿc1"
     tag: "[$$$]"
     tier: "GG"
-  "of the Bear":
+    effect: "+20% Block, 30% FBR"
+    best_combo: "Jeweler's + Deflecting = 2000-8000 FG (JMOD)"
+
+  # IAS - Increased Attack Speed
+  "of Quickness":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "40% IAS"
+  "of Alacrity":
     color: "ÿc;"
     tag: "[★]"
     tier: "HIGH"
-  "of Good Luck":
-    color: "ÿc1"
-    tag: "[$$$]"
-    tier: "GG"
-  "of Fortune":
+    effect: "20% IAS"
+  "of Readiness":
     color: "ÿc8"
     tag: ""
     tier: "MID"
+    effect: "10% IAS"
+
+  # FRW - Faster Run/Walk
+  "of Acceleration":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "40% FRW"
+  "of Speed":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "30% FRW"
+
+  # Stats
+  "of Atlas":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+21-30 Strength"
+  "of the Titan":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+16-20 Strength"
+  "of Nirvana":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+21-30 Dexterity"
+  "of Precision":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+16-20 Dexterity"
+
+  # Life
   "of the Whale":
     color: "ÿc;"
     tag: "[★]"
     tier: "HIGH"
-  "of the Squid":
-    color: "ÿc8"
-    tag: ""
-    tier: "MID"
-  "of Simplicity": # -Req
+    effect: "+81-100 Life"
+  "of Vita":
     color: "ÿc;"
     tag: "[★]"
     tier: "HIGH"
+    effect: "+31-40 Life"
+  "of Sustenance":
+    color: "ÿc8"
+    tag: ""
+    tier: "MID"
+    effect: "+21-30 Life"
+  "of Centaur":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+0.75 Life per Level"
+
+  # Life/Mana Leech
+  "of the Lamprey":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "6-9% Life Leech"
+  "of the Leech":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "3-5% Life Leech"
+  "of the Vampire":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "6-9% Mana Leech"
+  "of the Bat":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "3-5% Mana Leech"
+
+  # Damage
+  "of Evisceration":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+41-63 Max Damage"
+  "of Transcendence":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+15-20 Min Damage"
+  "of Performance":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+31-40 Max Damage"
+
+  # MF
+  "of Luck":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "26-35% Magic Find"
+  "of Fortune":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "16-25% Magic Find"
+  "of Good Luck":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "6-7% Magic Find (charms)"
+
+  # FHR
+  "of Stability":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "24% FHR"
+
+  # Special
+  "of Piercing":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "Ignores Target's Defense"
+  "of Ages":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "Indestructible"
+  "of Simplicity":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "Requirements -30%"
+  "of Freedom":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "Requirements -15%"
+  "of the Bear":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "Knockback"
+
+  # Teleport (extremely rare and valuable)
+  "of Teleportation":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "Teleport charges"
+    best_combo: "Berserker's/Necro's + Teleport = 10000-15000 FG"
+
+  # DR
+  "of Life Everlasting":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "Damage Reduced by 10-25"
+  "of Amicae":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "Damage Reduced by 8-15"
+
+  # ===== TRASH SUFFIXES =====
   "of Accuracy":
     color: "ÿc5"
     tag: ""
@@ -169,7 +537,7 @@ suffixes:
     color: "ÿc5"
     tag: ""
     tier: "TRASH"
-  "Drake's": # Checking string replacement edge case
+  "Drake's":
     color: "ÿc5"
     tag: ""
     tier: "TRASH"

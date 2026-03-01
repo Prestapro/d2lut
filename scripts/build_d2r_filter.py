@@ -300,7 +300,8 @@ def run_generation(args, cfg, is_interactive: bool = False) -> int:
             affix_highlighter=AffixHighlighter(APP_DIR / "config" / "gg_affixes.yml") if cfg["apply_colors"] else None,
             base_hint_generator=BaseHintGenerator(APP_DIR / "config" / "base_potential.yml"),
             perfect_rolls_path=APP_DIR / "config" / "perfect_rolls.yml",
-            rune_converter=RuneConverter(APP_DIR / "config" / "rune_prices.yml")
+            rune_converter=RuneConverter(APP_DIR / "config" / "rune_prices.yml"),
+            magic_combos_path=APP_DIR / "data" / "templates" / "item-magic-combos.json"
         )
         json_text = exporter.export(price_index, conn=conn, base_json_path=args.base_json, base_runes_json_path=args.base_runes_json)
         
@@ -326,6 +327,13 @@ def run_generation(args, cfg, is_interactive: bool = False) -> int:
                 affix_text = exporter.export_affixes(base_affix_json_path=args.base_affix_json)
                 atomic_write_text(affix_out_path, affix_text, encoding="utf-8")
                 print(f"Successfully wrote D2R affix filter mod to: {affix_out_path}")
+
+            # Export magic item combinations (GG combos with full pricing)
+            if exporter.magic_combos:
+                magic_combos_out_path = Path(args.out).parent / "item-magic-combos.json"
+                magic_combos_text = exporter.export_magic_combos()
+                atomic_write_text(magic_combos_out_path, magic_combos_text, encoding="utf-8")
+                print(f"Successfully wrote D2R magic combos to: {magic_combos_out_path} ({len(exporter.magic_combos)} entries)")
 
         report = exporter.audit_report
         print("\n--- Mapping Audit Report ---")
