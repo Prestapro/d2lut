@@ -1,0 +1,407 @@
+# GG Affixes from MrLlamaSC's 2021 Reference
+# https://docs.google.com/spreadsheets/d/1NXw_-O56bsOZOzWmLtaWdeZLdr8BEBr3FPXUTvklws0
+# S = GG tier, A = HIGH tier, B = MID tier, C/D/F = lower value
+
+prefixes:
+  # ===== S-TIER GG PREFIXES =====
+
+  # 4 Sockets - GG for runeword bases
+  "Jeweler's":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "Add 4 Sockets"
+    spawn_on: "Body Armor(55), Shields(55), Weapons(55)"
+
+  # +2 Class Skills (can spawn on amulets/circlets at ilvl 90+)
+  "Valkyrie's":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+2 Amazon Skills"
+    spawn_on: "Amulets(90), Circlets(90), Bows(50), Javelins(30)"
+  "Berserker's":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+2 Barbarian Skills"
+    spawn_on: "Amulets(90), Circlets(90), Barb Helms(50), Swords/Axes(50)"
+  "Priest's":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+2 Paladin Skills"
+    spawn_on: "Amulets(90), Circlets(90), Scepters(50), Pala Shields(50)"
+  "Necromancer's":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+2 Necromancer Skills"
+    spawn_on: "Amulets(90), Circlets(90), Wands(50), Heads(50)"
+  "Arch-Angel's":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+2 Sorceress Skills"
+    spawn_on: "Amulets(90), Circlets(90), Orbs(50), Staves(50)"
+  "Hierophant's":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+2 Druid Skills"
+    spawn_on: "Amulets(90), Circlets(90), Druid Pelts(50), Clubs(50)"
+  "Witch-hunter's":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+2 Assassin Skills"
+    spawn_on: "Amulets(90), Circlets(90), Katars(50)"
+
+  # +3 Skill Trees (highly valuable)
+  "Venomous":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+3 Poison/Bone (Necro)"
+    spawn_on: "Amulets(60), Circlets(60), Wands(60)"
+  "Powered":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+3 Lightning (Sorc)"
+    spawn_on: "Amulets(60), Circlets(60), Orbs(60)"
+  "Glacial":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+3 Cold (Sorc)"
+    spawn_on: "Amulets(60), Circlets(60), Orbs(60)"
+  "Volcanic":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+3 Fire (Sorc)"
+    spawn_on: "Amulets(60), Circlets(60), Orbs(60)"
+  "Echoing":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+3 Warcries (Barb)"
+    spawn_on: "Amulets(60), Circlets(60), Barb Helms(60)"
+  "Cunning":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+3 Traps (Assa)"
+    spawn_on: "Amulets(60), Circlets(60), Katars(60)"
+  "Keeper's":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+3 Summoning (Druid)"
+    spawn_on: "Amulets(60), Circlets(60), Druid Pelts(60)"
+  "Golemlord's":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+3 Summoning (Necro)"
+    spawn_on: "Amulets(60), Circlets(60), Wands(60), Heads(60)"
+  "Shadow":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+3 Shadow Disciplines (Assa)"
+    spawn_on: "Amulets(60), Circlets(60), Katars(60)"
+  "Rose Branded":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+3 Combat (Paladin)"
+    spawn_on: "Amulets(60), Circlets(60), Scepters(60)"
+  "Lion Branded":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+3 Combat (Paladin)"
+    spawn_on: "Amulets(60), Circlets(60)"
+  "Marshal's":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+3 Offensive Auras (Paladin)"
+    spawn_on: "Amulets(60), Circlets(60), Scepters(60)"
+
+  # Weapon damage
+  "Cruel":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+200-300% Damage"
+    spawn_on: "Weapons(51)"
+
+  # Resists
+  "Chromatic":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "All Res +21-30%"
+    spawn_on: "Shields(50), Amulets(55), Circlets(55)"
+
+  # MF
+  "Fortuitous":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+11-15% Magic Find"
+    spawn_on: "Amulets(12), Circlets(12), Rings(12)"
+
+  # Mana
+  "Bahamut's":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+91-120 Mana"
+    spawn_on: "Amulets(45), Circlets(45), Rings(45)"
+
+  # ===== A-TIER PREFIXES =====
+  "Archer's":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+3 Bow/Crossbow (Zon)"
+    spawn_on: "Bows(60), Gloves(60)"
+  "Lancer's":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+3 Jav/Spear (Zon)"
+    spawn_on: "Spears(60), Gloves(60)"
+
+suffixes:
+  # ===== S-TIER GG SUFFIXES =====
+
+  # FCR - Faster Cast Rate
+  "of the Magus":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "20% Faster Cast Rate"
+    spawn_on: "Circlets(29), Orbs(29)"
+  "of the Apprentice":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "10% Faster Cast Rate"
+    spawn_on: "Amulets(5), Circlets(5), Rings(5)"
+
+  # Block - GG for shields (JMOD combo)
+  "of Deflecting":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+20% Block, 30% FBR"
+    spawn_on: "Shields(11)"
+
+  # IAS - Increased Attack Speed
+  "of Quickness":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "40% IAS"
+    spawn_on: "Melee Weapons(46)"
+  "of Alacrity":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "20% IAS"
+    spawn_on: "Weapons(25), Gloves(43)"
+
+  # FRW - Faster Run/Walk
+  "of Acceleration":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "40% FRW"
+    spawn_on: "Boots(51)"
+  "of Speed":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "30% FRW"
+    spawn_on: "Boots(37), Circlets(37)"
+
+  # Stats
+  "of Atlas":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+21-30 Strength"
+    spawn_on: "Amulets(71), Circlets(71)"
+  "of Nirvana":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "+21-30 Dexterity"
+    spawn_on: "Amulets(72), Circlets(72)"
+
+  # Life
+  "of the Whale":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+81-100 Life"
+    spawn_on: "Amulets(50), Circlets(50), Body Armor(50)"
+  "of Vita":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+31-40 Life"
+    spawn_on: "Amulets(37), Circlets(37)"
+  "of Centaur":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+0.75 Life per Level"
+    spawn_on: "Amulets(20), Circlets(20), Body Armor(20)"
+
+  # Life/Mana Leech
+  "of the Lamprey":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "6-9% Life Leech"
+    spawn_on: "Melee Weapons(55), Circlets(77), Rings(77)"
+  "of the Vampire":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "6-9% Mana Leech"
+    spawn_on: "Melee Weapons(56), Circlets(78), Rings(86)"
+
+  # Damage
+  "of Evisceration":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+41-63 Max Damage"
+    spawn_on: "Weapons(45)"
+  "of Transcendence":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "+15-20 Min Damage"
+    spawn_on: "Weapons(76)"
+
+  # MF
+  "of Luck":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "26-35% Magic Find"
+    spawn_on: "Amulets(26), Circlets(26)"
+  "of Fortune":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "16-25% Magic Find"
+    spawn_on: "Amulets(16), Circlets(16), Rings(42)"
+  "of Good Luck":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "6-7% Magic Find (charms)"
+    spawn_on: "Small Charms(47)"
+
+  # FHR
+  "of Stability":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "24% FHR"
+    spawn_on: "Body Armor(18), Belts(18)"
+
+  # Special
+  "of Piercing":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "Ignores Target's Defense"
+    spawn_on: "Katars(25), Daggers(25)"
+  "of Ages":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "Indestructible"
+    spawn_on: "Armor(50), Weapons(50)"
+  "of Simplicity":
+    color: "ÿc;"
+    tag: "[★]"
+    tier: "HIGH"
+    effect: "Requirements -30%"
+    spawn_on: "Body Armor(25), Shields(25), Weapons(25)"
+
+  # Teleport (extremely rare and valuable)
+  "of Teleportation":
+    color: "ÿc1"
+    tag: "[$$$]"
+    tier: "GG"
+    effect: "Teleport charges"
+    spawn_on: "Circlets(48), Amulets(48)"
+
+# ===== CHARM AFFIXES (Small Charms) =====
+charm_prefixes:
+  "Fine":
+    tier: "S"
+    effect: "+10-20 AR, 1-3 Damage"
+  "Serpent's":
+    tier: "S"
+    effect: "+13-17 Mana"
+  "Shimmering":
+    tier: "S"
+    effect: "All Res +3-5%"
+  "Pestilent":
+    tier: "D"
+    effect: "+175 Poison Damage (6sec)"
+
+charm_suffixes:
+  "Vita":
+    tier: "S"
+    effect: "+16-20 Life"
+  "Balance":
+    tier: "S"
+    effect: "5% FHR"
+  "Good Luck":
+    tier: "S"
+    effect: "6-7% MF"
+  "Inertia":
+    tier: "A"
+    effect: "3% FRW"
+
+# ===== JEWEL AFFIXES =====
+jewel_prefixes:
+  "Vermilion":
+    tier: "S"
+    effect: "+11-15 Max Damage"
+  "Ruby":
+    tier: "S"
+    effect: "+31-40% ED"
+  "Scintillating":
+    tier: "S"
+    effect: "All Res +11-15"
+  "Crimson":
+    tier: "B"
+    effect: "+5-8 Min Damage"
+
+jewel_suffixes:
+  "Fervor":
+    tier: "S"
+    effect: "15% IAS"
+  "Carnage":
+    tier: "S"
+    effect: "+11-15 Max Damage"
+  "Freedom":
+    tier: "A"
+    effect: "Requirements -15%"
+  "Truth":
+    tier: "S"
+    effect: "7% FHR"
