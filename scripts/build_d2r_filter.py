@@ -411,7 +411,7 @@ def main() -> None:
     parser.add_argument("--format-str", type=str, default=" [{fg} fg]", help="Template for the price string. Use '{fg}' as the placeholder (e.g., ' | {fg} FG')")
     parser.add_argument("--tag-style", type=str, choices=list(TAG_STYLES.keys()), default="bracket", help="Convenience style for the price tag (ignored if --format-str is explicitly provided)")
     parser.add_argument("--always-include-kinds", type=str, default=None, help="Comma-separated list of item kinds (e.g., rune,key) to bypass min-fg threshold")
-    parser.add_argument("--base-json", type=str, default=str(APP_DIR / "data" / "templates" / "item-names.json"), help="Base item-names.json to modify")
+    parser.add_argument("--base-json", type=str, default=str(APP_DIR / "data" / "templates" / "item-names-full.json"), help="Base item-names.json to modify")
     parser.add_argument("--base-runes-json", type=str, default=str(APP_DIR / "data" / "templates" / "item-runes.json"), help="Base item-runes.json to modify")
     parser.add_argument("--base-affix-json", type=str, default=str(APP_DIR / "data" / "templates" / "item-nameaffixes.json"), help="Base item-nameaffixes.json to modify")
     parser.add_argument("--out", type=str, default=str(APP_DIR / "output" / "item-names.json"), help="Output path for item-names.json")
