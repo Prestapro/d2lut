@@ -83,6 +83,8 @@ def parse_args() -> argparse.Namespace:
 
 
 def normalize_name(text: str) -> str:
+    # Strip D2 color codes before normalization.
+    text = re.sub(r"ÿc.", "", text)
     base = text.split("|", 1)[0].strip().lower()
     return re.sub(r"[^a-z0-9]+", "", base)
 
@@ -98,6 +100,20 @@ def extract_fg(enus: str) -> tuple[str | None, float]:
     except ValueError:
         fg_val = 0.0
     return fg_text, fg_val
+
+
+def clean_left(text: str) -> str:
+    # Remove D2 color codes and trailing FG suffix if present.
+    text = re.sub(r"ÿc.", "", text)
+    text = re.sub(r"\|\s*[0-9]+(?:\.[0-9]+)?\s*FG\s*$", "", text, flags=re.I)
+    return text.strip()
+
+
+def key_to_display_name(key: str) -> str:
+    if key.startswith("runeword:"):
+        name = key.split(":", 1)[1].replace("_", " ").replace("-", " ")
+        return " ".join(w.capitalize() for w in name.split())
+    return key
 
 
 def main() -> int:
@@ -118,11 +134,22 @@ def main() -> int:
             if n and n not in by_name:
                 by_name[n] = i
 
-    # 1) Direct rune/key overlays
+    # 1) Direct key overlays (covers runewords and newly introduced keyed items)
     for e in priced:
         key = str(e.get("Key", ""))
-        fg_text, _ = extract_fg(str(e.get("enUS", "")))
+        priced_en = str(e.get("enUS", ""))
+        fg_text, _ = extract_fg(priced_en)
         if not fg_text:
+            continue
+
+        if key in by_key:
+            left = clean_left(str(base[by_key[key]].get("enUS", "")))
+            if not left:
+                left = clean_left(priced_en)
+            if left.lower() == key.lower() or left.lower().startswith("runeword:"):
+                left = key_to_display_name(key)
+            if left:
+                base[by_key[key]]["enUS"] = f"{left}{args.separator}{fg_text} FG"
             continue
 
         if key in RUNE_NAMES:
@@ -246,4 +273,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

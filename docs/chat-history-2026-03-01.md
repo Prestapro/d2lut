@@ -119,3 +119,12 @@ Date: 2026-03-01
 - Started/stopped monitor scripts multiple times and verified outputs/status JSON.
 - Reworked labeling policy: keep numeric FG where known, use `0 FG` for non-valued items, `?FG` for roll-sensitive categories.
 - Rebuilt DB/pipeline attempts were partially blocked by d2jsp anti-bot/Cloudflare.
+
+## Session continuation updates
+- Switched to safe 1615-row dictionary guard before copying into game mod folder.
+- Added retry logic for copy operations to avoid transient file-lock failures.
+- Added tune_rune_prices.py to anchor rune prices (Ohm/Lo/Jah profile).
+- Added generate_runeword_static_prices.py for full runeword baseline pricing and merge layer.
+- Updated merge_full_item_names_fg.py for safer key overlays and runeword display cleanup.
+- Disabled unstable refresh-on-exit behavior in runtime path after detecting argument mismatch errors.
+- Added monitor logging improvements for cycle diagnostics.
