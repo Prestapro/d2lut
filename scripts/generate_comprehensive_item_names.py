@@ -47,6 +47,8 @@ def load_all_prices(app_dir: Path) -> dict:
     config_files = [
         "config/comprehensive_prices.yml",
         "config/extended_prices.yml",
+        "config/additional_prices.yml",
+        "config/additional_unique_prices.yml",
         "config/unique_prices_complete.yml",
         "config/set_prices_complete.yml",
         "config/rune_prices.yml",

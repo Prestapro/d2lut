@@ -3880,7 +3880,7 @@
   {
     "id": 555,
     "Key": "misc:elx",
-    "enUS": "Elixir",
+    "enUS": "Elixir | 0.5 FG",
     "category": "misc",
     "quality": "misc"
   },
@@ -4202,7 +4202,7 @@
   {
     "id": 601,
     "Key": "misc:ibk",
-    "enUS": "Tome of Identify",
+    "enUS": "Tome of Identify | 0.5 FG",
     "category": "misc",
     "quality": "misc"
   },
@@ -4237,7 +4237,7 @@
   {
     "id": 606,
     "Key": "misc:key",
-    "enUS": "Key",
+    "enUS": "Key | 0.1 FG",
     "category": "misc",
     "quality": "misc"
   },
@@ -4363,14 +4363,14 @@
   {
     "id": 624,
     "Key": "misc:rvl",
-    "enUS": "Full Rejuvenation Potion",
+    "enUS": "Full Rejuvenation Potion | 0.3 FG",
     "category": "misc",
     "quality": "misc"
   },
   {
     "id": 625,
     "Key": "misc:rvs",
-    "enUS": "Rejuvenation Potion",
+    "enUS": "Rejuvenation Potion | 0.1 FG",
     "category": "misc",
     "quality": "misc"
   },
@@ -4433,7 +4433,7 @@
   {
     "id": 634,
     "Key": "misc:tbk",
-    "enUS": "Tome of Town Portal",
+    "enUS": "Tome of Town Portal | 0.5 FG",
     "category": "misc",
     "quality": "misc"
   },
@@ -4860,7 +4860,7 @@
   {
     "id": 695,
     "Key": "set:amulet",
-    "enUS": "Telling of Beads",
+    "enUS": "Telling of Beads | 1 FG",
     "category": "set",
     "quality": "set"
   },
@@ -4923,7 +4923,7 @@
   {
     "id": 704,
     "Key": "set:belt",
-    "enUS": "Hwanin's Seal",
+    "enUS": "Hwanin's Seal | 1 FG",
     "category": "set",
     "quality": "set"
   },
@@ -4986,7 +4986,7 @@
   {
     "id": 713,
     "Key": "set:buckler",
-    "enUS": "Hsarus' Iron Fist",
+    "enUS": "Hsarus' Iron Fist | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5007,21 +5007,21 @@
   {
     "id": 716,
     "Key": "set:cap",
-    "enUS": "McAuley's Paragon",
+    "enUS": "McAuley's Paragon | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
   {
     "id": 717,
     "Key": "set:chain_boots",
-    "enUS": "Hsarus' Iron Heel",
+    "enUS": "Hsarus' Iron Heel | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
   {
     "id": 718,
     "Key": "set:chain_gloves",
-    "enUS": "Cleglaw's Pincers",
+    "enUS": "Cleglaw's Pincers | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5063,7 +5063,7 @@
   {
     "id": 724,
     "Key": "set:crown",
-    "enUS": "Milabrega's Diadem",
+    "enUS": "Milabrega's Diadem | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5098,14 +5098,14 @@
   {
     "id": 729,
     "Key": "set:demonhide_boots",
-    "enUS": "Rite of Passage",
+    "enUS": "Rite of Passage | 1 FG",
     "category": "set",
     "quality": "set"
   },
   {
     "id": 730,
     "Key": "set:demonhide_gloves",
-    "enUS": "Horazon's Hold",
+    "enUS": "Horazon's Hold | 1 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5119,7 +5119,7 @@
   {
     "id": 732,
     "Key": "set:double_axe",
-    "enUS": "Berserker's Hatchet",
+    "enUS": "Berserker's Hatchet | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5133,7 +5133,7 @@
   {
     "id": 734,
     "Key": "set:elder_staff",
-    "enUS": "Naj's Puzzler",
+    "enUS": "Naj's Puzzler | 1 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5147,7 +5147,7 @@
   {
     "id": 736,
     "Key": "set:full_helm",
-    "enUS": "Isenhart's Horns",
+    "enUS": "Isenhart's Horns | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5161,7 +5161,7 @@
   {
     "id": 738,
     "Key": "set:gauntlets",
-    "enUS": "Warlord's Conquest",
+    "enUS": "Warlord's Conquest | 1 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5175,14 +5175,14 @@
   {
     "id": 740,
     "Key": "set:gothic_shield",
-    "enUS": "Isenhart's Parry",
+    "enUS": "Isenhart's Parry | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
   {
     "id": 741,
     "Key": "set:grand_crown",
-    "enUS": "Hwanin's Splendor",
+    "enUS": "Hwanin's Splendor | 1 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5196,21 +5196,21 @@
   {
     "id": 743,
     "Key": "set:grand_scepter",
-    "enUS": "Civerb's Cudgel",
+    "enUS": "Civerb's Cudgel | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
   {
     "id": 744,
     "Key": "set:great_helm",
-    "enUS": "Warlord's Lust",
+    "enUS": "Warlord's Lust | 1 FG",
     "category": "set",
     "quality": "set"
   },
   {
     "id": 745,
     "Key": "set:greaves",
-    "enUS": "Warlord's Crushers",
+    "enUS": "Warlord's Crushers | 1 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5245,7 +5245,7 @@
   {
     "id": 750,
     "Key": "set:heavy_boots",
-    "enUS": "McAuley's Riprap",
+    "enUS": "McAuley's Riprap | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5259,7 +5259,7 @@
   {
     "id": 752,
     "Key": "set:heavy_gloves",
-    "enUS": "McAuley's Taboo",
+    "enUS": "McAuley's Taboo | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5280,14 +5280,14 @@
   {
     "id": 755,
     "Key": "set:hunters_guise",
-    "enUS": "Aldur's Stony Gaze",
+    "enUS": "Aldur's Stony Gaze | 2 FG",
     "category": "set",
     "quality": "set"
   },
   {
     "id": 756,
     "Key": "set:jagged_star",
-    "enUS": "Aldur's Gauntlet",
+    "enUS": "Aldur's Gauntlet | 1 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5322,7 +5322,7 @@
   {
     "id": 761,
     "Key": "set:large_shield",
-    "enUS": "Civerb's Ward",
+    "enUS": "Civerb's Ward | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5350,7 +5350,7 @@
   {
     "id": 765,
     "Key": "set:light_gauntlets",
-    "enUS": "Arctic Mitts",
+    "enUS": "Arctic Mitts | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5364,7 +5364,7 @@
   {
     "id": 767,
     "Key": "set:light_plated_boots",
-    "enUS": "Vidala's Fetlock",
+    "enUS": "Vidala's Fetlock | 0.5 FG",
     "category": "set",
     "quality": "set"
   },
@@ -5385,7 +5385,7 @@
   {
     "id": 770,
     "Key": "set:loricated_mail",
-    "enUS": "Natalya's Shadow",
+    "enUS": "Natalya's Shadow | 2 FG",
     "category": "set",
     "quality": "set"
   },

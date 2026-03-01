@@ -1,0 +1,254 @@
+# Additional unique item prices
+unique_extra:
+  # More swords
+  blacktongue_bastard_sword: 0.5
+  griswolds_edge_broad_sword: 0.5
+  soulflay_claymore: 0.5
+  frostwind_cryptic_sword: 0.5
+  ginthers_rift_dimensional_blade: 1
+  coldsteel_eye_cutlass: 1
+  bing_sz_wang_dacian_falx: 0.5
+  swordguard_executioner_sword: 1
+  ripsaw_flamberge: 0.5
+  executioners_justice_glorious_axe: 2
+  the_diggler_dirk: 0.5
+  irices_shard_blade: 0.5
+  bloodletter_gladius: 1
+  headstriker_conquest_sword: 2
+  fleshripper_fanged_knife: 2
+  shadowfang_two_handed_sword: 0.5
+  the_atlantian_ancient_sword: 0.5
+  kinemils_awl_giant_sword: 0.5
+  deathspade_axe: 0.5
+  bladebone_double_axe: 0.5
+  goreshovel_broad_axe: 0.5
+  the_humongous_giant_axe: 0.5
+  butchers_pupil_cleaver: 1
+  spellsteel_bearded_axe: 0.5
+  runemaster_ettin_axe: 1
+  hellslayer_decapitator: 1
+  messerschmidts_reaver_champion_axe: 1
+  deaths_cleaver_berserker_axe: 10
+  
+  # More maces
+  felloak_club: 0.5
+  bloodrise_morning_star: 0.5
+  dark_clan_crusher_cudgel: 0.5
+  sureshrill_frost_flanged_mace: 0.5
+  earthshaker_battle_hammer: 0.5
+  the_gavel_war_hammer: 0.5
+  schaefers_hammer_legendary_mallet: 10
+  stormlash_scourge: 15
+  horizonstornado_scourge: 1
+  baranar_star_devil_star: 5
+  
+  # More polearms
+  dimoaks_hew_bardiche: 0.5
+  blackleach_blade_bill: 0.5
+  husoldal_evo_bec_de_corbin: 0.5
+  kelpie_snare_fuscina: 1
+  athenas_wrath_battle_scythe: 0.5
+  stormspire_scythe: 3
+  tomb_reaver_stygian_pike: 30
+  wraithflight_ghost_glaive: 0.5
+  
+  # More bows
+  ichorsting_crossbow: 0.5
+  piercerib_composite_bow: 0.5
+  skystrike_edge_bow: 0.5
+  witchwild_string_double_bow: 3
+  endlesshail_double_bow: 0.5
+  demon_machine_chu_ko_nu: 1
+  gutsiphon_demon_crossbow: 0.5
+  hellrack_colossus_crossbow: 2
+  langer_briser_arbalest: 0.5
+  cliffkiller_long_battle_bow: 1
+  eaglehorn_crusader_bow: 5
+  windforce_hydra_bow: 15
+  lycanders_aim_ceremonial_pike: 2
+  kuko_shakaku_cedar_bow: 2
+  buriza_do_kyanon_ballista: 3
+  doomslinger_demon_crossbow: 0.5
+  
+  # More throwing
+  the_scalper_francisca: 0.5
+  deathbit_battle_dart: 0.5
+  gimmershred_flying_axe: 3
+  demons_arch_balrog_spear: 2
+  titans_revenge_ceremonial_javelin: 8
+  thunderstroke_matriarchal_javelin: 15
+  
+  # More daggers
+  gull_dagger: 1
+  wizardspike_bone_knife: 3
+  
+  # More wands
+  gravenspine_bone_wand: 0.5
+  suicidewand_burnt_wand: 1
+  arm_of_king_leoric_tomb_wand: 8
+  deaths_web_unearthed_wand: 50
+  
+  # More staves
+  the_salamander_battle_staff: 0.5
+  chromatic_ire_cedar_staff: 0.5
+  lazarus_spire_gnarled_staff: 0.5
+  ondals_wisdom_elder_staff: 2
+  mang_songs_lesson_archon_staff: 1
+  
+  # More orbs
+  the_oculus_swirling_crystal: 3
+  deaths_fathom_dimensional_shard: 30
+  eschutas_temper_dimensional_shard: 15
+  tal_rashas_lidless_eye_swirling_crystal: 10
+  
+  # More scepters
+  bloodrise_morning_star_scepter: 0.5
+  stormeye_war_scepter: 0.5
+  zakarums_hand_caduceus: 3
+  hand_of_blessed_light_divine_scepter: 2
+  
+  # More armor
+  pelta_lunata_buckler: 0.5
+  sparkmail_chain_mail: 0.5
+  goldskin_full_plate_mail: 2
+  ironpelt_trellised_armor: 2
+  the_spirit_shroud_ghost_armor: 1
+  twitchthroe_studded_leather: 1
+  victors_silk_ancient_armor: 0.5
+  venomsward_breast_plate: 0.5
+  skin_of_the_flayed_one_demonhide_armor: 1
+  atmas_wail_embossed_plate: 1
+  black_hades_chaos_armor: 1
+  duriels_shell_cuirass: 2
+  shaftstop_mesh_armor: 3
+  skullders_ire_russet_armor: 5
+  vipermagi_serpentskin_armor: 5
+  spiritforge_linked_mail: 3
+  crow_caw_studded_leather: 2
+  toothrow_riveted_leather: 1
+  rockfleece_field_plate: 1
+  arkaines_valor_balrog_skin: 3
+  tyraels_might_sacred_armor: 5
+  ormus_robes_dusk_shroud: 5
+  
+  # More helms
+  war_bonnet_cap: 0.5
+  tarnhelm_skull_cap: 0.5
+  biggins_bonnet_cap: 0.5
+  coif_of_glory_helm: 0.5
+  howltusk_great_helm: 0.5
+  dark_sight_helm_basinet: 1
+  wormskull_bone_helm: 1
+  duskdeep_full_helm: 1
+  undead_crown_crown: 1
+  rockstopper_sallet: 2
+  peasant_crown_war_hat: 2
+  stealskull_casque: 2
+  blood_spirit_blood_spirit: 1
+  demonhorns_edge_destroyer_helm: 1
+  arreats_face_slayer_guard: 8
+  jalals_mane_totemic_mask: 5
+  vampire_gaze_grim_helm: 5
+  giant_skull_bone_visage: 3
+  crown_of_ages_corona: 15
+  harlequin_crest_shako: 8
+  griffons_eye_diadem: 80
+  nightwings_veil_diadem: 30
+  valkyrie_wing_winged_helm: 5
+  kiras_guardian_tiara: 8
+  steelshade_spired_helm: 3
+  andariels_visage_demonhead: 5
+  
+  # More shields
+  wall_of_the_eyeless_bone_shield: 0.5
+  sigons_cover_tower_shield: 1
+  blade_barrier_blade_barrier: 1
+  spike_thorn_blade_barrier: 1
+  lance_guard_barbed_shield: 1
+  herald_of_zakarum_gilded_shield: 10
+  alma_negra_sacred_rondache: 5
+  medusas_gaze_aegis: 5
+  tiamats_rebuke_dragon_shield: 2
+  stormshield_monarch: 10
+  
+  # More belts
+  lenymo_sash: 0.5
+  nightsmoke_belt: 1
+  snakecord_heavy_belt: 0.5
+  bladebuckle_plated_belt: 0.5
+  goldwrap_heavy_belt: 2
+  razortail_sharkskin_belt: 3
+  string_of_ears_demonhide_sash: 3
+  tal_rashas_fine_spun_cloth_mesh_belt: 5
+  snowclash_battle_belt: 2
+  thundergods_vigor_war_belt: 5
+  verdungos_hearty_cord_mithril_coil: 8
+  arachnid_mesh_spiderweb_sash: 15
+  nosferatus_coil_vampirefang_belt: 5
+  
+  # More boots
+  hotspur_boots: 0.5
+  goblin_toe_light_plated_boots: 0.5
+  treads_of_cthbon_chain_boots: 0.5
+  gore_foot_heavy_boots: 0.5
+  tearhaunch_greaves: 1
+  infernostride_demonhide_boots: 2
+  waterwalk_sharkskin_boots: 3
+  silkweave_mesh_boots: 2
+  war_traveler_silkweave_boots: 8
+  gore_rider_myrmidon_greaves: 5
+  marrowwalk_boneweave_boots: 5
+  sandstorm_trek_scarabshell_boots: 8
+  shadow_dancer_myrmidon_greaves: 8
+  
+  # More gloves
+  the_hand_of_broc_leather_gloves: 0.5
+  bloodfist_heavy_gloves: 1
+  chance_guards_chain_gloves: 3
+  magefist_light_gauntlets: 3
+  frostburn_gauntlets: 3
+  venom_grip_demonhide_gloves: 1
+  lava_gout_battle_gauntlets: 1
+  hellmouth_war_gauntlets: 1
+  laying_of_hands_bramble_mitts: 3
+  steelrend_ogre_gauntlets: 5
+  draculs_grasp_vampirebone_gloves: 8
+  
+  # More rings
+  nagelring_ring: 0.5
+  manald_heal_ring: 0.5
+  ring_of_engagement_ring: 1
+  stone_of_jordan_ring: 8
+  raven_frost_ring: 5
+  dwarf_star_ring: 3
+  carrion_wind_ring: 5
+  natures_peace_ring: 5
+  wisp_projector_ring: 40
+  bul_kathos_wedding_band_ring: 8
+  
+  # More amulets
+  nokozan_relic_amulet: 0.5
+  angelic_wings_amulet: 1
+  tancreds_crow_amulet: 0.5
+  saracens_chance_amulet: 2
+  the_cats_eye_amulet: 5
+  highlords_wrath_amulet: 8
+  maras_kaleidoscope_amulet: 15
+  atmas_scarab_amulet: 3
+  seraphs_hymn_amulet: 5
+  
+  # More claws
+  blackbogs_sharp_cinquedeas: 0.5
+  jade_talon_suwayyah: 3
+  bartucs_cutthroat_suwayyah: 3
+  shadow_killer_battle_cestus: 2
+  firelizards_talons_scissors_suwayyah: 2
+  
+  # Class-specific uniques
+  arreats_face_slayer_guard_barbarian: 8
+  jalals_mane_totemic_mask_druid: 5
+  homunculus_zombie_head_necro: 5
+  boneflame_succubus_skull_necro: 5
+  darkforge_spawn_bloodlord_skull_necro: 3
+  herald_of_zakarum_gilded_shield_pally: 10
+  alma_negra_sacred_rondache_pally: 5
