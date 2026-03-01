@@ -236,3 +236,176 @@ run_d2lut_once_after_exit.bat
 2. Improve affix detection for magic items
 3. Add craft item recognition
 4. Expand GG combination database
+
+---
+
+# Session 2: 2026-03-01 (Continued)
+
+## User Messages (Verbatim)
+
+```
+file_name: ff05e402.csv
+Storage location: All uploaded files are saved to /home/z/my-project/upload/{file_name}
+...
+Да
+и сама переписка в чате
+что-то изменилось?
+собери билд
+сохрани всю историю чата
+```
+
+---
+
+## Session 2 Work Log
+
+### Task 1: Analyze OCR Errors
+- User uploaded CSV file with GG affixes data
+- Analyzed previous session's OCR errors:
+  - "AN EVIL FORCE" appearing instead of item names
+  - "MISSING STRING" localization errors
+  - OCR artifacts: "TReLL" → "Troll", "eF" → "of"
+
+### Task 2: Root Cause Analysis
+- **Problem:** `item-names.json` had only 6 entries instead of 1273
+- **Cause:** `build_d2r_filter.py` used minimal template as default
+- **Fix:** Changed `--base-json` default from `item-names.json` to `item-names-full.json`
+
+### Task 3: Code Changes
+
+**File: `/home/z/my-project/d2lut/scripts/build_d2r_filter.py`**
+```python
+# Before:
+parser.add_argument("--base-json", ..., default=str(APP_DIR / "data" / "templates" / "item-names.json"))
+
+# After:
+parser.add_argument("--base-json", ..., default=str(APP_DIR / "data" / "templates" / "item-names-full.json"))
+```
+
+### Task 4: Build Generation
+
+**Created: `/home/z/my-project/d2lut/scripts/generate_full_build.py`**
+- Generates `item-names.json` with 1273 items (266 with FG prices)
+- Generates `item-runes.json` with 33 runes and prices
+- Generates `item-nameaffixes.json` with 29 GG affixes
+- Uses `rune_prices.yml` and hardcoded unique prices
+
+### Build Output
+
+| File | Items | With Prices |
+|------|-------|-------------|
+| `output/item-names.json` | 1273 | 266 |
+| `output/item-runes.json` | 33 | 33 |
+| `output/item-nameaffixes.json` | 29 | 29 |
+
+### Sample Prices Generated
+
+**Runes:**
+```
+Jah Rune → 50 FG
+Ber Rune → 55 FG
+Sur Rune → 25 FG
+Ohm Rune → 15 FG
+Lo Rune → 12 FG
+```
+
+**GG Affixes:**
+```
+Jeweler's → 2000 FG (4os)
+of Deflecting → 1000 FG (20fbr)
+of the Magus → 500 FG (20fcr)
+of Quickness → 500 FG (40ias)
+```
+
+**Uniques:**
+```
+Shako → 30 FG
+Arachnid Mesh → 25 FG
+Mara's Kaleidoscope → 20 FG
+Enigma → 50 FG
+Call to Arms → 20 FG
+```
+
+---
+
+## Git Commits
+
+```
+d2lut:
+  c82ed71: fix: use item-names-full.json as default base template
+  2187791: feat: add generate_full_build.py for static loot filter generation
+
+main repo:
+  954597c: fix: use item-names-full.json as default base template
+  f6c070c: update d2lut submodule with item-names-full.json fix
+```
+
+---
+
+## Files Modified/Created
+
+| File | Action |
+|------|--------|
+| `scripts/build_d2r_filter.py` | Modified: default --base-json |
+| `scripts/generate_full_build.py` | Created: static build generator |
+| `output/item-names.json` | Generated: 1273 items |
+| `output/item-runes.json` | Generated: 33 runes |
+| `output/item-nameaffixes.json` | Generated: 29 affixes |
+| `docs/chat_history_session_export.md` | Updated: this document |
+
+---
+
+## Installation Instructions
+
+Copy generated files to game mod folder:
+```
+D:\Diablo II Resurrected\mods\d2lut\d2lut.mpq\data\local\lng\strings\
+├── item-names.json
+├── item-nameaffixes.json
+└── item-runes.json
+```
+
+---
+
+## Technical Details
+
+### Input CSV Format (ff05e402.csv)
+```csv
+Category,Name,Property,Affix Level,Level Req,Item Types,Rarity,Group
+Magic,Stalwart,+33 to 40 Defense,32,24,large charm,magic only,101
+Magic,Jeweler's,Socketed (4),55,47,"weapon, any shield, helm, armor",magic only,122
+```
+
+### Rune Price Config (rune_prices.yml)
+```yaml
+prices:
+  "Jah": 50
+  "Ber": 55
+  "Sur": 25
+  "Lo": 12
+  "Ohm": 15
+  ...
+```
+
+### Price Formatting
+- Prices ≥ 1 FG: integer format (e.g., "50 FG")
+- Prices < 1 FG: decimal format (e.g., "0.5 FG")
+- Color tags: `ÿc1` for red (GG), `ÿc0` for reset
+
+---
+
+## Remaining Issues
+
+1. **More item prices needed** - Only 266 of 1273 items have prices
+2. **Unique/Set items** - Need complete unique/set item price database
+3. **Runewords** - Need runeword price calculations
+4. **Magic item combos** - Need complete GG combination database
+
+---
+
+## Future Improvements
+
+1. Scrape d2jsp for live prices (blocked by Cloudflare)
+2. Add diablo2.io price API integration
+3. Expand unique/set item price database
+4. Add LLD (Low Level Dueling) price tiers
+5. Implement roll-based pricing for variable items
