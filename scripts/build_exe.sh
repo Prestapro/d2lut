@@ -49,7 +49,9 @@ fi
 if [ -f "data/cache/d2lut.db" ]; then
     cp data/cache/d2lut.db dist/D2R_Filter_Generator/data/cache/
 else
-    echo "Warning: d2lut.db not found. The distribution folder won't have the starting database."
+    echo "Warning: d2lut.db not found. Using static prices instead."
+    python3 scripts/generate_static_item_names.py
+    cp data/templates/item-names.json dist/D2R_Filter_Generator/data/templates/
 fi
 
 echo "Created deployment folder at: dist/D2R_Filter_Generator"

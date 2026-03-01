@@ -57,7 +57,10 @@ if exist "config" (
 if exist "data\cache\d2lut.db" (
     copy /y "data\cache\d2lut.db" "dist\D2R_Filter_Generator\data\cache\" >nul
 ) else (
-    echo Warning: data\cache\d2lut.db not found. The distribution folder won't have the starting database.
+    echo Warning: data\cache\d2lut.db not found. Using static prices instead.
+    echo Running static price generator...
+    python scripts\generate_static_item_names.py
+    copy /y "data\templates\item-names.json" "dist\D2R_Filter_Generator\data\templates\" >nul
 )
 
 echo Created deployment folder at: dist\D2R_Filter_Generator
