@@ -6,7 +6,6 @@ import asyncio
 import atexit
 import logging
 from concurrent.futures import ThreadPoolExecutor
-from datetime import datetime
 from typing import Iterable
 
 from ..models import MarketPost, PriceObservation
@@ -74,7 +73,7 @@ class D2JspCollector:
 
             # Check if we're already in an async context
             try:
-                loop = asyncio.get_running_loop()
+                asyncio.get_running_loop()  # Raises RuntimeError if no loop
                 # We're in async context - run in thread pool with new loop
                 logger.debug("Running in async context, using thread pool")
                 executor = _get_executor()

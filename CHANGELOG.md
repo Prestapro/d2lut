@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.5] - 2026-03-02
+
+### Fixed
+- Removed unused `json` import in `build_d2r_filter.py`
+- Removed unused `datetime` import in `d2jsp.py`
+- Removed unused `loop` variable assignment in `d2jsp.py`
+
+### Added
+- Created missing `LICENSE` file (MIT License)
+
 ## [0.3.4] - 2026-03-02
 
 ### Fixed
