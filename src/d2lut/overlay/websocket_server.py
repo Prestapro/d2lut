@@ -140,8 +140,8 @@ class WebSocketServer:
         """Serve WebSocket connections."""
         import websockets
         
-        async def handler(websocket, path):
-            """Handle a WebSocket connection."""
+        async def handler(websocket):
+            """Handle a WebSocket connection (websockets 15.x compatible)."""
             self.clients.add(websocket)
             client_addr = websocket.remote_address
             logger.info(f"Client connected: {client_addr}")
@@ -288,11 +288,38 @@ class WebSocketServer:
 
 # Singleton instance
 _server_instance: WebSocketServer | None = None
+_server_config: tuple[str, int] | None = None
 
 
 def get_server(host: str = "localhost", port: int = 8765) -> WebSocketServer:
-    """Get or create the WebSocket server singleton."""
-    global _server_instance
+    """Get or create the WebSocket server singleton.
+    
+    If host or port differs from the existing instance, a warning is logged
+    and the existing instance is returned (to avoid port conflicts).
+    """
+    global _server_instance, _server_config
+    
+    new_config = (host, port)
+    
     if _server_instance is None:
         _server_instance = WebSocketServer(host=host, port=port)
+        _server_config = new_config
+        logger.debug(f"Created new WebSocket server instance: {host}:{port}")
+    elif _server_config != new_config:
+        logger.warning(
+            f"WebSocket server already running on {_server_config[0]}:{_server_config[1]}. "
+            f"Ignoring new config {host}:{port}. Stop and recreate to change address."
+        )
+    
     return _server_instance
+
+
+def reset_server() -> None:
+    """Reset the WebSocket server singleton (for testing or config changes)."""
+    global _server_instance, _server_config
+    
+    if _server_instance is not None and _server_instance._running:
+        _server_instance.stop()
+    
+    _server_instance = None
+    _server_config = None

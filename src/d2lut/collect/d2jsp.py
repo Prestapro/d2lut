@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import logging
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from typing import Iterable, Iterator
 
@@ -9,12 +10,15 @@ from d2lut.models import MarketPost
 
 logger = logging.getLogger(__name__)
 
+# Thread pool for running async code from sync context
+_executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="d2lut-collector")
+
 
 @dataclass(slots=True)
 class D2JspCollectorConfig:
     forum_id: int
     public_only: bool = True
-    user_agent: str = "d2lut/0.2.7"
+    user_agent: str = "d2lut/0.2.8"
     use_live_collector: bool = True  # Use Playwright-based collector
 
 
@@ -48,7 +52,6 @@ class D2JspCollector:
             config = CollectorConfig(forum_id=self.config.forum_id)
             collector = LiveCollector(config)
             
-            # Use asyncio.run() for Python 3.10+ compatibility
             async def _run_collection():
                 if not await collector.initialize():
                     logger.warning("LiveCollector failed to initialize")
@@ -58,17 +61,17 @@ class D2JspCollector:
                 logger.info("LiveCollector scan complete: %d observations", len(result.observations))
                 return result.observations
             
+            # Check if we're already in an async context
             try:
-                # Try asyncio.run() first (Python 3.10+)
-                observations = asyncio.run(_run_collection())
+                loop = asyncio.get_running_loop()
+                # We're in an async context - run in thread pool to avoid "loop already running"
+                logger.debug("Running collector in thread pool (async context detected)")
+                observations = _executor.submit(
+                    lambda: asyncio.run(_run_collection())
+                ).result(timeout=120)
             except RuntimeError:
-                # Fallback for environments with existing loop
-                try:
-                    loop = asyncio.get_running_loop()
-                except RuntimeError:
-                    loop = asyncio.new_event_loop()
-                    asyncio.set_event_loop(loop)
-                observations = loop.run_until_complete(_run_collection())
+                # No running loop - safe to use asyncio.run()
+                observations = asyncio.run(_run_collection())
             
             # Convert PriceObservations to MarketPosts with correct field mapping
             for obs in observations:
@@ -89,8 +92,8 @@ class D2JspCollector:
             # Playwright not installed - log clearly
             logger.warning("Playwright not installed, cannot use live collector: %s", e)
             logger.info("Install with: pip install playwright && playwright install")
-            return iter([])
+            return  # Just return - generator stops
         except Exception as e:
             # Log actual error instead of silently returning empty
             logger.error("LiveCollector failed: %s", e, exc_info=True)
-            return iter([])
+            return  # Just return - generator stops

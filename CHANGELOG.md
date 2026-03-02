@@ -2,6 +2,28 @@
 
 ---
 
+## v0.2.9
+
+Critical Fixes
+- Fixed asyncio fallback - now uses ThreadPoolExecutor when called from async context (prevented RuntimeError: This event loop is already running)
+- Fixed WebSocket handler signature for websockets 15.x compatibility (removed unused `path` parameter)
+
+Bug Fixes
+- Fixed D2RFilterExporter to add section headers for each tier (GG/HIGH/MID/LOW/TRASH)
+- Fixed generator return - removed misleading `return iter([])` (just `return` now)
+- Fixed WebSocket singleton config - now logs warning when host/port differs from running instance
+
+Changes
+- Added `reset_server()` function to properly recreate WebSocket server with new config
+- Improved error handling and logging throughout
+
+Changelog
+Full Changelog: v0.2.8...v0.2.9
+
+#bad083c fix: asyncio fallback and websockets 15.x compatibility @Z User
+
+---
+
 ## v0.2.8
 
 Bug Fixes
