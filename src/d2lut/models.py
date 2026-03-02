@@ -16,6 +16,7 @@ class MarketPost:
     body_text: str
     author: str
     url: str
+    thread_category_id: Optional[int] = None
 
 
 @dataclass(slots=True)

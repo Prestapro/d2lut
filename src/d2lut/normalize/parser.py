@@ -57,7 +57,7 @@ _ITEM_PATTERNS = {
     "unique:bk": re.compile(r"\bbk\s*(?:ring|wedding)?\b|\bbul[\'\-]?kathos\b", re.I),
     "unique:maras": re.compile(r"\bmaras?\b|\bmara\b", re.I),
     "unique:highlords": re.compile(r"\bhighlords?\b", re.I),
-    "unique:tyraels": re.compile(r"\btyraels?\b|\bmight\b", re.I),
+    "unique:tyraels": re.compile(r"\btyraels?\s*(?:might)?\b", re.I),
     
     # Runewords
     "runeword:enigma": re.compile(r"\benigma\b|\bnigma\b", re.I),
@@ -99,7 +99,7 @@ class MarketParser:
         """Parse a single post."""
         result = ParseResult()
         
-        text = post.body or ""
+        text = post.body_text or ""  # Fixed: was post.body
         title = post.title or ""
         combined = f"{title} {text}"
         
@@ -138,6 +138,7 @@ class MarketParser:
                     sold_fg=best_price["price"] if best_price["type"] == "sold" else None,
                     confidence=best_price["confidence"],
                     source_url=post.url,
+                    thread_category_id=post.thread_category_id,  # Pass category for weighting
                 )
                 result.observations.append(obs)
         

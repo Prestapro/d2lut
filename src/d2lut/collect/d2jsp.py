@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 from dataclasses import dataclass
 from typing import Iterable, Iterator
 
@@ -10,7 +11,7 @@ from d2lut.models import MarketPost
 class D2JspCollectorConfig:
     forum_id: int
     public_only: bool = True
-    user_agent: str = "d2lut/0.2.3"
+    user_agent: str = "d2lut/0.2.5"
     use_live_collector: bool = True  # Use Playwright-based collector
 
 
@@ -43,32 +44,40 @@ class D2JspCollector:
             config = CollectorConfig(forum_id=self.config.forum_id)
             collector = LiveCollector(config)
             
-            # Run single scan synchronously
-            import asyncio
+            # Use asyncio.run() for Python 3.10+ compatibility
+            async def _run_collection():
+                if not await collector.initialize():
+                    return []
+                result = await collector.scan_forum()
+                await collector.shutdown()
+                return result.observations
+            
             try:
-                loop = asyncio.get_event_loop()
+                # Try asyncio.run() first (Python 3.10+)
+                observations = asyncio.run(_run_collection())
             except RuntimeError:
-                loop = asyncio.new_event_loop()
-                asyncio.set_event_loop(loop)
+                # Fallback for environments with existing loop
+                try:
+                    loop = asyncio.get_running_loop()
+                except RuntimeError:
+                    loop = asyncio.new_event_loop()
+                    asyncio.set_event_loop(loop)
+                observations = loop.run_until_complete(_run_collection())
             
-            if not loop.run_until_complete(collector.initialize()):
-                return iter([])
-            
-            result = loop.run_until_complete(collector.scan_forum())
-            
-            # Convert PriceObservations to MarketPosts
-            for obs in result.observations:
+            # Convert PriceObservations to MarketPosts with correct field mapping
+            for obs in observations:
                 yield MarketPost(
-                    post_id=f"{obs.topic_id}_{obs.post_id}",
+                    source="d2jsp",
+                    forum_id=self.config.forum_id,
+                    thread_id=obs.topic_id,
+                    post_id=obs.post_id,
+                    timestamp=obs.timestamp,  # datetime, not isoformat string!
                     title=obs.item_name,
-                    body=obs.raw_text,
+                    body_text=obs.raw_text,  # body_text, not body!
                     author=obs.author,
-                    timestamp=obs.timestamp.isoformat(),
                     url=f"https://forums.d2jsp.org/topic.php?t={obs.topic_id}",
-                    category_id=obs.category_id,
+                    thread_category_id=obs.category_id,  # Pass category_id for weighting
                 )
-            
-            loop.run_until_complete(collector.shutdown())
             
         except ImportError:
             # Playwright not installed, return empty

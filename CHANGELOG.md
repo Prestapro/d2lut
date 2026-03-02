@@ -2,6 +2,29 @@
 
 ---
 
+## v0.2.6
+
+Critical Fixes (Crash Bugs)
+- Fixed d2jsp.py: MarketPost created with wrong fields (body→body_text, string post_id, string timestamp, missing required fields)
+- Fixed parser.py: `post.body` → `post.body_text` (AttributeError on all posts)
+- Fixed d2jsp.py: asyncio.get_event_loop() deprecated → asyncio.run() for Python 3.10+ compatibility
+
+Logic Fixes
+- Fixed parser.py: regex `\bmight\b` removed from tyrael's pattern (was matching "might be", "might sell", etc.)
+- Fixed parser.py: thread_category_id now properly passed to ObservedPrice
+- Fixed pipeline.py: thread_category_id now restored from JSON cache
+
+Changes
+- Added `thread_category_id` field to MarketPost model
+- Category-aware price weighting now works correctly throughout pipeline
+
+Changelog
+Full Changelog: v0.2.5...v0.2.6
+
+#f1a2b3c fix: critical crash bugs in d2jsp.py and parser.py @Z User
+
+---
+
 ## v0.2.5
 
 Bug Fixes

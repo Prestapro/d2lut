@@ -45,6 +45,7 @@ def run_pipeline(data_dir: str = "data", use_live: bool = True) -> None:
                     sold_fg=o.get("sold_fg"),
                     confidence=o.get("confidence", 0.5),
                     source_url=o.get("source_url", ""),
+                    thread_category_id=o.get("thread_category_id"),  # Restore from cache
                 )
                 for o in cached
             ]
