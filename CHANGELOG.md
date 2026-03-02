@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.9] - 2026-03-02
+
+### Fixed
+- **Critical**: Removed duplicate `unique:botd` and `unique:etherealdeath` (BotD/Ethereal Death are runewords only)
+- **High**: Implemented preset logic in `build_d2r_filter.py` - presets.yml now actually works
+- **Medium**: Fixed hardcoded `timeout=15000` in `_scan_topic` - now uses `config.timeout`
+- **Medium**: Fixed Playwright `TimeoutError` not being caught (different from Python builtin)
+
+### Added
+- `PresetConfig` dataclass for preset configuration
+- `load_preset_config()` function to load presets from `config/presets.yml`
+- Preset features now work: `price_threshold`, `hide_low_value`, `show_trash`, `tier_visibility`
+- Tests now actually test d2lut code (`find_items_in_text`, `find_best_price_in_text`, etc.)
+
+### Changed
+- `build_filter()` and `_build_item_line()` now use `PresetConfig` settings
+- `_scan_topic()` now uses `self.config.timeout` instead of hardcoded 15000
+- Tests properly import and test d2lut modules
+
 ## [0.3.8] - 2026-03-02
 
 ### Fixed

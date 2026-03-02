@@ -14,10 +14,12 @@ import argparse
 import logging
 import sqlite3
 import sys
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
 from typing import Optional
+
+import yaml
 
 # Setup logging
 logging.basicConfig(
@@ -69,12 +71,80 @@ class PricedItem:
     category: str = "misc"
 
 
+@dataclass
+class PresetConfig:
+    """Configuration for a filter preset."""
+    name: str
+    description: str = ""
+    show_trash: bool = False
+    show_prices: bool = True
+    show_tier_colors: bool = True
+    show_bases: bool = True
+    hide_low_value: bool = False
+    price_threshold: float = 0
+    tier_visibility: dict = field(default_factory=dict)
+    display_format: str = "{color}{name} {price_color}[{price} FG]"
+
+
+def load_preset_config(preset_name: str) -> PresetConfig:
+    """Load preset configuration from presets.yml.
+
+    Args:
+        preset_name: Name of the preset to load
+
+    Returns:
+        PresetConfig with loaded settings or default if not found
+    """
+    # Find presets.yml
+    script_dir = Path(__file__).parent
+    config_path = script_dir.parent / "config" / "presets.yml"
+
+    if not config_path.exists():
+        logger.warning(f"Presets file not found: {config_path}, using defaults")
+        return PresetConfig(name=preset_name)
+
+    try:
+        with open(config_path, "r", encoding="utf-8") as f:
+            config = yaml.safe_load(f)
+
+        presets = config.get("presets", {})
+        tier_visibility = config.get("tier_visibility", {})
+        display_formats = config.get("display_formats", {})
+
+        if preset_name not in presets:
+            logger.warning(f"Preset '{preset_name}' not found, using defaults")
+            return PresetConfig(name=preset_name)
+
+        preset_data = presets[preset_name]
+        tier_vis = tier_visibility.get(preset_name, {})
+        format_data = display_formats.get(preset_name, {})
+        display_format = format_data.get("format", "{color}{name} {price_color}[{price} FG]")
+
+        return PresetConfig(
+            name=preset_data.get("name", preset_name),
+            description=preset_data.get("description", ""),
+            show_trash=preset_data.get("show_trash", False),
+            show_prices=preset_data.get("show_prices", True),
+            show_tier_colors=preset_data.get("show_tier_colors", True),
+            show_bases=preset_data.get("show_bases", True),
+            hide_low_value=preset_data.get("hide_low_value", False),
+            price_threshold=preset_data.get("price_threshold", 0),
+            tier_visibility=tier_vis,
+            display_format=display_format,
+        )
+
+    except yaml.YAMLError as e:
+        logger.error(f"Error parsing presets.yml: {e}")
+        return PresetConfig(name=preset_name)
+
+
 class FilterBuilder:
     """Builds D2R item filter files."""
 
     def __init__(self, db_path: Optional[Path] = None, preset: str = "default"):
         self.db_path = db_path
         self.preset = preset
+        self.preset_config = load_preset_config(preset)
         self.items: list[PricedItem] = []
 
     def load_prices(self) -> None:
@@ -305,18 +375,38 @@ class FilterBuilder:
         logger.info(f"Loaded {len(self.items)} default prices")
 
     def build_filter(self, output_path: Path) -> None:
-        """Build the filter file."""
+        """Build the filter file using preset configuration."""
         lines = []
+        cfg = self.preset_config
+
+        # Filter items by price threshold
+        if cfg.hide_low_value and cfg.price_threshold > 0:
+            filtered_items = [i for i in self.items if i.price_fg >= cfg.price_threshold]
+            logger.info(f"Filtered to {len(filtered_items)} items (threshold: {cfg.price_threshold} FG)")
+        else:
+            filtered_items = self.items
 
         # Header
         lines.append(f"# D2R Loot Filter - Built {datetime.now().isoformat()}")
-        lines.append(f"# Preset: {self.preset}")
-        lines.append(f"# Items: {len(self.items)}")
+        lines.append(f"# Preset: {cfg.name}")
+        lines.append(f"# Description: {cfg.description}")
+        lines.append(f"# Items: {len(filtered_items)}")
         lines.append("")
 
-        # Add filter rules by tier
-        for tier in ["GG", "HIGH", "MID", "LOW", "TRASH"]:
-            tier_items = [i for i in self.items if i.tier == tier]
+        # Determine tier order based on preset
+        tier_order = ["GG", "HIGH", "MID", "LOW", "TRASH"]
+
+        # Add filter rules by tier (respecting tier_visibility)
+        for tier in tier_order:
+            # Skip TRASH tier unless show_trash is True
+            if tier == "TRASH" and not cfg.show_trash:
+                continue
+
+            # Check tier visibility
+            if cfg.tier_visibility and not cfg.tier_visibility.get(tier, True):
+                continue
+
+            tier_items = [i for i in filtered_items if i.tier == tier]
             if tier_items:
                 lines.append(f"# === {tier} TIER ({len(tier_items)} items) ===")
                 lines.append("")
@@ -331,8 +421,14 @@ class FilterBuilder:
         logger.info(f"Filter written to: {output_path}")
 
     def _build_item_line(self, item: PricedItem) -> str:
-        """Build a single filter line for an item."""
-        color = TIER_COLORS.get(item.tier, COLORS["WHITE"])
+        """Build a single filter line for an item using preset config."""
+        cfg = self.preset_config
+
+        # Get color based on tier (or white if show_tier_colors is False)
+        if cfg.show_tier_colors:
+            color = TIER_COLORS.get(item.tier, COLORS["WHITE"])
+        else:
+            color = COLORS["WHITE"]
 
         # Format price display
         if item.price_fg >= 100:
@@ -342,9 +438,11 @@ class FilterBuilder:
         else:
             price_str = f"{item.price_fg:.1f}"
 
-        # Build the display format
-        # D2R filter syntax: ItemDisplay[NAME]: %COLOR%%NAME% %PRICE%
-        return f'ItemDisplay[{item.name}]: {color}{item.name} {COLORS["GOLD"]}[{price_str} FG]'
+        # Build the display format using preset config
+        if cfg.show_prices:
+            return f'ItemDisplay[{item.name}]: {color}{item.name} {COLORS["GOLD"]}[{price_str} FG]'
+        else:
+            return f'ItemDisplay[{item.name}]: {color}{item.name}'
 
 
 def main() -> int:

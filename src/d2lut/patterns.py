@@ -159,8 +159,7 @@ _ITEM_PATTERN_DEFS: Final[dict[str, str]] = {
     "unique:demonlimb": r"\bdemon\s*limb\b|\bdemonlimb\b",
 
     # Uniques - Weapons (Melee)
-    "unique:botd": r"\bbreath\s*of\s*the\s*dying\b|\bbotd\b",
-    "unique:etherealdeath": r"\bethereal\s*death\b",
+    # Note: BotD and Ethereal Death are runewords, not uniques - see runeword:botd and runeword:edeath
     "unique:deathcleaver": r"\bdeath\s*cleaver\b",
     "unique:lightsabre": r"\blight\s*sabre?\b|\blightsabre\b|\bls\b",
     "unique:doombringer": r"\bdoombringer\b",

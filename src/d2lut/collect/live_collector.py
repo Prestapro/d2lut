@@ -186,7 +186,9 @@ class LiveCollector:
             List of PriceObservation objects (empty list on error)
         """
         try:
-            await self._page.goto(url, wait_until="networkidle", timeout=15000)
+            # Use config timeout (converted to milliseconds)
+            timeout_ms = self.config.timeout * 1000
+            await self._page.goto(url, wait_until="networkidle", timeout=timeout_ms)
 
             # Extract topic ID from URL
             topic_id = 0
@@ -202,7 +204,11 @@ class LiveCollector:
             logger.debug(f"Timeout scanning topic {url}")
             return []
         except Exception as e:
-            logger.debug(f"Error scanning topic {url}: {type(e).__name__}: {e}")
+            # Catch Playwright TimeoutError and other errors
+            if "Timeout" in type(e).__name__:
+                logger.debug(f"Playwright timeout scanning topic {url}")
+            else:
+                logger.debug(f"Error scanning topic {url}: {type(e).__name__}: {e}")
             return []
 
     def _parse_topic_content(
