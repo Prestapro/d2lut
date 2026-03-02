@@ -1,17 +1,20 @@
 from __future__ import annotations
 
 import asyncio
+import logging
 from dataclasses import dataclass
 from typing import Iterable, Iterator
 
 from d2lut.models import MarketPost
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass(slots=True)
 class D2JspCollectorConfig:
     forum_id: int
     public_only: bool = True
-    user_agent: str = "d2lut/0.2.5"
+    user_agent: str = "d2lut/0.2.7"
     use_live_collector: bool = True  # Use Playwright-based collector
 
 
@@ -34,6 +37,7 @@ class D2JspCollector:
         """
         if self.config.use_live_collector:
             return self._fetch_via_live_collector()
+        logger.info("Static mode: returning empty iterator (not implemented)")
         return iter([])  # Empty iterator for static mode
 
     def _fetch_via_live_collector(self) -> Iterator[MarketPost]:
@@ -47,9 +51,11 @@ class D2JspCollector:
             # Use asyncio.run() for Python 3.10+ compatibility
             async def _run_collection():
                 if not await collector.initialize():
+                    logger.warning("LiveCollector failed to initialize")
                     return []
                 result = await collector.scan_forum()
                 await collector.shutdown()
+                logger.info("LiveCollector scan complete: %d observations", len(result.observations))
                 return result.observations
             
             try:
@@ -79,8 +85,12 @@ class D2JspCollector:
                     thread_category_id=obs.category_id,  # Pass category_id for weighting
                 )
             
-        except ImportError:
-            # Playwright not installed, return empty
+        except ImportError as e:
+            # Playwright not installed - log clearly
+            logger.warning("Playwright not installed, cannot use live collector: %s", e)
+            logger.info("Install with: pip install playwright && playwright install")
             return iter([])
-        except Exception:
+        except Exception as e:
+            # Log actual error instead of silently returning empty
+            logger.error("LiveCollector failed: %s", e, exc_info=True)
             return iter([])

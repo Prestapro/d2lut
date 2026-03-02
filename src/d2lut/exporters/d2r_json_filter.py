@@ -176,8 +176,13 @@ class D2RJsonFilterExporter:
                 
             if kind in ("unique", "set"):
                 # Exact match against canonical ID
+                # Try variant_key first (if DB stores "unique:shako"), then try slug ("shako")
                 cur = conn.execute("SELECT source_key, display_name FROM catalog_items WHERE canonical_item_id = ?", (variant_key,))
                 rows = cur.fetchall()
+                if not rows:
+                    # Fallback: try with slug only (in case DB stores "shako" not "unique:shako")
+                    cur = conn.execute("SELECT source_key, display_name FROM catalog_items WHERE canonical_item_id = ?", (slug,))
+                    rows = cur.fetchall()
                 if rows:
                     source_keys = [r["source_key"] for r in rows if r["source_key"]]
                     if source_keys:
@@ -190,8 +195,12 @@ class D2RJsonFilterExporter:
                 
             if kind in ("prefix", "suffix", "automagic", "rareprefix", "raresuffix"):
                 # Always exact match via canonical ID to affix name, never guess "of X"
+                # Try variant_key first, then slug
                 cur = conn.execute("SELECT affix_name FROM catalog_affixes WHERE affix_id = ?", (variant_key,))
                 rows = cur.fetchall()
+                if not rows:
+                    cur = conn.execute("SELECT affix_name FROM catalog_affixes WHERE affix_id = ?", (slug,))
+                    rows = cur.fetchall()
                 if rows:
                     return [r["affix_name"] for r in rows if r["affix_name"]]
                 return []
@@ -199,6 +208,9 @@ class D2RJsonFilterExporter:
             if kind == "base":
                 cur = conn.execute("SELECT source_key FROM catalog_items WHERE canonical_item_id = ?", (variant_key,))
                 rows = cur.fetchall()
+                if not rows:
+                    cur = conn.execute("SELECT source_key FROM catalog_items WHERE canonical_item_id = ?", (slug,))
+                    rows = cur.fetchall()
                 if rows:
                     return [r["source_key"] for r in rows if r["source_key"]]
                 

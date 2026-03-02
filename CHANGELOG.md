@@ -2,6 +2,24 @@
 
 ---
 
+## v0.2.8
+
+Bug Fixes
+- Fixed SQL queries in `get_source_keys()` - now tries both `variant_key` and `slug` for DB lookups
+- Added logging to `D2JspCollector` instead of silently returning empty results on errors
+- Clear error message when Playwright not installed
+
+Changes
+- `D2JspCollector` now logs warnings and errors instead of silently failing
+- Better feedback for debugging live collection issues
+
+Changelog
+Full Changelog: v0.2.7...v0.2.8
+
+#3622c38 fix: SQL lookups and add logging @Z User
+
+---
+
 ## v0.2.7
 
 Bug Fixes
