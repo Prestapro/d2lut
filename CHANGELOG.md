@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.6] - 2026-03-02
+
+### Fixed
+- **Critical**: `signal_kind` was always `"bin"` in `ObservedPrice` - now properly extracted from price pattern
+- **Medium**: Removed unused `beautifulsoup4` dependency from `[scraper]` extras
+- **Medium**: Fixed duplicated price patterns between `parser.py` and `live_collector.py`
+- **Low**: Removed redundant `observations = []` initialization in `_scan_topic`
+- **Low**: Improved exception handling in `_scan_topic` - now catches `TimeoutError` separately
+
+### Added
+- New `patterns.py` module with shared `PRICE_PATTERNS` and `SIGNAL_CONFIDENCE` constants
+- `signal_kind` field now properly populated with "sold", "bin", "ask", "co", or "fg"
+
+### Changed
+- Refactored `models.py` to use `from __future__ import annotations` and `|` union syntax
+- Both `parser.py` and `live_collector.py` now use shared patterns from `patterns.py`
+- Improved DRY compliance - single source of truth for price patterns
+
 ## [0.3.5] - 2026-03-02
 
 ### Fixed

@@ -10,9 +10,9 @@ import logging
 import re
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Optional
 
 from ..models import PriceObservation
+from ..patterns import PRICE_PATTERNS, get_signal_confidence
 
 logger = logging.getLogger(__name__)
 
@@ -36,8 +36,24 @@ class ScanResult:
     pages_scanned: int = 0
     posts_processed: int = 0
     errors: list[str] = field(default_factory=list)
-    started_at: Optional[datetime] = None
-    finished_at: Optional[datetime] = None
+    started_at: datetime | None = None
+    finished_at: datetime | None = None
+
+
+# Item patterns for quick lookup (lowercase name -> variant_key)
+_ITEM_LOOKUP = {
+    "jah": "rune:jah",
+    "ber": "rune:ber",
+    "enigma": "runeword:enigma",
+    "infinity": "runeword:infinity",
+    "cta": "runeword:cta",
+    "shako": "unique:shako",
+    "arach": "unique:arachnid",
+    "arachnid": "unique:arachnid",
+    "mara": "unique:mara",
+    "torch": "unique:torch",
+    "anni": "unique:anni",
+}
 
 
 class LiveCollector:
@@ -174,9 +190,14 @@ class LiveCollector:
         return links
 
     async def _scan_topic(self, url: str) -> list[PriceObservation]:
-        """Scan a single topic for price observations."""
-        observations = []
+        """Scan a single topic for price observations.
 
+        Args:
+            url: Topic URL to scan
+
+        Returns:
+            List of PriceObservation objects (empty list on error)
+        """
         try:
             await self._page.goto(url, wait_until="networkidle", timeout=15000)
 
@@ -186,89 +207,76 @@ class LiveCollector:
             if match:
                 topic_id = int(match.group(1))
 
-            # Get page content
+            # Get page content and parse
             content = await self._page.content()
+            return self._parse_topic_content(content, topic_id)
 
-            # Parse for prices
-            observations = self._parse_topic_content(content, topic_id)
-
+        except TimeoutError:
+            logger.debug(f"Timeout scanning topic {url}")
+            return []
         except Exception as e:
-            logger.debug(f"Error scanning topic {url}: {e}")
-
-        return observations
+            logger.debug(f"Error scanning topic {url}: {type(e).__name__}: {e}")
+            return []
 
     def _parse_topic_content(
         self, content: str, topic_id: int
     ) -> list[PriceObservation]:
-        """Parse topic HTML content for price observations."""
-        observations = []
+        """Parse topic HTML content for price observations.
 
-        # Price patterns
-        price_patterns = [
-            (re.compile(r"bin\s*:?\s*(\d+)", re.I), "bin"),
-            (re.compile(r"(\d+(?:\.\d+)?)\s*fg", re.I), "fg"),
-            (re.compile(r"sold\s*:?\s*(\d+)", re.I), "sold"),
-            (re.compile(r"(\d+)\s*forum\s*gold", re.I), "fg"),
+        Args:
+            content: HTML content of the topic page
+            topic_id: Topic ID for observations
+
+        Returns:
+            List of PriceObservation objects
+        """
+        # Find items mentioned (quick lowercase lookup)
+        content_lower = content.lower()
+        items_found = [
+            variant_key
+            for item_name, variant_key in _ITEM_LOOKUP.items()
+            if item_name in content_lower
         ]
 
-        # Item patterns (simplified)
-        item_patterns = {
-            "jah": "rune:jah",
-            "ber": "rune:ber",
-            "enigma": "runeword:enigma",
-            "infinity": "runeword:infinity",
-            "cta": "runeword:cta",
-            "shako": "unique:shako",
-            "arach": "unique:arachnid",
-            "mara": "unique:mara",
-            "torch": "unique:torch",
-            "anni": "unique:anni",
-        }
-
-        # Find items mentioned
-        items_found = []
-        content_lower = content.lower()
-        for item_name, variant_key in item_patterns.items():
-            if item_name in content_lower:
-                items_found.append(variant_key)
-
         if not items_found:
-            return observations
+            return []
 
-        # Find prices - use best signal found (sold > bin > fg)
+        # Find best price using shared patterns
         best_price: float | None = None
         best_confidence = 0.0
+        best_signal_kind = "bin"
 
-        # Priority order: sold (0.9) > bin (0.8) > fg (0.7)
-        signal_confidence = {"sold": 0.9, "bin": 0.8, "fg": 0.7}
-
-        for pattern, signal_kind in price_patterns:
+        for pattern, signal_kind in PRICE_PATTERNS:
             match = pattern.search(content)
             if match:
                 try:
                     price = float(match.group(1))
-                    confidence = signal_confidence.get(signal_kind, 0.5)
-                    # Take first price found with highest confidence signal
+                    confidence = get_signal_confidence(signal_kind)
+                    # Take price with highest confidence signal
                     if best_price is None or confidence > best_confidence:
                         best_price = price
                         best_confidence = confidence
+                        best_signal_kind = signal_kind
                 except (ValueError, IndexError):
                     continue
 
         # Create observations if price found
-        if best_price is not None:
-            for variant_key in items_found[:3]:  # Limit items
-                obs = PriceObservation(
-                    item_name=variant_key.split(":")[-1],
-                    price_fg=best_price,
-                    topic_id=topic_id,
-                    post_id=0,
-                    author="unknown",
-                    timestamp=datetime.now(),
-                    raw_text=content[:500],
-                    confidence=best_confidence,
-                )
-                observations.append(obs)
+        if best_price is None:
+            return []
+
+        observations: list[PriceObservation] = []
+        for variant_key in items_found[:3]:  # Limit items per topic
+            obs = PriceObservation(
+                item_name=variant_key.split(":")[-1],
+                price_fg=best_price,
+                topic_id=topic_id,
+                post_id=0,
+                author="unknown",
+                timestamp=datetime.now(),
+                raw_text=content[:500],
+                confidence=best_confidence,
+            )
+            observations.append(obs)
 
         return observations
 

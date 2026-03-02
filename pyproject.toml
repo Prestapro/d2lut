@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "d2lut"
-version = "0.3.5"
+version = "0.3.6"
 description = "D2R Loot Value Pipeline - Parse d2jsp prices and generate loot filter"
 readme = "README.md"
 license = {text = "MIT"}
@@ -35,7 +35,6 @@ overlay = [
 ]
 scraper = [
     "playwright>=1.40.0",
-    "beautifulsoup4>=4.12.0",
     "requests>=2.31.0",
     "websockets>=12.0",
 ]

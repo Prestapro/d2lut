@@ -1,23 +1,24 @@
 """Data models for d2lut."""
 
+from __future__ import annotations
+
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Optional
 
 
 @dataclass(slots=True)
 class MarketPost:
     """A parsed post from d2jsp marketplace."""
-    post_id: Optional[int] = None
+    post_id: int | None = None
     title: str = ""
     body_text: str = ""
     author: str = ""
-    timestamp: Optional[datetime] = None
+    timestamp: datetime | None = None
     url: str = ""
     source: str = "d2jsp"
     forum_id: int = 0
     thread_id: int = 0
-    thread_category_id: Optional[int] = None
+    thread_category_id: int | None = None
 
 
 @dataclass(slots=True)
@@ -33,8 +34,8 @@ class ObservedPrice:
     forum_id: int = 0
     thread_id: int = 0
     post_id: int = 0
-    observed_at: Optional[datetime] = None
-    thread_category_id: Optional[int] = None
+    observed_at: datetime | None = None
+    thread_category_id: int | None = None
     raw_text: str = ""
 
 
@@ -45,7 +46,7 @@ class PriceEstimate:
     fg: float
     confidence: str = "low"  # low, medium, high
     n_observations: int = 0
-    last_updated: Optional[datetime] = None
+    last_updated: datetime | None = None
     price_range: tuple[float, float] = (0.0, 0.0)
 
 
