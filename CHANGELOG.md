@@ -2,6 +2,34 @@
 
 ---
 
+## v0.2.3
+
+New Features
+- Added crafting bases to base_potential.yml (glv, lrg, xvg, xhg for blood/hitpower crafts)
+- Added TZ (Trade Zone) color system with ÿc3 blue color for prices
+- Added complete perfect_rolls.yml with Torches, Annihilus, Rainbow Facets, and Runewords
+- Added new 'tz' preset with blue color pricing
+- Added gg_craft flag for craft-relevant items in base_potential.yml
+
+Changes
+- Expanded base_potential.yml from 36 to 90+ base items
+- Expanded perfect_rolls.yml from 26 to 80+ entries
+- Updated all presets to use TZ color styles
+- Added 7 new color styles: tz-blue, tz-gold, tz-orange, tz-red, tz-green, tz-blue-compact, tz-red-compact
+
+Stats
+- 1273 base items in dictionary
+- 90+ base potential hints
+- 80+ perfect roll definitions
+- 7 new color styles
+
+Changelog
+Full Changelog: v0.2.2...v0.2.3
+
+#b19cb79 feat: P1-P3 improvements for v0.2.3 @Z User
+
+---
+
 ## v0.2.2
 
 New Features
