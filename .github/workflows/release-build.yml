@@ -53,14 +53,14 @@ jobs:
         shell: bash
         run: |
           python -m pip install --upgrade pip
-          python -m pip install pyinstaller
+          python -m pip install pyinstaller pyyaml
 
       - name: Install build dependencies (Windows)
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
           python -m pip install --upgrade pip
-          python -m pip install pyinstaller
+          python -m pip install pyinstaller pyyaml
 
       - name: Build executable (Linux/macOS)
         if: runner.os != 'Windows'
@@ -73,6 +73,17 @@ jobs:
             --clean \
             --distpath "dist" \
             --workpath "build" \
+            --hidden-import yaml \
+            --hidden-import yaml.loader \
+            --hidden-import yaml.dumper \
+            --hidden-import yaml.constructor \
+            --hidden-import yaml.representer \
+            --hidden-import yaml.resolver \
+            --hidden-import yaml.scanner \
+            --hidden-import yaml.parser \
+            --hidden-import yaml.composer \
+            --hidden-import yaml.serializer \
+            --collect-all yaml \
             scripts/build_d2r_filter.py
 
       - name: Build executable (Windows)
@@ -88,6 +99,17 @@ jobs:
             --clean `
             --distpath "dist" `
             --workpath "build" `
+            --hidden-import yaml `
+            --hidden-import yaml.loader `
+            --hidden-import yaml.dumper `
+            --hidden-import yaml.constructor `
+            --hidden-import yaml.representer `
+            --hidden-import yaml.resolver `
+            --hidden-import yaml.scanner `
+            --hidden-import yaml.parser `
+            --hidden-import yaml.composer `
+            --hidden-import yaml.serializer `
+            --collect-all yaml `
             scripts/build_d2r_filter.py
 
       - name: Compute release version
@@ -109,11 +131,33 @@ jobs:
         shell: bash
         run: |
           PKG_ROOT="pkg/${APP_NAME}"
-          mkdir -p "$PKG_ROOT/data/cache" "$PKG_ROOT/data/templates" "$PKG_ROOT/output"
+          mkdir -p "$PKG_ROOT/data/cache" "$PKG_ROOT/data/templates" "$PKG_ROOT/config" "$PKG_ROOT/output"
           cp "dist/${{ matrix.pyinstaller_out }}" "$PKG_ROOT/"
+          
+          # Copy all templates (CRITICAL: item-names-full.json is the fix for AN EVIL FORCE)
+          cp data/templates/item-names-full.json "$PKG_ROOT/data/templates/"
+          cp data/templates/item-runes.json "$PKG_ROOT/data/templates/"
+          cp data/templates/item-nameaffixes.json "$PKG_ROOT/data/templates/"
+          cp data/templates/item-magic-combos.json "$PKG_ROOT/data/templates/"
+          cp data/templates/item-affix-hints.json "$PKG_ROOT/data/templates/"
           if [[ -f "data/templates/item-names.json" ]]; then
             cp "data/templates/item-names.json" "$PKG_ROOT/data/templates/"
           fi
+          
+          # Copy all config files (required for FG pricing)
+          cp config/rune_prices.yml "$PKG_ROOT/config/"
+          cp config/gg_affixes.yml "$PKG_ROOT/config/"
+          cp config/base_potential.yml "$PKG_ROOT/config/"
+          cp config/perfect_rolls.yml "$PKG_ROOT/config/"
+          cp config/static_prices.yml "$PKG_ROOT/config/"
+          cp config/comprehensive_prices.yml "$PKG_ROOT/config/"
+          cp config/unique_prices_complete.yml "$PKG_ROOT/config/"
+          cp config/set_prices_complete.yml "$PKG_ROOT/config/"
+          cp config/lld_prices.yml "$PKG_ROOT/config/"
+          cp config/magic_affix_prices.yml "$PKG_ROOT/config/"
+          cp config/affix_database.yml "$PKG_ROOT/config/"
+          
+          # Copy database if exists
           if [[ -f "data/cache/d2lut.db" ]]; then
             cp "data/cache/d2lut.db" "$PKG_ROOT/data/cache/"
           fi
@@ -125,9 +169,32 @@ jobs:
           $pkgRoot = "pkg/${env:APP_NAME}"
           New-Item -ItemType Directory -Force -Path "$pkgRoot/data/cache" | Out-Null
           New-Item -ItemType Directory -Force -Path "$pkgRoot/data/templates" | Out-Null
+          New-Item -ItemType Directory -Force -Path "$pkgRoot/config" | Out-Null
           New-Item -ItemType Directory -Force -Path "$pkgRoot/output" | Out-Null
           Copy-Item "dist/${{ matrix.pyinstaller_out }}" "$pkgRoot/"
+          
+          # Copy all templates (CRITICAL: item-names-full.json is the fix for AN EVIL FORCE)
+          Copy-Item "data/templates/item-names-full.json" "$pkgRoot/data/templates/"
+          Copy-Item "data/templates/item-runes.json" "$pkgRoot/data/templates/"
+          Copy-Item "data/templates/item-nameaffixes.json" "$pkgRoot/data/templates/"
+          Copy-Item "data/templates/item-magic-combos.json" "$pkgRoot/data/templates/"
+          Copy-Item "data/templates/item-affix-hints.json" "$pkgRoot/data/templates/"
           if (Test-Path "data/templates/item-names.json") { Copy-Item "data/templates/item-names.json" "$pkgRoot/data/templates/" }
+          
+          # Copy all config files (required for FG pricing)
+          Copy-Item "config/rune_prices.yml" "$pkgRoot/config/"
+          Copy-Item "config/gg_affixes.yml" "$pkgRoot/config/"
+          Copy-Item "config/base_potential.yml" "$pkgRoot/config/"
+          Copy-Item "config/perfect_rolls.yml" "$pkgRoot/config/"
+          Copy-Item "config/static_prices.yml" "$pkgRoot/config/"
+          Copy-Item "config/comprehensive_prices.yml" "$pkgRoot/config/"
+          Copy-Item "config/unique_prices_complete.yml" "$pkgRoot/config/"
+          Copy-Item "config/set_prices_complete.yml" "$pkgRoot/config/"
+          Copy-Item "config/lld_prices.yml" "$pkgRoot/config/"
+          Copy-Item "config/magic_affix_prices.yml" "$pkgRoot/config/"
+          Copy-Item "config/affix_database.yml" "$pkgRoot/config/"
+          
+          # Copy database if exists
           if (Test-Path "data/cache/d2lut.db") { Copy-Item "data/cache/d2lut.db" "$pkgRoot/data/cache/" }
 
       - name: Archive (.tar.gz)
