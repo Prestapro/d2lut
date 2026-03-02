@@ -1,0 +1,96 @@
+# D2R Filter Presets Configuration
+# Different filter styles for different use cases
+
+presets:
+  default:
+    name: "Default Filter"
+    description: "Balanced filter with all value tiers"
+    show_trash: false
+    show_prices: true
+    show_tier_colors: true
+    show_bases: true
+    hide_low_value: false
+    price_threshold: 0
+
+  roguecore:
+    name: "Roguecore Filter"
+    description: "Minimalist filter for efficient farming"
+    show_trash: false
+    show_prices: true
+    show_tier_colors: true
+    show_bases: false
+    hide_low_value: true
+    price_threshold: 5  # Hide items < 5 FG
+
+  minimal:
+    name: "Minimal Filter"
+    description: "Show only high value items"
+    show_trash: false
+    show_prices: true
+    show_tier_colors: false
+    show_bases: false
+    hide_low_value: true
+    price_threshold: 20  # Hide items < 20 FG
+
+  verbose:
+    name: "Verbose Filter"
+    description: "Show all items with detailed info"
+    show_trash: true
+    show_prices: true
+    show_tier_colors: true
+    show_bases: true
+    hide_low_value: false
+    price_threshold: 0
+    show_extra_info: true
+
+# Tier visibility per preset
+tier_visibility:
+  default:
+    GG: true
+    HIGH: true
+    MID: true
+    LOW: true
+    TRASH: false
+
+  roguecore:
+    GG: true
+    HIGH: true
+    MID: true
+    LOW: true
+    TRASH: false
+
+  minimal:
+    GG: true
+    HIGH: true
+    MID: false
+    LOW: false
+    TRASH: false
+
+  verbose:
+    GG: true
+    HIGH: true
+    MID: true
+    LOW: true
+    TRASH: true
+
+# Display formats per preset
+display_formats:
+  default:
+    format: "{color}{name} {price_color}[{price} FG]"
+    separator: " "
+    price_format: "int"
+
+  roguecore:
+    format: "{color}{name} {price_color}>>{price} FG<<"
+    separator: " "
+    price_format: "int"
+
+  minimal:
+    format: "{color}{name}"
+    separator: " "
+    price_format: "none"
+
+  verbose:
+    format: "{color}{name} ({tier}) {price_color}[{price} FG]"
+    separator: " | "
+    price_format: "float"
