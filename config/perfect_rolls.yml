@@ -1,0 +1,187 @@
+# D2R Perfect Rolls Configuration
+# Defines perfect/max stats for high-value items
+
+# Uniques with perfect roll values
+uniques:
+  shako:
+    name: "Harlequin Crest"
+    stats:
+      defense: [98, 141]
+      skills: 2
+      vitality: [0, 10]
+      energy: [0, 14]
+      dr: [10, 10]
+    perfect_value: 100  # FG for perfect
+
+  arachnid:
+    name: "Arachnid Mesh"
+    stats:
+      defense: [119, 150]
+      skills: 1
+      mana: [5, 5]
+    perfect_value: 80
+
+  maras:
+    name: "Mara's Kaleidoscope"
+    stats:
+      resist_all: [20, 30]
+      skills: 2
+      attributes: [5, 5]
+    perfect_value: 150
+
+  tyraels:
+    name: "Tyrael's Might"
+    stats:
+      defense: [1325, 1785]
+      strength: [20, 30]
+      vitality: [15, 25]
+      resist_fire: [15, 25]
+      resist_cold: [15, 25]
+      resist_lightning: [15, 25]
+      resist_poison: [15, 25]
+    perfect_value: 500
+
+  # Annihilus charm
+  anni:
+    name: "Annihilus"
+    stats:
+      resist_all: [10, 20]
+      attributes: [10, 20]
+      experience: [5, 10]
+    perfect_value: 400
+
+# Hellfire Torch
+torch:
+  stats:
+    resist_all: [10, 20]
+    attributes: [10, 20]
+    skills_class: 3  # +3 to class skills
+  perfect_value: 200
+
+# Small charms (20 life / 5 all res / etc.)
+charms:
+  small_charm:
+    life_res:
+      life: [15, 20]
+      resist_all: [3, 5]
+      perfect_value: 150
+
+  grand_charm:
+    skill_life:
+      class_skills: 1
+      life: [30, 45]
+      perfect_value: 100
+
+# Runes (fixed value)
+runes:
+  jah:
+    rank: 32
+    base_value: 150
+  ber:
+    rank: 31
+    base_value: 140
+  sur:
+    rank: 30
+    base_value: 35
+  lo:
+    rank: 29
+    base_value: 30
+  ohm:
+    rank: 28
+    base_value: 28
+  vex:
+    rank: 27
+    base_value: 22
+  gul:
+    rank: 26
+    base_value: 12
+  ist:
+    rank: 25
+    base_value: 18
+  mal:
+    rank: 24
+    base_value: 8
+  um:
+    rank: 23
+    base_value: 4
+
+# Facets (rainbow facets)
+facets:
+  fire:
+    death:
+      damage: [3, 5]
+      resist: [-5, -5]
+      perfect_value: 50
+    level:
+      damage: [3, 5]
+      resist: [-5, -5]
+      perfect_value: 50
+
+  cold:
+    death:
+      damage: [3, 5]
+      resist: [-5, -5]
+      perfect_value: 60
+    level:
+      damage: [3, 5]
+      resist: [-5, -5]
+      perfect_value: 60
+
+  lightning:
+    death:
+      damage: [3, 5]
+      resist: [-5, -5]
+      perfect_value: 55
+    level:
+      damage: [3, 5]
+      resist: [-5, -5]
+      perfect_value: 55
+
+  poison:
+    death:
+      damage: [3, 5]
+      resist: [-5, -5]
+      perfect_value: 30
+    level:
+      damage: [3, 5]
+      resist: [-5, -5]
+      perfect_value: 30
+
+# Runewords with variable stats
+runewords:
+  enigma:
+    base: "JahIthBer"
+    stats:
+      strength: [0, 50]
+      mf: [0, 50]
+    perfect_value: 300
+
+  infinity:
+    base: "BerMalBerIst"
+    stats:
+      conviction: [10, 15]
+    perfect_value: 350
+
+  cta:
+    base: "AmnRalMalIstOhm"
+    stats:
+      battle_orders: [1, 6]
+      battle_command: [1, 6]
+    perfect_value: 120
+
+  grief:
+    base: "EthTirLoMalRal"
+    stats:
+      damage: [300, 400]
+      ias: [30, 30]
+    perfect_value: 80
+
+  fortitude:
+    base: "ElSolDolLo"
+    stats:
+      defense: [1, 30]
+      resist_cold: [20, 40]
+      resist_fire: [20, 40]
+      resist_lightning: [20, 40]
+      resist_poison: [20, 40]
+    perfect_value: 90

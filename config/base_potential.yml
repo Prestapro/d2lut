@@ -1,0 +1,101 @@
+# D2R Base Item Potential Configuration
+# Defines which base items have crafting/trading value
+
+# High value bases for crafting
+crafting_bases:
+  # Paladin shields - high roll spirit
+  pally_shield:
+    - name: "Sacred Rondache"
+      max_sockets: 4
+      min_resist: 40
+    - name: "Kurast Shield"
+      max_sockets: 4
+      min_resist: 40
+    - name: "Zakarum Shield"
+      max_sockets: 4
+      min_resist: 40
+    - name: "Vortex Shield"
+      max_sockets: 4
+      min_resist: 40
+
+  # Sorceress orbs - +skills
+  sorc_orb:
+    - name: "Swirling Crystal"
+      min_skills: 2
+    - name: "Dimensional Shard"
+      min_skills: 2
+
+  # Barbarian helms
+  barb_helm:
+    - name: "Arreat's Face"
+      type: unique
+    - name: "Guardian Crown"
+      min_skills: 2
+
+# Good bases for runewords
+runeword_bases:
+  # Spirit bases (4 socket)
+  spirit:
+    - "Monarch"
+    - "Hellfire Shield"
+    - "Sacred Rondache"
+    - "Kurast Shield"
+
+  # Enigma bases (3 socket)
+  enigma:
+    - "Archon Plate"
+    - "Mage Plate"
+    - "Dusk Shroud"
+    - "Great Hauberk"
+    - "Boneweave"
+
+  # Fortitude bases (4 socket)
+  fortitude:
+    - "Archon Plate"
+    - "Dusk Shroud"
+    - "Great Hauberk"
+    - "Boneweave"
+    - "Sacred Armor"
+
+  # Infinity bases (4 socket polearm)
+  infinity:
+    - "Thresher"
+    - "Giant Thresher"
+    - "Colossus Voulge"
+    - "Cryptic Axe"
+
+# Top bases for each category
+elite_bases:
+  armor:
+    - "Archon Plate"
+    - "Dusk Shroud"
+    - "Great Hauberk"
+    - "Boneweave"
+    - "Sacred Armor"
+
+  shields:
+    - "Monarch"
+    - "Sacred Rondache"
+    - "Kurast Shield"
+    - "Vortex Shield"
+
+  weapons:
+    - "Colossus Blade"
+    - "Berserker Axe"
+    - "Phase Blade"
+    - "Thresher"
+    - "Giant Thresher"
+
+# Quality requirements for pickup
+quality_rules:
+  # Ethereal items with high value
+  ethereal_valuable:
+    - "Archon Plate"
+    - "Dusk Shroud"
+    - "Thresher"
+    - "Giant Thresher"
+
+  # Superior items worth keeping
+  superior_valuable:
+    min_defense_percent: 15
+    min_ed_ias: [15, 0]  # 15% ED or 5% ED + IAS

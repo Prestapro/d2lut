@@ -6,6 +6,14 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 - **Critical**: Removed invalid `PytestReturnNotNoneWarning` from pytest config (was causing CI to crash)
+- **Critical**: Added missing `scripts/build_d2r_filter.py` entry point (was causing build to fail)
+
+### Added
+- Filter builder script with CLI interface (--preset, --db, --output)
+- config/base_potential.yml - Crafting and runeword base definitions
+- config/perfect_rolls.yml - Perfect stat definitions for valuable items
+- config/presets.yml - Filter preset configurations (default, roguecore, minimal, verbose)
+- data/templates/item-names-full.json - Complete item name mappings
 
 ## [0.3.0] - 2026-03-02
 
