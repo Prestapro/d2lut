@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.4] - 2026-03-02
+
+### Fixed
+- **Critical**: Fixed `sqlite3.Row.get()` AttributeError in `build_d2r_filter.py` - `sqlite3.Row` doesn't have `.get()` method
+- **Medium**: Fixed duplicate price observations in `live_collector.py` - `break` only exited inner loop, causing duplicates
+- **Medium**: Fixed confidence values mismatch between `parser.py` and `live_collector.py` - now both use sold=0.9, bin=0.8, fg=0.7
+
+### Changed
+- Refactored `_parse_topic_content()` to find best price signal once per topic instead of iterating all patterns
+
 ## [0.3.3] - 2026-03-02
 
 ### Fixed

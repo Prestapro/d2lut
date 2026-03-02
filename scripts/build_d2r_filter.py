@@ -113,7 +113,9 @@ class FilterBuilder:
         """Convert database row to PricedItem."""
         variant_key = row["variant_key"]
         price_fg = row["price_fg"]
-        category = row.get("category", "misc")
+        # sqlite3.Row doesn't have .get() method, use keys() check
+        row_keys = row.keys()
+        category = row["category"] if "category" in row_keys else "misc"
 
         # Extract name from variant_key
         parts = variant_key.split(":")

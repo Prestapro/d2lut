@@ -235,26 +235,40 @@ class LiveCollector:
         if not items_found:
             return observations
 
-        # Find prices
+        # Find prices - use best signal found (sold > bin > fg)
+        best_price: float | None = None
+        best_confidence = 0.0
+
+        # Priority order: sold (0.9) > bin (0.8) > fg (0.7)
+        signal_confidence = {"sold": 0.9, "bin": 0.8, "fg": 0.7}
+
         for pattern, signal_kind in price_patterns:
-            for match in pattern.finditer(content):
+            match = pattern.search(content)
+            if match:
                 try:
                     price = float(match.group(1))
-                    for variant_key in items_found[:3]:  # Limit items
-                        obs = PriceObservation(
-                            item_name=variant_key.split(":")[-1],
-                            price_fg=price,
-                            topic_id=topic_id,
-                            post_id=0,
-                            author="unknown",
-                            timestamp=datetime.now(),
-                            raw_text=content[:500],
-                            confidence=0.7 if signal_kind == "sold" else 0.5,
-                        )
-                        observations.append(obs)
-                    break  # One price per topic
+                    confidence = signal_confidence.get(signal_kind, 0.5)
+                    # Take first price found with highest confidence signal
+                    if best_price is None or confidence > best_confidence:
+                        best_price = price
+                        best_confidence = confidence
                 except (ValueError, IndexError):
                     continue
+
+        # Create observations if price found
+        if best_price is not None:
+            for variant_key in items_found[:3]:  # Limit items
+                obs = PriceObservation(
+                    item_name=variant_key.split(":")[-1],
+                    price_fg=best_price,
+                    topic_id=topic_id,
+                    post_id=0,
+                    author="unknown",
+                    timestamp=datetime.now(),
+                    raw_text=content[:500],
+                    confidence=best_confidence,
+                )
+                observations.append(obs)
 
         return observations
 
