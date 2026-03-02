@@ -2,6 +2,24 @@
 
 ---
 
+## v0.2.7
+
+Bug Fixes
+- Fixed `deterministic_id()` using 16 hex chars (64 bits) instead of 8 (32 bits) - reduces collision risk from ~50% to <0.01%
+- Fixed SQL row access dependency on `row_factory` - now sets `sqlite3.Row` automatically
+- Fixed `runes_mod_data_out` attribute - now initialized to `__init__` to avoid AttributeError
+- Fixed `highlight_suffix()` hardcoded color `ÿc9` - now uses configured color from YAML
+
+Performance
+- Added module-level cache for `ExtendedAffixHighlighter` in `get_magic_item_display()` to avoid YAML loading on every call
+
+Changelog
+Full Changelog: v0.2.6...v0.2.7
+
+#3f17b8a fix: exporters issues found in audit @Z User
+
+---
+
 ## v0.2.6
 
 Critical Fixes (Crash Bugs)

@@ -453,6 +453,10 @@ class ExtendedAffixHighlighter:
 # Convenience function for loot filter integration
 # ---------------------------------------------------------------------------
 
+# Module-level cache for highlighter instance to avoid repeated YAML loading
+_CACHED_HIGHLIGHTER: Optional[ExtendedAffixHighlighter] = None
+
+
 def get_magic_item_display(
     prefix: str,
     base_name: str,
@@ -479,12 +483,16 @@ def get_magic_item_display(
         >>> get_magic_item_display("Jeweler's", "Monarch", "of Deflecting", "uit", 50)
         "ÿc1[$$$] Jeweler's Monarch of Deflecting ÿc1[50fg] ÿc8ilvl50ÿc0"
     """
-    highlighter = ExtendedAffixHighlighter(
-        gg_affixes_path=Path(__file__).parent.parent.parent.parent / "config" / "gg_affixes.yml",
-        magic_prices_path=Path(__file__).parent.parent.parent.parent / "config" / "magic_affix_prices.yml",
-    )
+    global _CACHED_HIGHLIGHTER
     
-    return highlighter.format_magic_item(
+    # Use cached highlighter to avoid YAML loading on every call
+    if _CACHED_HIGHLIGHTER is None:
+        _CACHED_HIGHLIGHTER = ExtendedAffixHighlighter(
+            gg_affixes_path=Path(__file__).parent.parent.parent.parent / "config" / "gg_affixes.yml",
+            magic_prices_path=Path(__file__).parent.parent.parent.parent / "config" / "magic_affix_prices.yml",
+        )
+    
+    return _CACHED_HIGHLIGHTER.format_magic_item(
         prefix=prefix,
         base_name=base_name,
         suffix=suffix,

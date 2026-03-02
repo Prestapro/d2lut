@@ -66,7 +66,8 @@ class AffixHighlighter:
         color = conf["color"]
         tag = conf["tag"]
         
-        # e.g of Deflecting ➔ ÿc9 of Deflecting ÿc1[$$$]
+        # e.g of Deflecting ➔ {color} of Deflecting {tag_color}{tag}ÿc0
+        # Use configured color for suffix (not hardcoded ÿc9)
         if tag:
-            return f"ÿc9{suffix} {color}{tag}ÿc0"
+            return f"{color}{suffix} {color}{tag}ÿc0"
         return f"{color}{suffix}ÿc0"

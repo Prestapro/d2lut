@@ -88,11 +88,19 @@ class D2RJsonFilterExporter:
             "sample_injections": [],
             "sample_skipped_below_threshold": []
         }
+        
+        # Output for runes JSON - initialized to None, set when runes are processed
+        self.runes_mod_data_out: Optional[str] = None
 
     def export(self, price_index: dict[str, PriceEstimate], conn: sqlite3.Connection, base_json_path: str | None = None, base_runes_json_path: str | None = None) -> str:
         """
         Generate the JSON payload for item-names.json.
         """
+        # Ensure connection uses Row factory for dict-style access
+        # This allows r["column"] syntax instead of r[0]
+        original_factory = conn.row_factory
+        conn.row_factory = sqlite3.Row
+        
         # Reset audit report on every export
         self.audit_report = {
             "total_evaluated": len(price_index),
@@ -212,7 +220,9 @@ class D2RJsonFilterExporter:
             return code
 
         def deterministic_id(key: str) -> int:
-            return int(hashlib.md5(key.encode("utf-8")).hexdigest()[:8], 16)
+            # Use 16 hex chars (64 bits) to reduce collision risk
+            # With ~65K items, collision probability drops from ~50% to <0.01%
+            return int(hashlib.md5(key.encode("utf-8")).hexdigest()[:16], 16)
 
         def clean_existing_price(text: str) -> str:
             # We want to remove the price tag we generated previously. Since the user can pass ANY --format-str
@@ -420,6 +430,9 @@ class D2RJsonFilterExporter:
             # A cleaner way is to let the caller handle runes file save.
             self.runes_mod_data_out = json.dumps(runes_mod_data, indent=2, ensure_ascii=False)
 
+        # Restore original row_factory
+        conn.row_factory = original_factory
+        
         return json.dumps(mod_data, indent=2, ensure_ascii=False)
 
     def export_magic_combos(self) -> str:
