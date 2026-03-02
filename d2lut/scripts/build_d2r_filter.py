@@ -6,11 +6,20 @@ Builds item filter files for Diablo 2 Resurrected based on FG prices.
 Usage:
     python build_d2r_filter.py --preset roguecore --db d2lut.db
     python build_d2r_filter.py --help
+
+D2R Filter Syntax:
+    ItemDisplay[CODE]: DisplayText
+    
+    Where CODE can be:
+    - Item type code (e.g., "cap", "uui" for unique helm)
+    - Rune code (r01-r33)
+    - Custom code for runewords/sets
 """
 
 from __future__ import annotations
 
 import argparse
+import json
 import logging
 import sqlite3
 import sys
@@ -63,9 +72,11 @@ TIER_COLORS = {
 
 @dataclass
 class PricedItem:
-    """Item with FG price."""
-    name: str
-    variant_key: str
+    """Item with FG price and D2R codes."""
+    name: str  # Short name (e.g., "shako")
+    variant_key: str  # Full key (e.g., "unique:shako")
+    d2r_code: str  # D2R item code for filter (e.g., "uui")
+    display_name: str  # Full display name (e.g., "Harlequin Crest")
     price_fg: float
     tier: str
     category: str = "misc"
@@ -85,6 +96,82 @@ class PresetConfig:
     tier_visibility: dict = field(default_factory=dict)
     display_format: str = "{color}{name} {price_color}[{price} FG]"
     price_format: str = "int"  # int, float, or none
+
+
+def load_item_codes() -> dict[str, str]:
+    """Load D2R item code mapping from JSON file.
+
+    Returns:
+        Dict mapping variant_key to D2R item code
+    """
+    script_dir = Path(__file__).parent
+    codes_path = script_dir.parent / "data" / "item_codes.json"
+    
+    if not codes_path.exists():
+        logger.warning(f"Item codes file not found: {codes_path}")
+        return {}
+    
+    try:
+        with open(codes_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        
+        # Flatten all categories into single dict
+        codes = {}
+        for category_items in data.values():
+            if isinstance(category_items, dict):
+                codes.update(category_items)
+        
+        logger.info(f"Loaded {len(codes)} D2R item codes")
+        return codes
+        
+    except (json.JSONDecodeError, IOError) as e:
+        logger.error(f"Error loading item codes: {e}")
+        return {}
+
+
+def load_display_names() -> dict[str, str]:
+    """Load display names from item-names-full.json.
+
+    Returns:
+        Dict mapping variant_key to display name
+    """
+    script_dir = Path(__file__).parent
+    names_path = script_dir.parent / "data" / "templates" / "item-names-full.json"
+    
+    if not names_path.exists():
+        logger.warning(f"Display names file not found: {names_path}")
+        return {}
+    
+    try:
+        with open(names_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        
+        # Flatten nested structure and add prefixes
+        names = {}
+        item_names = data.get("item_names", {})
+        
+        # Map category to prefix
+        category_prefix = {
+            "uniques": "unique",
+            "runes": "rune",
+            "runewords": "runeword",
+            "set_items": "set",
+        }
+        
+        for category, items in item_names.items():
+            prefix = category_prefix.get(category, "")
+            for key, display_name in items.items():
+                # Store both with and without prefix
+                names[key] = display_name
+                if prefix:
+                    names[f"{prefix}:{key}"] = display_name
+        
+        logger.info(f"Loaded {len(names)} display names")
+        return names
+        
+    except (json.JSONDecodeError, IOError) as e:
+        logger.error(f"Error loading display names: {e}")
+        return {}
 
 
 def load_preset_config(preset_name: str) -> PresetConfig:
@@ -150,6 +237,10 @@ class FilterBuilder:
         self.preset_config = load_preset_config(preset)
         self.items: list[PricedItem] = []
         self.filtered_count: int = 0  # Track items after threshold filtering
+        
+        # Load item codes and display names
+        self.item_codes = load_item_codes()
+        self.display_names = load_display_names()
 
     def load_prices(self) -> None:
         """Load item prices from database."""
@@ -288,10 +379,16 @@ class FilterBuilder:
 
             # Determine tier
             tier = self._get_tier(price_fg)
+            
+            # Get D2R code and display name
+            d2r_code = self.item_codes.get(variant_key, name)
+            display_name = self.display_names.get(variant_key, name.title())
 
             return PricedItem(
                 name=name,
                 variant_key=variant_key,
+                d2r_code=d2r_code,
+                display_name=display_name,
                 price_fg=price_fg,
                 tier=tier,
                 category=parts[0] if len(parts) > 1 else "misc",
@@ -315,10 +412,16 @@ class FilterBuilder:
 
             # Determine tier
             tier = self._get_tier(price_fg)
+            
+            # Get D2R code and display name
+            d2r_code = self.item_codes.get(variant_key, name)
+            display_name = self.display_names.get(variant_key, name.title())
 
             return PricedItem(
                 name=name,
                 variant_key=variant_key,
+                d2r_code=d2r_code,
+                display_name=display_name,
                 price_fg=price_fg,
                 tier=tier,
                 category=category,
@@ -337,40 +440,43 @@ class FilterBuilder:
         """Load default hardcoded prices."""
         default_prices = [
             # Runes - High value
-            ("rune:jah", 150, "rune"),
-            ("rune:ber", 140, "rune"),
-            ("rune:sur", 35, "rune"),
-            ("rune:lo", 30, "rune"),
-            ("rune:ohm", 28, "rune"),
-            ("rune:vex", 22, "rune"),
-            ("rune:gul", 12, "rune"),
-            ("rune:ist", 18, "rune"),
-            ("rune:mal", 8, "rune"),
-            ("rune:um", 4, "rune"),
+            ("rune:jah", 150, "rune", "Jah Rune"),
+            ("rune:ber", 140, "rune", "Ber Rune"),
+            ("rune:sur", 35, "rune", "Sur Rune"),
+            ("rune:lo", 30, "rune", "Lo Rune"),
+            ("rune:ohm", 28, "rune", "Ohm Rune"),
+            ("rune:vex", 22, "rune", "Vex Rune"),
+            ("rune:gul", 12, "rune", "Gul Rune"),
+            ("rune:ist", 18, "rune", "Ist Rune"),
+            ("rune:mal", 8, "rune", "Mal Rune"),
+            ("rune:um", 4, "rune", "Um Rune"),
 
             # Uniques - High value
-            ("unique:shako", 15, "unique"),
-            ("unique:arachnid", 45, "unique"),
-            ("unique:mara", 25, "unique"),
-            ("unique:tyraels", 200, "unique"),
-            ("unique:torch", 50, "unique"),  # Average torch
-            ("unique:anni", 80, "unique"),   # Average anni
+            ("unique:shako", 15, "unique", "Harlequin Crest"),
+            ("unique:arachnid", 45, "unique", "Arachnid Mesh"),
+            ("unique:mara", 25, "unique", "Mara's Kaleidoscope"),
+            ("unique:tyraels", 200, "unique", "Tyrael's Might"),
+            ("unique:torch", 50, "unique", "Hellfire Torch"),
+            ("unique:anni", 80, "unique", "Annihilus"),
 
             # Runewords
-            ("runeword:enigma", 160, "runeword"),
-            ("runeword:infinity", 180, "runeword"),
-            ("runeword:cta", 40, "runeword"),
-            ("runeword:grief", 35, "runeword"),
-            ("runeword:fortitude", 45, "runeword"),
-            ("runeword:spirit", 5, "runeword"),
+            ("runeword:enigma", 160, "runeword", "Enigma"),
+            ("runeword:infinity", 180, "runeword", "Infinity"),
+            ("runeword:cta", 40, "runeword", "Call to Arms"),
+            ("runeword:grief", 35, "runeword", "Grief"),
+            ("runeword:fortitude", 45, "runeword", "Fortitude"),
+            ("runeword:spirit", 5, "runeword", "Spirit"),
         ]
 
-        for variant_key, price, category in default_prices:
+        for variant_key, price, category, display_name in default_prices:
             tier = self._get_tier(price)
             name = variant_key.split(":")[-1]
+            d2r_code = self.item_codes.get(variant_key, name)
             self.items.append(PricedItem(
                 name=name,
                 variant_key=variant_key,
+                d2r_code=d2r_code,
+                display_name=display_name,
                 price_fg=price,
                 tier=tier,
                 category=category,
@@ -431,6 +537,12 @@ class FilterBuilder:
         """Build a single filter line for an item using preset config.
 
         Uses display_format and price_format from preset configuration.
+        Outputs valid D2R filter syntax with D2R item codes.
+        
+        D2R Filter Format:
+            ItemDisplay[CODE]: DisplayText
+            
+        Where CODE is the D2R item code (e.g., "r32" for Jah, "uui" for Shako)
         """
         cfg = self.preset_config
 
@@ -456,21 +568,25 @@ class FilterBuilder:
                 price_str = f"{item.price_fg:.1f}"
 
         # Build display using template from preset
+        # Use display_name for the visible text, d2r_code for the filter code
+        display_name = item.display_name or item.name.title()
+        
         try:
             display = cfg.display_format.format(
                 color=color,
-                name=item.name,
+                name=display_name,
                 price_color=price_color,
                 price=price_str,
                 tier=item.tier,
             )
         except KeyError:
             # Fallback if template has unknown placeholders
-            display = f"{color}{item.name}"
+            display = f"{color}{display_name}"
             if cfg.show_prices and price_str:
                 display += f" {price_color}[{price_str} FG]"
 
-        return f'ItemDisplay[{item.name}]: {display}'
+        # Use D2R item code for the filter key (not the display name)
+        return f'ItemDisplay[{item.d2r_code}]: {display}'
 
 
 def main() -> int:
