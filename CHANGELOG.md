@@ -2,6 +2,33 @@
 
 ---
 
+## v0.2.4
+
+Bug Fixes
+- Fixed broken console_scripts in pyproject.toml (pointed to non-existent d2lut.scripts.* modules)
+- Fixed RefreshDaemon.get_status() returning wrong is_running value (self._refreshing instead of self._running)
+- Fixed --skip-zero-replies and --skip-bump-only-topic flags that couldn't be disabled
+- Fixed test_slang_simple.py - no pytest fixture for db_path (6 errors)
+- Fixed test_integration_e2e.py - returning int instead of None (PytestReturnNotNoneWarning)
+
+Changes
+- Removed broken entry points from pyproject.toml (scripts are standalone in scripts/)
+- Added --no-skip-zero-replies and --no-skip-bump-only-topic flags to allow disabling defaults
+- Converted test_slang_simple.py to pytest class with fixture support
+- Created tests/conftest.py with db_path fixture for slang tests
+- Fixed test_integration_e2e.py to use raise instead of return int
+
+CI/CD
+- Removed soft test mode in CI - tests now properly block releases (removed || true and continue-on-error)
+
+Changelog
+Full Changelog: v0.2.3...v0.2.4
+
+#bbdbf97 fix: resolve 7 code review issues @Z User
+#4fb22c3 fix(ci): remove soft test mode - tests now block releases @Z User
+
+---
+
 ## v0.2.3
 
 New Features
