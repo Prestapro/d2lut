@@ -264,4 +264,5 @@ jobs:
             release_flat/*.zip
             release_flat/*.tar.gz
             release_flat/SHA256SUMS.txt
-          generate_release_notes: true
+          draft: false
+          generate_release_notes: false
