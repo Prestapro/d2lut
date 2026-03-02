@@ -104,7 +104,7 @@ _ITEM_PATTERN_DEFS: Final[dict[str, str]] = {
     "unique:gladiator": r"\bgladiator'?s?\s*bane\b",
     "unique:corpsemourn": r"\bcorpsemourn\b",
     "unique:ironpelt": r"\biron\s*pelt\b",
-    "unique:skinofvipermagi": r"\bskin\s*of\s*(?:the\s*)?viper\s*magi\b|\bviper\b|\bskin\b",
+    "unique:skinofvipermagi": r"\bskin\s*of\s*(?:the\s*)?viper\s*magi\b|\bvipermagi\b|\bviper\s*magi\b",
     "unique:que-hagan": r"\bque-hagan'?s?\s*wisdom\b|\bque\s*hagan\b",
     "unique:spiralhauberk": r"\bspiral\s*hauberk\b",
     "unique:blackhadeforge": r"\bblack\s*hade\s*forge\b",
@@ -133,7 +133,7 @@ _ITEM_PATTERN_DEFS: Final[dict[str, str]] = {
 
     # Uniques - Gloves
     "unique:dracul": r"\bdracul'?s?\s*grasp\b|\bdracul\b|\bdracs?\b",
-    "unique:soul drain": r"\bsoul\s*drain\b",
+    "unique:souldrain": r"\bsoul\s*drain\b",
     "unique:gravepalm": r"\bgrave\s*palm\b|\bgravepalm\b",
     "unique:bloodfist": r"\bblood\s*fist\b|\bbloodfist\b",
     "unique:steelrend": r"\bsteelrend\b",
@@ -145,7 +145,7 @@ _ITEM_PATTERN_DEFS: Final[dict[str, str]] = {
     "unique:venomgrip": r"\bvenom\s*grip\b|\bvenomgrip\b",
 
     # Uniques - Shields
-    "unique:stormshield": r"\bstorm\s*shield\b|\bss\b|\bstorm\b",
+    "unique:stormshield": r"\bstorm\s*shield\b|\bstormshield\b",
     "unique:hommunculus": r"\bhommunculus\b|\bhomu\b",
     "unique:boneflame": r"\bbone\s*flame\b|\bboneflame\b",
     "unique:medusa": r"\bmedusa'?s?\s*gaze\b|\bmedusa\b",
@@ -247,10 +247,10 @@ _ITEM_PATTERN_DEFS: Final[dict[str, str]] = {
     "runeword:death": r"\bdeath\s*runeword\b",
     "runeword:destruction": r"\bdestruction\b",
     "runeword:faith": r"\bfaith\b",
-    "runeword:ebotd": r"\be?\s*botd\b|\beth\s*botd\b",
-    "runeword:edeath": r"\be?\s*death\b|\beth\s*death\b",
-    "runeword:oice": r"\boath\b",
-    "runeword:phoenix": r"\bphoenix\b",
+    "runeword:ebotd": r"\beth\s*botd\b|\bebotd\b",
+    "runeword:edeath": r"\beth\s*death\b|\bedeath\b",
+    "runeword:oath": r"\boath\b",
+    "runeword:phoenix": r"\bphoenix\b(?!\s*shield)",  # Phoenix weapon, not shield
     "runeword:handofjustice": r"\bhand\s*of\s*justice\b|\bhoj\b",
     "runeword:wraith": r"\bwraith\b",
     "runeword:wrath": r"\bwrath\b",
@@ -261,14 +261,14 @@ _ITEM_PATTERN_DEFS: Final[dict[str, str]] = {
     # Runewords - Shields
     "runeword:spirit": r"\bspirit\s*(?:shield|sword|monarch)?\b|\bfspirit\b|\bsspirit\b",
     "runeword:exile": r"\bexile\b",
-    "runeword:Phoenix": r"\bphoenix\s*(?:shield)?\b",
+    "runeword:phoenixshield": r"\bphoenix\s*shield\b",
     "runeword:sanctuary": r"\bsanctuary\b",
     "runeword:rhyme": r"\brhyme\b",
     "runeword:splendor": r"\bsplendor\b",
     "runeword:ancient": r"\bancient'?s?\s*pledge\b",
 
     # Runewords - Weapons (Caster)
-    "runeword:cta": r"\bcall\s*to\s*arms\b|\bcta\b|\bhoto\b",
+    "runeword:cta": r"\bcall\s*to\s*arms\b|\bcta\b",
     "runeword:hoto": r"\bheart\s*of\s*the\s*oak\b|\bhoto\b",
     "runeword:insight": r"\binsight\b",
     "runeword:white": r"\bwhite\b",
@@ -355,7 +355,7 @@ _ITEM_PATTERN_DEFS: Final[dict[str, str]] = {
     "base:trollnest": r"\btroll\s*nest\b",
     "base:bladeshield": r"\bblade\s*shield\b",
     "base:heavyspikedshield": r"\bheavy\s*spiked\s*shield\b",
-    "base: elite": r"\belite\s*base\b|\bsup\s*base\b|\beth\s*base\b",
+    "base:elite": r"\belite\s*base\b|\bsup\s*base\b|\beth\s*base\b",
 
     # Facets
     "facet:fire": r"\bfire\s*facet\b|\b5/5\s*fire\b|\bfire\s*rainbow\b",

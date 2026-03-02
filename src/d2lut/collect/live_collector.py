@@ -219,14 +219,17 @@ class LiveCollector:
         Returns:
             List of PriceObservation objects
         """
+        # Extract text from HTML (simple heuristic)
+        text_content = self._extract_text_from_html(content)
+
         # Find items using shared patterns (now includes 100+ items!)
-        items_found = find_items_in_text(content)
+        items_found = find_items_in_text(text_content)
 
         if not items_found:
             return []
 
         # Find best price using shared patterns
-        price_info = find_best_price_in_text(content)
+        price_info = find_best_price_in_text(text_content)
 
         if not price_info:
             return []
@@ -241,12 +244,60 @@ class LiveCollector:
                 post_id=0,
                 author="unknown",
                 timestamp=datetime.now(),
-                raw_text=content[:500],
+                raw_text=text_content[:500],  # Now contains actual text, not HTML
                 confidence=price_info["confidence"],
             )
             observations.append(obs)
 
         return observations
+
+    def _extract_text_from_html(self, html: str) -> str:
+        """Extract readable text from HTML content.
+
+        Simple heuristic that strips tags and extracts text content.
+        For production, consider using BeautifulSoup for more robust parsing.
+
+        Args:
+            html: Raw HTML content
+
+        Returns:
+            Extracted text content
+        """
+        import re
+
+        # Remove script and style elements with their content
+        text = re.sub(r"<script[^>]*>.*?</script>", "", html, flags=re.I | re.DOTALL)
+        text = re.sub(r"<style[^>]*>.*?</style>", "", text, flags=re.I | re.DOTALL)
+
+        # Remove HTML comments
+        text = re.sub(r"<!--.*?-->", "", text, flags=re.DOTALL)
+
+        # Replace common block elements with newlines
+        text = re.sub(r"<br\s*/?>", "\n", text, flags=re.I)
+        text = re.sub(r"</p>", "\n", text, flags=re.I)
+        text = re.sub(r"</div>", "\n", text, flags=re.I)
+        text = re.sub(r"</tr>", "\n", text, flags=re.I)
+        text = re.sub(r"</td>", " ", text, flags=re.I)
+        text = re.sub(r"</th>", " ", text, flags=re.I)
+        text = re.sub(r"</li>", "\n", text, flags=re.I)
+
+        # Remove all remaining HTML tags
+        text = re.sub(r"<[^>]+>", "", text)
+
+        # Decode common HTML entities
+        text = text.replace("&nbsp;", " ")
+        text = text.replace("&amp;", "&")
+        text = text.replace("&lt;", "<")
+        text = text.replace("&gt;", ">")
+        text = text.replace("&quot;", '"')
+        text = text.replace("&#39;", "'")
+
+        # Normalize whitespace
+        text = re.sub(r"[ \t]+", " ", text)
+        text = re.sub(r"\n\s*\n", "\n\n", text)
+        text = text.strip()
+
+        return text
 
     async def close(self) -> None:
         """Close the browser and cleanup resources."""

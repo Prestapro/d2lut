@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.8] - 2026-03-02
+
+### Fixed
+- **Critical**: Fixed typo `"runeword:oice"` → `"runeword:oath"` (was breaking canonical ID lookups)
+- **Critical**: Fixed duplicate Phoenix patterns with different case (weapon vs shield now properly separated)
+- **Critical**: Removed `hoto` from CTA pattern (was causing HotO posts to be misidentified as CTA)
+- **High**: Fixed `"base: elite"` with space → `"base:elite"` (was causing canonical ID mismatch)
+- **High**: Fixed `"unique:soul drain"` with space → `"unique:souldrain"` (consistency)
+- **High**: Fixed overly broad `\bskin\b` pattern in `skinofvipermagi` (was matching "snakeskin boots")
+- **High**: Fixed overly broad `\bss\b` pattern in `stormshield` (was matching random "ss" occurrences)
+- **High**: Fixed greedy `e?` patterns in `ebotd`/`edeath` (was matching non-eth versions)
+- **Medium**: Fixed `raw_text` containing raw HTML instead of actual text in `live_collector.py`
+
+### Added
+- Added `_extract_text_from_html()` helper in live_collector.py for proper text extraction
+- Added `runeword:phoenixshield` for Phoenix shield specifically
+- Added negative lookahead to `runeword:phoenix` to prevent matching "phoenix shield"
+
+### Changed
+- All item keys now follow consistent `category:itemname` format without spaces after colon
+- `raw_text` now contains extracted text content instead of HTML boilerplate
+
 ## [0.3.7] - 2026-03-02
 
 ### Fixed
