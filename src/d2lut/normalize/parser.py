@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 import logging
+from datetime import datetime
 from typing import Iterable
 
 from ..models import MarketPost, ObservedPrice

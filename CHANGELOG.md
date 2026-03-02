@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.3] - 2026-03-02
+
+### Fixed
+- **Critical**: Added missing `datetime` import in `normalize/parser.py` (was causing `NameError`)
+- **Critical**: Added `__init__.py` to `collect/` and `normalize/` packages (Python package recognition)
+- **High**: Created `live_collector.py` with full Playwright implementation (was missing entirely)
+- **High**: Fixed double `asyncio.run()` issue - now uses single async context with `async with` pattern
+- **Medium**: Added `atexit` handler for `ThreadPoolExecutor` cleanup (was leaking threads)
+- **Medium**: Created missing `README.md` (was referenced in pyproject.toml)
+
+### Changed
+- Refactored `d2jsp.py` to use context manager pattern for LiveCollector
+- Improved error handling in collector lifecycle
+
 ## [0.3.2] - 2026-03-02
 
 ### Fixed
