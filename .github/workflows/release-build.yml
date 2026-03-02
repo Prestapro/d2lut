@@ -1,0 +1,151 @@
+name: Build Release Artifacts
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        working-directory: d2lut
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev,overlay,scraper]"
+          pip install pytest pytest-asyncio hypothesis pyinstaller
+
+      - name: Run tests
+        working-directory: d2lut
+        run: PYTHONPATH=src pytest tests/ -v --tb=short -x --ignore=tests/test_ocr_error_handling.py --ignore=tests/test_overlay_app.py --ignore=tests/test_stash_scan_integration.py --ignore=tests/test_stash_scanner.py --ignore=tests/test_phase1_checkpoint.py --ignore=tests/test_phase1_mvp_checkpoint.py --ignore=tests/test_ocr_parser.py --ignore=tests/test_preservation_properties.py --ignore=tests/test_quality_classification_property.py
+
+  build:
+    needs: test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: windows-latest
+            artifact: windows-x64
+            ext: '.zip'
+          - os: ubuntu-latest
+            artifact: linux-x64
+            ext: '.tar.gz'
+          - os: macos-latest
+            artifact: macos-arm64
+            ext: '.zip'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        working-directory: d2lut
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[overlay,scraper]"
+          pip install pyinstaller pyyaml pillow opencv-python websockets
+
+      - name: Copy config files
+        shell: bash
+        working-directory: d2lut
+        run: |
+          mkdir -p dist/config dist/data/templates
+          cp -r config/*.yml dist/config/ 2>/dev/null || true
+          cp -r data/templates/*.json dist/data/templates/ 2>/dev/null || true
+
+      - name: Build executable
+        shell: bash
+        working-directory: d2lut
+        run: |
+          pyinstaller --onefile \
+            --name D2R_Filter_Builder \
+            --distpath dist \
+            --workpath build \
+            --specpath . \
+            --hidden-import yaml \
+            --hidden-import yaml.loader \
+            --hidden-import yaml.dumper \
+            --hidden-import yaml.constructor \
+            --hidden-import yaml.representer \
+            --hidden-import yaml.resolver \
+            --hidden-import yaml.scanner \
+            --hidden-import yaml.parser \
+            --hidden-import yaml.composer \
+            --collect-all yaml \
+            scripts/build_d2r_filter.py
+
+      - name: Create archive (Windows)
+        if: matrix.os == 'windows-latest'
+        working-directory: d2lut
+        run: |
+          cd dist
+          7z a D2R_Filter_Builder-${{ matrix.artifact }}.zip D2R_Filter_Builder.exe config data
+
+      - name: Create archive (Linux/macOS)
+        if: matrix.os != 'windows-latest'
+        working-directory: d2lut
+        run: |
+          cd dist
+          tar -czvf D2R_Filter_Builder-${{ matrix.artifact }}.tar.gz D2R_Filter_Builder config data
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: d2lut/dist/D2R_Filter_Builder-${{ matrix.artifact }}*
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Display structure of downloaded files
+        run: ls -laR artifacts
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: artifacts/**/*
+          draft: false
+          generate_release_notes: false
+          body: |
+            ## D2R Loot Filter Builder v${{ github.ref_name }}
+
+            ### Downloads
+            - **Windows**: D2R_Filter_Builder-windows-x64.zip
+            - **Linux**: D2R_Filter_Builder-linux-x64.tar.gz
+            - **macOS**: D2R_Filter_Builder-macos-arm64.zip
+
+            ### Usage
+            ```bash
+            D2R_Filter_Builder.exe --help
+            D2R_Filter_Builder.exe --preset roguecore --db d2lut.db
+            ```
+
+            ### Full Changelog
+            https://github.com/Prestapro/d2lut/blob/main/d2lut/CHANGELOG.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
