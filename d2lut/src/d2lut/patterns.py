@@ -132,13 +132,12 @@ _ITEM_PATTERN_DEFS: Final[dict[str, str]] = {
     "unique:trek": r"\btrek\b",
 
     # Uniques - Gloves
-    # NOTE: Lava Gout is a SET item (Laying of Hands), see set:lava - NOT a unique!
     "unique:dracul": r"\bdracul'?s?\s*grasp\b|\bdracul\b|\bdracs?\b",
     "unique:souldrain": r"\bsoul\s*drain\b",
     "unique:gravepalm": r"\bgrave\s*palm\b|\bgravepalm\b",
     "unique:bloodfist": r"\bblood\s*fist\b|\bbloodfist\b",
     "unique:steelrend": r"\bsteelrend\b",
-    # "unique:lavagout" removed - Lava Gout is a set item, see set:lava
+    "unique:lavagout": r"\blava\s*gout\b|\blavagout\b",  # UNIQUE item (not set!)
     "unique:hellmouth": r"\bhellmouth\b",
     "unique:chanceguards": r"\bchance\s*guards?\b|\bchancy\b|\bmf\s*gloves\b",
     "unique:magefist": r"\bmagefist\b",
@@ -162,9 +161,9 @@ _ITEM_PATTERN_DEFS: Final[dict[str, str]] = {
     # Uniques - Weapons (Melee)
     # Note: BotD and Ethereal Death are runewords, not uniques - see runeword:botd and runeword:edeath
     "unique:deathcleaver": r"\bdeath\s*cleaver\b",
-    "unique:lightsabre": r"\blight\s*sabre?\b|\blightsabre\b|\bls\b",
+    "unique:lightsabre": r"\blight\s*sabre?\b|\blightsabre\b",  # Fixed: removed \bls\b (too broad)
     "unique:doombringer": r"\bdoombringer\b",
-    "unique:grandfather": r"\bgrandfather\b|\bgf\b",
+    "unique:grandfather": r"\bgrandfather\b|\bthe\s*grandfather\b",  # Fixed: removed \bgf\b (girlfriend)
     "unique:azurewrath": r"\bazure\s*wrath\b|\bazurewrath\b",
     "unique:horizon": r"\bhorizon'?s?\s*tornado\b|\bhorizon\b",
     "unique:hellslayer": r"\bhell\s*slayer\b",
@@ -205,16 +204,13 @@ _ITEM_PATTERN_DEFS: Final[dict[str, str]] = {
 
     # Uniques - Rings
     "unique:soj": r"\bstone\s*of\s*jordan\b|\bsoj\b",
-    "unique:bk": r"\bbul[-\s]*kathos'?s?\s*(?:wedding\s*band|ring)\b|\bbk(?:\s*ring)?\b",
-    "unique:raven": r"\braven\s*frost\b|\braven\b|\bravenfrost\b",  # Fixed: removed \brf\b (too broad - "request for")
+    "unique:bk": r"\bbul[-\s]*kathos'?s?\s*(?:wedding\s*band|ring)\b|\bbul\s*kathos\b",  # Fixed: removed \bbk\b
+    "unique:raven": r"\braven\s*frost\b|\braven\b|\bravenfrost\b",  # Fixed: removed \brf\b (too broad)
     "unique:dwarf": r"\bdwarf\s*star\b|\bdwarf\b",
     "unique:nagel": r"\bnagelring\b|\bnagel\b",
     "unique:manald": r"\bmanald\s*heal\b|\bmanald\b",
     "unique:wisp": r"\bwisp\s*projector\b|\bwisp\b",
     "unique:nature": r"\bnature'?s?\s*peace\b",  # Fixed: removed \bnature\b (too broad)
-    "unique:carp": r"\bccaroh\s*webb'?s?\s*fang\b|\bcarp\b",
-    "unique:fcr": r"\bfcr\s*ring\b|\b10\s*fcr\b",
-    "unique:str": r"\bstr\s*ring\b|\bstrength\s*ring\b",
 
     # Uniques - Charms
     "unique:anni": r"\banni(?:hilus)?\s*(?:charm)?\b|\banni\b",
@@ -319,8 +315,8 @@ _ITEM_PATTERN_DEFS: Final[dict[str, str]] = {
     # Set Items - Other
     "set:arreat": r"\barreat'?s?\s*face\b|\barreat\b",
     "set:guillaume": r"\bguillaume'?s?\s*face\b|\bguillaume\b",
-    "set:laying": r"\blaying\s*of\s*hands\b|\bloh\b",
-    "set:lava": r"\blava\s*gout\b",
+    "set:layingofhands": r"\blaying\s*of\s*hands\b|\bloh\b",  # The actual Disciple set gloves
+    # "set:lava" removed - Lava Gout is UNIQUE, not set! See unique:lavagout
     "set:disciple": r"\bdisciple\b",
 
     # Craft Items
@@ -338,12 +334,14 @@ _ITEM_PATTERN_DEFS: Final[dict[str, str]] = {
     "magic:smallcharm": r"\bsmall\s*charm\b|\bsc\b|\b3/20/20\b|\b20\s*life\s*sc\b|\b5\s*all\s*res\s*sc\b|\b7\s*mf\s*sc\b",
     "magic:grandcharm": r"\bgrand\s*charm\b|\bgc\b|\bskill\s*gc\b|\bpcomb\b|\blife\s*gc\b",
     "magic:largecharm": r"\blarge\s*charm\b|\blc\b",
+    "magic:fcring": r"\bfcr\s*ring\b|\b10\s*fcr\s*ring\b",  # Magic/craft, not unique
+    "magic:strring": r"\bstrength\s*ring\b|\bstr\s*ring\b",  # Magic/craft, not unique
 
     # Bases
     "base:monarch": r"\bmonarch\b|\b4\s*os\s*monarch\b|\bmonarch\s*base\b",
-    "base:archon": r"\barchon\s*plate\b|\barchon\b|\bap\b",
+    "base:archon": r"\barchon\s*plate\b|\barchon\b",  # Fixed: removed \bap\b (too short)
     "base:dusk": r"\bdusk\s*shroud\b|\bdusk\b|\bds\b",
-    "base:greathauberk": r"\bgreat\s*hauberk\b|\bgh\b",
+    "base:greathauberk": r"\bgreat\s*hauberk\b",  # Fixed: removed \bgh\b (too short)
     "base:boneweave": r"\bboneweave\b|\bbw\b",
     "base:sacredarmor": r"\bsacred\s*armor\b",  # Fixed: removed \bsa\b (too short, false positives)
     "base:thresher": r"\bthresher\b|\bthresh\b",

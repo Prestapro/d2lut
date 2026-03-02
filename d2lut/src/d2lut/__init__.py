@@ -1,3 +1,3 @@
 """D2R Loot Value Pipeline."""
 
-__version__ = "0.3.12"
+__version__ = "0.3.13"

@@ -56,6 +56,8 @@ class TestItemPatterns:
         items = find_items_in_text(text)
         # phoenix shield should match phoenixshield
         assert "runeword:phoenixshield" in items
+        # Should NOT match weapon phoenix (negative lookahead working)
+        assert "runeword:phoenix" not in items
 
     def test_cta_vs_hoto(self):
         """Test that CTA and HotO are properly separated."""
@@ -68,6 +70,22 @@ class TestItemPatterns:
         items2 = find_items_in_text(text2)
         assert "runeword:hoto" in items2
         assert "runeword:cta" not in items2
+
+    def test_lava_gout_is_unique_not_set(self):
+        """Test that Lava Gout is correctly identified as UNIQUE, not SET."""
+        text = "WTS lava gout 10fg"
+        items = find_items_in_text(text)
+        # Lava Gout is a UNIQUE item, not a set item
+        assert "unique:lavagout" in items
+        # Should NOT be in set category
+        assert "set:lava" not in items
+        
+    def test_laying_of_hands_is_set(self):
+        """Test that Laying of Hands is correctly identified as SET."""
+        text = "WTS laying of hands 15fg"
+        items = find_items_in_text(text)
+        # Laying of Hands is a SET item (Disciple set)
+        assert "set:layingofhands" in items
 
 
 class TestPricePatterns:
@@ -106,12 +124,25 @@ class TestPricePatterns:
         assert price is not None
         # SOLD has higher confidence (0.9) than BIN (0.8)
         assert price["confidence"] == 0.9
+        # SOLD price should be selected, not BIN price
+        assert price["price"] == 150.0
+        assert price["signal_kind"] == "sold"
 
     def test_no_price_found(self):
         """Test when no price is found."""
         text = "Just some random text without prices"
         price = find_best_price_in_text(text)
         assert price is None
+
+    def test_zero_price_ignored(self):
+        """Test that zero prices are ignored (not free/giveaway posts)."""
+        text = "sold: 0 enigma"
+        price = find_best_price_in_text(text)
+        assert price is None  # Zero price should be ignored
+
+        text2 = "bin 0 shako"  
+        price2 = find_best_price_in_text(text2)
+        assert price2 is None  # Zero price should be ignored
 
 
 class TestPatternKeys:
