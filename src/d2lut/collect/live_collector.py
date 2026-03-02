@@ -440,14 +440,36 @@ class LiveCollector:
             offset = page_num * 25
             url = f"{base_url}&o={offset}"
             
+            # Retry logic for Cloudflare-blocked pages
+            max_retries = 3
+            for retry in range(max_retries):
+                try:
+                    await self._page.goto(url, timeout=self.config.timeout_ms)
+                    await asyncio.sleep(random.uniform(*self.config.page_delay_ms) / 1000)
+                    
+                    # Check for Cloudflare - if detected, wait and retry same page
+                    if await self._handle_cloudflare():
+                        if retry < max_retries - 1:
+                            await asyncio.sleep(5)  # Wait before retry
+                            continue  # Retry same page
+                        else:
+                            result.errors.append(f"Page {page_num}: Cloudflare blocked after {max_retries} retries")
+                            break  # Give up on this page, move to next
+                    
+                    # Successfully loaded page, break retry loop
+                    break
+                    
+                except Exception as e:
+                    if retry < max_retries - 1:
+                        await asyncio.sleep(2)
+                        continue
+                    result.errors.append(f"Page {page_num}: {e}")
+                    break
+            else:
+                # All retries exhausted
+                continue
+            
             try:
-                await self._page.goto(url, timeout=self.config.timeout_ms)
-                await asyncio.sleep(random.uniform(*self.config.page_delay_ms) / 1000)
-                
-                # Check for Cloudflare
-                if await self._handle_cloudflare():
-                    continue
-                
                 # Extract topic links
                 topic_ids = await self._extract_topic_ids()
                 
@@ -769,8 +791,20 @@ if __name__ == "__main__":
     collector = LiveCollector(config)
     
     if args.once:
-        # Single scan
-        result = asyncio.run(collector.initialize()) and asyncio.run(collector.scan_forum())
+        # Single scan - fix AttributeError bug
+        init_success = asyncio.run(collector.initialize())
+        if not init_success:
+            print("Failed to initialize collector")
+            result = ScanResult(
+                scan_time=datetime.now(timezone.utc),
+                pages_scanned=0,
+                topics_processed=0,
+                prices_observed=0,
+                new_prices=0,
+                errors=["Failed to initialize collector"],
+            )
+        else:
+            result = asyncio.run(collector.scan_forum())
         print(f"Scan complete: {result.topics_processed} topics, {result.prices_observed} prices")
     else:
         # Daemon mode
