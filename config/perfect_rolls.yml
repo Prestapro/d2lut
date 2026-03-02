@@ -127,7 +127,7 @@ facets:
       resist: [-5, -5]
       perfect_value: 60
 
-  lightning:
+  light:  # Changed from 'lightning' to match patterns.py naming (facet:light)
     death:
       damage: [3, 5]
       resist: [-5, -5]

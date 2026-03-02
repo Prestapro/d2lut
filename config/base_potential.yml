@@ -98,4 +98,5 @@ quality_rules:
   # Superior items worth keeping
   superior_valuable:
     min_defense_percent: 15
-    min_ed_ias: [15, 0]  # 15% ED or 5% ED + IAS
+    min_ed_ias: [15, 0]  # Min 15% ED, IAS optional (0 = any)
+    # Alternative: [5, 15] for 5% ED + 15% IAS weapons
