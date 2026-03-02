@@ -34,7 +34,7 @@ PRESETS = {
         "use_short_names": True,
         "apply_colors": True,
         "always_include_kinds": ["rune", "base", "jewel", "gem"],
-        "tag_style": "bracket",
+        "tag_style": "tz-blue",  # Blue color for prices (TZ spec)
     },
     "endgame": {
         "min_fg": 50.0,
@@ -42,7 +42,7 @@ PRESETS = {
         "use_short_names": True,
         "apply_colors": True,
         "always_include_kinds": ["rune", "key", "token"],
-        "tag_style": "bracket",
+        "tag_style": "tz-blue",  # Blue color for prices (TZ spec)
     },
     "wealth": {
         "min_fg": 200.0,
@@ -50,7 +50,7 @@ PRESETS = {
         "use_short_names": True,
         "apply_colors": True,
         "always_include_kinds": ["rune:jah", "rune:ber"], # Example: only extremely high runes bypass
-        "tag_style": "bracket",
+        "tag_style": "tz-gold",  # Gold color for high-value items
     },
     # Inspired by d2jsp endgame D2R JSON filters (e.g. "Roguecore" style): sparse display, focus on trade-relevant drops.
     "roguecore": {
@@ -59,7 +59,16 @@ PRESETS = {
         "use_short_names": True,
         "apply_colors": True,
         "always_include_kinds": ["rune", "key", "token", "jewel", "base"],
-        "tag_style": "pipe-upper",
+        "tag_style": "tz-blue-compact",  # Blue compact style (TZ spec)
+    },
+    # New TZ (Trade Zone) preset - blue color for all prices
+    "tz": {
+        "min_fg": 20.0,
+        "hide_junk": True,
+        "use_short_names": True,
+        "apply_colors": True,
+        "always_include_kinds": ["rune", "key", "token", "jewel", "base", "gem"],
+        "tag_style": "tz-blue",  # Blue ÿc3 for all prices
     },
 }
 
@@ -79,6 +88,16 @@ TAG_STYLES = {
     "pipe-upper": " | {fg} FG",
     "bare": " {fg} fg",
     "bare-upper": " {fg} FG",
+    # TZ (Trade Zone) color-coded styles
+    "tz-blue": " ÿc3{fg} FGÿc0",      # Blue - standard price items
+    "tz-gold": " ÿc4{fg} FGÿc0",      # Gold - valuable items
+    "tz-orange": " ÿc8{fg} FGÿc0",    # Orange - high value
+    "tz-red": " ÿc1{fg} FGÿc0",       # Red - GG items (100+ FG)
+    "tz-green": " ÿc2{fg} FGÿc0",     # Green - set/crafted items
+    "tz-yellow": " ÿc9{fg} FGÿc0",    # Yellow - rare items
+    # Compact TZ styles
+    "tz-blue-compact": " ÿc3[{fg}]ÿc0",
+    "tz-red-compact": " ÿc1[{fg}]ÿc0",
 }
 
 def interactive_prompt() -> str:

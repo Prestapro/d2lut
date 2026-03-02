@@ -1,56 +1,328 @@
-# This file defines the perfect stat rolls for valuable unique items.
+# This file defines the perfect stat rolls for valuable items.
 # The `display` string will be injected into the identified item name in D2R.
+# Format: short readable stats for quick visual identification.
 
 rolls:
+  # ===================================
+  # UNIQUE ARMOR
+  # ===================================
+
   "unique:griffons_eye":
     display: "[-20/+15]"
+
   "unique:the_stone_of_jordan":
-    display: "(100fg+)" # Fixed stats, just display baseline price
+    display: "[1skill/25mana]"
+
   "unique:arachnid_mesh":
     display: "[120ed]"
+
   "unique:deaths_fathom":
     display: "[30% cold]"
+
   "unique:crown_of_ages":
     display: "[2os/15DR]"
+
   "unique:mara_s_kaleidoscope":
     display: "[30res]"
+
   "unique:war_traveler":
     display: "[50mf]"
+
   "unique:harlequin_crest":
     display: "[141def]"
+
   "unique:andariel_s_visage":
     display: "[10ll/30str]"
+
   "unique:verdungo_s_hearty_cord":
     display: "[40vit/15DR]"
+
   "unique:dracul_s_grasp":
     display: "[10ll/15str]"
+
   "unique:bul_kathos_s_wedding_band":
     display: "[5ll]"
+
   "unique:wisp_projector":
     display: "[20abs/20mf]"
+
   "unique:herald_of_zakarum":
     display: "[200ed]"
+
   "unique:nightwing_s_veil":
     display: "[15% cold]"
+
   "unique:boneflame":
     display: "[+3/30res]"
+
   "unique:darkforce_spawn":
     display: "[+3/+3/+3]"
+
   "unique:ormus_s_robes":
     display: "[15/15/15]"
+
   "unique:sandstorm_trek":
     display: "[15/15]"
+
   "unique:shadow_dancer":
     display: "[+2/25dex]"
+
   "unique:gore_rider":
     display: "[200ed]"
+
   "unique:titans_revenge":
     display: "[200ed/9ll]"
+
   "unique:death_s_web":
     display: "[+2/-50]"
+
   "unique:eschuta_s_temper":
     display: "[+3/20/20]"
+
   "unique:the_oculus":
-    display: "[]" # Fixed stats
+    display: "[30mf]"
+
   "unique:ali_baba":
     display: "[120ed/15dex]"
+
+  "unique:stormshield":
+    display: "[25DR]"
+
+  "unique:skin_of_the_vipermagi":
+    display: "[35res/1os]"
+
+  "unique:homunculus":
+    display: "[200ed]"
+
+  "unique:arreat_s_face":
+    display: "[200ed]"
+
+  "unique:steelrend":
+    display: "[200ed/60ed]"
+
+  # ===================================
+  # TORCHES (Large Charm - Uber drop)
+  # ===================================
+
+  "unique:large_charm_torch_ama":
+    display: "[3/20/20]"
+
+  "unique:large_charm_torch_sor":
+    display: "[3/20/20]"
+
+  "unique:large_charm_torch_nec":
+    display: "[3/20/20]"
+
+  "unique:large_charm_torch_pal":
+    display: "[3/20/20]"
+
+  "unique:large_charm_torch_bar":
+    display: "[3/20/20]"
+
+  "unique:large_charm_torch_dru":
+    display: "[3/20/20]"
+
+  "unique:large_charm_torch_asn":
+    display: "[3/20/20]"
+
+  # Generic torch identifier
+  "unique:hellfire_torch":
+    display: "[3/20/20]"
+
+  # ===================================
+  # ANNILUS (Small Charm - Uber drop)
+  # ===================================
+
+  "unique:annihilus":
+    display: "[20/20/10]"
+
+  "unique:small_charm_annihilus":
+    display: "[20/20/10]"
+
+  # ===================================
+  # RAINBOW FACETS (Death/Level-up)
+  # ===================================
+
+  # Fire Facets
+  "unique:rainbow_facet_fire_death":
+    display: "[5/-5/100]"
+
+  "unique:rainbow_facet_fire_level":
+    display: "[5/-5/100]"
+
+  "unique:fire_facet":
+    display: "[5/-5]"
+
+  # Cold Facets
+  "unique:rainbow_facet_cold_death":
+    display: "[5/-5/100]"
+
+  "unique:rainbow_facet_cold_level":
+    display: "[5/-5/100]"
+
+  "unique:cold_facet":
+    display: "[5/-5]"
+
+  # Lightning Facets
+  "unique:rainbow_facet_light_death":
+    display: "[5/-5/100]"
+
+  "unique:rainbow_facet_light_level":
+    display: "[5/-5/100]"
+
+  "unique:light_facet":
+    display: "[5/-5]"
+
+  # Poison Facets
+  "unique:rainbow_facet_poison_death":
+    display: "[5/-5/100]"
+
+  "unique:rainbow_facet_poison_level":
+    display: "[5/-5/100]"
+
+  "unique:poison_facet":
+    display: "[5/-5]"
+
+  # ===================================
+  # POPULAR RUNEWORDS (for identified items)
+  # These appear when hovering runeword items
+  # ===================================
+
+  "runeword:enigma":
+    display: "[775def]"
+
+  "runeword:infinity":
+    display: "[-85res]"
+
+  "runeword:grief":
+    display: "[400dmg]"
+
+  "runeword:fortitude":
+    display: "[300ed]"
+
+  "runeword:call_to_arms":
+    display: "[6/6/6]"
+
+  "runeword:heart_of_oak":
+    display: "[40all]"
+
+  "runeword:spirit":
+    display: "[35fcr/55fhr]"
+
+  "runeword:breath_of_dying":
+    display: "[400ed]"
+
+  "runeword:last_wish":
+    display: "[6/6/6]"
+
+  "runeword:beast":
+    display: "[9fanat]"
+
+  "runeword:death":
+    display: "[50DS]"
+
+  "runeword:insight":
+    display: "[17med]"
+
+  "runeword:faith":
+    display: "[15fanat]"
+
+  "runeword:chains_of_honor":
+    display: "[70all]"
+
+  "runeword:exile":
+    display: "[15defiance]"
+
+  "runeword:dream":
+    display: "[15hs]"
+
+  "runeword:phoenix":
+    display: "[-28res]"
+
+  "runeword:delirium":
+    display: "[18ctc]"
+
+  "runeword:stone":
+    display: "[300ed]"
+
+  "runeword:duress":
+    display: "[200ed]"
+
+  "runeword:treachery":
+    display: "[45ias]"
+
+  "runeword:oice_of_reason":
+    display: "[50cb]"
+
+  # ===================================
+  # CRAFTED ITEMS (Popular recipes)
+  # ===================================
+
+  "crafted:blood_gloves":
+    display: "[10cb/20ias]"
+
+  "crafted:hitpower_gloves":
+    display: "[KB/20ias]"
+
+  "crafted:caster_amulet":
+    display: "[2skill/20fcr]"
+
+  "crafted:blood_ring":
+    display: "[10ll/ar/life]"
+
+  "crafted:caster_belt":
+    display: "[20fcr/24fhr]"
+
+  "crafted:safety_boots":
+    display: "[10dr/30rw]"
+
+  # ===================================
+  # MAGIC ITEMS (GG Affixes)
+  # ===================================
+
+  "magic:jewelers_monarch":
+    display: "[4os]"
+
+  "magic:jewelers_of_deflecting":
+    display: "[4os/20fbr]"
+
+  "magic:circlet_2skill_20fcr":
+    display: "[2skill/20fcr]"
+
+  "magic:tiara_2skill_20fcr":
+    display: "[2skill/20fcr]"
+
+  "magic:amu_2skill_20fcr":
+    display: "[2skill/20fcr]"
+
+  # ===================================
+  # CHARMS (Popular combos)
+  # ===================================
+
+  "magic:small_charm_20life_5res":
+    display: "[20/5]"
+
+  "magic:small_charm_3max_20ar_20life":
+    display: "[3/20/20]"
+
+  "magic:grand_charm_skill_45life":
+    display: "[skill/45life]"
+
+  # ===================================
+  # SET ITEMS (Popular)
+  # ===================================
+
+  "set:tal_rasha_s_adjudication":
+    display: "[2skill/15res]"
+
+  "set:tal_rasha_s_horadric_crest":
+    display: "[15dr/60life]"
+
+  "set:tal_rasha_s_lidless_eye":
+    display: "[2skill/20fcr]"
+
+  "set:tal_rasha_s_finery":
+    display: "[skill/30res]"
+
+  "set:natalya_s_soul":
+    display: "[40rw/15dex]"

@@ -6,6 +6,7 @@
 #   uniques: List of notable uniques that can drop from this base
 #   runewords: List of runewords that can be made in this base (with socket info)
 #   gg_magic: True if this base can roll GG magic affixes worth 50+ fg
+#   gg_craft: True if this base is valuable for crafting (hitpower, blood, caster, safety)
 #   lld_relevant: True if this base is valuable for LLD (Low Level Dueling)
 #   eth_bonus: Bonus value for ethereal versions
 #   max_sockets: Maximum socket count for this base type
@@ -14,21 +15,21 @@ hints:
   # ===================================
   # SHIELDS
   # ===================================
-  
+
   "uit": # Monarch (elite shield)
     uniques: ["Stormshield"]
     runewords: ["Spirit: 4os", "Phoenix: 4os"]
-    gg_magic: true  # JMOD (Jeweler's of Deflecting) - 100+ fg
+    gg_magic: true  # JMOD (Jeweler's of Deflecting) - 1000+ fg
     lld_relevant: false
     eth_bonus: 0
     max_sockets: 4
-    
+
   "ulg": # Luna
     uniques: ["Lidless Wall"]
     runewords: ["Spirit: 4os", "Dream: 3os"]
     gg_magic: false
     max_sockets: 4
-    
+
   "ush": # Sacred Rondache (Paladin)
     uniques: ["Alma Negra", "Spirit Forge"]
     runewords: ["Spirit: 4os", "Exile: 4os (eth)", "Grief RW base"]
@@ -36,14 +37,14 @@ hints:
     eth_bonus: 15  # Exile wants eth
     max_sockets: 4
     lld_relevant: false
-    
+
   "uws": # Targe (Paladin)
     uniques: ["Herald of Zakarum", "Akaran Targe"]
     runewords: ["Spirit: 4os"]
     gg_magic: false
     eth_bonus: 10
     max_sockets: 4
-    
+
   "xts": # Gilded Shield (exceptional pally)
     uniques: ["Herald of Zakarum"]
     runewords: ["Spirit: 4os"]
@@ -53,7 +54,7 @@ hints:
   # ===================================
   # ARMOR - Elite
   # ===================================
-  
+
   "uap": # Archon Plate (light armor)
     uniques: []
     runewords: ["Enigma: 3os / 524def", "Fortitude: 4os", "CoH: 4os", "Stone: 4os"]
@@ -61,14 +62,14 @@ hints:
     eth_bonus: 5
     max_sockets: 4
     notes: "Best Enigma base - low str req"
-    
+
   "upl": # Balrog Skin
     uniques: ["Arkaine's Valor"]
     runewords: ["Fortitude: 4os", "CoH: 4os", "Enigma: 3os"]
     gg_magic: false
     eth_bonus: 5
     max_sockets: 4
-    
+
   "ula": # Wire Fleece
     uniques: []
     runewords: ["Fortitude: 4os", "CoH: 4os", "Enigma: 3os"]
@@ -76,14 +77,14 @@ hints:
     eth_bonus: 8
     max_sockets: 4
     notes: "Good merc fort base"
-    
+
   "uld": # Great Hauberk
     uniques: []
     runewords: ["Fortitude: 4os", "CoH: 4os", "Enigma: 3os"]
     gg_magic: false
     eth_bonus: 5
     max_sockets: 4
-    
+
   "utp": # Sacred Armor
     uniques: []
     runewords: ["Fortitude: 4os", "CoH: 4os"]
@@ -93,66 +94,84 @@ hints:
     notes: "High def but 232 str req"
 
   # ===================================
-  # ARMOR - Exceptional
+  # ARMOR - Exceptional (Crafting + RW bases)
   # ===================================
-  
+
   "xap": # Dusk Shroud
     uniques: []
     runewords: ["Enigma: 3os", "Fortitude: 4os"]
     gg_magic: false
     eth_bonus: 3
     max_sockets: 4
-    
-  "xtp": # Wyrmhide
+
+  "xtp": # Wyrmhide (Thresher base code used for armor)
     uniques: []
     runewords: ["Enigma: 3os", "Fortitude: 4os"]
     gg_magic: false
     eth_bonus: 3
     max_sockets: 4
 
+  "xlg": # Serpentskin Armor
+    uniques: ["Skin of the Vipermagi"]
+    runewords: ["CoH: 4os"]
+    gg_magic: false
+    eth_bonus: 5
+    max_sockets: 4
+
+  "xpl": # Hellforge Plate
+    uniques: []
+    runewords: ["Fortitude: 4os", "Stone: 4os"]
+    gg_magic: false
+    eth_bonus: 5
+    max_sockets: 4
+
   # ===================================
   # HELMETS - Elite
   # ===================================
-  
+
   "uhm": # Diadem
     uniques: ["Griffon's Eye", "Nightwing's Veil"]
     runewords: ["Dream: 3os", "Delirium: 3os"]
-    gg_magic: true  # +2 skills / 20 FCR
+    gg_magic: true  # +2 skills / 20 FCR - 500+ fg
+    gg_craft: true  # Caster craft +2 skills
     max_sockets: 3
-    
+
   "usk": # Shako
     uniques: ["Harlequin Crest"]
     runewords: []
     gg_magic: false
     max_sockets: 2
-    
+
   "ci3": # Tiara
     uniques: ["Kira's Guardian", "Valkyrie Wing"]
     runewords: ["Dream: 3os", "Delirium: 3os"]
     gg_magic: true
+    gg_craft: true
     lld_relevant: true
     max_sockets: 3
-    
+
   "ci2": # Coronet
     uniques: []
     runewords: ["Dream: 3os"]
     gg_magic: true
+    gg_craft: true  # Blood craft
     lld_relevant: true
     max_sockets: 3
-    
+
   "ci0": # Circlet
     uniques: []
     runewords: ["Lore: 2os"]
     gg_magic: true
+    gg_craft: true
     lld_relevant: true
     max_sockets: 3
-    
+
   "uhb": # Corona
     uniques: ["Crown of Ages"]
     runewords: ["Dream: 3os"]
     gg_magic: false
     max_sockets: 3
-    
+
   "um0": # Spired Helm
     uniques: ["Steelshade"]
     runewords: ["Delirium: 3os"]
@@ -162,44 +181,51 @@ hints:
   # ===================================
   # HELMETS - Exceptional
   # ===================================
-  
+
   "xh9": # Grim Helm
     uniques: ["Vampire Gaze"]
     runewords: ["Dream: 3os", "Delirium: 3os"]
     gg_magic: false
     eth_bonus: 5
     max_sockets: 3
-    
+
   "xhb": # Bone Visage
     uniques: ["Giant Skull"]
     runewords: ["Delirium: 3os"]
     gg_magic: false
     max_sockets: 3
 
+  "xhm": # Basinet
+    uniques: ["Vampire Gaze (exceptional)"]
+    runewords: ["Delirium: 3os"]
+    gg_magic: false
+    eth_bonus: 3
+    max_sockets: 3
+
   # ===================================
   # WEAPONS - Swords
   # ===================================
-  
+
   "7wa": # Phase Blade
     uniques: ["Lightsabre", "Azurewrath"]
     runewords: ["Grief: 5os", "Last Wish: 6os", "Phoenix: 4os", "Spirit: 4os"]
     gg_magic: false
     max_sockets: 6
     notes: "Indestructible - Grief BiS"
-    
+
   "7cr": # Crystal Sword
     uniques: []
     runewords: ["Spirit: 4os", "CTA: 4os", "Grief: 5os"]
     gg_magic: false
     max_sockets: 6
     notes: "Low req CTA base"
-    
+
   "7bs": # Balrog Blade
     uniques: ["Doombringer"]
     runewords: ["Grief: 5os", "Breath of Dying: 6os"]
     gg_magic: false
     max_sockets: 6
-    
+
   "7ls": # Legendary Sword
     uniques: []
     runewords: ["Grief: 5os", "Destruction: 5os"]
@@ -209,7 +235,7 @@ hints:
   # ===================================
   # WEAPONS - Axes
   # ===================================
-  
+
   "7ax": # Berserker Axe
     uniques: ["Death Cleaver", "Doombringer"]
     runewords: ["Grief: 5os", "Beast: 5os", "Breath of Dying: 6os", "Death: 6os"]
@@ -217,7 +243,7 @@ hints:
     eth_bonus: 15  # Eth Grief is GG
     max_sockets: 6
     notes: "Highest avg dmg 1H weapon"
-    
+
   "7la": # Silver Edged Axe
     uniques: []
     runewords: ["Oath: 4os", "Grief: 5os"]
@@ -225,9 +251,9 @@ hints:
     max_sockets: 6
 
   # ===================================
-  # WEAPONS - Polearms (Merc)
+  # WEAPONS - Polearms (Merc) - CRITICAL for Infinity/Insight
   # ===================================
-  
+
   "7pa": # Cryptic Axe
     uniques: []
     runewords: ["Infinity: 4os", "Insight: 4os", "Obedience: 4os"]
@@ -235,7 +261,7 @@ hints:
     eth_bonus: 20  # Eth Infinity/Insight is huge
     max_sockets: 5
     notes: "Best merc base - low req"
-    
+
   "7gd": # Giant Thresher
     uniques: []
     runewords: ["Infinity: 4os", "Insight: 4os", "Obedience: 4os"]
@@ -243,14 +269,14 @@ hints:
     eth_bonus: 25
     max_sockets: 5
     notes: "Fastest merc base"
-    
+
   "7vo": # Thresher
     uniques: []
     runewords: ["Infinity: 4os", "Insight: 4os"]
     gg_magic: false
     eth_bonus: 20
     max_sockets: 5
-    
+
   "7st": # Stygian Pike
     uniques: []
     runewords: ["Infinity: 4os", "Insight: 4os"]
@@ -261,14 +287,14 @@ hints:
   # ===================================
   # WEAPONS - Hammers
   # ===================================
-  
+
   "7fl": # Flail
     uniques: ["Horizon's Tornado"]
     runewords: ["Heart of Oak: 4os", "Call to Arms: 4os"]
     gg_magic: false
     max_sockets: 5
     notes: "Best HOTO/CTA base - low req"
-    
+
   "7sc": # Scourge
     uniques: ["Stormlash", "Horizon's Tornado"]
     runewords: ["Heart of Oak: 4os", "Grief: 5os"]
@@ -276,17 +302,23 @@ hints:
     max_sockets: 5
     notes: "HOTO alternative"
 
+  "7wh": # Legendary Mallet
+    uniques: ["Schaefer's Hammer"]
+    runewords: ["Heart of Oak: 4os"]
+    gg_magic: false
+    max_sockets: 5
+
   # ===================================
   # WEAPONS - Bows
   # ===================================
-  
+
   "7bw": # Crusader Bow
     uniques: ["Windforce"]
     runewords: ["Faith: 4os", "Brand: 5os", "Ice: 4os"]
     gg_magic: false
     max_sockets: 6
     notes: "Windforce + Faith base"
-    
+
   "7hb": # Hydra Bow
     uniques: ["Windforce"]
     runewords: ["Faith: 4os", "Brand: 5os"]
@@ -296,14 +328,14 @@ hints:
   # ===================================
   # WEAPONS - Assassin Claws
   # ===================================
-  
+
   "7ar": # Suwayyah
     uniques: ["Bartuc's Cut-Throat", "Jade Talon", "Shadow Killer"]
     runewords: ["Chaos: 3os", "Malice: 3os"]
     gg_magic: false
     max_sockets: 3
     notes: "Chaos sin base"
-    
+
   "7tw": # Scissors Suwayyah
     uniques: []
     runewords: ["Chaos: 3os"]
@@ -311,113 +343,197 @@ hints:
     max_sockets: 3
 
   # ===================================
-  # GLOVES
+  # WEAPONS - Daggers (Necro/Pally/Trapsin)
   # ===================================
-  
-  "uvg": # Vampirebone Gloves
-    uniques: ["Dracul's Grasp"]
+
+  "7dg": # Legend Spike
+    uniques: []
     runewords: []
     gg_magic: false
-    
-  "utg": # Ogre Gauntlets
+    gg_craft: true
+
+  # ===================================
+  # WEAPONS - Scepters (Pally)
+  # ===================================
+
+  "7ws": # Divine Scepter
+    uniques: ["Heaven's Light", "The Redeemer"]
+    runewords: []
+    gg_magic: false
+    max_sockets: 5
+
+  # ===================================
+  # GLOVES - Elite & Exceptional (Crafting!)
+  # ===================================
+
+  "utg": # Ogre Gauntlets (elite heavy gloves)
     uniques: ["Steelrend"]
     runewords: []
     gg_magic: false
-    
-  "xtg": # War Gauntlets
+    gg_craft: false
+    notes: "High str req, not good for crafting"
+
+  "xtg": # War Gauntlets (exceptional heavy gloves)
     uniques: ["Laying of Hands"]
     runewords: []
     gg_magic: false
+    gg_craft: true  # Blood gloves crafting
+
+  "glv": # Gauntlets (normal heavy gloves)
+    uniques: []
+    runewords: []
+    gg_magic: false
+    gg_craft: true  # Blood gloves crafting - low req
+    notes: "Best for blood craft gloves ( Crushing Blow)"
+
+  "uvg": # Vampirebone Gloves (elite light gauntlets)
+    uniques: ["Dracul's Grasp"]
+    runewords: []
+    gg_magic: false
+    gg_craft: true  # Hitpower gloves
+
+  "xvg": # Demonhide Gloves (exceptional light gauntlets)
+    uniques: []
+    runewords: []
+    gg_magic: false
+    gg_craft: true  # Hitpower / Blood
+
+  "lrg": # Leather Gloves (normal)
+    uniques: []
+    runewords: []
+    gg_magic: false
+    gg_craft: true  # Blood gloves - lowest req
+    notes: "Best for low-level blood craft (IAS/CB)"
+
+  "vhg": # Heavy Bracers (elite chain gloves)
+    uniques: []
+    runewords: []
+    gg_magic: false
+    gg_craft: true  # Hitpower gloves - Knockback
+
+  "xhg": # Chain Gloves (exceptional)
+    uniques: ["Magefist"]
+    runewords: []
+    gg_magic: false
+    gg_craft: true  # Hitpower gloves - Knockback
+    notes: "Good for hitpower craft (KB)"
 
   # ===================================
   # BOOTS
   # ===================================
-  
+
   "xtb": # War Boots
     uniques: ["Gore Rider"]
     runewords: []
     gg_magic: false
-    
+    gg_craft: true
+
   "utb": # Myrmidon Greaves
     uniques: ["Shadow Dancer", "Sandstorm Trek"]
     runewords: []
     gg_magic: false
-    
+    gg_craft: true
+
   "utv": # Scarabshell Boots
     uniques: ["Sandstorm Trek"]
+    runewords: []
+    gg_magic: false
+
+  "xlb": # Mesh Boots
+    uniques: ["Silkweave"]
+    runewords: []
+    gg_magic: false
+    gg_craft: true  # Safety boots
+
+  "ulb": # Boneweave Boots
+    uniques: ["Marrowwalk"]
     runewords: []
     gg_magic: false
 
   # ===================================
   # BELTS
   # ===================================
-  
+
   "uui": # Arachnid Mesh (Spiderweb Sash)
     uniques: ["Arachnid Mesh"]
     runewords: []
     gg_magic: false
-    
+
   "xua": # Demonhide Sash
     uniques: ["String of Ears"]
     runewords: []
     gg_magic: false
-    
+    gg_craft: true  # Blood belt
+
   "utu": # Vampirefang Belt
     uniques: ["Nosferatu's Coil"]
+    runewords: []
+    gg_magic: false
+    gg_craft: true  # Hitpower belt
+
+  "xzb": # Sharkskin Belt
+    uniques: []
+    runewords: []
+    gg_magic: false
+    gg_craft: true
+
+  "umc": # Mithril Coil
+    uniques: ["Verdungo's Hearty Cord"]
     runewords: []
     gg_magic: false
 
   # ===================================
   # JEWELRY
   # ===================================
-  
+
   "rin": # Ring
     uniques: ["SoJ", "BK", "Wisp", "Raven", "Dwarf", "Nagel"]
     runewords: []
-    gg_magic: true  # 10 FCR with stats
-    
+    gg_magic: true  # 10 FCR with stats - 100+ fg
+
   "amu": # Amulet
     uniques: ["Mara's", "Tal's", "Highlord's", "Cat's Eye", "Atma's", "Seraph's"]
     runewords: []
-    gg_magic: true  # +2 skills / 20 FCR
+    gg_magic: true  # +2 skills / 20 FCR - 500+ fg
+    gg_craft: true  # Caster craft amulet
 
   # ===================================
   # CHARMS
   # ===================================
-  
+
   "cm1": # Small Charm
     uniques: ["Annihilus"]
     runewords: []
-    gg_magic: true  # 20/5, 3/20/20, skillers
-    
+    gg_magic: true  # 20/5, 3/20/20, skillers - 100+ fg
+
   "cm2": # Large Charm
     uniques: ["Hellfire Torch"]
     runewords: []
     gg_magic: false
-    
+
   "cm3": # Grand Charm
     uniques: ["Gheed's Fortune"]
     runewords: []
-    gg_magic: true  # Skillers with life
+    gg_magic: true  # Skillers with life - 50+ fg
 
   # ===================================
   # JEWELS
   # ===================================
-  
+
   "jew": # Jewel
     uniques: ["Rainbow Facet"]
     runewords: []
-    gg_magic: true  # 40/15, 15/-15, etc.
+    gg_magic: true  # 40/15, 15/-15, etc. - 100+ fg
 
   # ===================================
   # NECROMANCER HEADS
   # ===================================
-  
+
   "zmb": # Zombie Head
     uniques: ["Homunculus", "Boneflame"]
     runewords: []
     gg_magic: false
-    
+
   "zbm": # Bloodlord Skull
     uniques: ["Darkforge Spawn"]
     runewords: []
@@ -426,9 +542,15 @@ hints:
   # ===================================
   # BARBARIAN HELMS
   # ===================================
-  
+
   "baa": # Avenger Guard
     uniques: ["Arreat's Face"]
+    runewords: ["Delirium: 3os"]
+    gg_magic: false
+    max_sockets: 3
+
+  "bar": # Slayer Guard
+    uniques: ["Arreat's Face (elite)"]
     runewords: ["Delirium: 3os"]
     gg_magic: false
     max_sockets: 3
@@ -436,7 +558,7 @@ hints:
   # ===================================
   # PALADIN SHIELDS (Detailed)
   # ===================================
-  
+
   "pab": # Sacred Targe
     uniques: []
     runewords: ["Spirit: 4os", "Exile: 4os (eth)"]
@@ -444,14 +566,14 @@ hints:
     eth_bonus: 20
     max_sockets: 4
     notes: "Best Exile base - high block"
-    
+
   "pac": # Sacred Rondache
     uniques: []
     runewords: ["Spirit: 4os", "Exile: 4os (eth)"]
     gg_magic: false
     eth_bonus: 18
     max_sockets: 4
-    
+
   "pad": # Kurast Shield
     uniques: []
     runewords: ["Spirit: 4os", "Exile: 4os (eth)"]
@@ -459,15 +581,22 @@ hints:
     eth_bonus: 15
     max_sockets: 4
 
+  "pae": # Zakarum Shield
+    uniques: ["Herald of Zakarum"]
+    runewords: ["Spirit: 4os"]
+    gg_magic: false
+    eth_bonus: 10
+    max_sockets: 4
+
   # ===================================
   # SORCERESS ORBS
   # ===================================
-  
+
   "uzl": # Dimensional Shard
     uniques: ["Death's Fathom", "Eschuta's Temper"]
     runewords: []
     gg_magic: false
-    
+
   "obf": # Swirling Crystal
     uniques: ["The Oculus"]
     runewords: []
@@ -476,14 +605,35 @@ hints:
   # ===================================
   # DRUID PELTS
   # ===================================
-  
+
   "dr1": # Wolf Head
     uniques: ["Jalal's Mane"]
     runewords: []
     gg_magic: false
-    
+
   "dr3": # Spirit Mask
     uniques: []
     runewords: ["Delirium: 3os"]
     gg_magic: false
     max_sockets: 3
+
+  "drd": # Sky Spirit
+    uniques: []
+    runewords: ["Delirium: 3os"]
+    gg_magic: false
+    max_sockets: 3
+
+  # ===================================
+  # AMAZON WEAPONS
+  # ===================================
+
+  "am5": # Matriarchal Spear
+    uniques: ["Stoneslayer"]
+    runewords: []
+    gg_magic: false
+    max_sockets: 5
+
+  "am7": # Matriarchal Javelin
+    uniques: ["Titan's Revenge"]
+    runewords: []
+    gg_magic: false
