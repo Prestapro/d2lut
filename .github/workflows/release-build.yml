@@ -39,8 +39,7 @@ jobs:
 
       - name: Run tests
         run: |
-          PYTHONPATH=src pytest tests/ -v --tb=short || true
-        continue-on-error: true  # Don't block releases on test failures
+          PYTHONPATH=src pytest tests/ -v --tb=short
 
   build:
     name: Build (${{ matrix.os_name }})
