@@ -35,9 +35,8 @@ all = [
     "d2lut[overlay,scraper,ml,dev]",
 ]
 
-[project.scripts]
-d2lut-server = "d2lut.scripts.run_remote_overlay_server:main"
-d2lut-build = "d2lut.scripts.build_overlay_server:main"
+# Entry points disabled - scripts are standalone in scripts/ directory
+# To enable CLI commands, create proper package modules in src/d2lut/cli/
 
 [build-system]
 requires = ["setuptools>=68", "wheel"]

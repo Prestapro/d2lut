@@ -174,20 +174,24 @@ def test_e2e_thread_parsing_with_slang():
         print("\n" + "=" * 60)
         print("All integration tests passed! ✓")
         print("=" * 60)
-        return 0
+        # pytest expects None (or no return) from test functions
         
     except AssertionError as e:
         print(f"\n✗ Test failed: {e}")
-        return 1
+        raise  # Re-raise for pytest to handle
     except Exception as e:
         print(f"\n✗ Unexpected error: {e}")
         import traceback
         traceback.print_exc()
-        return 1
+        raise  # Re-raise for pytest to handle
     finally:
         # Cleanup
         Path(db_path).unlink(missing_ok=True)
 
 
 if __name__ == "__main__":
-    sys.exit(test_e2e_thread_parsing_with_slang())
+    try:
+        test_e2e_thread_parsing_with_slang()
+        sys.exit(0)
+    except Exception:
+        sys.exit(1)

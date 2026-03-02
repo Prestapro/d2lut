@@ -35,8 +35,16 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--recursive", action="store_true")
     p.add_argument("--pattern", default="*.html")
 
-    p.add_argument("--skip-zero-replies", action="store_true", default=True)
-    p.add_argument("--skip-bump-only-topic", action="store_true", default=True)
+    p.add_argument("--skip-zero-replies", action="store_true", default=True,
+                   help="Skip threads with zero replies (default: on)")
+    p.add_argument("--no-skip-zero-replies", dest="skip_zero_replies",
+                   action="store_false",
+                   help="Include threads with zero replies")
+    p.add_argument("--skip-bump-only-topic", action="store_true", default=True,
+                   help="Skip topics that only have bump posts (default: on)")
+    p.add_argument("--no-skip-bump-only-topic", dest="skip_bump_only_topic",
+                   action="store_false",
+                   help="Include topics that only have bump posts")
 
     p.add_argument("--candidate-limit", type=int, default=500)
     p.add_argument(

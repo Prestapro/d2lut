@@ -237,7 +237,7 @@ class RefreshDaemon:
                 last_success_at=self._last_success_at,
                 last_refresh_at=self._last_refresh_at,
                 last_error=self._last_error,
-                is_running=self._refreshing,
+                is_running=self._running,
                 next_scheduled_at=next_at,
                 observations_delta=self._last_obs_delta,
                 estimates_delta=self._last_est_delta,

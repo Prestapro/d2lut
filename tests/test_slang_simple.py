@@ -1,4 +1,4 @@
-"""Simple standalone test for slang alias integration."""
+"""Test for slang alias integration - works with pytest and as standalone."""
 from __future__ import annotations
 
 import sqlite3
@@ -6,8 +6,11 @@ import sys
 import tempfile
 from pathlib import Path
 
-# Add src to path
-sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
+import pytest
+
+# Add src to path for standalone execution
+if __name__ == "__main__":
+    sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 from d2lut.normalize.d2jsp_market import (
     apply_slang_normalization,
@@ -16,12 +19,12 @@ from d2lut.normalize.d2jsp_market import (
 )
 
 
-def create_test_db():
-    """Create a temporary database with slang aliases."""
+def _create_standalone_db() -> Path:
+    """Create a temporary database with slang aliases for standalone execution."""
     with tempfile.NamedTemporaryFile(suffix=".db", delete=False) as f:
-        db_path = f.name
+        db_path = Path(f.name)
     
-    conn = sqlite3.connect(db_path)
+    conn = sqlite3.connect(str(db_path))
     
     # Create slang_aliases table
     conn.executescript("""
@@ -65,101 +68,107 @@ def create_test_db():
     return db_path
 
 
-def test_load_slang_aliases(db_path):
-    """Test loading slang aliases from database."""
-    print("Test: load_slang_aliases")
-    init_slang_cache(db_path)
+class TestSlangAliases:
+    """Test class for slang alias integration - works with pytest fixture."""
     
-    from d2lut.normalize.d2jsp_market import _SLANG_CACHE
-    assert _SLANG_CACHE is not None, "Cache should be initialized"
-    assert "gt" in _SLANG_CACHE, "gt should be in cache"
-    assert "amy" in _SLANG_CACHE, "amy should be in cache"
-    print("  ✓ Slang cache loaded successfully")
+    def test_load_slang_aliases(self, db_path: Path):
+        """Test loading slang aliases from database."""
+        init_slang_cache(str(db_path))
+        
+        from d2lut.normalize.d2jsp_market import _SLANG_CACHE
+        assert _SLANG_CACHE is not None, "Cache should be initialized"
+        assert "gt" in _SLANG_CACHE, "gt should be in cache"
+        assert "amy" in _SLANG_CACHE, "amy should be in cache"
+
+    def test_apply_slang_normalization_base_aliases(self, db_path: Path):
+        """Test that base aliases are applied correctly."""
+        init_slang_cache(str(db_path))
+        
+        result = apply_slang_normalization("4os gt eth", str(db_path))
+        assert "giant thresher" in result.lower(), f"Expected 'giant thresher' in '{result}'"
+        
+        result = apply_slang_normalization("cv 4os", str(db_path))
+        assert "colossus voulge" in result.lower(), f"Expected 'colossus voulge' in '{result}'"
+        
+        result = apply_slang_normalization("pb 5os", str(db_path))
+        assert "phase blade" in result.lower(), f"Expected 'phase blade' in '{result}'"
+
+    def test_apply_slang_normalization_item_aliases(self, db_path: Path):
+        """Test that item aliases are applied correctly."""
+        init_slang_cache(str(db_path))
+        
+        result = apply_slang_normalization("tal amy bin 300", str(db_path))
+        assert "tal ammy" in result.lower(), f"Expected 'tal ammy' in '{result}'"
+
+    def test_normalize_item_hint_with_slang(self, db_path: Path):
+        """Test that normalize_item_hint uses slang aliases."""
+        init_slang_cache(str(db_path))
+        
+        result = normalize_item_hint("4os gt eth")
+        assert result is not None, "Should match after slang expansion"
+        assert "base:" in result[0], f"Expected 'base:' in '{result[0]}'"
+
+    def test_slang_normalization_case_insensitive(self, db_path: Path):
+        """Test that slang normalization works case-insensitively."""
+        init_slang_cache(str(db_path))
+        
+        result1 = apply_slang_normalization("GT 4os", str(db_path))
+        result2 = apply_slang_normalization("gt 4os", str(db_path))
+        result3 = apply_slang_normalization("Gt 4os", str(db_path))
+        
+        assert result1.lower() == result2.lower() == result3.lower(), \
+            f"Case insensitive results should match: '{result1}', '{result2}', '{result3}'"
+
+    def test_slang_normalization_word_boundaries(self, db_path: Path):
+        """Test that slang normalization respects word boundaries."""
+        init_slang_cache(str(db_path))
+        
+        result = apply_slang_normalization("gt 4os gtx", str(db_path))
+        assert "giant thresher" in result.lower(), f"Expected 'giant thresher' in '{result}'"
+        assert "gtx" in result.lower(), f"Expected 'gtx' to remain unchanged in '{result}'"
 
 
-def test_apply_slang_normalization_base_aliases(db_path):
-    """Test that base aliases are applied correctly."""
-    print("\nTest: apply_slang_normalization_base_aliases")
-    init_slang_cache(db_path)
-    
-    result = apply_slang_normalization("4os gt eth", db_path)
-    assert "giant thresher" in result.lower(), f"Expected 'giant thresher' in '{result}'"
-    print(f"  ✓ '4os gt eth' -> '{result}'")
-    
-    result = apply_slang_normalization("cv 4os", db_path)
-    assert "colossus voulge" in result.lower(), f"Expected 'colossus voulge' in '{result}'"
-    print(f"  ✓ 'cv 4os' -> '{result}'")
-    
-    result = apply_slang_normalization("pb 5os", db_path)
-    assert "phase blade" in result.lower(), f"Expected 'phase blade' in '{result}'"
-    print(f"  ✓ 'pb 5os' -> '{result}'")
-
-
-def test_apply_slang_normalization_item_aliases(db_path):
-    """Test that item aliases are applied correctly."""
-    print("\nTest: apply_slang_normalization_item_aliases")
-    init_slang_cache(db_path)
-    
-    result = apply_slang_normalization("tal amy bin 300", db_path)
-    assert "tal ammy" in result.lower(), f"Expected 'tal ammy' in '{result}'"
-    print(f"  ✓ 'tal amy bin 300' -> '{result}'")
-
-
-def test_normalize_item_hint_with_slang(db_path):
-    """Test that normalize_item_hint uses slang aliases."""
-    print("\nTest: normalize_item_hint_with_slang")
-    init_slang_cache(db_path)
-    
-    result = normalize_item_hint("4os gt eth")
-    assert result is not None, "Should match after slang expansion"
-    assert "base:" in result[0], f"Expected 'base:' in '{result[0]}'"
-    print(f"  ✓ '4os gt eth' normalized to: {result}")
-
-
-def test_slang_normalization_case_insensitive(db_path):
-    """Test that slang normalization works case-insensitively."""
-    print("\nTest: slang_normalization_case_insensitive")
-    init_slang_cache(db_path)
-    
-    result1 = apply_slang_normalization("GT 4os", db_path)
-    result2 = apply_slang_normalization("gt 4os", db_path)
-    result3 = apply_slang_normalization("Gt 4os", db_path)
-    
-    assert result1.lower() == result2.lower() == result3.lower(), \
-        f"Case insensitive results should match: '{result1}', '{result2}', '{result3}'"
-    print(f"  ✓ Case insensitive: 'GT'/'gt'/'Gt' all -> '{result1}'")
-
-
-def test_slang_normalization_word_boundaries(db_path):
-    """Test that slang normalization respects word boundaries."""
-    print("\nTest: slang_normalization_word_boundaries")
-    init_slang_cache(db_path)
-    
-    result = apply_slang_normalization("gt 4os gtx", db_path)
-    assert "giant thresher" in result.lower(), f"Expected 'giant thresher' in '{result}'"
-    assert "gtx" in result.lower(), f"Expected 'gtx' to remain unchanged in '{result}'"
-    print(f"  ✓ 'gt 4os gtx' -> '{result}' (gtx preserved)")
-
-
-def main():
+def main() -> int:
+    """Standalone test runner for manual execution."""
     print("=" * 60)
     print("Testing Slang Alias Integration")
     print("=" * 60)
     
-    db_path = create_test_db()
+    db_path = _create_standalone_db()
     
     try:
-        test_load_slang_aliases(db_path)
-        test_apply_slang_normalization_base_aliases(db_path)
-        test_apply_slang_normalization_item_aliases(db_path)
-        test_normalize_item_hint_with_slang(db_path)
-        test_slang_normalization_case_insensitive(db_path)
-        test_slang_normalization_word_boundaries(db_path)
+        # Create test instance and run tests manually
+        test_instance = TestSlangAliases()
+        
+        print("\nTest: load_slang_aliases")
+        test_instance.test_load_slang_aliases(db_path)
+        print("  ✓ Slang cache loaded successfully")
+        
+        print("\nTest: apply_slang_normalization_base_aliases")
+        test_instance.test_apply_slang_normalization_base_aliases(db_path)
+        print("  ✓ Base aliases work correctly")
+        
+        print("\nTest: apply_slang_normalization_item_aliases")
+        test_instance.test_apply_slang_normalization_item_aliases(db_path)
+        print("  ✓ Item aliases work correctly")
+        
+        print("\nTest: normalize_item_hint_with_slang")
+        test_instance.test_normalize_item_hint_with_slang(db_path)
+        print("  ✓ normalize_item_hint works with slang")
+        
+        print("\nTest: slang_normalization_case_insensitive")
+        test_instance.test_slang_normalization_case_insensitive(db_path)
+        print("  ✓ Case insensitive matching works")
+        
+        print("\nTest: slang_normalization_word_boundaries")
+        test_instance.test_slang_normalization_word_boundaries(db_path)
+        print("  ✓ Word boundaries respected")
         
         print("\n" + "=" * 60)
         print("All tests passed! ✓")
         print("=" * 60)
         return 0
+        
     except AssertionError as e:
         print(f"\n✗ Test failed: {e}")
         return 1
@@ -170,7 +179,7 @@ def main():
         return 1
     finally:
         # Cleanup
-        Path(db_path).unlink(missing_ok=True)
+        db_path.unlink(missing_ok=True)
 
 
 if __name__ == "__main__":
