@@ -1,6 +1,6 @@
 [project]
 name = "d2lut"
-version = "0.2.4"
+version = "0.2.5"
 description = "D2R loot value pipeline using d2jsp fg market signals"
 requires-python = ">=3.11"
 dependencies = [

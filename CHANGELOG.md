@@ -2,6 +2,27 @@
 
 ---
 
+## v0.2.5
+
+Bug Fixes
+- Fixed duplicate `from pathlib import Path` import in d2r_json_filter.py
+- Fixed CWD-dependent fallback in refresh_daemon._execute_pipeline() - now uses __file__ to find repo root
+
+Changes
+- Added CI workflow for push/PR (pytest + ruff lint)
+
+CI/CD
+- New .github/workflows/ci.yml runs on push to main and PRs
+- Tests run on Python 3.11 and 3.12
+- Ruff lint check added
+
+Changelog
+Full Changelog: v0.2.4...v0.2.5
+
+#b4e2c1a fix: duplicate import and CWD-dependent fallback @Z User
+
+---
+
 ## v0.2.4
 
 Bug Fixes

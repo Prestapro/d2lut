@@ -405,8 +405,10 @@ class RefreshDaemon:
         if self._pipeline_script is not None:
             return self._run_script(self._pipeline_script)
 
-        # Default: try to find the pipeline script relative to repo root
-        default_script = Path("scripts/run_d2jsp_snapshot_pipeline.py")
+        # Default: try to find the pipeline script relative to this file (src/d2lut/overlay/)
+        # Walk up to repo root: overlay -> d2lut -> src -> repo_root
+        repo_root = Path(__file__).parent.parent.parent.parent
+        default_script = repo_root / "scripts" / "run_d2jsp_snapshot_pipeline.py"
         if default_script.exists():
             return self._run_script(default_script)
 
