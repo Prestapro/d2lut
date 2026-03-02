@@ -105,7 +105,7 @@ _ITEM_PATTERN_DEFS: Final[dict[str, str]] = {
     "unique:corpsemourn": r"\bcorpsemourn\b",
     "unique:ironpelt": r"\biron\s*pelt\b",
     "unique:skinofvipermagi": r"\bskin\s*of\s*(?:the\s*)?viper\s*magi\b|\bvipermagi\b|\bviper\s*magi\b",
-    "unique:que-hagan": r"\bque-hagan'?s?\s*wisdom\b|\bque\s*hagan\b",
+    "unique:quehagan": r"\bque-hagan'?s?\s*wisdom\b|\bque\s*hagan\b",  # Fixed: was que-hagan (hyphen breaks lookups)
     "unique:spiralhauberk": r"\bspiral\s*hauberk\b",
     "unique:blackhadeforge": r"\bblack\s*hade\s*forge\b",
     "unique:heavensbreach": r"\bheaven'?s?\s*breach\b",
@@ -132,12 +132,13 @@ _ITEM_PATTERN_DEFS: Final[dict[str, str]] = {
     "unique:trek": r"\btrek\b",
 
     # Uniques - Gloves
+    # NOTE: Lava Gout is a SET item (Laying of Hands), see set:lava - NOT a unique!
     "unique:dracul": r"\bdracul'?s?\s*grasp\b|\bdracul\b|\bdracs?\b",
     "unique:souldrain": r"\bsoul\s*drain\b",
     "unique:gravepalm": r"\bgrave\s*palm\b|\bgravepalm\b",
     "unique:bloodfist": r"\bblood\s*fist\b|\bbloodfist\b",
     "unique:steelrend": r"\bsteelrend\b",
-    "unique:lavagout": r"\blava\s*gout\b|\blavagout\b",
+    # "unique:lavagout" removed - Lava Gout is a set item, see set:lava
     "unique:hellmouth": r"\bhellmouth\b",
     "unique:chanceguards": r"\bchance\s*guards?\b|\bchancy\b|\bmf\s*gloves\b",
     "unique:magefist": r"\bmagefist\b",
@@ -205,12 +206,12 @@ _ITEM_PATTERN_DEFS: Final[dict[str, str]] = {
     # Uniques - Rings
     "unique:soj": r"\bstone\s*of\s*jordan\b|\bsoj\b",
     "unique:bk": r"\bbul[-\s]*kathos'?s?\s*(?:wedding\s*band|ring)\b|\bbk(?:\s*ring)?\b",
-    "unique:raven": r"\braven\s*frost\b|\braven\b|\brf\b",
+    "unique:raven": r"\braven\s*frost\b|\braven\b|\bravenfrost\b",  # Fixed: removed \brf\b (too broad - "request for")
     "unique:dwarf": r"\bdwarf\s*star\b|\bdwarf\b",
     "unique:nagel": r"\bnagelring\b|\bnagel\b",
     "unique:manald": r"\bmanald\s*heal\b|\bmanald\b",
     "unique:wisp": r"\bwisp\s*projector\b|\bwisp\b",
-    "unique:nature": r"\bnature'?s?\s*peace\b|\bnature\b",
+    "unique:nature": r"\bnature'?s?\s*peace\b",  # Fixed: removed \bnature\b (too broad)
     "unique:carp": r"\bccaroh\s*webb'?s?\s*fang\b|\bcarp\b",
     "unique:fcr": r"\bfcr\s*ring\b|\b10\s*fcr\b",
     "unique:str": r"\bstr\s*ring\b|\bstrength\s*ring\b",
@@ -226,7 +227,7 @@ _ITEM_PATTERN_DEFS: Final[dict[str, str]] = {
     "runeword:coh": r"\bchains\s*of\s*honor\b|\bcoh\b",
     "runeword:duress": r"\bduress\b",
     "runeword:bramble": r"\bbramble\b",
-    "runeword:stone": r"\bstone\b",
+    "runeword:stone": r"\bstone\s*(?:armor|runeword)\b|\bstone\s*rw\b",  # Fixed: require context to avoid false positives
     "runeword:durielshell": r"\bduriel'?s?\s*shell\s*runeword\b",
     "runeword:prudence": r"\bprudence\b",
     "runeword:lionheart": r"\blionheart\b",
@@ -234,7 +235,7 @@ _ITEM_PATTERN_DEFS: Final[dict[str, str]] = {
     "runeword:treachery": r"\btreachery\b",
     "runeword:glory": r"\bglory\b",
     "runeword:wealth": r"\bwealth\b",
-    "runeword:peace": r"\bpeace\b",
+    "runeword:peace": r"\bpeace\s*(?:armor|runeword)\b|\bpeace\s*rw\b",  # Fixed: require context
 
     # Runewords - Weapons
     "runeword:infinity": r"\binfinity\b",
@@ -258,7 +259,8 @@ _ITEM_PATTERN_DEFS: Final[dict[str, str]] = {
     "runeword:kingslayer": r"\bkingslayer\b",
 
     # Runewords - Shields
-    "runeword:spirit": r"\bspirit\s*(?:shield|sword|monarch)?\b|\bfspirit\b|\bsspirit\b",
+    # Spirit runeword - MUST have suffix to avoid matching "spirit ward" (unique)
+    "runeword:spirit": r"\bspirit\s*(?:shield|sword|monarch)\b|\bfspirit\b|\bsspirit\b|\bspirit\s*rw\b",
     "runeword:exile": r"\bexile\b",
     "runeword:phoenixshield": r"\bphoenix\s*shield\b",
     "runeword:sanctuary": r"\bsanctuary\b",
@@ -269,10 +271,10 @@ _ITEM_PATTERN_DEFS: Final[dict[str, str]] = {
     # Runewords - Weapons (Caster)
     "runeword:cta": r"\bcall\s*to\s*arms\b|\bcta\b",
     "runeword:hoto": r"\bheart\s*of\s*the\s*oak\b|\bhoto\b",
-    "runeword:insight": r"\binsight\b",
-    "runeword:white": r"\bwhite\b",
-    "runeword:memory": r"\bmemory\b",
-    "runeword:leaf": r"\bleaf\b",
+    "runeword:insight": r"\binsight\s*(?:polearm|staff|runeword)?\b|\binsight\s*rw\b",  # Fixed: prefer with context
+    "runeword:white": r"\bwhite\s*(?:runeword|wand)\b|\bwhite\s*rw\b",  # Fixed: require context
+    "runeword:memory": r"\bmemory\s*(?:runeword|staff)\b|\bmemory\s*rw\b",  # Fixed: require context
+    "runeword:leaf": r"\bleaf\s*(?:runeword|staff)\b|\bleaf\s*rw\b",  # Fixed: require context
     "runeword:stealth": r"\bstealth\b",
 
     # Set Items - Tal Rasha
@@ -343,7 +345,7 @@ _ITEM_PATTERN_DEFS: Final[dict[str, str]] = {
     "base:dusk": r"\bdusk\s*shroud\b|\bdusk\b|\bds\b",
     "base:greathauberk": r"\bgreat\s*hauberk\b|\bgh\b",
     "base:boneweave": r"\bboneweave\b|\bbw\b",
-    "base:sacredarmor": r"\bsacred\s*armor\b|\bsa\b",
+    "base:sacredarmor": r"\bsacred\s*armor\b",  # Fixed: removed \bsa\b (too short, false positives)
     "base:thresher": r"\bthresher\b|\bthresh\b",
     "base:giantthresher": r"\bgiant\s*thresher\b|\bgt\b",
     "base:colossusvoulge": r"\bcolossus\s*voulge\b|\bcv\b",
@@ -400,6 +402,9 @@ def find_best_price_in_text(text: str) -> dict | None:
 
     Returns:
         Dict with price, confidence, and signal_kind, or None if no price found
+
+    Note:
+        Prices of 0 are ignored to prevent free/giveaway posts from polluting data.
     """
     best_price: float | None = None
     best_confidence = 0.0
@@ -410,6 +415,9 @@ def find_best_price_in_text(text: str) -> dict | None:
         if match:
             try:
                 price = float(match.group(1))
+                # Skip zero prices - they're usually "free" or placeholder posts
+                if price <= 0:
+                    continue
                 confidence = get_signal_confidence(signal_kind)
                 if best_price is None or confidence > best_confidence:
                     best_price = price

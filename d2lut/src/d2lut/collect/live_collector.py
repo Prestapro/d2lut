@@ -6,6 +6,7 @@ Uses Playwright to scrape live price data from d2jsp.org forum.
 from __future__ import annotations
 
 import asyncio
+import html
 import logging
 import re
 from dataclasses import dataclass, field
@@ -200,11 +201,9 @@ class LiveCollector:
             content = await self._page.content()
             return self._parse_topic_content(content, topic_id)
 
-        except TimeoutError:
-            logger.debug(f"Timeout scanning topic {url}")
-            return []
         except Exception as e:
             # Catch Playwright TimeoutError and other errors
+            # Note: Playwright TimeoutError is NOT a subclass of Python's TimeoutError
             if "Timeout" in type(e).__name__:
                 logger.debug(f"Playwright timeout scanning topic {url}")
             else:
@@ -269,8 +268,6 @@ class LiveCollector:
         Returns:
             Extracted text content
         """
-        import re
-
         # Remove script and style elements with their content
         text = re.sub(r"<script[^>]*>.*?</script>", "", html, flags=re.I | re.DOTALL)
         text = re.sub(r"<style[^>]*>.*?</style>", "", text, flags=re.I | re.DOTALL)
@@ -290,13 +287,8 @@ class LiveCollector:
         # Remove all remaining HTML tags
         text = re.sub(r"<[^>]+>", "", text)
 
-        # Decode common HTML entities
-        text = text.replace("&nbsp;", " ")
-        text = text.replace("&amp;", "&")
-        text = text.replace("&lt;", "<")
-        text = text.replace("&gt;", ">")
-        text = text.replace("&quot;", '"')
-        text = text.replace("&#39;", "'")
+        # Decode ALL HTML entities using stdlib (covers numeric entities too)
+        text = html.unescape(text)
 
         # Normalize whitespace
         text = re.sub(r"[ \t]+", " ", text)
