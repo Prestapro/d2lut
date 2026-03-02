@@ -1,0 +1,133 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+## [0.3.0] - 2026-03-02
+
+### Fixed
+- **Critical**: CI workflow now installs all required dependencies (cv2, PIL, numpy, hypothesis)
+- **Critical**: asyncio fallback uses ThreadPoolExecutor instead of broken run_until_complete on running loop
+- **Critical**: MarketPost model fields now match actual usage (body_text, datetime timestamp, thread_category_id)
+- **Critical**: Parser uses post.body_text instead of non-existent post.body
+- **High**: WebSocket handler signature fixed for websockets 15.x compatibility
+- **High**: deterministic_id() now uses 64 bits instead of 32 to prevent collisions
+- **High**: SQL lookups now properly extract item ID from variant_key
+- **Medium**: Exporter now adds section headers for all tiers (GG, HIGH, MID, LOW, TRASH)
+- **Medium**: highlight_suffix() now uses config colors instead of hardcoded ÿc9
+- **Medium**: Added logging to collector instead of silent error swallowing
+
+### Added
+- CI workflow with full dependency installation
+- conftest.py with db_path fixture for all tests
+- thread_category_id support throughout pipeline
+
+### Changed
+- pyproject.toml now includes all optional dependencies properly
+- Version synced across all files
+
+## [0.2.9] - 2026-03-01
+
+### Fixed
+- asyncio fallback using ThreadPoolExecutor
+- WebSocket handler signature for websockets 15.x
+- Exporter section headers
+
+## [0.2.8] - 2026-03-01
+
+### Fixed
+- SQL variant_key lookup now extracts ID properly
+- Added logging to collector
+
+## [0.2.7] - 2026-03-01
+
+### Fixed
+- deterministic_id() 64-bit collision fix
+- row_factory auto-set in D2RJsonFilterExporter
+- runes_mod_data_out initialization
+- highlight_suffix() config support
+- Module caching for magic_item_pricer
+
+## [0.2.6] - 2026-03-01
+
+### Fixed
+- MarketPost: body → body_text
+- MarketPost: timestamp as datetime
+- Parser: post.body → post.body_text
+- thread_category_id propagation
+- asyncio.get_event_loop() deprecated warning
+
+## [0.2.5] - 2026-02-28
+
+### Fixed
+- CI workflow now requires passing tests before build
+- Removed continue-on-error from test step
+
+## [0.2.4] - 2026-02-28
+
+### Fixed
+- Use item-names-full.json as default base template (fixes "AN EVIL FORCE" errors)
+- Include all config files in release package
+
+## [0.2.3] - 2026-02-28
+
+### Added
+- P1: Extended base_potential.yml with craft bases (glv, xtp, etc.)
+- P2: Added ÿc3 (blue) color for TZ price format
+- P3: Expanded perfect_rolls.yml with Torch, Anni, Facets, Runewords
+
+## [0.2.2] - 2026-02-28
+
+### Fixed
+- AN EVIL FORCE error by using item-names-full.json
+- MISSING STRING error by including all templates
+- PyInstaller yaml bundling
+
+## [0.2.1] - 2026-02-27
+
+### Added
+- Stability improvements
+- Rune and runeword pricing
+- 725 items priced
+
+## [0.2.0] - 2026-02-27
+
+### Added
+- Standalone exe build
+- Overlay server
+- ML classifier
+- Smart base detection
+
+## [0.1.6] - 2026-02-27
+
+### Added
+- Refresh-on-exit flow
+
+## [0.1.5] - 2026-02-27
+
+### Added
+- Monitor-game mode
+
+## [0.1.4] - 2026-02-26
+
+### Added
+- Game process detection
+
+## [0.1.3] - 2026-02-26
+
+### Added
+- Roguecore preset
+
+## [0.1.2] - 2026-02-26
+
+### Added
+- Explain/debug mode
+
+## [0.1.1] - 2026-02-26
+
+### Fixed
+- GitHub Actions workflow
+
+## [0.1.0] - 2026-02-26
+
+### Added
+- Initial release
