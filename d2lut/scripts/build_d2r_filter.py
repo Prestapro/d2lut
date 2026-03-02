@@ -84,6 +84,7 @@ class PresetConfig:
     price_threshold: float = 0
     tier_visibility: dict = field(default_factory=dict)
     display_format: str = "{color}{name} {price_color}[{price} FG]"
+    price_format: str = "int"  # int, float, or none
 
 
 def load_preset_config(preset_name: str) -> PresetConfig:
@@ -119,6 +120,7 @@ def load_preset_config(preset_name: str) -> PresetConfig:
         tier_vis = tier_visibility.get(preset_name, {})
         format_data = display_formats.get(preset_name, {})
         display_format = format_data.get("format", "{color}{name} {price_color}[{price} FG]")
+        price_format = format_data.get("price_format", "int")
 
         return PresetConfig(
             name=preset_data.get("name", preset_name),
@@ -131,6 +133,7 @@ def load_preset_config(preset_name: str) -> PresetConfig:
             price_threshold=preset_data.get("price_threshold", 0),
             tier_visibility=tier_vis,
             display_format=display_format,
+            price_format=price_format,
         )
 
     except yaml.YAMLError as e:
@@ -146,6 +149,7 @@ class FilterBuilder:
         self.preset = preset
         self.preset_config = load_preset_config(preset)
         self.items: list[PricedItem] = []
+        self.filtered_count: int = 0  # Track items after threshold filtering
 
     def load_prices(self) -> None:
         """Load item prices from database."""
@@ -420,8 +424,14 @@ class FilterBuilder:
         output_path.write_text("\n".join(lines), encoding="utf-8")
         logger.info(f"Filter written to: {output_path}")
 
+        # Store filtered count for reporting
+        self.filtered_count = len(filtered_items)
+
     def _build_item_line(self, item: PricedItem) -> str:
-        """Build a single filter line for an item using preset config."""
+        """Build a single filter line for an item using preset config.
+
+        Uses display_format and price_format from preset configuration.
+        """
         cfg = self.preset_config
 
         # Get color based on tier (or white if show_tier_colors is False)
@@ -430,19 +440,37 @@ class FilterBuilder:
         else:
             color = COLORS["WHITE"]
 
-        # Format price display
-        if item.price_fg >= 100:
-            price_str = f"{int(item.price_fg)}"
-        elif item.price_fg >= 10:
-            price_str = f"{item.price_fg:.0f}"
-        else:
-            price_str = f"{item.price_fg:.1f}"
+        price_color = COLORS["GOLD"]
 
-        # Build the display format using preset config
-        if cfg.show_prices:
-            return f'ItemDisplay[{item.name}]: {color}{item.name} {COLORS["GOLD"]}[{price_str} FG]'
-        else:
-            return f'ItemDisplay[{item.name}]: {color}{item.name}'
+        # Format price based on price_format setting
+        if cfg.price_format == "none" or not cfg.show_prices:
+            price_str = ""
+        elif cfg.price_format == "float":
+            price_str = f"{item.price_fg:.1f}"
+        else:  # "int" or default
+            if item.price_fg >= 100:
+                price_str = f"{int(item.price_fg)}"
+            elif item.price_fg >= 10:
+                price_str = f"{item.price_fg:.0f}"
+            else:
+                price_str = f"{item.price_fg:.1f}"
+
+        # Build display using template from preset
+        try:
+            display = cfg.display_format.format(
+                color=color,
+                name=item.name,
+                price_color=price_color,
+                price=price_str,
+                tier=item.tier,
+            )
+        except KeyError:
+            # Fallback if template has unknown placeholders
+            display = f"{color}{item.name}"
+            if cfg.show_prices and price_str:
+                display += f" {price_color}[{price_str} FG]"
+
+        return f'ItemDisplay[{item.name}]: {display}'
 
 
 def main() -> int:
@@ -508,7 +536,7 @@ Examples:
 
     print(f"\nFilter built successfully!")
     print(f"  Preset: {args.preset}")
-    print(f"  Items: {len(builder.items)}")
+    print(f"  Items: {builder.filtered_count} (of {len(builder.items)} loaded)")
     print(f"  Output: {args.output}")
 
     return 0

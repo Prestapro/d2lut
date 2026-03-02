@@ -146,7 +146,7 @@ _ITEM_PATTERN_DEFS: Final[dict[str, str]] = {
 
     # Uniques - Shields
     "unique:stormshield": r"\bstorm\s*shield\b|\bstormshield\b",
-    "unique:hommunculus": r"\bhommunculus\b|\bhomu\b",
+    "unique:homunculus": r"\bhomunculus\b|\bhomu\b",  # Fixed typo: was hommunculus
     "unique:boneflame": r"\bbone\s*flame\b|\bboneflame\b",
     "unique:medusa": r"\bmedusa'?s?\s*gaze\b|\bmedusa\b",
     "unique:tiamat": r"\btiamat'?s?\s*rebuke\b|\btiamat\b",
