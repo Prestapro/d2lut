@@ -12,7 +12,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 
 from ..models import PriceObservation
-from ..patterns import PRICE_PATTERNS, get_signal_confidence
+from ..patterns import find_items_in_text, find_best_price_in_text
 
 logger = logging.getLogger(__name__)
 
@@ -40,28 +40,15 @@ class ScanResult:
     finished_at: datetime | None = None
 
 
-# Item patterns for quick lookup (lowercase name -> variant_key)
-_ITEM_LOOKUP = {
-    "jah": "rune:jah",
-    "ber": "rune:ber",
-    "enigma": "runeword:enigma",
-    "infinity": "runeword:infinity",
-    "cta": "runeword:cta",
-    "shako": "unique:shako",
-    "arach": "unique:arachnid",
-    "arachnid": "unique:arachnid",
-    "mara": "unique:mara",
-    "torch": "unique:torch",
-    "anni": "unique:anni",
-}
-
-
 class LiveCollector:
     """Playwright-based live collector for d2jsp forum.
 
     This collector uses Playwright to browse d2jsp forum pages and extract
     price observations from trading posts. It maintains a single browser
     instance throughout its lifecycle.
+
+    Uses shared patterns from patterns.py for consistent item and price
+    detection across the entire pipeline.
     """
 
     def __init__(self, config: CollectorConfig):
@@ -223,6 +210,8 @@ class LiveCollector:
     ) -> list[PriceObservation]:
         """Parse topic HTML content for price observations.
 
+        Uses shared patterns from patterns.py for consistent detection.
+
         Args:
             content: HTML content of the topic page
             topic_id: Topic ID for observations
@@ -230,51 +219,30 @@ class LiveCollector:
         Returns:
             List of PriceObservation objects
         """
-        # Find items mentioned (quick lowercase lookup)
-        content_lower = content.lower()
-        items_found = [
-            variant_key
-            for item_name, variant_key in _ITEM_LOOKUP.items()
-            if item_name in content_lower
-        ]
+        # Find items using shared patterns (now includes 100+ items!)
+        items_found = find_items_in_text(content)
 
         if not items_found:
             return []
 
         # Find best price using shared patterns
-        best_price: float | None = None
-        best_confidence = 0.0
-        best_signal_kind = "bin"
+        price_info = find_best_price_in_text(content)
 
-        for pattern, signal_kind in PRICE_PATTERNS:
-            match = pattern.search(content)
-            if match:
-                try:
-                    price = float(match.group(1))
-                    confidence = get_signal_confidence(signal_kind)
-                    # Take price with highest confidence signal
-                    if best_price is None or confidence > best_confidence:
-                        best_price = price
-                        best_confidence = confidence
-                        best_signal_kind = signal_kind
-                except (ValueError, IndexError):
-                    continue
-
-        # Create observations if price found
-        if best_price is None:
+        if not price_info:
             return []
 
+        # Create observations
         observations: list[PriceObservation] = []
-        for variant_key in items_found[:3]:  # Limit items per topic
+        for variant_key in items_found[:5]:  # Limit items per topic
             obs = PriceObservation(
                 item_name=variant_key.split(":")[-1],
-                price_fg=best_price,
+                price_fg=price_info["price"],
                 topic_id=topic_id,
                 post_id=0,
                 author="unknown",
                 timestamp=datetime.now(),
                 raw_text=content[:500],
-                confidence=best_confidence,
+                confidence=price_info["confidence"],
             )
             observations.append(obs)
 

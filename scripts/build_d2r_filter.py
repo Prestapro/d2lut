@@ -89,47 +89,168 @@ class FilterBuilder:
             conn.row_factory = sqlite3.Row
             cursor = conn.cursor()
 
-            cursor.execute("""
-                SELECT variant_key, price_fg, category
-                FROM price_estimates
-                WHERE price_fg > 0
-                ORDER BY price_fg DESC
-            """)
+            # Try to detect schema and use appropriate query
+            items = self._try_load_from_schema(cursor, conn)
 
-            for row in cursor.fetchall():
-                item = self._row_to_item(row)
-                if item:
-                    self.items.append(item)
+            if not items:
+                logger.warning("No items loaded from database, using defaults")
+                self._load_default_prices()
+            else:
+                self.items = items
+                logger.info(f"Loaded {len(self.items)} priced items from database")
 
             conn.close()
-            logger.info(f"Loaded {len(self.items)} priced items from database")
 
         except sqlite3.Error as e:
             logger.error(f"Database error: {e}")
             self._load_default_prices()
 
+    def _try_load_from_schema(
+        self, cursor: sqlite3.Cursor, conn: sqlite3.Connection
+    ) -> list[PricedItem]:
+        """Try different SQL queries based on database schema.
+
+        Supports multiple schema versions for backwards compatibility.
+        """
+        items: list[PricedItem] = []
+
+        # Check available tables
+        cursor.execute(
+            "SELECT name FROM sqlite_master WHERE type='table'"
+        )
+        tables = {row[0] for row in cursor.fetchall()}
+
+        # Schema 1: price_estimates with variant_key, price_fg
+        if "price_estimates" in tables:
+            try:
+                cursor.execute("""
+                    SELECT variant_key, price_fg
+                    FROM price_estimates
+                    WHERE price_fg > 0
+                    ORDER BY price_fg DESC
+                """)
+                for row in cursor.fetchall():
+                    item = self._row_to_item_simple(row)
+                    if item:
+                        items.append(item)
+                if items:
+                    return items
+            except sqlite3.OperationalError:
+                pass
+
+        # Schema 2: price_estimates with estimate_fg + catalog_items join
+        if "price_estimates" in tables and "catalog_items" in tables:
+            try:
+                cursor.execute("""
+                    SELECT
+                        ci.variant_key,
+                        pe.estimate_fg as price_fg,
+                        ci.category
+                    FROM price_estimates pe
+                    JOIN catalog_items ci ON pe.item_id = ci.id
+                    WHERE pe.estimate_fg > 0
+                    ORDER BY pe.estimate_fg DESC
+                """)
+                for row in cursor.fetchall():
+                    item = self._row_to_item(row)
+                    if item:
+                        items.append(item)
+                if items:
+                    return items
+            except sqlite3.OperationalError:
+                pass
+
+        # Schema 3: items table with price column
+        if "items" in tables:
+            try:
+                cursor.execute("""
+                    SELECT variant_key, price as price_fg, category
+                    FROM items
+                    WHERE price > 0
+                    ORDER BY price DESC
+                """)
+                for row in cursor.fetchall():
+                    item = self._row_to_item(row)
+                    if item:
+                        items.append(item)
+                if items:
+                    return items
+            except sqlite3.OperationalError:
+                pass
+
+        # Schema 4: observed_prices aggregation
+        if "observed_prices" in tables:
+            try:
+                cursor.execute("""
+                    SELECT
+                        variant_key,
+                        AVG(price_fg) as price_fg
+                    FROM observed_prices
+                    WHERE price_fg > 0
+                    GROUP BY variant_key
+                    HAVING COUNT(*) >= 1
+                    ORDER BY price_fg DESC
+                """)
+                for row in cursor.fetchall():
+                    item = self._row_to_item_simple(row)
+                    if item:
+                        items.append(item)
+                if items:
+                    return items
+            except sqlite3.OperationalError:
+                pass
+
+        return items
+
+    def _row_to_item_simple(self, row: sqlite3.Row) -> Optional[PricedItem]:
+        """Convert database row to PricedItem (simple schema)."""
+        try:
+            variant_key = row["variant_key"]
+            price_fg = row["price_fg"]
+
+            # Extract name from variant_key
+            parts = variant_key.split(":")
+            name = parts[-1] if parts else variant_key
+
+            # Determine tier
+            tier = self._get_tier(price_fg)
+
+            return PricedItem(
+                name=name,
+                variant_key=variant_key,
+                price_fg=price_fg,
+                tier=tier,
+                category=parts[0] if len(parts) > 1 else "misc",
+            )
+        except (KeyError, TypeError):
+            return None
+
     def _row_to_item(self, row: sqlite3.Row) -> Optional[PricedItem]:
         """Convert database row to PricedItem."""
-        variant_key = row["variant_key"]
-        price_fg = row["price_fg"]
-        # sqlite3.Row doesn't have .get() method, use keys() check
-        row_keys = row.keys()
-        category = row["category"] if "category" in row_keys else "misc"
+        try:
+            variant_key = row["variant_key"]
+            price_fg = row["price_fg"]
 
-        # Extract name from variant_key
-        parts = variant_key.split(":")
-        name = parts[-1] if parts else variant_key
+            # Get category safely
+            row_keys = row.keys()
+            category = row["category"] if "category" in row_keys else "misc"
 
-        # Determine tier
-        tier = self._get_tier(price_fg)
+            # Extract name from variant_key
+            parts = variant_key.split(":")
+            name = parts[-1] if parts else variant_key
 
-        return PricedItem(
-            name=name,
-            variant_key=variant_key,
-            price_fg=price_fg,
-            tier=tier,
-            category=category,
-        )
+            # Determine tier
+            tier = self._get_tier(price_fg)
+
+            return PricedItem(
+                name=name,
+                variant_key=variant_key,
+                price_fg=price_fg,
+                tier=tier,
+                category=category,
+            )
+        except (KeyError, TypeError):
+            return None
 
     def _get_tier(self, price: float) -> str:
         """Determine price tier."""

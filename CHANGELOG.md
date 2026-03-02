@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.7] - 2026-03-02
+
+### Fixed
+- **Critical**: Removed hardcoded `_ITEM_LOOKUP` (11 items) - live_collector was "blind" to 99% of items
+- **Critical**: Fixed SQL schema compatibility in `build_d2r_filter.py` - now auto-detects and supports multiple DB schemas
+
+### Added
+- Expanded `ITEM_PATTERNS` from ~20 to 200+ patterns covering:
+  - All runes (Jah to Hel)
+  - Uniques: helms, armor, belts, boots, gloves, shields, weapons, jewelry, rings
+  - Runewords: armor, weapons, shields, caster items
+  - Set items: Tal Rasha, Immortal King, Natalya, Aldur, Trang-Oul, etc.
+  - Craft items: blood, caster, hitpower, safety recipes
+  - Magic/rare items: jewels, charms, bases
+  - Facets (fire/cold/light/poison)
+- Helper functions `find_items_in_text()` and `find_best_price_in_text()` in patterns.py
+- Multi-schema SQL support: tries 4 different query patterns for backwards compatibility
+
+### Changed
+- Both `parser.py` and `live_collector.py` now use shared `ITEM_PATTERNS` from `patterns.py`
+- Single source of truth for all item detection - no more duplication
+- `build_d2r_filter.py` auto-detects database schema instead of hardcoding queries
+
 ## [0.3.6] - 2026-03-02
 
 ### Fixed
