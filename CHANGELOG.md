@@ -1,229 +1,247 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+---
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+## v0.2.2
+
+New Features
+- Added `generate_full_build.py` for static loot filter generation without database
+- Added complete FG pricing with 266 items, 33 runes, and 29 GG affixes
+- Added `docs/z.ai.md` - complete chat history export for troubleshooting
+
+Bug Fixes
+- Fixed critical AN EVIL FORCE error by using `item-names-full.json` (1273 items) as default base template instead of 6-item minimal template
+- Fixed MISSING STRING error with full dictionary merge for all D2R item keys
+- Fixed PyInstaller yaml bundling by adding `--hidden-import yaml` and `--collect-all yaml`
+- Fixed GitHub Actions workflow to set `draft: false` and `generate_release_notes: false`
+
+Documentation
+- Added complete CHANGELOG.md with full version history (v0.1.0-v0.2.2)
+- Updated chat history with Session 2 work log
+
+Chores
+- Included all templates and config files in release build package
+- Added 10+ config files: rune_prices.yml, gg_affixes.yml, base_potential.yml, perfect_rolls.yml, static_prices.yml, comprehensive_prices.yml, unique_prices_complete.yml, set_prices_complete.yml, lld_prices.yml, magic_affix_prices.yml, affix_database.yml
+
+Changelog
+Full Changelog: v0.2.1...v0.2.2
+
+#c82ed71 fix: use item-names-full.json as default base template @Z User
+#2187791 feat: add generate_full_build.py for static loot filter generation @Z User
+#20ad04f docs: update chat history with Session 2 work log @Z User
+#52042ea docs: add complete chat history export (z.ai.md) @Z User
+#b573e46 fix: include all templates and configs in release build @Z User
+#468460f docs: add CHANGELOG.md with v0.2.2 release notes @Z User
+#11c4903 fix: set draft=false and disable auto release notes in workflow @Z User
 
 ---
 
-## [0.2.2] - 2026-03-02
+## v0.2.1
 
-### Fixed
-- **Critical: AN EVIL FORCE error** - Changed default `--base-json` from `item-names.json` (6 items) to `item-names-full.json` (1273 items)
-- **MISSING STRING error** - Full dictionary merge ensures all D2R item keys are present
-- **PyInstaller yaml bundling** - Added `--hidden-import yaml` and `--collect-all yaml` to prevent ModuleNotFoundError at runtime
-- GitHub Actions workflow now sets `draft: false` and `generate_release_notes: false`
+New Features
+- Added static price database and generate item-names.json with FG prices
+- Added comprehensive price database with 305 items priced
+- Added massive price database expansion - 693 items priced (54%)
+- Added more set and unique prices - 725 items priced (57%)
+- Added magic item combinations with FG prices for loot filter
+- Added GG affixes reference from MrLlamaSC (2021)
+- Added quick static build script for loot filter generation
 
-### Added
-- `generate_full_build.py` - Static loot filter generator that works without database
-- Complete config file packaging in release builds:
-  - `rune_prices.yml` - Rune FG prices (33 runes)
-  - `gg_affixes.yml` - GG affix prices (29 affixes)
-  - `base_potential.yml`, `perfect_rolls.yml`, `static_prices.yml`
-  - `comprehensive_prices.yml`, `unique_prices_complete.yml`, `set_prices_complete.yml`
-  - `lld_prices.yml`, `magic_affix_prices.yml`, `affix_database.yml`
-- Complete template file packaging:
-  - `item-names-full.json` - **CRITICAL** 1273 D2R items
-  - `item-runes.json`, `item-nameaffixes.json`, `item-magic-combos.json`, `item-affix-hints.json`
-- `docs/z.ai.md` - Complete chat history export for troubleshooting reference
+Bug Fixes
+- Fixed v0.2.0 exe build: bundle yaml and ship config
+- Fixed build scripts to use static prices when database not available
 
-### Stats
-- 1273 base items in dictionary
-- 266 items with FG prices from static configs
-- 33 runes with prices (Jah=50FG, Ber=55FG, etc.)
-- 29 GG affixes with prices (Jeweler's=2000FG, etc.)
+Documentation
+- Added chat history export for current support session
 
----
+Chores
+- Integrated magic item combos into loot filter build
+- Hardened loot-filter pipeline and added rune/runeword pricing tools
 
-## [0.2.1] - 2026-03-01
+Changelog
+Full Changelog: v0.2.0...v0.2.1
 
-### Fixed
-- v0.2.0 exe build now bundles yaml and ships config files
-
-### Added
-- Rune/runeword pricing tools and pipeline hardening
-- Magic item combos integration into loot filter build
-- GG affixes reference from MrLlamaSC (2021)
-- Magic item combinations with FG prices for loot filter
-- Quick static build script for loot filter generation
-- Static price database with FG prices
-
-### Stats
-- 725 items priced (57% coverage)
-- 693 items with detailed price database
-- 305 items with comprehensive prices
+#ae708da Fix v0.2.0 exe build: bundle yaml and ship config @Alexator
+#196462c docs: add chat history export for current support session @Alexator
+#f81f39e feat: Add static price database and generate item-names.json with FG prices @Z User
+#f154f74 fix: Update build scripts to use static prices when database not available @Z User
+#6629d7d feat: Add quick static build script for loot filter generation @Z User
+#dcf02b0 feat: Add comprehensive price database with 305 items priced @Z User
+#62a2037 feat: Massive price database expansion - 693 items priced (54%) @Z User
+#e7911ed feat: Add more set and unique prices - 725 items priced (57%) @Z User
+#9dd2d71 Add magic item combinations with FG prices for loot filter @Z User
+#00f97b1 Add GG affixes reference from MrLlamaSC (2021) @Z User
+#ab29880 Integrate magic item combos into loot filter build @Z User
+#edafdab stability: harden loot-filter pipeline and add rune/runeword pricing tools @Alexator
 
 ---
 
-## [0.2.0] - 2026-02-27
+## v0.2.0
 
-### Added
-- Standalone executable build scripts (`build_exe.bat`, `build_exe.sh`)
-- Remote overlay server for real-time item streaming via WebSocket
-- blizzhackers/d2data JSON files importer (721 prefixes, 785 suffixes)
-- Complete D2R affix database from original game files
-- Complete affix database from D2R Maxroll CSV
-- D2R Arreat Summit / Maxroll affix name corrections
-- Class-specific circlet pricing (+3 skills / 20 FCR combos)
-- Magic Item Pricer with FG estimates and ilvl display
-- Live Collector using Playwright for web scraping
-- ML Item Classifier for automatic item categorization
-- Smart Base Detection for ethereal/superior bases
-- LLD (Low Level Dueling) pricing module
-- d2jsp Inventory Sync functionality
-- D2R Loot Filter extensions:
-  - GG affixes highlighting
-  - Base hints for crafting
-  - Perfect rolls display
-  - Rune prices in item names
-- Full catalog export and generated filter
-- Safe full item-names FG merge helper
+New Features
+- Added build scripts for standalone executable (build_exe.bat, build_exe.sh)
+- Added remote overlay server for real-time item streaming via WebSocket
+- Added blizzhackers/d2data JSON files and importer
+- Added complete D2R affix database from original game files
+- Added complete affix database from D2R Maxroll CSV
+- Added D2R Arreat Summit / Maxroll affix name corrections
+- Added class-specific circlet pricing (+3 skills / 20 FCR combos)
+- Added Magic Item Pricer with FG estimates and ilvl display
+- Added Live Collector (Playwright) for web scraping
+- Added ML Item Classifier for automatic item categorization
+- Added Smart Base Detection for ethereal/superior bases
+- Added LLD (Low Level Dueling) pricing module
+- Added d2jsp Inventory Sync functionality
+- Implemented D2R Loot Filter extensions (GG affixes, base hints, perfect rolls, rune prices)
+- Added full catalog export and generated filter
 
-### Fixed
-- Magic item pricer now loads complete affix database
-- Color tier tests match TZ spec (`ÿc;` for high, `ÿc1` for GG)
-- Pricing logic updated to realistic FG prices
-- Missing dependencies and D2R template files added
+Bug Fixes
+- Fixed magic_item_pricer to load d2data affix database
+- Fixed magic_item_pricer to load complete affix database
+- Fixed pricing logic and updated to realistic FG prices
+- Fixed color tier tests to match TZ spec (ÿc; for high, ÿc1 for GG)
+- Fixed missing dependencies and D2R template files
+- Relaxed test assertions for headless environment compatibility
 
-### Changed
-- Removed egg-info from git
-- Updated .gitignore
+Chores
+- Added safe full item-names FG merge helper
+- Restored DB and improved price coverage
+- Moved generated filter to examples folder
+- Updated .gitignore to allow example output/item-names.json
+- Removed egg-info from git, updated .gitignore
 
----
+Changelog
+Full Changelog: v0.1.6...v0.2.0
 
-## [0.1.6] - 2026-02-27
-
-### Added
-- Refresh-on-exit flow for monitor-game mode
-- Market snapshot refresh before filter rebuild
-
----
-
-## [0.1.5] - 2026-02-27
-
-### Added
-- Monitor-game mode to rebuild filter after D2R exit
-- Automatic detection of game process (D2R.exe)
-- Polling interval configuration (`--poll-seconds`)
-
----
-
-## [0.1.4] - 2026-02-27
-
-### Added
-- Monitor-game mode foundation
-- Game process detection for Windows and Linux
-
----
-
-## [0.1.3] - 2026-02-27
-
-### Added
-- **Roguecore preset** - Endgame-sparse styling, focus on trade items
-- 100+ FG threshold by default
-- Always includes: runes, keys, tokens, jewels, bases
+#b355f16 Add safe full item-names FG merge helper @Alexator
+#c512bbf feat: restore DB and improve price coverage @Prestapro
+#4f59e53 feat: implement D2R Loot Filter extensions (GG affixes, base hints, perfect rolls, rune prices) @Prestapro
+#3027a62 Add full catalog export and generated filter @Prestapro
+#9eed1de Move generated filter to examples folder @Prestapro
+#67a40ac Update .gitignore to allow example output/item-names.json @Prestapro
+#c111f55 fix: add missing dependencies and D2R template files @Z User
+#8b80bb4 fix: update color tier tests to match TZ spec (ÿc; for high, ÿc1 for GG) @Z User
+#d8a16ac feat: implement Smart Base Detection, LLD Pricing, and d2jsp Inventory Sync @Z User
+#10b64b1 feat: implement Live Collector (Playwright) and ML Item Classifier @Z User
+#115f69c feat: add Magic Item Pricer with FG estimates and ilvl display @Z User
+#68bdf53 chore: remove egg-info from git, update .gitignore @Z User
+#adc436b fix: relax test assertions for headless environment compatibility @Z User
+#1141152 feat: add class-specific circlet pricing (+3 skills / 20 FCR combos) @Z User
+#9c9f0b7 fix: correct pricing logic and update to realistic FG prices @Z User
+#9904aea feat: correct affix names based on D2R Arreat Summit / Maxroll @Z User
+#80b77fd feat: Add complete affix database from D2R Maxroll CSV @Z User
+#34c8666 feat: Add complete D2R affix database from original game files @Z User
+#c83f4c1 fix: Update magic_item_pricer to load complete affix database @Z User
+#3fa30f6 feat: Add blizzhackers/d2data JSON files and importer @Z User
+#918da86 fix: Update magic_item_pricer to load d2data affix database @Z User
+#5d9e499 feat: Add remote overlay server for real-time item streaming @Z User
+#d866460 feat: Add build scripts for standalone executable @Z User
 
 ---
 
-## [0.1.2] - 2026-02-27
+## v0.1.6
 
-### Added
-- Explain/debug audit mode for D2R filter generator
-- `--explain` flag for detailed injection logging
-- `--explain-limit` parameter for sample size control
-- `--audit-json` output for programmatic analysis
+New Features
+- Added refresh-on-exit flow for monitor-game mode
+- Added market snapshot refresh before filter rebuild
 
----
+Changelog
+Full Changelog: v0.1.5...v0.1.6
 
-## [0.1.1] - 2026-02-27
-
-### Fixed
-- GitHub Actions release workflow shell matrix validation
-- Build matrix for Linux, Windows, macOS platforms
+#434a3cd Add refresh-on-exit flow for monitor-game mode @Prestapro
 
 ---
 
-## [0.1.0] - 2026-02-27
+## v0.1.5
 
-### Added
-- Initial release
-- D2R filter generator with multiple presets:
-  - `leveling` - Show all items, highlight runes/gems
-  - `crafting` - Hide trash, show bases/jewels/gems
-  - `endgame` - Hide trash, show keys/tokens
-  - `wealth` - Show only Jah/Ber (200+ FG)
-- FG price injection into item names
-- Color coding based on FG tiers
-- GitHub Actions workflow for automated releases
-- PyInstaller packaging for standalone executables
-- SQLite database support for price storage
+New Features
+- Added monitor-game mode to rebuild filter after D2R exit
+- Added automatic detection of game process (D2R.exe)
+- Added polling interval configuration (`--poll-seconds`)
 
-### Features
-- `--min-fg` threshold configuration
-- `--format-str` for custom price tag format
-- `--tag-style` presets (bracket, pipe, bare)
-- `--hide-junk` to filter low-value items
-- `--use-short-names` for compact display
-- `--apply-colors` for D2R color codes
+Changelog
+Full Changelog: v0.1.4...v0.1.5
+
+#434a3cd Add refresh-on-exit flow for monitor-game mode @Prestapro
 
 ---
 
-## Version History Summary
+## v0.1.4
 
-| Version | Date | Key Changes |
-|---------|------|-------------|
-| 0.2.2 | 2026-03-02 | Fix AN EVIL FORCE, include all configs |
-| 0.2.1 | 2026-03-01 | Stability, rune pricing, 725 items |
-| 0.2.0 | 2026-02-27 | Overlay server, ML classifier, smart detection |
-| 0.1.6 | 2026-02-27 | Refresh-on-exit flow |
-| 0.1.5 | 2026-02-27 | Monitor-game mode |
-| 0.1.4 | 2026-02-27 | Game process detection |
-| 0.1.3 | 2026-02-27 | Roguecore preset |
-| 0.1.2 | 2026-02-27 | Explain/debug mode |
-| 0.1.1 | 2026-02-27 | GitHub Actions fix |
-| 0.1.0 | 2026-02-27 | Initial release |
+New Features
+- Added monitor-game mode foundation
+- Added game process detection for Windows and Linux
+
+Changelog
+Full Changelog: v0.1.3...v0.1.4
+
+#ac97fba Add monitor-game mode to rebuild filter after D2R exit @Prestapro
 
 ---
 
-## Upgrade Guide
+## v0.1.3
 
-### From v0.2.1 to v0.2.2
-1. Download new release
-2. Replace all files
-3. Verify `data/templates/item-names-full.json` exists (1273 items)
-4. All config files now included automatically
+New Features
+- Added Roguecore preset - endgame-sparse styling, focus on trade items
+- Added 100+ FG threshold by default for Roguecore preset
+- Added always-include: runes, keys, tokens, jewels, bases for Roguecore
 
-### From v0.1.x to v0.2.x
-1. Download new release for your platform
-2. Extract to new folder (don't merge with old)
-3. Config files now bundled in release
-4. No database required for static pricing
+Changelog
+Full Changelog: v0.1.2...v0.1.3
+
+#90d2e2b Add roguecore endgame preset for D2R filter builder @Prestapro
 
 ---
 
-## Known Issues
+## v0.1.2
 
-- d2jsp Cloudflare protection blocks automated price scraping
-- Dynamic pricing requires game exit to update
-- Roll-sensitive items show `?FG` until inspected
+New Features
+- Added explain/debug audit mode for D2R filter generator
+- Added `--explain` flag for detailed injection logging
+- Added `--explain-limit` parameter for sample size control
+- Added `--audit-json` output for programmatic analysis
+
+Changelog
+Full Changelog: v0.1.1...v0.1.2
+
+#b4bf3c4 Add explain/debug audit mode for D2R filter generator @Prestapro
 
 ---
 
-## Links
+## v0.1.1
 
-- [GitHub Repository](https://github.com/Prestapro/d2lut)
-- [Releases](https://github.com/Prestapro/d2lut/releases)
-- [Issues](https://github.com/Prestapro/d2lut/issues)
+Bug Fixes
+- Fixed GitHub Actions release workflow shell matrix validation
+- Fixed build matrix for Linux, Windows, macOS platforms
+
+Changelog
+Full Changelog: v0.1.0...v0.1.1
+
+#305527b Fix GitHub Actions release workflow shell matrix validation @Prestapro
 
 ---
 
-[0.2.2]: https://github.com/Prestapro/d2lut/compare/v0.2.1...v0.2.2
-[0.2.1]: https://github.com/Prestapro/d2lut/compare/v0.2.0...v0.2.1
-[0.2.0]: https://github.com/Prestapro/d2lut/compare/v0.1.6...v0.2.0
-[0.1.6]: https://github.com/Prestapro/d2lut/compare/v0.1.5...v0.1.6
-[0.1.5]: https://github.com/Prestapro/d2lut/compare/v0.1.4...v0.1.5
-[0.1.4]: https://github.com/Prestapro/d2lut/compare/v0.1.3...v0.1.4
-[0.1.3]: https://github.com/Prestapro/d2lut/compare/v0.1.2...v0.1.3
-[0.1.2]: https://github.com/Prestapro/d2lut/compare/v0.1.1...v0.1.2
-[0.1.1]: https://github.com/Prestapro/d2lut/compare/v0.1.0...v0.1.1
-[0.1.0]: https://github.com/Prestapro/d2lut/releases/tag/v0.1.0
+## v0.1.0
+
+New Features
+- Added D2R filter generator with multiple presets:
+  - leveling - Show all items, highlight runes/gems
+  - crafting - Hide trash, show bases/jewels/gems
+  - endgame - Hide trash, show keys/tokens
+  - wealth - Show only Jah/Ber (200+ FG)
+- Added FG price injection into item names
+- Added color coding based on FG tiers
+- Added GitHub Actions workflow for automated releases
+- Added PyInstaller packaging for standalone executables
+- Added SQLite database support for price storage
+- Added `--min-fg` threshold configuration
+- Added `--format-str` for custom price tag format
+- Added `--tag-style` presets (bracket, pipe, bare)
+- Added `--hide-junk` to filter low-value items
+- Added `--use-short-names` for compact display
+- Added `--apply-colors` for D2R color codes
+
+Changelog
+Full Changelog: v0.1.0
+
+#4bdbe7a Add d2r filter generator hardening, exe packaging, and release workflow @Prestapro
