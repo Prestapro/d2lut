@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.2] - 2026-03-02
+
+### Fixed
+- **Critical**: Added `permissions: contents: write` to release workflow (was causing 403 error on release creation)
+
 ## [0.3.1] - 2026-03-02
 
 ### Fixed
