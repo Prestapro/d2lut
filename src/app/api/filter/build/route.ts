@@ -20,7 +20,7 @@ function buildFilterDirect(preset: string, threshold: number): string {
     { name: 'Ist Rune', code: 'r24', price: 18, tier: 'MID' },
     { name: 'Mal Rune', code: 'r23', price: 8, tier: 'LOW' },
     { name: 'Um Rune', code: 'r22', price: 4, tier: 'TRASH' },
-    
+
     // Uniques
     { name: 'Harlequin Crest', code: 'uui', price: 15, tier: 'MID' },
     { name: 'Arachnid Mesh', code: 'umc', price: 45, tier: 'MID' },
@@ -36,7 +36,7 @@ function buildFilterDirect(preset: string, threshold: number): string {
     { name: 'Windforce', code: 'am6', price: 180, tier: 'GG' },
     { name: 'Stone of Jordan', code: 'rin', price: 30, tier: 'MID' },
     { name: "Highlord's Wrath", code: 'amu', price: 18, tier: 'MID' },
-    
+
     // Runewords
     { name: 'Enigma', code: null, price: 160, tier: 'GG' },
     { name: 'Infinity', code: null, price: 180, tier: 'GG' },
@@ -97,15 +97,23 @@ export async function POST(request: NextRequest) {
 
     // Try Python bridge first
     const bridgePath = path.join(process.cwd(), 'mini-services', 'bridge.py');
-    
+
+    // Sanitize preset to prevent command injection
+    if (!/^[a-zA-Z0-9_-]+$/.test(preset)) {
+      return NextResponse.json(
+        { error: 'Invalid preset name. Only alphanumeric characters, dashes, and underscores are allowed.' },
+        { status: 400 }
+      );
+    }
+
     try {
       const { stdout } = await execAsync(
         `python3 "${bridgePath}" --action build_filter --preset ${preset} --threshold ${threshold}`,
         { timeout: 30000 }
       );
-      
+
       const result = JSON.parse(stdout);
-      
+
       if (result.success) {
         return new NextResponse(result.content, {
           status: 200,

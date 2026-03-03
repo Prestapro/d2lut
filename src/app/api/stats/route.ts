@@ -5,29 +5,29 @@ export async function GET() {
   try {
     // Get total items count
     const totalItems = await db.d2Item.count();
-    
+
     // Get items with prices
     const itemsWithPrices = await db.d2Item.findMany({
       include: { priceEstimate: true },
       where: { priceEstimate: { NOT: null } },
     });
-    
+
     // Calculate stats
     const prices = itemsWithPrices
       .map(i => i.priceEstimate?.priceFg || 0)
       .filter(p => p > 0);
-    
-    const avgPrice = prices.length > 0 
-      ? prices.reduce((a, b) => a + b, 0) / prices.length 
+
+    const avgPrice = prices.length > 0
+      ? prices.reduce((a, b) => a + b, 0) / prices.length
       : 0;
-    
+
     // Find top item
     const topItem = itemsWithPrices.reduce((max, item) => {
       const price = item.priceEstimate?.priceFg || 0;
       const maxPrice = max?.priceEstimate?.priceFg || 0;
       return price > maxPrice ? item : max;
     }, itemsWithPrices[0] || null);
-    
+
     // Count by tier
     const tierCounts = { GG: 0, HIGH: 0, MID: 0, LOW: 0, TRASH: 0 };
     for (const item of itemsWithPrices) {
@@ -35,13 +35,13 @@ export async function GET() {
       const tier = getTier(price);
       tierCounts[tier as keyof typeof tierCounts]++;
     }
-    
+
     // Get categories
     const categories = await db.d2Item.groupBy({
       by: ['category'],
       _count: { variantKey: true },
     });
-    
+
     const categoryNames: Record<string, string> = {
       rune: 'Runes',
       unique: 'Uniques',
@@ -52,7 +52,7 @@ export async function GET() {
       misc: 'Miscellaneous',
       craft: 'Crafted',
     };
-    
+
     const categoryList = categories.map(c => ({
       id: c.category,
       name: categoryNames[c.category] || c.category,
@@ -84,20 +84,7 @@ export async function GET() {
   }
 }
 
-const TIER_THRESHOLDS: Record<string, [number, number]> = {
-  GG: [500, 999999],
-  HIGH: [100, 500],
-  MID: [20, 100],
-  LOW: [5, 20],
-  TRASH: [0, 5],
-};
-
-function getTier(price: number): string {
-  for (const [tier, [low, high]] of Object.entries(TIER_THRESHOLDS)) {
-    if (price >= low && price < high) return tier;
-  }
-  return 'TRASH';
-}
+import { getTier } from '@/lib/d2r-utils';
 
 function getCategoryIcon(category: string): string {
   const icons: Record<string, string> = {

@@ -59,6 +59,9 @@ def build_filter(preset: str = "default", threshold: float = 0) -> dict:
     Returns:
         Dict with filter content and metadata
     """
+    if not D2LUT_AVAILABLE:
+        return {"error": "d2lut package not available"}
+        
     from d2lut.scripts.build_d2r_filter import FilterBuilder
     
     builder = FilterBuilder(preset=preset)

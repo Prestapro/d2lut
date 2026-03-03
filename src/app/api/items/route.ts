@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { getTier } from '@/lib/d2r-utils';
 
 export async function GET(request: NextRequest) {
   try {
@@ -13,18 +14,25 @@ export async function GET(request: NextRequest) {
     const tier = searchParams.get('tier');
 
     // Build where clause
-    const where: Record<string, unknown> = {};
-    
+    const where: any = {};
+    const andConditions: any[] = [];
+
     if (category) {
-      where.category = category;
+      andConditions.push({ category });
     }
-    
+
     if (search) {
-      where.OR = [
-        { name: { contains: search.toLowerCase() } },
-        { displayName: { contains: search } },
-        { variantKey: { contains: search.toLowerCase() } },
-      ];
+      andConditions.push({
+        OR: [
+          { name: { contains: search.toLowerCase() } },
+          { displayName: { contains: search } },
+          { variantKey: { contains: search.toLowerCase() } },
+        ]
+      });
+    }
+
+    if (andConditions.length > 0) {
+      where.AND = andConditions;
     }
 
     // Fetch items with prices
@@ -39,12 +47,12 @@ export async function GET(request: NextRequest) {
     let filteredItems = items.filter(item => {
       const price = item.priceEstimate?.priceFg || 0;
       if (price < minPrice || price > maxPrice) return false;
-      
+
       if (tier) {
         const itemTier = getTier(price);
         if (itemTier !== tier) return false;
       }
-      
+
       return true;
     });
 
@@ -53,7 +61,7 @@ export async function GET(request: NextRequest) {
       let comparison = 0;
       const priceA = a.priceEstimate?.priceFg || 0;
       const priceB = b.priceEstimate?.priceFg || 0;
-      
+
       switch (sort) {
         case 'name':
           comparison = a.displayName.localeCompare(b.displayName);
@@ -96,20 +104,3 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// Tier thresholds
-const TIER_THRESHOLDS: Record<string, [number, number]> = {
-  GG: [500, 999999],
-  HIGH: [100, 500],
-  MID: [20, 100],
-  LOW: [5, 20],
-  TRASH: [0, 5],
-};
-
-function getTier(price: number): string {
-  for (const [tier, [low, high]] of Object.entries(TIER_THRESHOLDS)) {
-    if (price >= low && price < high) {
-      return tier;
-    }
-  }
-  return 'TRASH';
-}

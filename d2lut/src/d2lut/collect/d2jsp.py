@@ -139,6 +139,7 @@ class D2JspCollector:
                 response.text,
                 re.I | re.DOTALL
             )
+            
             body_text = ""
             if content_match:
                 # Strip HTML tags
