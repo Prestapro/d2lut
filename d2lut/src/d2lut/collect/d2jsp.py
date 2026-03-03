@@ -132,19 +132,12 @@ class D2JspCollector:
             title_match = re.search(r'<title>([^<]+)</title>', response.text, re.I)
             title = title_match.group(1).strip() if title_match else f"Topic {topic_id}"
 
-            # Extract post content (simplified - first post)
-            # Look for post content divs
-            content_match = re.search(
-                r'<div[^>]*class="[^"]*post[^"]*"[^>]*>(.*?)</div>',
-                response.text,
-                re.I | re.DOTALL
-            )
-            
+            # Extract first post content with nested div support
+            post_html = self._extract_first_post_html(response.text)
+
             body_text = ""
-            if content_match:
-                # Strip HTML tags
-                body_text = re.sub(r'<[^>]+>', ' ', content_match.group(1))
-                body_text = re.sub(r'\s+', ' ', body_text).strip()[:1000]
+            if post_html:
+                body_text = self._strip_html(post_html)[:1000]
 
             return MarketPost(
                 post_id=topic_id,
@@ -161,6 +154,42 @@ class D2JspCollector:
         except requests.RequestException as e:
             logger.debug(f"Failed to fetch topic {topic_id}: {e}")
             return None
+
+    def _extract_first_post_html(self, html: str) -> str:
+        """Extract first post block HTML preserving nested div boundaries."""
+        start_match = re.search(
+            r'<div[^>]*class="[^"]*\bpost\b[^"]*"[^>]*>',
+            html,
+            re.I,
+        )
+        if not start_match:
+            return ""
+
+        open_tag_end = start_match.end()
+        depth = 1
+
+        tag_pattern = re.compile(r"<div\b[^>]*>|</div>", re.I)
+        for tag_match in tag_pattern.finditer(html, pos=open_tag_end):
+            tag = tag_match.group(0).lower()
+            if tag.startswith("</div"):
+                depth -= 1
+            else:
+                depth += 1
+
+            if depth == 0:
+                return html[open_tag_end:tag_match.start()]
+
+        return ""
+
+    @staticmethod
+    def _strip_html(text: str) -> str:
+        """Strip scripts/styles/tags and normalize whitespace."""
+        clean = re.sub(r"<script[^>]*>.*?</script>", " ", text, flags=re.I | re.DOTALL)
+        clean = re.sub(r"<style[^>]*>.*?</style>", " ", clean, flags=re.I | re.DOTALL)
+        clean = re.sub(r"<!--.*?-->", " ", clean, flags=re.DOTALL)
+        clean = re.sub(r"<[^>]+>", " ", clean)
+        clean = re.sub(r"\s+", " ", clean)
+        return clean.strip()
 
     def _fetch_via_live_collector(self) -> Iterable[MarketPost]:
         """Fetch posts using Playwright-based live collector."""

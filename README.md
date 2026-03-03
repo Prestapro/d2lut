@@ -42,7 +42,7 @@ bun install
 
 # Setup database
 cp .env.example .env
-bun run db:push
+bun run db:setup
 
 # Start development server
 bun run dev
@@ -70,6 +70,23 @@ python scripts/build_d2r_filter.py --preset roguecore --output dist/filter.filte
 | `GET /api/prices/[key]` | Price history for an item |
 | `POST /api/filter/build` | Generate and download filter file |
 | `GET /api/stats` | Dashboard statistics |
+| `POST /api/cron/refresh-prices` | Collect d2jsp observations and refresh `PriceEstimate` |
+
+### Cron Refresh
+
+Protected by `Authorization: Bearer $CRON_SECRET`.
+
+```bash
+curl -X POST http://localhost:3000/api/cron/refresh-prices \
+  -H "Authorization: Bearer $CRON_SECRET" \
+  -H "Content-Type: application/json" \
+  -d '{"mode":"static","forumId":271,"maxPosts":20}'
+```
+
+GitHub scheduled trigger is provided in `.github/workflows/refresh-prices.yml`.
+Set repository secrets:
+- `CRON_REFRESH_URL` (full endpoint URL)
+- `CRON_SECRET`
 
 ## Price Tiers
 
@@ -98,6 +115,17 @@ bun run db:push      # Push schema to database
 bun run db:generate  # Generate Prisma client
 bun run db:migrate   # Create migration
 ```
+
+## Docker Compose
+
+```bash
+cp .env.example .env
+docker compose up --build -d
+```
+
+Services:
+- `app` on internal port `3000`
+- `caddy` exposed on `http://localhost:81`
 
 ## Related
 

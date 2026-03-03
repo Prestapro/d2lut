@@ -1,0 +1,209 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { spawn } from 'child_process';
+import path from 'path';
+import { db } from '@/lib/db';
+
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+
+interface CollectorObservation {
+  variantKey: string;
+  priceFg: number;
+  signalKind: string;
+  confidence: number;
+  source?: string | null;
+  sourceId?: string | null;
+  author?: string | null;
+  observedAt?: string | null;
+}
+
+interface CollectorResponse {
+  ok: boolean;
+  error?: string;
+  mode?: 'static' | 'live';
+  forumId?: number;
+  postsScanned?: number;
+  observations?: CollectorObservation[];
+}
+
+function unauthorized() {
+  return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+}
+
+function confidenceLabel(count: number): 'low' | 'medium' | 'high' {
+  if (count >= 20) return 'high';
+  if (count >= 5) return 'medium';
+  return 'low';
+}
+
+function runCollector(mode: 'static' | 'live', forumId: number, maxPosts: number): Promise<CollectorResponse> {
+  return new Promise((resolve, reject) => {
+    const scriptPath = path.join(process.cwd(), 'mini-services', 'collect_observations.py');
+    const args = [
+      scriptPath,
+      '--mode',
+      mode,
+      '--forum-id',
+      String(forumId),
+      '--max-posts',
+      String(maxPosts),
+    ];
+
+    const proc = spawn('python3', args, { timeout: 180000 });
+    let out = '';
+    let err = '';
+
+    proc.stdout.on('data', (d) => { out += d.toString(); });
+    proc.stderr.on('data', (d) => { err += d.toString(); });
+    proc.on('error', reject);
+    proc.on('close', (code) => {
+      if (code !== 0) {
+        reject(new Error(err || `collector exited with code ${code}`));
+        return;
+      }
+
+      try {
+        resolve(JSON.parse(out.trim()) as CollectorResponse);
+      } catch (parseError) {
+        reject(new Error(`collector returned invalid JSON: ${String(parseError)}`));
+      }
+    });
+  });
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    const secret = process.env.CRON_SECRET;
+    if (!secret) {
+      return NextResponse.json(
+        { error: 'CRON_SECRET is not configured' },
+        { status: 500 }
+      );
+    }
+
+    const auth = request.headers.get('authorization');
+    if (auth !== `Bearer ${secret}`) return unauthorized();
+
+    const body = await request.json().catch(() => ({}));
+    const mode: 'static' | 'live' = body.mode === 'live' ? 'live' : 'static';
+    const forumIdRaw = Number(body.forumId);
+    const maxPostsRaw = Number(body.maxPosts);
+    const forumId = Number.isFinite(forumIdRaw) && forumIdRaw > 0 ? forumIdRaw : 271;
+    const maxPosts = Number.isFinite(maxPostsRaw) && maxPostsRaw > 0 ? Math.min(maxPostsRaw, 100) : 20;
+
+    const collector = await runCollector(mode, forumId, maxPosts);
+    if (!collector.ok || !collector.observations) {
+      return NextResponse.json(
+        { error: collector.error || 'collector failed' },
+        { status: 500 }
+      );
+    }
+
+    const items = await db.d2Item.findMany({
+      select: { id: true, variantKey: true },
+    });
+    const itemByVariant = new Map(items.map((item) => [item.variantKey, item.id]));
+
+    const now = new Date();
+    const creates = collector.observations
+      .map((o) => {
+        const itemId = itemByVariant.get(o.variantKey);
+        if (!itemId || !Number.isFinite(o.priceFg) || o.priceFg <= 0) return null;
+
+        return {
+          itemId,
+          priceFg: o.priceFg,
+          confidence: Number.isFinite(o.confidence) ? Math.max(0, Math.min(1, o.confidence)) : 0.5,
+          signalKind: o.signalKind || 'bin',
+          source: o.source || collector.mode || mode,
+          sourceId: o.sourceId || null,
+          author: o.author || null,
+          observedAt: o.observedAt ? new Date(o.observedAt) : now,
+        };
+      })
+      .filter((o): o is NonNullable<typeof o> => o !== null);
+
+    if (creates.length === 0) {
+      return NextResponse.json({
+        ok: true,
+        mode,
+        forumId,
+        postsScanned: collector.postsScanned || 0,
+        observationsReceived: collector.observations.length,
+        observationsStored: 0,
+        estimatesUpdated: 0,
+      });
+    }
+
+    await db.priceObservation.createMany({ data: creates });
+    const touchedItemIds = [...new Set(creates.map((o) => o.itemId))];
+
+    let estimatesUpdated = 0;
+    for (const itemId of touchedItemIds) {
+      const [aggregate, previous] = await Promise.all([
+        db.priceObservation.aggregate({
+          where: { itemId },
+          _count: { _all: true },
+          _avg: { priceFg: true },
+          _min: { priceFg: true },
+          _max: { priceFg: true },
+        }),
+        db.priceEstimate.findUnique({
+          where: { itemId },
+          select: { priceFg: true },
+        }),
+      ]);
+
+      const count = aggregate._count._all;
+      const avg = aggregate._avg.priceFg;
+      if (!count || avg == null) continue;
+
+      const priceChange = previous?.priceFg
+        ? ((avg - previous.priceFg) / previous.priceFg) * 100
+        : null;
+
+      await db.priceEstimate.upsert({
+        where: { itemId },
+        update: {
+          priceFg: avg,
+          confidence: confidenceLabel(count),
+          nObservations: count,
+          minPrice: aggregate._min.priceFg ?? avg,
+          maxPrice: aggregate._max.priceFg ?? avg,
+          avgPrice: avg,
+          priceChange,
+          lastUpdated: now,
+        },
+        create: {
+          itemId,
+          priceFg: avg,
+          confidence: confidenceLabel(count),
+          nObservations: count,
+          minPrice: aggregate._min.priceFg ?? avg,
+          maxPrice: aggregate._max.priceFg ?? avg,
+          avgPrice: avg,
+          priceChange: null,
+          lastUpdated: now,
+        },
+      });
+      estimatesUpdated += 1;
+    }
+
+    return NextResponse.json({
+      ok: true,
+      mode,
+      forumId,
+      postsScanned: collector.postsScanned || 0,
+      observationsReceived: collector.observations.length,
+      observationsStored: creates.length,
+      estimatesUpdated,
+      unmatchedItems: collector.observations.length - creates.length,
+    });
+  } catch (error) {
+    console.error('Failed to refresh prices:', error);
+    return NextResponse.json(
+      { error: 'Failed to refresh prices' },
+      { status: 500 }
+    );
+  }
+}

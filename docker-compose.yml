@@ -1,0 +1,27 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_URL: file:./data/cache/d2lut.db
+      CRON_SECRET: ${CRON_SECRET}
+      NODE_ENV: production
+    volumes:
+      - d2lut_data:/app/data
+    expose:
+      - "3000"
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:2
+    depends_on:
+      - app
+    ports:
+      - "81:81"
+    volumes:
+      - ./Caddyfile.docker:/etc/caddy/Caddyfile:ro
+    restart: unless-stopped
+
+volumes:
+  d2lut_data:
