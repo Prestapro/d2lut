@@ -4,7 +4,7 @@ import path from 'path';
 import { getTier } from '@/lib/d2r-utils';
 import { db } from '@/lib/db';
 
-const VALID_PRESETS = ['default', 'roguecore', 'minimal', 'verbose'];
+const VALID_PRESETS = ['default', 'ggplus', 'gg', 'roguecore', 'minimal', 'verbose'];
 
 interface FilterItem {
   name: string;
@@ -58,6 +58,23 @@ function generateFilterContent(
   return lines.join('\n');
 }
 
+function getAutoTopThreshold(items: FilterItem[], preset: string): number | null {
+  if (preset !== 'gg' && preset !== 'ggplus') return null;
+
+  const priced = items
+    .filter((item) => Number.isFinite(item.price) && item.price > 0)
+    .sort((a, b) => b.price - a.price);
+
+  if (priced.length === 0) return null;
+
+  const percentile = preset === 'gg' ? 0.99 : 0.95;
+  const floor = preset === 'gg' ? 500 : 100;
+  const idx = Math.min(priced.length - 1, Math.max(0, Math.floor(priced.length * (1 - percentile))));
+  const dynamic = priced[idx]?.price ?? floor;
+
+  return Math.max(floor, dynamic);
+}
+
 // Validate and sanitize inputs
 function validateInputs(preset: string, threshold: unknown): { preset: string; threshold: number } | string {
   if (!/^[a-zA-Z0-9_-]+$/.test(preset)) {
@@ -94,10 +111,17 @@ async function buildFilterFromDB(preset: string, threshold: number): Promise<str
         price: i.priceEstimate!.priceFg,
       }));
 
-    const hasAnyMatch = priced.some((item) => item.price >= threshold);
+    const autoThreshold = getAutoTopThreshold(priced, preset);
+    const effectiveThreshold = autoThreshold ?? threshold;
+
+    const hasAnyMatch = priced.some((item) => item.price >= effectiveThreshold);
     if (!hasAnyMatch) return null; // No matching items — fall through to hardcoded
 
-    return generateFilterContent(preset, threshold, 'database', priced);
+    const sourceLabel = autoThreshold != null
+      ? `database + auto-top threshold (${effectiveThreshold} FG)`
+      : 'database';
+
+    return generateFilterContent(preset, effectiveThreshold, sourceLabel, priced);
   } catch (error) {
     console.error('DB filter build failed:', error);
     return null;
@@ -138,7 +162,13 @@ function buildFilterDirect(preset: string, threshold: number): string {
     { name: 'Spirit', codes: ['xrn', 'pa9', 'ush'], price: 5 },
   ];
 
-  return generateFilterContent(preset, threshold, 'hardcoded fallback', items);
+  const autoThreshold = getAutoTopThreshold(items, preset);
+  const effectiveThreshold = autoThreshold ?? threshold;
+  const sourceLabel = autoThreshold != null
+    ? `hardcoded fallback + auto-top threshold (${effectiveThreshold} FG)`
+    : 'hardcoded fallback';
+
+  return generateFilterContent(preset, effectiveThreshold, sourceLabel, items);
 }
 
 // Execute Python bridge with spawn (no shell)
@@ -179,16 +209,20 @@ export async function POST(request: NextRequest) {
 
     const { preset, threshold } = validation;
 
-    // Try Python bridge first
-    const bridgePath = path.join(process.cwd(), 'mini-services', 'bridge.py');
-    try {
-      const stdout = await executePythonBridge(bridgePath, preset, threshold);
-      const result = JSON.parse(stdout.trim());
-      if (result.success) {
-        return filterResponse(result.content, preset);
+    // Try Python bridge first for legacy presets.
+    // GG/GG+ need local auto-top threshold logic, so they intentionally bypass bridge.
+    const shouldUsePythonBridge = preset !== 'gg' && preset !== 'ggplus';
+    if (shouldUsePythonBridge) {
+      const bridgePath = path.join(process.cwd(), 'mini-services', 'bridge.py');
+      try {
+        const stdout = await executePythonBridge(bridgePath, preset, threshold);
+        const result = JSON.parse(stdout.trim());
+        if (result.success) {
+          return filterResponse(result.content, preset);
+        }
+      } catch {
+        console.log('Python bridge not available, using built-in generator');
       }
-    } catch {
-      console.log('Python bridge not available, using built-in generator');
     }
 
     // Try DB-backed filter generation

@@ -16,12 +16,21 @@ export function FilterBuilder({ onBuild, isBuilding = false }: FilterBuilderProp
   const [preset, setPreset] = useState('default');
   const [threshold, setThreshold] = useState(5);
 
+  const AUTO_THRESHOLDS: Record<string, number> = {
+    gg: 500,
+    ggplus: 100,
+  };
+
   const presets = [
     { id: 'default', name: 'Default', description: 'Balanced filter with all items' },
+    { id: 'ggplus', name: 'GG+', description: 'Auto: GG + HIGH tier items (100+ FG)' },
+    { id: 'gg', name: 'GG', description: 'Auto: only GG tier items (500+ FG)' },
     { id: 'roguecore', name: 'Rogue Core', description: 'Minimal HC-focused filter' },
     { id: 'minimal', name: 'Minimal', description: 'Hide low value items' },
     { id: 'verbose', name: 'Verbose', description: 'Show all items with details' },
   ];
+
+  const isAutoThresholdPreset = preset in AUTO_THRESHOLDS;
 
   const handleBuild = () => {
     onBuild(preset, threshold);
@@ -43,7 +52,13 @@ export function FilterBuilder({ onBuild, isBuilding = false }: FilterBuilderProp
             </Label>
             <select
               value={preset}
-              onChange={(e) => setPreset(e.target.value)}
+              onChange={(e) => {
+                const nextPreset = e.target.value;
+                setPreset(nextPreset);
+                if (AUTO_THRESHOLDS[nextPreset] != null) {
+                  setThreshold(AUTO_THRESHOLDS[nextPreset]);
+                }
+              }}
               className="w-full h-10 px-3 py-2 bg-zinc-800 border border-zinc-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm"
             >
               <option value="" disabled className="text-zinc-500">Select preset</option>
@@ -66,6 +81,7 @@ export function FilterBuilder({ onBuild, isBuilding = false }: FilterBuilderProp
               step="5"
               value={threshold}
               onChange={(e) => setThreshold(parseFloat(e.target.value) || 0)}
+              disabled={isAutoThresholdPreset}
               className="bg-zinc-800 border-zinc-700 text-white"
               placeholder="5"
             />
