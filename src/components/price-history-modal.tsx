@@ -42,10 +42,14 @@ export function PriceHistoryModal({ item, open, onClose }: PriceHistoryModalProp
     
     try {
       const res = await fetch(`/api/prices/${encodeURIComponent(variantKey)}`);
+      if (!res.ok) {
+        throw new Error(`Failed to fetch history: HTTP ${res.status}`);
+      }
       const data = await res.json();
       setHistory(data);
     } catch (error) {
       console.error('Failed to fetch history:', error);
+      setHistory(null);
     } finally {
       setLoading(false);
       fetchingRef.current = false;
