@@ -12,7 +12,7 @@ export async function GET() {
     // Get items with prices
     const itemsWithPrices = await db.d2Item.findMany({
       include: { priceEstimate: true },
-      where: { priceEstimate: { NOT: null } },
+      where: { priceEstimate: { isNot: null } },
     });
 
     // Calculate stats
