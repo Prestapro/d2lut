@@ -128,23 +128,22 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
+          name: D2R Loot Filter Builder ${{ github.ref_name }}
           files: artifacts/**/*
           draft: false
           generate_release_notes: false
           body: |
-            ## D2R Loot Filter Builder ${{ github.ref_name }}
-
-            ### Downloads
+            ## Downloads
             - **Windows**: D2R_Filter_Builder-windows-x64.zip
             - **Linux**: D2R_Filter_Builder-linux-x64.tar.gz
             - **macOS**: D2R_Filter_Builder-macos-arm64.zip
-
+            
             ### Usage
             ```bash
             D2R_Filter_Builder.exe --help
             D2R_Filter_Builder.exe --preset roguecore --db d2lut.db
             ```
-
+            
             ### Full Changelog
             https://github.com/Prestapro/d2lut/blob/main/d2lut/CHANGELOG.md
         env:
