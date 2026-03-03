@@ -1,0 +1,4 @@
+# file: /Users/alex/Desktop/d2lut/src/d2lut/overlay/stash_scanner.py
+# hypothesis_version: 6.151.3
+
+[0.0, 1000, 'Unknown', 'canonical_item_id', 'error', 'has_price', 'item_name', 'match_confidence', 'match_type', 'price_confidence', 'price_fg', 'price_high_fg', 'price_low_fg', 'sample_count', 'slot_index']

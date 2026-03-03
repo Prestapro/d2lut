@@ -1,0 +1,4 @@
+# file: /Users/alex/Desktop/d2lut/src/d2lut/overlay/sell_recommendations.py
+# hypothesis_version: 6.151.3
+
+[0.0, 1000000, '#27ae60', '#2980b9', '#95a5a6', '#e74c3c', '#f39c12', '%Y-%m-%d %H:%M:%S', 'Check roll manually', 'Keep', 'Low confidence', 'No market data', 'Sell Recommendations', 'Sell now', 'canonical', 'check_roll', 'confidence', 'dup_count', 'is_duplicate', 'keep', 'low', 'low_confidence', 'name', 'near_perfect', 'no_market_data', 'perfect', 'price_fg', 'price_high', 'price_low', 'priority', 'reason', 'samples', 'sell_now', 'slot', 'strong', 'tag', 'tag_label']

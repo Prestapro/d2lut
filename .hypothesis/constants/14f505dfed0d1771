@@ -1,0 +1,4 @@
+# file: /Users/alex/Desktop/d2lut/scripts/report_ocr_quality.py
+# hypothesis_version: 6.151.3
+
+[0.0, 100.0, 200, 5000, '-', '--db', '--json', '--limit', '--market-key', '--min-fg', 'FN', 'FP', 'Market key', 'No rows evaluated.', 'Output as JSON', 'SQLite database path', '__main__', 'anni', 'base', 'base_armor', 'base_weapon', 'by_class', 'charm', 'circlet', 'd2r_sc_ladder', 'data/cache/d2lut.db', 'excerpt', 'fn', 'fp', 'has_sig', 'has_variant', 'is_mismatch', 'item_class', 'jewel', 'json_output', 'market_key', 'min_fg', 'mismatch_samples', 'mismatches', 'observations_scanned', 'other', 'precision', 'price_fg', 'raw_excerpt', 'recall', 'runeword', 'runeword_item', 'signature', 'store_true', 'torch', 'total_fn', 'total_fp', 'total_precision', 'total_recall', 'total_tp', 'tp', 'variant_key']

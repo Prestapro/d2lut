@@ -1,0 +1,167 @@
+[
+  {
+    "id": 1,
+    "Key": "r01",
+    "enUS": "El Rune ÿc5ÿc3[0.1 fg]ÿc0"
+  },
+  {
+    "id": 2,
+    "Key": "r02",
+    "enUS": "Eld Rune ÿc5ÿc3[0.1 fg]ÿc0"
+  },
+  {
+    "id": 3,
+    "Key": "r03",
+    "enUS": "Tir Rune ÿc5ÿc3[0.1 fg]ÿc0"
+  },
+  {
+    "id": 4,
+    "Key": "r04",
+    "enUS": "Nef Rune ÿc5ÿc3[0.2 fg]ÿc0"
+  },
+  {
+    "id": 5,
+    "Key": "r05",
+    "enUS": "Eth Rune ÿc5ÿc3[0.1 fg]ÿc0"
+  },
+  {
+    "id": 6,
+    "Key": "r06",
+    "enUS": "Ith Rune ÿc5ÿc3[0.1 fg]ÿc0"
+  },
+  {
+    "id": 7,
+    "Key": "r07",
+    "enUS": "Tal Rune ÿc5ÿc3[0.2 fg]ÿc0"
+  },
+  {
+    "id": 8,
+    "Key": "r08",
+    "enUS": "Ral Rune ÿc5ÿc3[0.5 fg]ÿc0"
+  },
+  {
+    "id": 9,
+    "Key": "r09",
+    "enUS": "Ort Rune ÿc5ÿc3[0.1 fg]ÿc0"
+  },
+  {
+    "id": 10,
+    "Key": "r10",
+    "enUS": "Thul Rune ÿc5ÿc3[0.1 fg]ÿc0"
+  },
+  {
+    "id": 11,
+    "Key": "r11",
+    "enUS": "Amn Rune ÿc5ÿc3[0.2 fg]ÿc0"
+  },
+  {
+    "id": 12,
+    "Key": "r12",
+    "enUS": "Sol Rune ÿc5ÿc3[0.5 fg]ÿc0"
+  },
+  {
+    "id": 13,
+    "Key": "r13",
+    "enUS": "Shael Rune ÿc5ÿc3[0.2 fg]ÿc0"
+  },
+  {
+    "id": 14,
+    "Key": "r14",
+    "enUS": "Dol Rune ÿc5ÿc3[0.1 fg]ÿc0"
+  },
+  {
+    "id": 15,
+    "Key": "r15",
+    "enUS": "Hel Rune ÿc5ÿc3[0.5 fg]ÿc0"
+  },
+  {
+    "id": 16,
+    "Key": "r16",
+    "enUS": "Io Rune ÿc5ÿc3[0.1 fg]ÿc0"
+  },
+  {
+    "id": 17,
+    "Key": "r17",
+    "enUS": "Lum Rune ÿc5ÿc3[0.2 fg]ÿc0"
+  },
+  {
+    "id": 18,
+    "Key": "r18",
+    "enUS": "Ko Rune ÿc5ÿc3[0.2 fg]ÿc0"
+  },
+  {
+    "id": 19,
+    "Key": "r19",
+    "enUS": "Fal Rune ÿc5ÿc3[0.2 fg]ÿc0"
+  },
+  {
+    "id": 20,
+    "Key": "r20",
+    "enUS": "Lem Rune ÿc5ÿc3[0.5 fg]ÿc0"
+  },
+  {
+    "id": 21,
+    "Key": "r21",
+    "enUS": "Pul Rune ÿc5ÿc3[1 fg]ÿc0"
+  },
+  {
+    "id": 22,
+    "Key": "r22",
+    "enUS": "Um Rune ÿc5ÿc3[2 fg]ÿc0"
+  },
+  {
+    "id": 23,
+    "Key": "r23",
+    "enUS": "Mal Rune ÿc5ÿc3[3 fg]ÿc0"
+  },
+  {
+    "id": 24,
+    "Key": "r24",
+    "enUS": "Ist Rune ÿc5ÿc3[4 fg]ÿc0"
+  },
+  {
+    "id": 25,
+    "Key": "r25",
+    "enUS": "Gul Rune ÿc5ÿc3[5 fg]ÿc0"
+  },
+  {
+    "id": 26,
+    "Key": "r26",
+    "enUS": "Vex Rune ÿc5ÿc3[8 fg]ÿc0"
+  },
+  {
+    "id": 27,
+    "Key": "r27",
+    "enUS": "Ohm Rune ÿc0ÿc3[15 fg]ÿc0"
+  },
+  {
+    "id": 28,
+    "Key": "r28",
+    "enUS": "Lo Rune ÿc0ÿc3[12 fg]ÿc0"
+  },
+  {
+    "id": 29,
+    "Key": "r29",
+    "enUS": "Sur Rune ÿc0ÿc3[25 fg]ÿc0"
+  },
+  {
+    "id": 30,
+    "Key": "r30",
+    "enUS": "Ber Rune ÿc8ÿc3[55 fg]ÿc0"
+  },
+  {
+    "id": 31,
+    "Key": "r31",
+    "enUS": "Jah Rune ÿc8ÿc3[50 fg]ÿc0"
+  },
+  {
+    "id": 32,
+    "Key": "r32",
+    "enUS": "Cham Rune ÿc5ÿc3[5 fg]ÿc0"
+  },
+  {
+    "id": 33,
+    "Key": "r33",
+    "enUS": "Zod Rune ÿc0ÿc3[10 fg]ÿc0"
+  }
+]

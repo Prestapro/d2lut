@@ -4,13 +4,6 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Download, Settings } from 'lucide-react';
 
@@ -48,25 +41,18 @@ export function FilterBuilder({ onBuild, isBuilding = false }: FilterBuilderProp
             <Label htmlFor="preset" className="text-zinc-400">
               Preset
             </Label>
-            <Select value={preset} onValueChange={setPreset}>
-              <SelectTrigger className="bg-zinc-800 border-zinc-700 text-white">
-                <SelectValue placeholder="Select preset" />
-              </SelectTrigger>
-              <SelectContent className="bg-zinc-800 border-zinc-700">
-                {presets.map((p) => (
-                  <SelectItem
-                    key={p.id}
-                    value={p.id}
-                    className="text-white hover:bg-zinc-700 focus:bg-zinc-700"
-                  >
-                    <div>
-                      <div className="font-medium">{p.name}</div>
-                      <div className="text-xs text-zinc-400">{p.description}</div>
-                    </div>
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <select
+              value={preset}
+              onChange={(e) => setPreset(e.target.value)}
+              className="w-full h-10 px-3 py-2 bg-zinc-800 border border-zinc-700 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm"
+            >
+              <option value="" disabled className="text-zinc-500">Select preset</option>
+              {presets.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.name} - {p.description}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="space-y-2">

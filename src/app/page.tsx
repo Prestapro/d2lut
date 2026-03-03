@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, Suspense } from 'react';
 import { StatsCards } from '@/components/stats-cards';
 import { CategoryTabs } from '@/components/category-tabs';
 import { ItemPriceTable } from '@/components/item-price-table';
@@ -110,6 +110,14 @@ export default function Home() {
     }
   };
 
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-zinc-950 via-zinc-900 to-zinc-950 text-white">
       {/* Header */}
@@ -158,15 +166,16 @@ export default function Home() {
       <main className="container mx-auto px-4 py-8 space-y-8">
         {/* Stats */}
         {stats && <StatsCards stats={stats} />}
-
         {/* Category Tabs */}
         <div className="space-y-4">
           <h2 className="text-lg font-semibold text-zinc-300">Browse Items</h2>
-          <CategoryTabs
-            categories={categories}
-            activeCategory={activeCategory}
-            onCategoryChange={setActiveCategory}
-          />
+          <Suspense fallback={<div className="text-zinc-500">Loading categories...</div>}>
+            <CategoryTabs
+              categories={categories}
+              activeCategory={activeCategory}
+              onCategoryChange={setActiveCategory}
+            />
+          </Suspense>
         </div>
 
         {/* Main Grid */}
@@ -179,10 +188,12 @@ export default function Home() {
                 Loading items...
               </div>
             ) : (
-              <ItemPriceTable
-                items={items}
-                onItemSelect={setSelectedItem}
-              />
+              <Suspense fallback={<div className="text-zinc-500">Loading items...</div>}>
+                <ItemPriceTable
+                  items={items}
+                  onItemSelect={setSelectedItem}
+                />
+              </Suspense>
             )}
           </div>
 

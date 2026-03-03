@@ -1,0 +1,4 @@
+# file: /Users/alex/Desktop/d2lut/src/d2lut/overlay/label_ux.py
+# hypothesis_version: 6.151.3
+
+[24.0, 1000.0, 3600.0, 10000.0, '?', '???', 'ERROR', 'LIVE', 'REFRESHING', 'STALE', '[stale]', 'error', 'high', 'low', 'med', 'medium', 'no data', 'no_data', '~']

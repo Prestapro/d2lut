@@ -1,0 +1,4 @@
+# file: /Users/alex/Desktop/d2lut/scripts/backfill_source_urls.py
+# hypothesis_version: 6.151.3
+
+[500, ' (DRY RUN)', ',', '--db', '--dry-run', '--json', '--market-key', '0.0', '?', 'After:', 'BEGIN', 'Before:', 'Market key', 'Output as JSON', 'SQLite database path', '__main__', 'after', 'before', 'd2r_sc_ladder', 'data/cache/d2lut.db', 'dry_run', 'id', 'json_output', 'market_key', 'store_true', 'thread_id', 'total', 'unresolvable', 'unresolvable_count', 'updated', 'with_url', 'without_url']

@@ -1,0 +1,4 @@
+# file: /Users/alex/Desktop/d2lut/scripts/manage_rules.py
+# hypothesis_version: 6.151.3
+
+['-', '--adj-type', '--adj-value', '--conditions', '--db', '--id', '--input', '--output', '--priority', '--type', 'Add a new rule', 'Disable a rule', 'Enable a rule', 'Input JSON file path', 'List all rules', 'New priority', 'No rules found.', 'Remove a rule', 'Rule ID', 'Rule ID to disable', 'Rule ID to enable', 'Rule ID to remove', 'Rule priority', 'Set rule priority', '__main__', 'add', 'adj_type', 'adj_value', 'adjustment_type', 'adjustment_value', 'command', 'conditions', 'custom', 'disable', 'enable', 'enabled', 'export', 'flat', 'import', 'list', 'load-defaults', 'multiplier', 'no', 'percentage', 'priority', 'remove', 'rule_id', 'rule_type', 'set-priority', 'src', 'type', 'utf-8', 'yes']

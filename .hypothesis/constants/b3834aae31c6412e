@@ -1,0 +1,4 @@
+# file: /Users/alex/Desktop/d2lut/src/d2lut/overlay/price_lookup.py
+# hypothesis_version: 6.151.3
+
+[999, 'bin', 'bin_count', 'confidence', 'days_ago', 'estimate_fg', 'has_active_market', 'has_data', 'item_id', 'listings', 'market_activity', 'observed_at', 'post_id', 'price_estimate', 'price_fg', 'range_high_fg', 'range_low_fg', 'recent_listings', 'sample_count', 'signal_kind', 'sold', 'sold_count', 'source_url', 'thread_id', 'thread_title', 'total_listings', 'updated_at', 'variant_key']

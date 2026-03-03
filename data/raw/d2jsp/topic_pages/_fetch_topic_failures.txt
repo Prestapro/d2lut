@@ -1,0 +1,3 @@
+https://forums.d2jsp.org/topic.php?t=108085099&amp;f=271 :: invalid topic page (title='Just a moment...')
+https://forums.d2jsp.org/topic.php?t=105846417 :: invalid topic page (title='d2jsp Forums - Invalid Action - d2jsp')
+https://forums.d2jsp.org/topic.php?t=73644824 :: invalid topic page (title='d2jsp Forums - Invalid Action - d2jsp')

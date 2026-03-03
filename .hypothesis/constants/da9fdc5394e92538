@@ -1,0 +1,4 @@
+# file: /Users/alex/Desktop/d2lut/scripts/audit_tasks_vs_tests.py
+# hypothesis_version: 6.151.3
+
+[120, '(no test file)', '--json', '--no-run', '--pytest-args', '--tasks-md', '--tb=no', '-m', '-q', '1', '?', 'Output as JSON', 'PYTHONPATH', '__main__', 'completable', 'json_output', 'marker', 'no_tests', 'num', 'ok', 'pending', 'pytest', 'regressed', 'results', 'skipped', 'src', 'status', 'store_true', 'summary', 'task', 'test_file', 'total', 'utf-8', 'x', '·', '–', '↑', '✓', '✗']

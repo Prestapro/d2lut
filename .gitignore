@@ -48,4 +48,11 @@ prompt
 
 server.log
 # Skills directory
-/skills/
+/skills/__pycache__/
+data/cache/d2lut.db
+releases/
+*.db
+
+dist/
+node_modules/
+.next/

@@ -1,0 +1,4 @@
+# file: /Users/alex/Desktop/d2lut/src/d2lut/overlay/refresh_daemon.py
+# hypothesis_version: 6.151.3
+
+[4.0, 5.0, 3600.0, -2000, 3600, '(empty)', '--db', '--quiet', 'FAIL', 'OK', 'PYTHONPATH', 'Pipeline stderr:\n%s', 'Refresh cycle failed', 'Running pipeline: %s', 'cnt', 'd2r_sc_ladder', 'estimates_after', 'estimates_before', 'estimates_delta', 'finished_at', 'id', 'last_error', 'manual', 'observations_after', 'observations_before', 'observations_delta', 'observed_prices', 'price_estimates', 'refresh-daemon', 'scheduled', 'src', 'started_at', 'success', 'trigger']

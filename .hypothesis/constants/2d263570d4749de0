@@ -1,0 +1,4 @@
+# file: /Users/alex/Desktop/d2lut/src/d2lut/overlay/valuation_export.py
+# hypothesis_version: 6.151.3
+
+[0.0, 300.0, '%Y-%m-%d %H:%M:%S', 'Inventory Valuation', 'Unknown', 'canonical_item_id', 'cid', 'conf', 'fg', 'has_price', 'hi', 'high', 'inventory', 'item_name', 'items', 'lo', 'low', 'match_confidence', 'match_type', 'mconf', 'medium', 'mtype', 'name', 'price_confidence', 'price_fg', 'price_high_fg', 'price_low_fg', 'sample_count', 'samples', 'slot', 'slot_index']

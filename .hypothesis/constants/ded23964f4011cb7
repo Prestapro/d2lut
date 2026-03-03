@@ -1,0 +1,4 @@
+# file: /Users/alex/Desktop/d2lut/src/d2lut/overlay/config.py
+# hypothesis_version: 6.151.3
+
+[0.0, 0.5, 0.7, 0.9, 1.0, 2.0, 100, 300, 1000, 10000, 'OverlayConfig', 'affix_adjustments', 'color_thresholds', 'confidence_levels', 'confidence_threshold', 'contrast_enhance', 'craft_enabled', 'denoise', 'easyocr', 'enabled', 'engine', 'high', 'lld_enabled', 'low', 'medium', 'min_samples', 'ocr', 'overlay', 'preprocess', 'pricing', 'pytesseract', 'r', 'resize_factor', 'rules', 'update_interval_ms', 'utf-8', 'w']
