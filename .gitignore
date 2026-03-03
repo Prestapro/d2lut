@@ -50,10 +50,16 @@ server.log
 # Python bytecode
 **/__pycache__/
 *.pyc
-data/cache/d2lut.db
-releases/
-*.db
 
+# Python testing
+.hypothesis/
+.pytest_cache/
+.coverage
+
+# Data cache (DBs, Playwright profiles, scraped HTML)
+data/cache/
+
+# Built artifacts
+releases/
 dist/
-node_modules/
-.next/
+*.db

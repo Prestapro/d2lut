@@ -1,4 +1,0 @@
-# file: /Users/alex/Desktop/d2lut/src/d2lut/exporters/magic_item_pricer.py
-# hypothesis_version: 6.151.3
-
-[0.0, 1.0, 50.0, 100.0, 100, 500, 1000, 5000, 10000, '[$$$$$]', '[$$$$]', '[$$$]', '[$$]', '[$]', '[GG]', 'affix_database.yml', 'base_price', 'color', 'combinations', 'config', 'gg', 'gg_affixes.yml', 'gg_combinations', 'high', 'ilvl_multipliers', 'item_types', 'lld_ilvl_tiers', 'lld_only', 'low', 'magic_prefixes', 'magic_suffixes', 'medium', 'min_ilvl', 'notes', 'perfect_price', 'prefix', 'prefixes', 'property', 'r', 'rare_prefixes', 'single_affix_values', 'suffix', 'suffixes', 'tag', 'tier_thresholds', 'trash', 'utf-8', 'variants', 'ÿc0', 'ÿc1', 'ÿc3', 'ÿc5', 'ÿc8', 'ÿc;']

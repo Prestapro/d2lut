@@ -1,4 +1,0 @@
-# file: /Users/alex/Desktop/d2lut/src/d2lut/overlay/kpi_dashboard.py
-# hypothesis_version: 6.151.3
-
-[0.0, 0.05, 0.1, 0.15, 300.0, '#4caf50', '#f44336', '%Y-%m-%dT%H:%M:%SZ', '+', 'Canonical Items', 'High-Value Variants', 'OCR Comparable Rows', 'OCR Exact Match', 'OCR Mismatches', 'OCR Precision', 'OCR precision', 'Observed Prices', 'Observed prices', 'Variants', 'baseline', 'canonical_items', 'current', 'delta', 'high_value_variants', 'inf', 'label', 'max_drop_abs', 'max_drop_pct', 'observed_prices', 'ocr_comparable_rows', 'ocr_exact_match', 'ocr_mismatch_count', 'ocr_precision', 'pct_change', 'variants']

@@ -1,4 +1,0 @@
-# file: /Users/alex/Desktop/d2lut/src/d2lut/overlay/inventory_overlay.py
-# hypothesis_version: 6.151.3
-
-[0.0, 1000.0, 10000.0, '%Y-%m-%d %H:%M:%S', 'high', 'low', 'medium', 'no_data']

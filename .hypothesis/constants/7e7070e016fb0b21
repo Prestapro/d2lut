@@ -1,4 +1,0 @@
-# file: /Users/alex/Desktop/d2lut/src/d2lut/overlay/overlay_app.py
-# hypothesis_version: 6.151.3
-
-[0.0, 0.001, 0.1, 0.8, 1.0, 2.0, 1000.0, 'adjusted_price_fg', 'adjustment_reason', 'bundle_names', 'fps', 'frame_count', 'has_screenshot', 'is_hovering', 'last_screenshot_time', 'low', 'market_deviation_pct', 'market_status', 'medium', 'paused', 'recent_listing_count', 'rules_applied', 'running']

@@ -1,4 +1,0 @@
-# file: /Users/alex/Desktop/d2lut/src/d2lut/overlay/item_identifier.py
-# hypothesis_version: 6.151.3
-
-[0.0, 0.8, '\\s+', 'alias_norm', 'base_code', 'canonical_item_id', 'category', 'display_name', 'error', 'exact', 'fuzzy', 'item_type', 'no_match', 'ocr_confidence', 'original_name', 'priority', 'quality', 'quality_class', 'similarity_score', 'slang', 'slang_resolved', 'slang_term', 'tradeable']

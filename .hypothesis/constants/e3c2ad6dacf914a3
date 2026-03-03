@@ -1,4 +1,0 @@
-# file: /Users/alex/Desktop/d2lut/src/d2lut/overlay/stash_scan_integration.py
-# hypothesis_version: 6.151.3
-
-[0.0, 0.7, 0.8, 'by_tier', 'confidence_threshold', 'engine', 'items_with_prices', 'items_without_prices', 'preprocess', 'pytesseract', 'total_items', 'total_value']

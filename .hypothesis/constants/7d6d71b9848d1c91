@@ -1,4 +1,0 @@
-# file: /Users/alex/Desktop/d2lut/src/d2lut/overlay/stash_scan_presenter.py
-# hypothesis_version: 6.151.3
-
-[0.0, 100.0, 1000.0, 5000.0, '%Y-%m-%d %H:%M:%S', '?', 'CONTROLS', 'FG', 'N/A', 'No data', 'STASH SCAN RESULTS', 'Unknown', 'by_tier', 'canonical_item_id', 'count', 'has_price', 'high', 'item_name', 'items', 'items_with_prices', 'items_without_prices', 'low', 'match_confidence', 'match_type', 'medium', 'name', 'no_data', 'price_confidence', 'price_display', 'price_fg', 'price_high_fg', 'price_low_fg', 'price_range_display', 'sample_count', 'slot_index', 'slot_number', 'total_items', 'total_value', 'value', 'value_tier', '·', '─', '│', '│ No items found', '┌', '┌─ Errors ', '┌─ Item Details ', '┌─ Summary ', '┐', '└', '┘', '├', '┤', '┬', '┴', '┼', '═', '║', '╔', '╗', '╚', '╝', '◆', '○', '★']

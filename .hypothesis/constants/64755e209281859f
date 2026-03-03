@@ -1,4 +1,0 @@
-# file: /Users/alex/Desktop/d2lut/src/d2lut/overlay/ocr_parser.py
-# hypothesis_version: 6.151.3
-
-[0.0, 0.7, 1.0, 2.0, 100.0, 255, 'conf', 'confidence', 'confidence_score', 'confidence_threshold', 'contrast_enhance', 'coords', 'denoise', 'easyocr', 'empty_region', 'empty_text', 'en', 'engine', 'exception', 'exception_type', 'extracted_lines', 'height', 'image_size', 'invalid_coords', 'last_parse', 'line_count', 'low_confidence', 'no_lines', 'ocr_engine', 'possible_causes', 'preprocess_config', 'preprocessed_shape', 'preprocessing', 'pytesseract', 'recommendation', 'requested_region', 'resize_factor', 'text', 'text_length', 'threshold', 'troubleshooting', 'width', 'x', 'y']

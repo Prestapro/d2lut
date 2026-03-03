@@ -1,4 +1,0 @@
-# file: /Users/alex/Desktop/d2lut/src/d2lut/overlay/price_history.py
-# hypothesis_version: 6.151.3
-
-[-5.0, 0.1, 0.25, 0.5, 5.0, 100.0, 'demand_score', 'estimate_fg', 'falling', 'flat', 'high_fg', 'low_fg', 'market_key', 'median_fg', 'moderate', 'range_high_fg', 'range_low_fg', 'recorded_at', 'rising', 'sample_count', 'stable', 'variant_key', 'volatile']

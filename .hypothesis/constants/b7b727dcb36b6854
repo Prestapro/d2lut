@@ -1,4 +1,0 @@
-# file: /Users/alex/Desktop/d2lut/src/d2lut/overlay/demand_model.py
-# hypothesis_version: 6.151.3
-
-[0.0, 0.05, 0.3, 0.5, 0.6, 1.0, 'cnt', 'cold', 'dead', 'ft', 'hot', 'iso', 'signal_kind', 'sold', 'total', 'trade_type', 'warm']

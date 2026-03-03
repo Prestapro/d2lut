@@ -1,4 +1,0 @@
-# file: /Users/alex/Desktop/d2lut/src/d2lut/overlay/slang_normalizer.py
-# hypothesis_version: 6.151.3
-
-['\\s+', 'canonical_item_id', 'confidence', 'replacement_text', 'term_norm', 'term_raw', 'term_type']

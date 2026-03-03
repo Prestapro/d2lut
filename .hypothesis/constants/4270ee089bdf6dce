@@ -1,4 +1,0 @@
-# file: /Users/alex/Desktop/d2lut/src/d2lut/overlay/overlay_app.py
-# hypothesis_version: 6.151.3
-
-[0.0, 0.1, 0.8, 2.0, 24.0, 50.0, 60.0, 500.0, 300, 'IdentificationError', 'OCR unavailable', 'OCRError', 'PriceLookupError', 'ScreenCaptureError', 'UpdateLoopError', 'actual_fps', 'adjusted_price_fg', 'adjustment_reason', 'budget_remaining_ms', 'bundle_names', 'datetime | None', 'demand_score', 'error_count', 'errors_by_type', 'fps', 'frame_budget_ms', 'frame_count', 'frame_time_ms', 'has_screenshot', 'is_hovering', 'last_error', 'last_screenshot_time', 'low', 'market_deviation_pct', 'market_heat', 'market_status', 'medium', 'memory_limit_mb', 'memory_total_mb', 'memory_usage_pct', 'memory_within_budget', 'observed_velocity', 'paused', 'price_cache', 'price_change_pct', 'price_direction', 'price_estimate', 'price_history', 'price_history_count', 'price_stability', 'recent_listing_count', 'refresh_status', 'rules_applied', 'running', 'screenshot_buffer', 'target_fps']

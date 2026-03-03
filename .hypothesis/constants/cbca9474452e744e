@@ -1,4 +1,0 @@
-# file: /Users/alex/Desktop/d2lut/src/d2lut/overlay/market_dashboard.py
-# hypothesis_version: 6.151.3
-
-[2.5, '%Y-%m-%d %H:%M:%S', 'all', 'armor', 'axe', 'base:', 'bases', 'belt', 'boot', 'bow', 'cat', 'charm:', 'charms', 'claw', 'conf', 'confidence', 'crossbow', 'd2r_sc_ladder', 'dagger', 'est_delta', 'estimate_fg', 'estimates_delta', 'fg', 'finished_at', 'glove', 'helm', 'hi', 'javelin', 'jewel:', 'jewels', 'last_error', 'last_refresh', 'last_success', 'lo', 'mace', 'obs_delta', 'observations_delta', 'orb', 'other', 'pcls', 'perfect', 'pmult', 'polearm', 'pprice', 'range_high_fg', 'range_low_fg', 'rune:', 'runes', 'runeword:', 'runewords', 'sample_count', 'samples', 'scepter', 'set:', 'sets', 'shield', 'spear', 'staff', 'started_at', 'success', 'sword', 'unique:', 'uniques', 'updated', 'updated_at', 'utf-8', 'variant_key', 'vk', 'wand', 'weapon', 'weapons']
