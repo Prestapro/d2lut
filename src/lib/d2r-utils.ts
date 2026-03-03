@@ -15,14 +15,20 @@ export interface D2Item {
     priceChange?: number;
 }
 
-// Tier thresholds: [min, max) — min inclusive, max exclusive
-export const TIER_THRESHOLDS: Record<string, [number, number]> = {
-    GG: [500, Infinity],
-    HIGH: [100, 500],
-    MID: [20, 100],
-    LOW: [5, 20],
-    TRASH: [0, 5],
-};
+// Tier definitions in explicit descending order (highest first)
+// Using ordered array to guarantee iteration order across all JS engines
+const TIER_LIST: [string, number, number][] = [
+    ['GG', 500, Infinity],
+    ['HIGH', 100, 500],
+    ['MID', 20, 100],
+    ['LOW', 5, 20],
+    ['TRASH', 0, 5],
+];
+
+// Record form for backward compatibility (lookup by tier name)
+export const TIER_THRESHOLDS: Record<string, [number, number]> = Object.fromEntries(
+    TIER_LIST.map(([name, low, high]) => [name, [low, high] as [number, number]])
+);
 
 // Tier colors for UI
 export const TIER_COLORS: Record<string, string> = {
@@ -33,7 +39,7 @@ export const TIER_COLORS: Record<string, string> = {
     TRASH: '#808080',   // Gray
 };
 
-// Tier labels for UI legend — derived from thresholds
+// Tier labels for UI legend
 export const TIER_LABELS: Record<string, string> = {
     GG: '500+ FG',
     HIGH: '100-499 FG',
@@ -43,9 +49,9 @@ export const TIER_LABELS: Record<string, string> = {
 };
 
 export function getTier(price: number): string {
-    for (const [tier, [low, high]] of Object.entries(TIER_THRESHOLDS)) {
+    for (const [name, low, high] of TIER_LIST) {
         if (price >= low && price < high) {
-            return tier;
+            return name;
         }
     }
     return 'TRASH';

@@ -4,13 +4,35 @@ import { getTier } from '@/lib/d2r-utils';
 
 export const dynamic = 'force-dynamic';
 
+// Deterministic pseudo-random number generator (mulberry32)
+// Same seed always produces same sequence — no hydration mismatch
+function seededRandom(seed: number): () => number {
+  return () => {
+    seed |= 0;
+    seed = (seed + 0x6d2b79f5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+// Hash string to number for deterministic seeding
+function hashString(str: string): number {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash |= 0;
+  }
+  return hash;
+}
+
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ key: string }> }
+  { params }: { params: { key: string } }
 ) {
   try {
-    const { key } = await params;
-    const variantKey = decodeURIComponent(key);
+    const variantKey = decodeURIComponent(params.key);
 
     // Find item
     const item = await db.d2Item.findUnique({
@@ -37,13 +59,14 @@ export async function GET(
       orderBy: { observedAt: 'asc' },
     });
 
-    // Generate history from observations or estimate
-    const history = observations.length > 0
+    // Use real observations if available, otherwise generate deterministic estimates
+    const hasRealData = observations.length > 0;
+    const history = hasRealData
       ? observations.map(o => ({
         date: o.observedAt.toISOString().split('T')[0],
         price: o.priceFg,
       }))
-      : generateEstimatedHistory(item.priceEstimate?.priceFg || 50);
+      : generateEstimatedHistory(variantKey, item.priceEstimate?.priceFg || 50);
 
     const prices = history.map(h => h.price);
     const minPrice = Math.min(...prices);
@@ -57,12 +80,13 @@ export async function GET(
         displayName: item.displayName,
         category: item.category,
         d2rCode: item.d2rCode,
-        priceFg: item.priceEstimate?.priceFg || null,
-        tier: getTier(item.priceEstimate?.priceFg || 0),
-        confidence: item.priceEstimate?.confidence || null,
-        nObservations: item.priceEstimate?.nObservations || 0,
+        priceFg: item.priceEstimate?.priceFg ?? null,
+        tier: getTier(item.priceEstimate?.priceFg ?? 0),
+        confidence: item.priceEstimate?.confidence ?? null,
+        nObservations: item.priceEstimate?.nObservations ?? 0,
       },
       history,
+      estimated: !hasRealData,
       minPrice,
       maxPrice,
       avgPrice: Math.round(avgPrice * 10) / 10,
@@ -77,13 +101,15 @@ export async function GET(
   }
 }
 
-// Generate estimated price history when no observations exist
-function generateEstimatedHistory(currentPrice: number) {
+// Generate deterministic estimated price history when no observations exist
+// Uses seeded PRNG so same variantKey always produces same history
+function generateEstimatedHistory(variantKey: string, currentPrice: number) {
   const history: { date: string; price: number }[] = [];
   const now = Date.now();
+  const rand = seededRandom(hashString(variantKey));
 
   for (let i = 30; i >= 0; i--) {
-    const variance = (Math.sin(i * 0.5) * currentPrice * 0.15) + (Math.random() - 0.5) * currentPrice * 0.1;
+    const variance = (Math.sin(i * 0.5) * currentPrice * 0.15) + (rand() - 0.5) * currentPrice * 0.1;
     const price = Math.max(1, currentPrice + variance);
     history.push({
       date: new Date(now - i * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
@@ -93,3 +119,4 @@ function generateEstimatedHistory(currentPrice: number) {
 
   return history;
 }
+
