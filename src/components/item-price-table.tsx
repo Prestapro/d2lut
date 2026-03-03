@@ -1,6 +1,4 @@
 'use client';
-
-import { useState, useEffect, useMemo } from 'react';
 import {
   Table,
   TableBody,
@@ -20,15 +18,26 @@ import {
 } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { TIER_COLORS, D2Item } from '@/lib/d2r-data';
-import { Search, ArrowUp, ArrowDown, ChevronsUpDown } from 'lucide-react';
+import { Search, ArrowUp, ArrowDown, ChevronsUpDown, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface ItemPriceTableProps {
   items: D2Item[];
+  total: number;
+  limit: number;
+  offset: number;
+  search: string;
+  tierFilter: string;
+  sortField: SortField;
+  sortOrder: SortOrder;
+  onSearchChange: (value: string) => void;
+  onTierFilterChange: (value: string) => void;
+  onSortChange: (field: SortField, order: SortOrder) => void;
+  onPageChange: (offset: number) => void;
   onItemSelect?: (item: D2Item) => void;
 }
 
-type SortField = 'name' | 'category' | 'price';
-type SortOrder = 'asc' | 'desc';
+export type SortField = 'name' | 'category' | 'price';
+export type SortOrder = 'asc' | 'desc';
 
 // Sort icon component defined outside render
 function SortIcon({ field, sortField, sortOrder }: { field: SortField; sortField: SortField; sortOrder: SortOrder }) {
@@ -40,59 +49,37 @@ function SortIcon({ field, sortField, sortOrder }: { field: SortField; sortField
     : <ArrowDown className="h-4 w-4 text-amber-500" />;
 }
 
-export function ItemPriceTable({ items: initialItems, onItemSelect }: ItemPriceTableProps) {
-  const [search, setSearch] = useState('');
-  const [sortField, setSortField] = useState<SortField>('price');
-  const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
-  const [tierFilter, setTierFilter] = useState<string>('all');
-
-  // Use useMemo instead of useEffect with setState for derived state
-  const filteredAndSortedItems = useMemo(() => {
-    let filtered = [...initialItems];
-
-    // Apply search filter
-    if (search) {
-      const searchLower = search.toLowerCase();
-      filtered = filtered.filter(
-        (item) =>
-          item.name.toLowerCase().includes(searchLower) ||
-          item.displayName.toLowerCase().includes(searchLower)
-      );
-    }
-
-    // Apply tier filter
-    if (tierFilter !== 'all') {
-      filtered = filtered.filter((item) => item.tier === tierFilter);
-    }
-
-    // Apply sorting
-    filtered.sort((a, b) => {
-      let comparison = 0;
-      switch (sortField) {
-        case 'name':
-          comparison = a.displayName.localeCompare(b.displayName);
-          break;
-        case 'category':
-          comparison = a.category.localeCompare(b.category);
-          break;
-        case 'price':
-        default:
-          comparison = (a.priceFg || 0) - (b.priceFg || 0);
-      }
-      return sortOrder === 'asc' ? comparison : -comparison;
-    });
-
-    return filtered;
-  }, [initialItems, search, sortField, sortOrder, tierFilter]);
+export function ItemPriceTable({
+  items,
+  total,
+  limit,
+  offset,
+  search,
+  tierFilter,
+  sortField,
+  sortOrder,
+  onSearchChange,
+  onTierFilterChange,
+  onSortChange,
+  onPageChange,
+  onItemSelect,
+}: ItemPriceTableProps) {
+  const currentPage = Math.floor(offset / limit) + 1;
+  const totalPages = Math.max(1, Math.ceil(total / limit));
 
   const handleSort = (field: SortField) => {
     if (sortField === field) {
-      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+      onSortChange(field, sortOrder === 'asc' ? 'desc' : 'asc');
     } else {
-      setSortField(field);
-      setSortOrder('desc');
+      onSortChange(field, 'desc');
     }
   };
+
+  const showingFrom = total === 0 ? 0 : offset + 1;
+  const showingTo = Math.min(offset + items.length, total);
+
+  const disablePrev = offset <= 0;
+  const disableNext = offset + limit >= total;
 
   return (
     <div className="space-y-4">
@@ -103,11 +90,11 @@ export function ItemPriceTable({ items: initialItems, onItemSelect }: ItemPriceT
           <Input
             placeholder="Search items..."
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => onSearchChange(e.target.value)}
             className="pl-10 bg-zinc-900 border-zinc-800 text-white placeholder:text-zinc-500"
           />
         </div>
-        <Select value={tierFilter} onValueChange={setTierFilter}>
+        <Select value={tierFilter} onValueChange={onTierFilterChange}>
           <SelectTrigger className="w-full sm:w-40 bg-zinc-900 border-zinc-800 text-white">
             <SelectValue placeholder="Tier" />
           </SelectTrigger>
@@ -177,14 +164,14 @@ export function ItemPriceTable({ items: initialItems, onItemSelect }: ItemPriceT
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filteredAndSortedItems.length === 0 ? (
+            {items.length === 0 ? (
               <TableRow className="border-zinc-800">
                 <TableCell colSpan={5} className="text-center text-zinc-500 py-8">
                   No items found
                 </TableCell>
               </TableRow>
             ) : (
-              filteredAndSortedItems.map((item) => (
+              items.map((item) => (
                 <TableRow
                   key={item.variantKey}
                   className="border-zinc-800 hover:bg-zinc-800/50 cursor-pointer"
@@ -232,9 +219,36 @@ export function ItemPriceTable({ items: initialItems, onItemSelect }: ItemPriceT
         </Table>
       </div>
 
-      {/* Item count */}
-      <div className="text-sm text-zinc-500 text-right">
-        Showing {filteredAndSortedItems.length} items
+      {/* Footer */}
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-sm">
+        <div className="text-zinc-500">
+          Showing {showingFrom}-{showingTo} of {total}
+        </div>
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => onPageChange(Math.max(0, offset - limit))}
+            disabled={disablePrev}
+            className="border-zinc-700 text-zinc-300 hover:text-white"
+          >
+            <ChevronLeft className="h-4 w-4 mr-1" />
+            Prev
+          </Button>
+          <span className="text-zinc-500 px-2">
+            {currentPage}/{totalPages}
+          </span>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => onPageChange(offset + limit)}
+            disabled={disableNext}
+            className="border-zinc-700 text-zinc-300 hover:text-white"
+          >
+            Next
+            <ChevronRight className="h-4 w-4 ml-1" />
+          </Button>
+        </div>
       </div>
     </div>
   );

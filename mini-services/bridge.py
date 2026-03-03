@@ -17,8 +17,10 @@ import json
 import sys
 from pathlib import Path
 
-# Add parent directory to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent / "d2lut" / "src"))
+# Add project paths for imports
+PROJECT_ROOT = Path(__file__).parent.parent
+sys.path.insert(0, str(PROJECT_ROOT / "d2lut" / "src"))
+sys.path.insert(0, str(PROJECT_ROOT / "d2lut" / "scripts"))
 
 # Try to import d2lut modules
 try:
@@ -62,9 +64,13 @@ def build_filter(preset: str = "default", threshold: float = 0) -> dict:
     if not D2LUT_AVAILABLE:
         return {"error": "d2lut package not available"}
         
-    from d2lut.scripts.build_d2r_filter import FilterBuilder
-    
-    builder = FilterBuilder(preset=preset)
+    try:
+        from build_d2r_filter import FilterBuilder
+    except ImportError as exc:
+        return {"error": f"FilterBuilder import failed: {exc}"}
+
+    db_path = PROJECT_ROOT / "data" / "cache" / "d2lut.db"
+    builder = FilterBuilder(db_path=db_path, preset=preset)
     builder.load_prices()
     
     # Generate filter content
@@ -121,19 +127,22 @@ def main():
     args = parser.parse_args()
     
     result = {"action": args.action, "success": False}
+
+    def merge_action(payload: dict) -> dict:
+        return {**result, **payload, "success": "error" not in payload}
     
     try:
         if args.action == "get_items":
-            result = {**result, **get_items(), "success": True}
+            result = merge_action(get_items())
         
         elif args.action == "build_filter":
-            result = {**result, **build_filter(args.preset, args.threshold), "success": True}
+            result = merge_action(build_filter(args.preset, args.threshold))
         
         elif args.action == "parse_text":
             if not args.text:
                 result["error"] = "--text required for parse_text action"
             else:
-                result = {**result, **parse_text(args.text), "success": True}
+                result = merge_action(parse_text(args.text))
         
         elif args.action == "get_price":
             if not args.item:

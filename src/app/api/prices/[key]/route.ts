@@ -62,11 +62,11 @@ export async function GET(
     // Use real observations if available, otherwise generate deterministic estimates
     const hasRealData = observations.length > 0;
     const history = hasRealData
-      ? observations.map(o => ({
-        date: o.observedAt.toISOString().split('T')[0],
-        price: o.priceFg,
-      }))
-      : generateEstimatedHistory(variantKey, item.priceEstimate?.priceFg || 50);
+      ? observations.map((o) => ({
+          date: o.observedAt.toISOString().split('T')[0],
+          price: o.priceFg,
+        }))
+      : generateEstimatedHistory(variantKey, item.priceEstimate?.priceFg ?? null);
 
     const prices = history.map(h => h.price);
     const minPrice = Math.min(...prices);
@@ -103,14 +103,15 @@ export async function GET(
 
 // Generate deterministic estimated price history when no observations exist
 // Uses seeded PRNG so same variantKey always produces same history
-function generateEstimatedHistory(variantKey: string, currentPrice: number) {
+function generateEstimatedHistory(variantKey: string, currentPrice: number | null) {
   const history: { date: string; price: number }[] = [];
   const now = Date.now();
   const rand = seededRandom(hashString(variantKey));
+  const basePrice = currentPrice && currentPrice > 0 ? currentPrice : 10;
 
   for (let i = 30; i >= 0; i--) {
-    const variance = (Math.sin(i * 0.5) * currentPrice * 0.15) + (rand() - 0.5) * currentPrice * 0.1;
-    const price = Math.max(1, currentPrice + variance);
+    const variance = (Math.sin(i * 0.5) * basePrice * 0.15) + (rand() - 0.5) * basePrice * 0.1;
+    const price = Math.max(1, basePrice + variance);
     history.push({
       date: new Date(now - i * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
       price: Math.round(price * 10) / 10,
@@ -119,4 +120,3 @@ function generateEstimatedHistory(variantKey: string, currentPrice: number) {
 
   return history;
 }
-

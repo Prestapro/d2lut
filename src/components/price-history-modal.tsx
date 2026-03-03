@@ -8,7 +8,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
-import { TIER_COLORS, D2Item } from '@/lib/d2r-data';
+import { D2Item, TIER_COLORS } from '@/lib/d2r-utils';
 import { XCircle } from 'lucide-react';
 
 interface PriceData {
@@ -96,7 +96,7 @@ export function PriceHistoryModal({ item, open, onClose }: PriceHistoryModalProp
             <div className="grid grid-cols-3 gap-4">
               <div className="text-center">
                 <div className="text-2xl font-bold text-amber-400">
-                  {item.priceFg?.toFixed(1)} FG
+                  {item.priceFg != null ? `${item.priceFg.toFixed(1)} FG` : 'N/A'}
                 </div>
                 <div className="text-xs text-zinc-500">Current Price</div>
               </div>

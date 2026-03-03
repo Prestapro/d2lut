@@ -3,11 +3,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import { StatsCards } from '@/components/stats-cards';
 import { CategoryTabs } from '@/components/category-tabs';
-import { ItemPriceTable } from '@/components/item-price-table';
+import { ItemPriceTable, SortField, SortOrder } from '@/components/item-price-table';
 import { FilterBuilder } from '@/components/filter-builder';
 import { PriceHistoryModal } from '@/components/price-history-modal';
 import { D2Item, TIER_COLORS, TIER_LABELS } from '@/lib/d2r-utils';
-import { RefreshCw, Github, Download } from 'lucide-react';
+import { RefreshCw, Github } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 
@@ -29,6 +29,9 @@ interface Stats {
 interface ItemsResponse {
   items: D2Item[];
   total: number;
+  limit: number;
+  offset: number;
+  hasMore: boolean;
 }
 
 export default function Home() {
@@ -38,6 +41,14 @@ export default function Home() {
   const [items, setItems] = useState<D2Item[]>([]);
   const [categories, setCategories] = useState<Stats['categories']>([]);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [search, setSearch] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState('');
+  const [tierFilter, setTierFilter] = useState<string>('all');
+  const [sortField, setSortField] = useState<SortField>('price');
+  const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
+  const [offset, setOffset] = useState(0);
+  const [limit] = useState(100);
+  const [totalItems, setTotalItems] = useState(0);
   const [loading, setLoading] = useState(true);
   const [selectedItem, setSelectedItem] = useState<D2Item | null>(null);
   const [isBuilding, setIsBuilding] = useState(false);
@@ -45,6 +56,15 @@ export default function Home() {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedSearch(search.trim()), 250);
+    return () => clearTimeout(timer);
+  }, [search]);
+
+  useEffect(() => {
+    setOffset(0);
+  }, [activeCategory, tierFilter, sortField, sortOrder, debouncedSearch]);
 
   // Fetch stats
   const fetchStats = useCallback(async () => {
@@ -68,17 +88,28 @@ export default function Home() {
       if (activeCategory) {
         params.set('category', activeCategory);
       }
+      if (debouncedSearch) {
+        params.set('search', debouncedSearch);
+      }
+      if (tierFilter !== 'all') {
+        params.set('tier', tierFilter);
+      }
+      params.set('sort', sortField);
+      params.set('order', sortOrder);
+      params.set('limit', String(limit));
+      params.set('offset', String(offset));
       const res = await fetch(`/api/items?${params.toString()}`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data: ItemsResponse = await res.json();
       setItems(data.items);
+      setTotalItems(data.total);
     } catch (error) {
       console.error('Failed to fetch items:', error);
       toast.error('Failed to load items');
     } finally {
       setLoading(false);
     }
-  }, [activeCategory]);
+  }, [activeCategory, debouncedSearch, tierFilter, sortField, sortOrder, limit, offset]);
 
   useEffect(() => {
     fetchStats();
@@ -192,6 +223,20 @@ export default function Home() {
             ) : (
               <ItemPriceTable
                 items={items}
+                total={totalItems}
+                limit={limit}
+                offset={offset}
+                search={search}
+                tierFilter={tierFilter}
+                sortField={sortField}
+                sortOrder={sortOrder}
+                onSearchChange={setSearch}
+                onTierFilterChange={setTierFilter}
+                onSortChange={(field, order) => {
+                  setSortField(field);
+                  setSortOrder(order);
+                }}
+                onPageChange={setOffset}
                 onItemSelect={setSelectedItem}
               />
             )}
