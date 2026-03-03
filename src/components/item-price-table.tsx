@@ -81,6 +81,28 @@ export function ItemPriceTable({
   const disablePrev = offset <= 0;
   const disableNext = offset + limit >= total;
 
+  const formatLastUpdated = (value?: string | null) => {
+    if (!value) return '-';
+
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return '-';
+
+    return date.toLocaleString(undefined, {
+      year: 'numeric',
+      month: 'short',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    });
+  };
+
+  const getTopicStatus = (item: D2Item) => {
+    if ((item.topicUrls?.length || 0) > 0) return null;
+    if ((item.nObservations || 0) <= 0) return 'No confirmed listings';
+    return 'Price/link needs manual check';
+  };
+
   return (
     <div className="space-y-4">
       {/* Filters */}
@@ -159,6 +181,7 @@ export function ItemPriceTable({
                   <SortIcon field="price" sortField={sortField} sortOrder={sortOrder} />
                 </Button>
               </TableHead>
+              <TableHead className="text-zinc-400 text-center">Last Updated</TableHead>
               <TableHead className="text-zinc-400 text-center">Tier</TableHead>
               <TableHead className="text-zinc-400 text-center">Confidence</TableHead>
               <TableHead className="text-zinc-400">Topics</TableHead>
@@ -167,7 +190,7 @@ export function ItemPriceTable({
           <TableBody>
             {items.length === 0 ? (
               <TableRow className="border-zinc-800">
-                <TableCell colSpan={6} className="text-center text-zinc-500 py-8">
+                <TableCell colSpan={7} className="text-center text-zinc-500 py-8">
                   No items found
                 </TableCell>
               </TableRow>
@@ -188,6 +211,9 @@ export function ItemPriceTable({
                   </TableCell>
                   <TableCell className="text-right font-mono text-amber-400">
                     {item.priceFg?.toFixed(1) || '0'}
+                  </TableCell>
+                  <TableCell className="text-center text-sm text-zinc-400">
+                    {formatLastUpdated(item.priceLastUpdated)}
                   </TableCell>
                   <TableCell className="text-center">
                     <span
@@ -230,15 +256,20 @@ export function ItemPriceTable({
                         ))}
                       </div>
                     ) : item.topicSearchUrl ? (
-                      <a
-                        href={item.topicSearchUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-sky-400 hover:text-sky-300 underline"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        find topics
-                      </a>
+                      <div className="flex flex-col">
+                        <a
+                          href={item.topicSearchUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sky-400 hover:text-sky-300 underline"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          find topics
+                        </a>
+                        {getTopicStatus(item) ? (
+                          <span className="text-xs text-zinc-500 mt-1">{getTopicStatus(item)}</span>
+                        ) : null}
+                      </div>
                     ) : (
                       <span className="text-zinc-600">-</span>
                     )}

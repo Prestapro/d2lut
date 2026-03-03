@@ -1,0 +1,151 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+ROOT_DIR="$(cd -- "${SCRIPT_DIR}/.." >/dev/null 2>&1 && pwd)"
+source "${SCRIPT_DIR}/opencode-common.sh"
+
+PID_FILE="${OPENCODE_DEV_PID_FILE:-/tmp/d2lut-dev-server.pid}"
+LOG_FILE="${OPENCODE_DEV_LOG_FILE:-/tmp/d2lut-dev-server.log}"
+PORT="${OPENCODE_DEV_PORT:-3000}"
+BASE_URL="${OPENCODE_DEV_BASE_URL:-http://localhost:${PORT}}"
+
+usage() {
+  cat <<'EOF'
+Usage: dev-server <start|stop|restart|status>
+
+Manages Next.js dev server in background with PID tracking.
+EOF
+  print_exit_code_legend
+}
+
+require_command curl dev-server
+require_command npm dev-server
+
+is_pid_alive() {
+  local pid="$1"
+  [[ -n "$pid" ]] && kill -0 "$pid" >/dev/null 2>&1
+}
+
+is_port_ready() {
+  curl -fsS "${BASE_URL}/" >/dev/null 2>&1
+}
+
+get_listener_pid() {
+  lsof -tiTCP:"${PORT}" -sTCP:LISTEN 2>/dev/null | head -n 1 || true
+}
+
+get_pid_from_file() {
+  if [[ -f "$PID_FILE" ]]; then
+    tr -d '[:space:]' <"$PID_FILE"
+  fi
+}
+
+start_server() {
+  local existing_pid
+  existing_pid="$(get_pid_from_file || true)"
+  if [[ -n "${existing_pid:-}" ]] && is_pid_alive "$existing_pid" && is_port_ready; then
+    echo "[dev-server] already running: pid=${existing_pid} url=${BASE_URL}"
+    return 0
+  fi
+
+  cd "$ROOT_DIR"
+  nohup npm run dev >"$LOG_FILE" 2>&1 &
+  local spawned_pid=$!
+  echo "$spawned_pid" >"$PID_FILE"
+
+  for _ in {1..40}; do
+    if is_port_ready; then
+      local listener_pid
+      listener_pid="$(get_listener_pid)"
+      if [[ -n "${listener_pid:-}" ]]; then
+        echo "$listener_pid" >"$PID_FILE"
+        echo "[dev-server] started: pid=${listener_pid} url=${BASE_URL}"
+      else
+        echo "[dev-server] started: pid=${spawned_pid} url=${BASE_URL}"
+      fi
+      return 0
+    fi
+    if ! is_pid_alive "$spawned_pid"; then
+      echo "[dev-server] process exited during startup. tail log:" >&2
+      tail -n 60 "$LOG_FILE" >&2 || true
+      exit_with_code 4
+    fi
+    sleep 1
+  done
+
+  echo "[dev-server] startup timeout. tail log:" >&2
+  tail -n 60 "$LOG_FILE" >&2 || true
+  exit_with_code 4
+}
+
+stop_server() {
+  local pid
+  pid="$(get_pid_from_file || true)"
+  if [[ -z "${pid:-}" ]]; then
+    echo "[dev-server] not running (no pid file)"
+    return 0
+  fi
+
+  if is_pid_alive "$pid"; then
+    kill "$pid" >/dev/null 2>&1 || true
+    sleep 1
+    if is_pid_alive "$pid"; then
+      kill -9 "$pid" >/dev/null 2>&1 || true
+    fi
+  fi
+
+  local listener_pid
+  listener_pid="$(get_listener_pid)"
+  if [[ -n "${listener_pid:-}" ]] && is_pid_alive "$listener_pid"; then
+    kill "$listener_pid" >/dev/null 2>&1 || true
+    sleep 1
+    if is_pid_alive "$listener_pid"; then
+      kill -9 "$listener_pid" >/dev/null 2>&1 || true
+    fi
+  fi
+
+  rm -f "$PID_FILE"
+  echo "[dev-server] stopped"
+}
+
+status_server() {
+  local pid
+  pid="$(get_pid_from_file || true)"
+  if [[ -z "${pid:-}" ]]; then
+    echo "[dev-server] down (no pid file)"
+    exit_with_code 4
+  fi
+
+  if ! is_pid_alive "$pid"; then
+    echo "[dev-server] down (stale pid file: $pid)"
+    exit_with_code 4
+  fi
+
+  if ! is_port_ready; then
+    echo "[dev-server] process alive but ${BASE_URL} is unreachable"
+    exit_with_code 4
+  fi
+
+  echo "[dev-server] up: pid=${pid} url=${BASE_URL}"
+}
+
+cmd="${1:-}"
+case "$cmd" in
+  start) start_server ;;
+  stop) stop_server ;;
+  restart)
+    stop_server
+    start_server
+    ;;
+  status) status_server ;;
+  -h|--help|"")
+    usage
+    [[ -n "$cmd" ]] || exit_with_code 5
+    ;;
+  *)
+    echo "[dev-server] unknown command: $cmd" >&2
+    usage
+    exit_with_code 5
+    ;;
+esac

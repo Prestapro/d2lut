@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { StatsCards } from '@/components/stats-cards';
 import { CategoryTabs } from '@/components/category-tabs';
 import { ItemPriceTable, SortField, SortOrder } from '@/components/item-price-table';
@@ -35,18 +36,34 @@ interface ItemsResponse {
 }
 
 export default function Home() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const initialCategory = searchParams.get('category');
+  const initialSearch = searchParams.get('search') || '';
+  const initialTier = searchParams.get('tier') || 'all';
+  const initialSort = searchParams.get('sort') === 'name' || searchParams.get('sort') === 'category' || searchParams.get('sort') === 'price'
+    ? (searchParams.get('sort') as SortField)
+    : 'price';
+  const initialOrder = searchParams.get('order') === 'asc' || searchParams.get('order') === 'desc'
+    ? (searchParams.get('order') as SortOrder)
+    : 'desc';
+  const initialOffsetRaw = Number.parseInt(searchParams.get('offset') || '0', 10);
+  const initialOffset = Number.isFinite(initialOffsetRaw) && initialOffsetRaw >= 0 ? initialOffsetRaw : 0;
+
   // Client-only rendering guard — must be first hook
   const [mounted, setMounted] = useState(false);
   const [stats, setStats] = useState<Stats | null>(null);
   const [items, setItems] = useState<D2Item[]>([]);
   const [categories, setCategories] = useState<Stats['categories']>([]);
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
-  const [search, setSearch] = useState('');
-  const [debouncedSearch, setDebouncedSearch] = useState('');
-  const [tierFilter, setTierFilter] = useState<string>('all');
-  const [sortField, setSortField] = useState<SortField>('price');
-  const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
-  const [offset, setOffset] = useState(0);
+  const [activeCategory, setActiveCategory] = useState<string | null>(initialCategory);
+  const [search, setSearch] = useState(initialSearch);
+  const [debouncedSearch, setDebouncedSearch] = useState(initialSearch.trim());
+  const [tierFilter, setTierFilter] = useState<string>(initialTier);
+  const [sortField, setSortField] = useState<SortField>(initialSort);
+  const [sortOrder, setSortOrder] = useState<SortOrder>(initialOrder);
+  const [offset, setOffset] = useState(initialOffset);
   const [limit] = useState(100);
   const [totalItems, setTotalItems] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -62,9 +79,30 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, [search]);
 
+  const hasInitializedFilters = useRef(false);
+
   useEffect(() => {
+    if (!hasInitializedFilters.current) {
+      hasInitializedFilters.current = true;
+      return;
+    }
     setOffset(0);
   }, [activeCategory, tierFilter, sortField, sortOrder, debouncedSearch]);
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+
+    if (activeCategory) params.set('category', activeCategory);
+    if (debouncedSearch) params.set('search', debouncedSearch);
+    if (tierFilter !== 'all') params.set('tier', tierFilter);
+    if (sortField !== 'price') params.set('sort', sortField);
+    if (sortOrder !== 'desc') params.set('order', sortOrder);
+    if (offset > 0) params.set('offset', String(offset));
+
+    const query = params.toString();
+    const nextUrl = query ? `${pathname}?${query}` : pathname;
+    router.replace(nextUrl, { scroll: false });
+  }, [activeCategory, debouncedSearch, tierFilter, sortField, sortOrder, offset, pathname, router]);
 
   // Fetch stats
   const fetchStats = useCallback(async () => {

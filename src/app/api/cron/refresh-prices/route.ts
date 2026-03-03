@@ -231,6 +231,18 @@ export async function POST(request: NextRequest) {
           { status: 500 }
         );
       }
+
+      if ((collector.postsScanned || 0) <= 0) {
+        return NextResponse.json(
+          {
+            error: 'collector scanned 0 posts (source unavailable or blocked by anti-bot)',
+            mode,
+            forumId,
+          },
+          { status: 502 }
+        );
+      }
+
       observations = collector.observations;
       postsScanned = collector.postsScanned || 0;
       usedMode = collector.mode || mode;

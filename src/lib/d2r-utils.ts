@@ -9,6 +9,7 @@ export interface D2Item {
     d2rCode: string | null;
     subCategory?: string;
     priceFg?: number;
+    priceLastUpdated?: string | null;
     tier?: string;
     confidence?: string | null;
     nObservations?: number;

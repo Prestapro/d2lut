@@ -14,6 +14,10 @@ Usage: opencode-guard [--] [opencode args...]
 Runs opencode through opencode-run-json and verifies:
   - a real kimi-review subagent task was called
   - final response includes a Kimi block with Verdict
+  - run contains runtime validation commands (lint + API checks)
+
+Environment:
+  OPENCODE_GUARD_REQUIRE_RUNTIME=0   Disable runtime-command enforcement
 EOF
   print_exit_code_legend
 }
@@ -55,19 +59,28 @@ if [[ -z "${NEW_FILE:-}" || ! -f "$NEW_FILE" ]]; then
   exit_with_code 4
 fi
 
-python3 - "$NEW_FILE" <<'PY'
+python3 - "$NEW_FILE" "${OPENCODE_GUARD_REQUIRE_RUNTIME:-1}" <<'PY'
 import json
 import re
 import sys
 from pathlib import Path
 
 path = Path(sys.argv[1])
+require_runtime = (sys.argv[2] != "0")
 
 has_kimi_task = False
 has_kimi_model = False
 has_kimi_label = False
 has_text_block = False
 verdict_found = False
+validation_block_found = False
+validation_lint_found = False
+validation_build_found = False
+validation_runtime_found = False
+has_lint_check = False
+has_stats_check = False
+has_items_check = False
+has_runtime_script = False
 
 with path.open("r", encoding="utf-8", errors="replace") as fh:
     for raw_line in fh:
@@ -82,6 +95,20 @@ with path.open("r", encoding="utf-8", errors="replace") as fh:
         # Check explicit tool task call to kimi-review
         part = evt.get("part") or {}
         if evt.get("type") == "tool_use":
+            if part.get("type") == "tool" and part.get("tool") == "bash":
+                st = part.get("state") or {}
+                inp = st.get("input") or {}
+                command = (inp.get("command") or "").lower()
+                if command:
+                    if "scripts/opencode-runtime-checks" in command:
+                        has_runtime_script = True
+                    if re.search(r"(^|\\s)(npm|pnpm|yarn|bun)\\s+run\\s+lint(\\s|$)", command) or " eslint " in f" {command} ":
+                        has_lint_check = True
+                    if "/api/stats" in command:
+                        has_stats_check = True
+                    if "/api/items" in command:
+                        has_items_check = True
+
             if part.get("type") == "tool" and part.get("tool") == "task":
                 st = part.get("state") or {}
                 inp = st.get("input") or {}
@@ -100,6 +127,14 @@ with path.open("r", encoding="utf-8", errors="replace") as fh:
                 has_text_block = True
             if re.search(r"\bVerdict:\s*(approve|rework|reject)\b", txt, re.IGNORECASE):
                 verdict_found = True
+            if re.search(r"\bValidation:\b", txt, re.IGNORECASE):
+                validation_block_found = True
+            if re.search(r"\bLint:\s*(pass|fail|not run)\b", txt, re.IGNORECASE):
+                validation_lint_found = True
+            if re.search(r"\bBuild:\s*(pass|fail|not run)\b", txt, re.IGNORECASE):
+                validation_build_found = True
+            if re.search(r"\bRuntime:\s*(pass|fail|not run)\b", txt, re.IGNORECASE):
+                validation_runtime_found = True
 
 errors = []
 if not has_text_block:
@@ -112,6 +147,25 @@ if not has_kimi_label:
     errors.append("final answer missing 'Kimi:' section")
 if not verdict_found:
     errors.append("final answer missing 'Verdict: approve|rework|reject'")
+if not validation_block_found:
+    errors.append("final answer missing 'Validation:' section in Kimi block")
+if not validation_lint_found:
+    errors.append("final answer missing 'Lint: pass|fail|not run'")
+if not validation_build_found:
+    errors.append("final answer missing 'Build: pass|fail|not run'")
+if not validation_runtime_found:
+    errors.append("final answer missing 'Runtime: pass|fail|not run'")
+if require_runtime:
+    if has_runtime_script:
+        # accepted as a single source of truth for lint + api checks
+        pass
+    else:
+        if not has_lint_check:
+            errors.append("no lint execution found in run log")
+        if not has_stats_check:
+            errors.append("no runtime check for /api/stats found in run log")
+        if not has_items_check:
+            errors.append("no runtime check for /api/items found in run log")
 
 if errors:
     print("[opencode-guard] FAIL")
@@ -125,6 +179,12 @@ print(f"[opencode-guard] verified run file: {path}")
 print("- found subagent task call: kimi-review")
 print("- found model: kilo/moonshotai/kimi-k2.5")
 print("- found final Kimi section + Verdict")
+print("- found Kimi Validation block (Lint/Build/Runtime)")
+if require_runtime:
+    if has_runtime_script:
+        print("- found runtime checks via scripts/opencode-runtime-checks")
+    else:
+        print("- found runtime checks: lint + /api/stats + /api/items")
 PY
 
 exit 0

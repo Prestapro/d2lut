@@ -1,6 +1,11 @@
 import { PrismaClient } from '@prisma/client'
+import { existsSync } from 'node:fs'
+import path from 'node:path'
 
-const defaultDatabaseUrl = 'file:./data/cache/d2lut.db'
+// Default to a Prisma-compatible local DB using an absolute path to avoid cwd ambiguity.
+const dbCandidates = [path.resolve(process.cwd(), 'db/custom.db'), path.resolve(process.cwd(), 'prisma/dev.db')]
+const defaultDbPath = dbCandidates.find((candidate) => existsSync(candidate)) ?? dbCandidates[0]
+const defaultDatabaseUrl = `file:${defaultDbPath}`
 const isProduction = process.env.NODE_ENV === 'production'
 const isBuildPhase =
   process.env.NEXT_PHASE === 'phase-production-build' ||
@@ -14,7 +19,7 @@ if (isProductionRuntime && !process.env.DATABASE_URL) {
 const databaseUrl = process.env.DATABASE_URL ?? defaultDatabaseUrl
 
 if (!process.env.DATABASE_URL) {
-  console.warn(`DATABASE_URL is not set. Using default SQLite path ${defaultDatabaseUrl}`)
+  console.warn(`DATABASE_URL is not set. Using default SQLite path ${defaultDbPath}`)
 }
 
 const globalForPrisma = globalThis as unknown as {

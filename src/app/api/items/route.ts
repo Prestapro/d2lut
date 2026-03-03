@@ -31,6 +31,85 @@ function toTopicId(sourceId: string | null | undefined): string | null {
   return null;
 }
 
+function cleanSearchText(raw: string): string {
+  return raw
+    .replace(/ÿc[0-9a-z;]*/gi, ' ')
+    .replace(/\[[^\]]*fg[^\]]*\]/gi, ' ')
+    .replace(/[\u2018\u2019`]/g, "'")
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-zA-Z0-9' ]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function buildTopicSearchUrl(rawQuery: string): string {
+  const normalized = cleanSearchText(rawQuery);
+
+  const params = new URLSearchParams({
+    c: '7',
+    f: '271',
+    t: '0',
+    stext: normalized,
+    s: 'Search',
+  });
+
+  return `https://forums.d2jsp.org/search.php?${params.toString()}`;
+}
+
+function cleanDisplayName(raw: string): string {
+  const cleaned = raw
+    .replace(/ÿc[0-9a-z;]*/gi, ' ')
+    .replace(/\[[^\]]*fg[^\]]*\]/gi, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  return cleaned;
+}
+
+function extractInlineFg(raw: string): number | null {
+  const match = raw.match(/\[(\d+(?:\.\d+)?)\s*fg\]/i);
+  if (!match?.[1]) return null;
+
+  const parsed = Number.parseFloat(match[1]);
+  if (!Number.isFinite(parsed) || parsed <= 0) return null;
+
+  return parsed;
+}
+
+function buildTopicSearchQuery(item: {
+  variantKey: string;
+  displayName: string;
+  name: string;
+  category: string;
+  hasPriceEstimate: boolean;
+}): string {
+  const category = item.variantKey.split(':')[0] || '';
+  const variantQuery = item.variantKey
+    .replace(/^[^:]+:/, '')
+    .replace(/[:_+\-]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  const displayRaw = (item.displayName || '').replace(/^[a-z]+:/i, '');
+  const displayQuery = cleanSearchText(displayRaw);
+  const variantClean = cleanSearchText(variantQuery);
+  const nameQuery = cleanSearchText(item.name || '');
+
+  const candidates = [displayQuery, variantClean, nameQuery].filter((value) => value.length > 0);
+  const best = candidates.sort((a, b) => b.length - a.length)[0] || item.variantKey;
+
+  if (!item.hasPriceEstimate) {
+    const categoryPrefix = cleanSearchText(item.category || category);
+    if (categoryPrefix) return `${categoryPrefix} ${best}`.trim();
+  }
+
+  if (best.split(/\s+/).length >= 2) return best;
+  if (!category) return best;
+
+  return `${category} ${best}`;
+}
+
 export async function GET(request: NextRequest) {
   try {
     const url = new URL(request.url);
@@ -154,7 +233,9 @@ export async function GET(request: NextRequest) {
 
     // Transform for response
     const result = items.map(item => {
-      const price = item.priceEstimate?.priceFg;
+      const estimatePrice = item.priceEstimate?.priceFg;
+      const inlinePrice = extractInlineFg(item.displayName || '');
+      const price = estimatePrice ?? inlinePrice;
       const topicIds = Array.from(
         new Set(
           item.observations
@@ -163,21 +244,28 @@ export async function GET(request: NextRequest) {
         )
       ).slice(0, 3);
 
-      const query = encodeURIComponent(item.displayName || item.name || item.variantKey);
+      const query = buildTopicSearchQuery({
+        variantKey: item.variantKey,
+        displayName: item.displayName,
+        name: item.name,
+        category: item.category,
+        hasPriceEstimate: Boolean(item.priceEstimate),
+      });
 
       return {
         variantKey: item.variantKey,
         name: item.name,
-        displayName: item.displayName,
+        displayName: cleanDisplayName(item.displayName || item.name || item.variantKey),
         category: item.category,
         d2rCode: item.d2rCode,
         subCategory: item.subCategory,
         priceFg: price ?? null,
+        priceLastUpdated: item.priceEstimate?.lastUpdated?.toISOString() ?? null,
         tier: price != null ? getTier(price) : 'UNKNOWN',
-        confidence: item.priceEstimate?.confidence ?? null,
-        nObservations: item.priceEstimate?.nObservations ?? 0,
+        confidence: item.priceEstimate?.confidence ?? (inlinePrice != null ? 'low' : null),
+        nObservations: item.priceEstimate?.nObservations ?? (inlinePrice != null ? 1 : 0),
         topicUrls: topicIds.map((id) => `https://forums.d2jsp.org/topic.php?t=${id}`),
-        topicSearchUrl: `https://forums.d2jsp.org/search.php?c=1&f=271&q=${query}`,
+        topicSearchUrl: buildTopicSearchUrl(query),
       };
     });
 
