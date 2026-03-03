@@ -46,9 +46,15 @@ jobs:
         run: npm ci
 
       - name: Workaround npm optional deps bug (tailwind oxide)
+        if: runner.os == 'Linux'
         run: |
+          # npm optional dependency resolution can skip native bindings in CI:
+          # https://github.com/npm/cli/issues/4828
           OXIDE_VERSION=$(node -p "require('./node_modules/@tailwindcss/oxide/package.json').version")
-          npm install --no-save "@tailwindcss/oxide-linux-x64-gnu@${OXIDE_VERSION}"
+          OXIDE_ARCH=$(node -p "process.arch")
+          OXIDE_LIBC=$(node -p "process.report?.getReport?.().header?.glibcVersionRuntime ? 'gnu' : 'musl'")
+          OXIDE_PACKAGE="@tailwindcss/oxide-linux-${OXIDE_ARCH}-${OXIDE_LIBC}"
+          npm install --no-save "${OXIDE_PACKAGE}@${OXIDE_VERSION}"
 
       - name: Create .env
         run: echo 'DATABASE_URL="file:./dev.db"' > .env
