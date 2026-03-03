@@ -31,6 +31,12 @@ export async function GET(request: NextRequest) {
     const tierRaw = searchParams.get('tier');
     const tier = tierRaw && (VALID_TIERS as readonly string[]).includes(tierRaw) ? tierRaw : null;
 
+    // Validate pagination
+    const limitRaw = parseInt(searchParams.get('limit') || '100', 10);
+    const offsetRaw = parseInt(searchParams.get('offset') || '0', 10);
+    const limit = isNaN(limitRaw) || limitRaw < 1 ? 100 : Math.min(limitRaw, 500);
+    const offset = isNaN(offsetRaw) || offsetRaw < 0 ? 0 : offsetRaw;
+
     // Build where clause
     const where: Record<string, unknown> = {};
     const andConditions: Record<string, unknown>[] = [];
@@ -117,9 +123,16 @@ export async function GET(request: NextRequest) {
       };
     });
 
+    // Apply pagination
+    const total = result.length;
+    const paged = result.slice(offset, offset + limit);
+
     return NextResponse.json({
-      items: result,
-      total: result.length,
+      items: paged,
+      total,
+      limit,
+      offset,
+      hasMore: offset + limit < total,
       filters: { category, search, sort, order, minPrice, maxPrice, tier },
     });
   } catch (error) {
