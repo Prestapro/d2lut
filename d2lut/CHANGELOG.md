@@ -2,18 +2,38 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is
-`- Fixed: bug description`
-`- Added: new feature`
-`- Changed: breaking changes`
+Format:
+- `Added`: new functionality
+- `Changed`: behavior or architecture changes
+- `Fixed`: bug fixes
+- `Security`: security-related fixes
 
-The format is one line per entry for possible.
-The type of entry is encouraged. For added entries, use:
-  - `Fixed: bug description` - [Issue/XXX] Fixed XXX bug.`
-  - `Added: new feature` - [Feature] Added XXX feature.`
-  - `Changed: breaking changes` - [Breaking Change] Changed XXX.`
-  - `Security: security fix` - [Security] Fixed security vulnerability.`
-  - `Deprecated: deprecated feature` - [Deprecated] Deprecated XXX,`
+## [Unreleased]
+
+### Added
+- Guarded OpenCode helper scripts with shared validation utilities and smoke tests for exit-code behavior.
+
+### Changed
+- Release workflow now generates notes from the matching `CHANGELOG.md` version section and publishes from `RELEASE_NOTES.md`.
+
+### Fixed
+- CI now installs a platform-aware Tailwind Oxide native binding to avoid optional-dependency install gaps on GitHub Actions.
+- Next.js CI install compatibility restored by pinning ESLint to the range required by `eslint-config-next@14`.
+- Web item filtering now keeps TRASH-tier rows queryable (`minPrice=0`), and price-history modal handles non-200 API responses safely.
+- Prisma runtime now enforces `DATABASE_URL` in production runtime while preserving safe local/build fallback behavior.
+
+## [0.6.0] - 2026-03-03
+
+### Added
+- Integrated Prisma-backed storage and Python bridge plumbing for web/API flows.
+
+### Changed
+- Release line pivoted from file-based flows toward DB-backed data access.
+
+## [0.5.0] - 2026-03-03
+
+### Fixed
+- Applied audit-driven fixes for runtime correctness and API/UI reliability.
 
 ## [0.4.1] - 2026-03-03
 
@@ -25,4 +45,3 @@ The type of entry is encouraged. For added entries, use:
 - **High**: `patterns.py` - price selection logic now prefers higher price within same confidence level
 - **Medium**: `PRICE_TIERS` now uses `999_999` instead of `float('inf')` for JSON serialization
 - **Medium**: Tests for `slang_aliases` - marked as skip (feature not yet implemented)
-```

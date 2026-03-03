@@ -148,7 +148,7 @@ jobs:
             changelog_block = (
               "## Patch Notes\n"
               "- See commit history for this tag: "
-              f"https://github.com/Prestapro/d2lut/commits/{tag}\n"
+              f"https://github.com/${{ github.repository }}/commits/{tag}\n"
             )
 
           notes = f"""# D2R Loot Filter Builder {tag}
@@ -172,11 +172,14 @@ D2R_Filter_Builder.exe --preset roguecore --db d2lut.db
 ```
 
 ## Full Changelog
-https://github.com/Prestapro/d2lut/blob/main/d2lut/CHANGELOG.md
+https://github.com/${{ github.repository }}/blob/main/d2lut/CHANGELOG.md
 """
 
           Path("RELEASE_NOTES.md").write_text(notes, encoding="utf-8")
           PY
+
+      - name: Show generated release notes
+        run: cat RELEASE_NOTES.md
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
