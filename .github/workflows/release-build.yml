@@ -125,6 +125,59 @@ jobs:
       - name: Display structure of downloaded files
         run: ls -laR artifacts
 
+      - name: Generate release notes
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+
+          tag = "${{ github.ref_name }}"
+          version = tag[1:] if tag.startswith("v") else tag
+          changelog_path = Path("d2lut/CHANGELOG.md")
+
+          changelog_block = ""
+          if changelog_path.exists():
+            content = changelog_path.read_text(encoding="utf-8", errors="replace")
+            pattern = re.compile(rf"^## \[{re.escape(version)}\].*?(?=^## \[|\Z)", re.MULTILINE | re.DOTALL)
+            match = pattern.search(content)
+            if match:
+              changelog_block = match.group(0).strip()
+
+          if not changelog_block:
+            changelog_block = (
+              "## Patch Notes\n"
+              "- See commit history for this tag: "
+              f"https://github.com/Prestapro/d2lut/commits/{tag}\n"
+            )
+
+          notes = f"""# D2R Loot Filter Builder {tag}
+
+{changelog_block}
+
+## Downloads
+- **Windows x64**: `D2R_Filter_Builder-windows-x64.zip`
+- **Linux x64**: `D2R_Filter_Builder-linux-x64.tar.gz`
+- **macOS ARM64**: `D2R_Filter_Builder-macos-arm64.tar.gz`
+
+## Quick Start
+```bash
+# Windows
+D2R_Filter_Builder.exe --help
+D2R_Filter_Builder.exe --preset roguecore --db d2lut.db
+
+# Linux/macOS
+./D2R_Filter_Builder --help
+./D2R_Filter_Builder --preset roguecore --db d2lut.db
+```
+
+## Full Changelog
+https://github.com/Prestapro/d2lut/blob/main/d2lut/CHANGELOG.md
+"""
+
+          Path("RELEASE_NOTES.md").write_text(notes, encoding="utf-8")
+          PY
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
@@ -132,19 +185,6 @@ jobs:
           files: artifacts/**/*
           draft: false
           generate_release_notes: false
-          body: |
-            ## Downloads
-            - **Windows**: D2R_Filter_Builder-windows-x64.zip
-            - **Linux**: D2R_Filter_Builder-linux-x64.tar.gz
-            - **macOS**: D2R_Filter_Builder-macos-arm64.zip
-            
-            ### Usage
-            ```bash
-            D2R_Filter_Builder.exe --help
-            D2R_Filter_Builder.exe --preset roguecore --db d2lut.db
-            ```
-            
-            ### Full Changelog
-            https://github.com/Prestapro/d2lut/blob/main/d2lut/CHANGELOG.md
+          body_path: RELEASE_NOTES.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
