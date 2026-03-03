@@ -67,7 +67,9 @@ export function PriceHistoryModal({ item, open, onClose }: PriceHistoryModalProp
 
   if (!item) return null;
 
-  const maxHeight = history ? Math.max(...history.history.map(h => h.price)) * 1.1 : 100;
+  const maxHeight = history && history.history.length > 0
+    ? Math.max(...history.history.map(h => h.price)) * 1.1
+    : 100;
 
   return (
     <Dialog open={open} onOpenChange={onClose}>

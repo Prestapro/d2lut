@@ -20,7 +20,7 @@ import {
 } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { TIER_COLORS, D2Item } from '@/lib/d2r-data';
-import { ArrowUpDown, Search, ArrowUp, ArrowDown, ChevronsUpDown } from 'lucide-react';
+import { Search, ArrowUp, ArrowDown, ChevronsUpDown } from 'lucide-react';
 
 interface ItemPriceTableProps {
   items: D2Item[];
@@ -146,7 +146,7 @@ export function ItemPriceTable({ items: initialItems, onItemSelect }: ItemPriceT
                   onClick={() => handleSort('name')}
                   className="text-zinc-400 hover:text-white"
                 >
-                  Name <ArrowUpDown className="ml-2 h-4 w-4" />
+                  Name
                   <SortIcon field="name" sortField={sortField} sortOrder={sortOrder} />
                 </Button>
               </TableHead>
@@ -157,7 +157,7 @@ export function ItemPriceTable({ items: initialItems, onItemSelect }: ItemPriceT
                   onClick={() => handleSort('category')}
                   className="text-zinc-400 hover:text-white"
                 >
-                  Category <ArrowUpDown className="ml-2 h-4 w-4" />
+                  Category
                   <SortIcon field="category" sortField={sortField} sortOrder={sortOrder} />
                 </Button>
               </TableHead>
@@ -168,7 +168,7 @@ export function ItemPriceTable({ items: initialItems, onItemSelect }: ItemPriceT
                   onClick={() => handleSort('price')}
                   className="text-zinc-400 hover:text-white"
                 >
-                  Price (FG) <ArrowUpDown className="ml-2 h-4 w-4" />
+                  Price (FG)
                   <SortIcon field="price" sortField={sortField} sortOrder={sortOrder} />
                 </Button>
               </TableHead>
