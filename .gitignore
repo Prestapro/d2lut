@@ -60,6 +60,7 @@ server.log
 # Data cache and raw scraped data
 data/cache/
 data/raw/
+.cache/
 
 # Built artifacts
 releases/
