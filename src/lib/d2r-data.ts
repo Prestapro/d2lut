@@ -27,7 +27,7 @@ export const D2R_CODES: Record<string, string | null> = {
   'unique:crownofages': 'ucr', 'unique:kira': 'uhl', 'unique:tyraels': 'uar',
   'unique:arachnid': 'umc', 'unique:verdungo': 'umh', 'unique:tgods': 'utb',
   'unique:wartraveler': 'uhb', 'unique:sandstorm': 'ulb', 'unique:goredriver': 'uhg',
-  'unique:dracul': 'ulg', 'unique:stormshield': 'uit', 'unique:homunculus': 'unec',
+  'unique:dracul': 'uvg', 'unique:stormshield': 'uit', 'unique:homunculus': 'unec',
   'unique:windforce': 'am6', 'unique:occulus': 'obf', 'unique:wizardspike': 'ob2',
   'unique:soj': 'rin', 'unique:bk': 'rin', 'unique:raven': 'rin',
   'unique:mara': 'amu', 'unique:highlord': 'amu', 'unique:catseye': 'amu',

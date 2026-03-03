@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { spawn } from 'child_process';
 import path from 'path';
 import { getTier } from '@/lib/d2r-utils';
+import { db } from '@/lib/db';
 
 const VALID_PRESETS = ['default', 'roguecore', 'minimal', 'verbose'];
 
@@ -26,7 +27,67 @@ function validateInputs(preset: string, threshold: unknown): { preset: string; t
   return { preset, threshold: th };
 }
 
-// Filter builder that works without Python (fallback)
+// Build filter from Prisma DB — uses real prices from database
+async function buildFilterFromDB(preset: string, threshold: number): Promise<string | null> {
+  try {
+    const items = await db.d2Item.findMany({
+      where: {
+        d2rCode: { not: null },
+      },
+      include: {
+        priceEstimate: true,
+      },
+    });
+
+    // Only items with prices and valid d2r codes
+    const priced = items
+      .filter(i => i.priceEstimate && i.d2rCode)
+      .map(i => ({
+        name: i.displayName,
+        code: i.d2rCode!,
+        price: i.priceEstimate!.priceFg,
+      }))
+      .filter(i => i.price >= threshold);
+
+    if (priced.length === 0) return null; // No items — fall through to hardcoded
+
+    const colors: Record<string, string> = {
+      GG: 'ÿc9', HIGH: 'ÿc7', MID: 'ÿc8', LOW: 'ÿc0', TRASH: 'ÿc5'
+    };
+
+    const tierList = ['GG', 'HIGH', 'MID', 'LOW', 'TRASH'];
+
+    const lines: string[] = [
+      `# D2R Loot Filter - D2LUT`,
+      `# Generated: ${new Date().toISOString()}`,
+      `# Preset: ${preset}`,
+      `# Threshold: ${threshold} FG`,
+      `# Source: database (${priced.length} items)`,
+      '',
+    ];
+
+    for (const tierName of tierList) {
+      const tierItems = priced.filter(i => getTier(i.price) === tierName);
+      if (tierItems.length === 0) continue;
+
+      lines.push(`# === ${tierName} TIER (${tierItems.length} items) ===`);
+      lines.push('');
+
+      for (const item of tierItems) {
+        const color = colors[tierName];
+        lines.push(`ItemDisplay[${item.code}]: ${color}${item.name} ÿc4[${item.price} FG]`);
+      }
+      lines.push('');
+    }
+
+    return lines.join('\n');
+  } catch (error) {
+    console.error('DB filter build failed:', error);
+    return null;
+  }
+}
+
+// Hardcoded fallback filter builder (works without DB)
 function buildFilterDirect(preset: string, threshold: number): string {
   const items: FilterItem[] = [
     // Runes — direct item codes
@@ -42,7 +103,7 @@ function buildFilterDirect(preset: string, threshold: number): string {
     { name: 'Mal Rune', codes: ['r23'], price: 8 },
     { name: 'Um Rune', codes: ['r22'], price: 4 },
 
-    // Uniques — unique item codes
+    // Uniques
     { name: 'Harlequin Crest', codes: ['uui'], price: 15 },
     { name: 'Arachnid Mesh', codes: ['umc'], price: 45 },
     { name: "Tyrael's Might", codes: ['uar'], price: 200 },
@@ -51,29 +112,13 @@ function buildFilterDirect(preset: string, threshold: number): string {
     { name: "Mara's Kaleidoscope", codes: ['amu'], price: 25 },
     { name: "Griffon's Eye", codes: ['uap'], price: 85 },
     { name: 'Crown of Ages', codes: ['ucr'], price: 120 },
-    { name: "Verdungo's Hearty Cord", codes: ['umh'], price: 15 },
-    { name: "Thundergod's Vigor", codes: ['utb'], price: 8 },
-    { name: 'Storm Shield', codes: ['uit'], price: 35 },
-    { name: 'Windforce', codes: ['am6'], price: 180 },
-    { name: 'Stone of Jordan', codes: ['rin'], price: 30 },
-    { name: "Highlord's Wrath", codes: ['amuhl'], price: 18 },
 
     // Runewords — filter by popular socketable base items
-    // Note: runewords sharing bases (e.g. Enigma/Fortitude both use xtp/uea/utp)
-    // will generate multiple rules for the same code — this is intentional so
-    // all valuable bases are highlighted regardless of intended runeword
     { name: 'Enigma', codes: ['xtp', 'uea', 'utp'], price: 160 },
     { name: 'Infinity', codes: ['7vo', '7s8', '7pa'], price: 180 },
-    { name: 'Breath of the Dying', codes: ['7cr', '7gd', '7ws'], price: 85 },
     { name: 'Grief', codes: ['7cr', '7ls'], price: 35 },
     { name: 'Call to Arms', codes: ['7cr', '7gd'], price: 40 },
-    { name: 'Fortitude', codes: ['xtp', 'uea', 'utp'], price: 45 },
     { name: 'Spirit', codes: ['xrn', 'pa9', 'ush'], price: 5 },
-    { name: 'Beast', codes: ['7bt', '7ba'], price: 55 },
-    { name: 'Last Wish', codes: ['7cr', '7ls'], price: 120 },
-    { name: 'Faith', codes: ['6cb', '6lw', '8cb'], price: 95 },
-    { name: 'Chains of Honor', codes: ['xtp', 'uea', 'utp'], price: 30 },
-    { name: 'Heart of the Oak', codes: ['8cs', '8ws'], price: 15 },
   ];
 
   const colors: Record<string, string> = {
@@ -88,7 +133,7 @@ function buildFilterDirect(preset: string, threshold: number): string {
     `# Generated: ${new Date().toISOString()}`,
     `# Preset: ${preset}`,
     `# Threshold: ${threshold} FG`,
-    `# Items: ${filtered.length}`,
+    `# Source: hardcoded fallback (${filtered.length} items)`,
     '',
   ];
 
@@ -101,7 +146,6 @@ function buildFilterDirect(preset: string, threshold: number): string {
 
     for (const item of tierItems) {
       const color = colors[tierName];
-      // Emit a rule for each base code
       for (const code of item.codes) {
         lines.push(`ItemDisplay[${code}]: ${color}${item.name} ÿc4[${item.price} FG]`);
       }
@@ -126,6 +170,17 @@ function executePythonBridge(bridgePath: string, preset: string, threshold: numb
   });
 }
 
+// Helper to return filter as downloadable file
+function filterResponse(content: string, preset: string) {
+  return new NextResponse(content, {
+    status: 200,
+    headers: {
+      'Content-Type': 'text/plain; charset=utf-8',
+      'Content-Disposition': `attachment; filename="d2lut_${preset}_${Date.now()}.filter"`,
+    },
+  });
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -145,27 +200,20 @@ export async function POST(request: NextRequest) {
       const stdout = await executePythonBridge(bridgePath, preset, threshold);
       const result = JSON.parse(stdout.trim());
       if (result.success) {
-        return new NextResponse(result.content, {
-          status: 200,
-          headers: {
-            'Content-Type': 'text/plain; charset=utf-8',
-            'Content-Disposition': `attachment; filename="d2lut_${preset}_${Date.now()}.filter"`,
-          },
-        });
+        return filterResponse(result.content, preset);
       }
     } catch {
       console.log('Python bridge not available, using built-in generator');
     }
 
-    // Fallback to direct filter generation
-    const filterContent = buildFilterDirect(preset, threshold);
-    return new NextResponse(filterContent, {
-      status: 200,
-      headers: {
-        'Content-Type': 'text/plain; charset=utf-8',
-        'Content-Disposition': `attachment; filename="d2lut_${preset}_${Date.now()}.filter"`,
-      },
-    });
+    // Try DB-backed filter generation
+    const dbFilter = await buildFilterFromDB(preset, threshold);
+    if (dbFilter) {
+      return filterResponse(dbFilter, preset);
+    }
+
+    // Last resort: hardcoded fallback
+    return filterResponse(buildFilterDirect(preset, threshold), preset);
   } catch (error) {
     console.error('Error building filter:', error);
     return NextResponse.json({ error: 'Failed to build filter' }, { status: 500 });
@@ -183,14 +231,11 @@ export async function GET(request: NextRequest) {
   }
 
   const { preset, threshold } = validation;
-  const filterContent = buildFilterDirect(preset, threshold);
 
-  return new NextResponse(filterContent, {
-    status: 200,
-    headers: {
-      'Content-Type': 'text/plain; charset=utf-8',
-      'Content-Disposition': `attachment; filename="d2lut_${preset}_${Date.now()}.filter"`,
-    },
-  });
+  // Try DB first, then hardcoded fallback
+  const dbFilter = await buildFilterFromDB(preset, threshold);
+  const filterContent = dbFilter || buildFilterDirect(preset, threshold);
+
+  return filterResponse(filterContent, preset);
 }
 

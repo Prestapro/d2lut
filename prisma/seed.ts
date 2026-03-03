@@ -48,9 +48,9 @@ const ITEMS = [
   { variantKey: 'unique:goredriver', name: 'goredriver', displayName: 'Gore Rider', category: 'unique', d2rCode: 'uhg', subCategory: 'boots' },
 
   // Uniques - Gloves
-  { variantKey: 'unique:dracul', name: 'dracul', displayName: "Dracul's Grasp", category: 'unique', d2rCode: 'ulg', subCategory: 'gloves' },
-  { variantKey: 'unique:chanceguards', name: 'chanceguards', displayName: 'Chance Guards', category: 'unique', d2rCode: 'ulg', subCategory: 'gloves' },
-  { variantKey: 'unique:magefist', name: 'magefist', displayName: 'Magefist', category: 'unique', d2rCode: 'ulg', subCategory: 'gloves' },
+  { variantKey: 'unique:dracul', name: 'dracul', displayName: "Dracul's Grasp", category: 'unique', d2rCode: 'uvg', subCategory: 'gloves' },
+  { variantKey: 'unique:chanceguards', name: 'chanceguards', displayName: 'Chance Guards', category: 'unique', d2rCode: 'xtg', subCategory: 'gloves' },
+  { variantKey: 'unique:magefist', name: 'magefist', displayName: 'Magefist', category: 'unique', d2rCode: 'xlg', subCategory: 'gloves' },
 
   // Uniques - Shields
   { variantKey: 'unique:stormshield', name: 'stormshield', displayName: 'Storm Shield', category: 'unique', d2rCode: 'uit', subCategory: 'shield' },
@@ -96,12 +96,12 @@ const ITEMS = [
   { variantKey: 'runeword:hoto', name: 'hoto', displayName: 'Heart of the Oak', category: 'runeword', d2rCode: null, subCategory: 'weapon' },
 
   // Set Items
-  { variantKey: 'set:talrasha', name: 'talrasha', displayName: "Tal Rasha's Set", category: 'set', d2rCode: 'set' },
-  { variantKey: 'set:arreat', name: 'arreat', displayName: "Arreat's Face", category: 'set', d2rCode: 'set' },
-  { variantKey: 'set:trang', name: 'trang', displayName: "Trang-Oul's Set", category: 'set', d2rCode: 'set' },
-  { variantKey: 'set:ik', name: 'ik', displayName: "Immortal King's Set", category: 'set', d2rCode: 'set' },
-  { variantKey: 'set:layingofhands', name: 'layingofhands', displayName: 'Laying of Hands', category: 'set', d2rCode: 'set' },
-  { variantKey: 'set:guillaume', name: 'guillaume', displayName: "Guillaume's Face", category: 'set', d2rCode: 'set' },
+  { variantKey: 'set:talrasha', name: 'talrasha', displayName: "Tal Rasha's Set", category: 'set', d2rCode: 'amu' },
+  { variantKey: 'set:arreat', name: 'arreat', displayName: "Arreat's Face", category: 'set', d2rCode: 'ci3' },
+  { variantKey: 'set:trang', name: 'trang', displayName: "Trang-Oul's Set", category: 'set', d2rCode: 'uld' },
+  { variantKey: 'set:ik', name: 'ik', displayName: "Immortal King's Set", category: 'set', d2rCode: 'uls' },
+  { variantKey: 'set:layingofhands', name: 'layingofhands', displayName: 'Laying of Hands', category: 'set', d2rCode: 'xtg' },
+  { variantKey: 'set:guillaume', name: 'guillaume', displayName: "Guillaume's Face", category: 'set', d2rCode: 'xhm' },
 
   // Bases
   { variantKey: 'base:monarch', name: 'monarch', displayName: 'Monarch Shield', category: 'base', d2rCode: 'mon', subCategory: 'shield' },
@@ -209,7 +209,7 @@ async function main() {
   console.log('Inserting price estimates...');
   const items = await prisma.d2Item.findMany();
   let priceCount = 0;
-  
+
   for (const item of items) {
     const priceData = PRICES[item.variantKey];
     if (priceData) {
