@@ -12,6 +12,52 @@ interface FilterItem {
   price: number;
 }
 
+const TIER_LIST = ['GG', 'HIGH', 'MID', 'LOW', 'TRASH'] as const;
+
+const TIER_COLORS: Record<string, string> = {
+  GG: 'ÿc9',
+  HIGH: 'ÿc7',
+  MID: 'ÿc8',
+  LOW: 'ÿc0',
+  TRASH: 'ÿc5',
+};
+
+function generateFilterContent(
+  preset: string,
+  threshold: number,
+  sourceLabel: string,
+  items: FilterItem[]
+): string {
+  const filtered = items.filter((item) => item.price >= threshold);
+
+  const lines: string[] = [
+    `# D2R Loot Filter - D2LUT`,
+    `# Generated: ${new Date().toISOString()}`,
+    `# Preset: ${preset}`,
+    `# Threshold: ${threshold} FG`,
+    `# Source: ${sourceLabel} (${filtered.length} items)`,
+    '',
+  ];
+
+  for (const tierName of TIER_LIST) {
+    const tierItems = filtered.filter((item) => getTier(item.price) === tierName);
+    if (tierItems.length === 0) continue;
+
+    lines.push(`# === ${tierName} TIER (${tierItems.length} items) ===`);
+    lines.push('');
+
+    for (const item of tierItems) {
+      const color = TIER_COLORS[tierName];
+      for (const code of item.codes) {
+        lines.push(`ItemDisplay[${code}]: ${color}${item.name} ÿc4[${item.price} FG]`);
+      }
+    }
+    lines.push('');
+  }
+
+  return lines.join('\n');
+}
+
 // Validate and sanitize inputs
 function validateInputs(preset: string, threshold: unknown): { preset: string; threshold: number } | string {
   if (!/^[a-zA-Z0-9_-]+$/.test(preset)) {
@@ -40,47 +86,18 @@ async function buildFilterFromDB(preset: string, threshold: number): Promise<str
     });
 
     // Only items with prices and valid d2r codes
-    const priced = items
+    const priced: FilterItem[] = items
       .filter(i => i.priceEstimate && i.d2rCode)
       .map(i => ({
         name: i.displayName,
-        code: i.d2rCode!,
+        codes: [i.d2rCode!],
         price: i.priceEstimate!.priceFg,
-      }))
-      .filter(i => i.price >= threshold);
+      }));
 
-    if (priced.length === 0) return null; // No items — fall through to hardcoded
+    const hasAnyMatch = priced.some((item) => item.price >= threshold);
+    if (!hasAnyMatch) return null; // No matching items — fall through to hardcoded
 
-    const colors: Record<string, string> = {
-      GG: 'ÿc9', HIGH: 'ÿc7', MID: 'ÿc8', LOW: 'ÿc0', TRASH: 'ÿc5'
-    };
-
-    const tierList = ['GG', 'HIGH', 'MID', 'LOW', 'TRASH'];
-
-    const lines: string[] = [
-      `# D2R Loot Filter - D2LUT`,
-      `# Generated: ${new Date().toISOString()}`,
-      `# Preset: ${preset}`,
-      `# Threshold: ${threshold} FG`,
-      `# Source: database (${priced.length} items)`,
-      '',
-    ];
-
-    for (const tierName of tierList) {
-      const tierItems = priced.filter(i => getTier(i.price) === tierName);
-      if (tierItems.length === 0) continue;
-
-      lines.push(`# === ${tierName} TIER (${tierItems.length} items) ===`);
-      lines.push('');
-
-      for (const item of tierItems) {
-        const color = colors[tierName];
-        lines.push(`ItemDisplay[${item.code}]: ${color}${item.name} ÿc4[${item.price} FG]`);
-      }
-      lines.push('');
-    }
-
-    return lines.join('\n');
+    return generateFilterContent(preset, threshold, 'database', priced);
   } catch (error) {
     console.error('DB filter build failed:', error);
     return null;
@@ -121,39 +138,7 @@ function buildFilterDirect(preset: string, threshold: number): string {
     { name: 'Spirit', codes: ['xrn', 'pa9', 'ush'], price: 5 },
   ];
 
-  const colors: Record<string, string> = {
-    GG: 'ÿc9', HIGH: 'ÿc7', MID: 'ÿc8', LOW: 'ÿc0', TRASH: 'ÿc5'
-  };
-
-  const filtered = items.filter(i => i.price >= threshold);
-  const tierList = ['GG', 'HIGH', 'MID', 'LOW', 'TRASH'];
-
-  const lines: string[] = [
-    `# D2R Loot Filter - D2LUT`,
-    `# Generated: ${new Date().toISOString()}`,
-    `# Preset: ${preset}`,
-    `# Threshold: ${threshold} FG`,
-    `# Source: hardcoded fallback (${filtered.length} items)`,
-    '',
-  ];
-
-  for (const tierName of tierList) {
-    const tierItems = filtered.filter(i => getTier(i.price) === tierName);
-    if (tierItems.length === 0) continue;
-
-    lines.push(`# === ${tierName} TIER (${tierItems.length} items) ===`);
-    lines.push('');
-
-    for (const item of tierItems) {
-      const color = colors[tierName];
-      for (const code of item.codes) {
-        lines.push(`ItemDisplay[${code}]: ${color}${item.name} ÿc4[${item.price} FG]`);
-      }
-    }
-    lines.push('');
-  }
-
-  return lines.join('\n');
+  return generateFilterContent(preset, threshold, 'hardcoded fallback', items);
 }
 
 // Execute Python bridge with spawn (no shell)
@@ -238,4 +223,3 @@ export async function GET(request: NextRequest) {
 
   return filterResponse(filterContent, preset);
 }
-

@@ -24,12 +24,14 @@ export async function GET() {
       ? prices.reduce((a, b) => a + b, 0) / prices.length
       : 0;
 
-    // Find top item
-    const topItem = itemsWithPrices.reduce((max, item) => {
-      const price = item.priceEstimate?.priceFg || 0;
-      const maxPrice = max?.priceEstimate?.priceFg || 0;
+    // Find top item among priced entries (> 0 FG)
+    const pricedItems = itemsWithPrices.filter((item) => (item.priceEstimate?.priceFg ?? 0) > 0);
+    const topItem = pricedItems.reduce<typeof pricedItems[number] | null>((max, item) => {
+      if (!max) return item;
+      const price = item.priceEstimate?.priceFg ?? 0;
+      const maxPrice = max.priceEstimate?.priceFg ?? 0;
       return price > maxPrice ? item : max;
-    }, itemsWithPrices[0] || null);
+    }, null);
 
     // Count by tier
     const tierCounts = { GG: 0, HIGH: 0, MID: 0, LOW: 0, TRASH: 0 };

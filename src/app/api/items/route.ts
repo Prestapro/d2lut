@@ -11,7 +11,7 @@ const VALID_TIERS = ['GG', 'HIGH', 'MID', 'LOW', 'TRASH'] as const;
 const MAX_PRICE_DEFAULT = 999999;
 
 const TIER_RANGES: Record<string, { min: number; max: number }> = {
-  GG: { min: 500, max: Number.POSITIVE_INFINITY },
+  GG: { min: 500, max: MAX_PRICE_DEFAULT },
   HIGH: { min: 100, max: 500 },
   MID: { min: 20, max: 100 },
   LOW: { min: 5, max: 20 },
