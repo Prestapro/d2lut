@@ -2,10 +2,16 @@
 set -euo pipefail
 
 OUT_DIR="${HOME}/.local/share/opencode/runs"
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 mkdir -p "$OUT_DIR"
-TS="$(date +%Y-%m-%dT%H%M%S)"
+NS="$(python3 - <<'PY'
+import time
+print(time.time_ns(), end="")
+PY
+)"
+TS="$(date +%Y-%m-%dT%H%M%S)-${NS}-$$-${RANDOM}"
 OUT_FILE="$OUT_DIR/${TS}.jsonl"
 
 echo "[opencode-run-json] writing events to: $OUT_FILE" >&2
 
-/Users/alex/Desktop/d2lut/scripts/opencode-lf run --format json "$@" | tee "$OUT_FILE"
+"${SCRIPT_DIR}/opencode-lf" run --format json "$@" | tee "$OUT_FILE"

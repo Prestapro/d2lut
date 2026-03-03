@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-RUNNER="/Users/alex/Desktop/d2lut/scripts/opencode-run-json"
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+RUNNER="${SCRIPT_DIR}/opencode-run-json"
 RUNS_DIR="${HOME}/.local/share/opencode/runs"
 
 if [[ ! -x "$RUNNER" ]]; then
@@ -47,36 +48,37 @@ has_kimi_label = False
 has_text_block = False
 verdict_found = False
 
-for line in path.read_text().splitlines():
-    line=line.strip()
-    if not line:
-        continue
-    try:
-        evt = json.loads(line)
-    except json.JSONDecodeError:
-        continue
+with path.open("r", encoding="utf-8", errors="replace") as fh:
+    for raw_line in fh:
+        line = raw_line.strip()
+        if not line:
+            continue
+        try:
+            evt = json.loads(line)
+        except json.JSONDecodeError:
+            continue
 
-    # Check explicit tool task call to kimi-review
-    part = evt.get("part") or {}
-    if evt.get("type") == "tool_use":
-        if part.get("type") == "tool" and part.get("tool") == "task":
-            st = part.get("state") or {}
-            inp = st.get("input") or {}
-            if inp.get("subagent_type") == "kimi-review":
-                has_kimi_task = True
-            md = st.get("metadata") or {}
-            model = md.get("model") or {}
-            if (model.get("providerID") == "kilo" and model.get("modelID") == "moonshotai/kimi-k2.5"):
-                has_kimi_model = True
+        # Check explicit tool task call to kimi-review
+        part = evt.get("part") or {}
+        if evt.get("type") == "tool_use":
+            if part.get("type") == "tool" and part.get("tool") == "task":
+                st = part.get("state") or {}
+                inp = st.get("input") or {}
+                if inp.get("subagent_type") == "kimi-review":
+                    has_kimi_task = True
+                md = st.get("metadata") or {}
+                model = md.get("model") or {}
+                if (model.get("providerID") == "kilo" and model.get("modelID") == "moonshotai/kimi-k2.5"):
+                    has_kimi_model = True
 
-    if evt.get("type") == "text":
-        txt = (part.get("text") or "")
-        if "Kimi:" in txt:
-            has_kimi_label = True
-        if txt:
-            has_text_block = True
-        if re.search(r"\bVerdict:\s*(approve|rework|reject)\b", txt, re.IGNORECASE):
-            verdict_found = True
+        if evt.get("type") == "text":
+            txt = (part.get("text") or "")
+            if "Kimi:" in txt:
+                has_kimi_label = True
+            if txt:
+                has_text_block = True
+            if re.search(r"\bVerdict:\s*(approve|rework|reject)\b", txt, re.IGNORECASE):
+                verdict_found = True
 
 errors = []
 if not has_text_block:
