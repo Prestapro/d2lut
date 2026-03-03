@@ -1,5 +1,32 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { Prisma } from '@prisma/client';
+
+// Tier thresholds - inclusive on both ends
+const TIER_THRESHOLDS: Record<string, [number, number]> = {
+  GG: [500, Infinity],     // 500+
+  HIGH: [100, 499.99],     // 100-499.99
+  MID: [20, 99.99],        // 20-99.99
+  LOW: [5, 19.99],         // 5-19.99
+  TRASH: [0, 4.99],        // 0-4.99
+};
+
+function getTier(price: number): string {
+  // Handle edge cases
+  if (price < 0) return 'TRASH';
+  if (price >= 500) return 'GG';
+  if (price >= 100) return 'HIGH';
+  if (price >= 20) return 'MID';
+  if (price >= 5) return 'LOW';
+  return 'TRASH';
+}
+
+// Get tier boundaries for price filtering
+function getTierPriceRange(tier: string): { min: number; max: number } | null {
+  const range = TIER_THRESHOLDS[tier];
+  if (!range) return null;
+  return { min: range[0], max: range[1] === Infinity ? 999999 : range[1] };
+}
 
 export async function GET(request: NextRequest) {
   try {
@@ -12,64 +39,94 @@ export async function GET(request: NextRequest) {
     const maxPrice = parseFloat(searchParams.get('maxPrice') || '999999');
     const tier = searchParams.get('tier');
 
-    // Build where clause
-    const where: Record<string, unknown> = {};
+    // Build where clause with proper AND/OR logic
+    const whereConditions: Prisma.D2ItemWhereInput[] = [];
     
+    // Category filter (if specified)
     if (category) {
-      where.category = category;
+      whereConditions.push({ category });
     }
     
+    // Search filter - applies to name fields (if specified)
     if (search) {
-      where.OR = [
-        { name: { contains: search.toLowerCase() } },
-        { displayName: { contains: search } },
-        { variantKey: { contains: search.toLowerCase() } },
-      ];
+      whereConditions.push({
+        OR: [
+          { name: { contains: search.toLowerCase() } },
+          { displayName: { contains: search } },
+          { variantKey: { contains: search.toLowerCase() } },
+        ],
+      });
+    }
+    
+    // Price filtering at database level
+    const priceConditions: Prisma.D2ItemWhereInput[] = [];
+    
+    // Apply min/max price filter
+    if (minPrice > 0 || maxPrice < 999999) {
+      priceConditions.push({
+        priceEstimate: {
+          priceFg: {
+            gte: minPrice,
+            lte: maxPrice,
+          },
+        },
+      });
+    }
+    
+    // Apply tier filter if specified
+    if (tier) {
+      const tierRange = getTierPriceRange(tier);
+      if (tierRange) {
+        priceConditions.push({
+          priceEstimate: {
+            priceFg: {
+              gte: tierRange.min,
+              lte: tierRange.max,
+            },
+          },
+        });
+      }
+    }
+    
+    // Combine all conditions with AND
+    // Result: category AND (name search) AND (price conditions)
+    const allConditions = [...whereConditions, ...priceConditions];
+    
+    const where: Prisma.D2ItemWhereInput = allConditions.length > 0 
+      ? { AND: allConditions }
+      : {};
+
+    // Determine sort order
+    let orderBy: Prisma.D2ItemOrderByWithRelationInput = {};
+    
+    switch (sort) {
+      case 'name':
+        orderBy = { displayName: order === 'desc' ? 'desc' : 'asc' };
+        break;
+      case 'category':
+        orderBy = { category: order === 'desc' ? 'desc' : 'asc' };
+        break;
+      case 'price':
+      default:
+        // For price sorting, we need to sort by the related priceEstimate
+        orderBy = {
+          priceEstimate: {
+            priceFg: order === 'desc' ? 'desc' : 'asc',
+          },
+        };
     }
 
-    // Fetch items with prices
+    // Fetch items with prices - all filtering done at DB level
     const items = await db.d2Item.findMany({
       where,
       include: {
         priceEstimate: true,
       },
+      orderBy,
     });
 
-    // Filter by price and tier
-    let filteredItems = items.filter(item => {
-      const price = item.priceEstimate?.priceFg || 0;
-      if (price < minPrice || price > maxPrice) return false;
-      
-      if (tier) {
-        const itemTier = getTier(price);
-        if (itemTier !== tier) return false;
-      }
-      
-      return true;
-    });
-
-    // Sort
-    filteredItems.sort((a, b) => {
-      let comparison = 0;
-      const priceA = a.priceEstimate?.priceFg || 0;
-      const priceB = b.priceEstimate?.priceFg || 0;
-      
-      switch (sort) {
-        case 'name':
-          comparison = a.displayName.localeCompare(b.displayName);
-          break;
-        case 'category':
-          comparison = a.category.localeCompare(b.category);
-          break;
-        case 'price':
-        default:
-          comparison = priceA - priceB;
-      }
-      return order === 'desc' ? -comparison : comparison;
-    });
-
-    // Transform for response
-    const result = filteredItems.map(item => ({
+    // Transform for response (no additional filtering needed)
+    const result = items.map(item => ({
       variantKey: item.variantKey,
       name: item.name,
       displayName: item.displayName,
@@ -94,22 +151,4 @@ export async function GET(request: NextRequest) {
       { status: 500 }
     );
   }
-}
-
-// Tier thresholds
-const TIER_THRESHOLDS: Record<string, [number, number]> = {
-  GG: [500, 999999],
-  HIGH: [100, 500],
-  MID: [20, 100],
-  LOW: [5, 20],
-  TRASH: [0, 5],
-};
-
-function getTier(price: number): string {
-  for (const [tier, [low, high]] of Object.entries(TIER_THRESHOLDS)) {
-    if (price >= low && price < high) {
-      return tier;
-    }
-  }
-  return 'TRASH';
 }

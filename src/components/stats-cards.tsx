@@ -5,44 +5,53 @@ import { TIER_COLORS } from '@/lib/d2r-data';
 
 interface StatsCardsProps {
   stats: {
-    totalItems: number;
-    avgPrice: number;
+    totalItems?: number;
+    avgPrice?: number;
     topItem?: {
       displayName: string;
       priceFg?: number;
       tier?: string;
     };
-    ggItems: number;
-    highItems: number;
-    lastUpdated: string;
-  };
+    ggItems?: number;
+    highItems?: number;
+    lastUpdated?: string;
+  } | null;
 }
 
 export function StatsCards({ stats }: StatsCardsProps) {
+  // Provide safe defaults
+  const safeStats = {
+    totalItems: stats?.totalItems ?? 0,
+    avgPrice: stats?.avgPrice ?? 0,
+    topItem: stats?.topItem ?? null,
+    ggItems: stats?.ggItems ?? 0,
+    highItems: stats?.highItems ?? 0,
+  };
+
   const cards = [
     {
       title: 'Total Items',
-      value: stats.totalItems.toString(),
+      value: safeStats.totalItems.toString(),
       description: 'Items tracked',
       icon: '📦',
     },
     {
       title: 'Average Price',
-      value: `${stats.avgPrice.toFixed(1)} FG`,
+      value: `${safeStats.avgPrice.toFixed(1)} FG`,
       description: 'Across all items',
       icon: '💰',
     },
     {
       title: 'Top Value Item',
-      value: stats.topItem?.displayName || 'N/A',
-      description: stats.topItem ? `${stats.topItem.priceFg?.toFixed(0)} FG` : '',
+      value: safeStats.topItem?.displayName || 'N/A',
+      description: safeStats.topItem ? `${safeStats.topItem.priceFg?.toFixed(0) ?? 0} FG` : '',
       icon: '👑',
-      tier: stats.topItem?.tier,
+      tier: safeStats.topItem?.tier,
     },
     {
       title: 'GG + HIGH Items',
-      value: `${stats.ggItems + stats.highItems}`,
-      description: `${stats.ggItems} GG, ${stats.highItems} HIGH`,
+      value: `${safeStats.ggItems + safeStats.highItems}`,
+      description: `${safeStats.ggItems} GG, ${safeStats.highItems} HIGH`,
       icon: '⭐',
     },
   ];

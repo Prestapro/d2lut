@@ -84,18 +84,14 @@ export async function GET() {
   }
 }
 
-const TIER_THRESHOLDS: Record<string, [number, number]> = {
-  GG: [500, 999999],
-  HIGH: [100, 500],
-  MID: [20, 100],
-  LOW: [5, 20],
-  TRASH: [0, 5],
-};
-
+// Tier thresholds - using direct comparison to handle edge cases properly
 function getTier(price: number): string {
-  for (const [tier, [low, high]] of Object.entries(TIER_THRESHOLDS)) {
-    if (price >= low && price < high) return tier;
-  }
+  // Handle edge cases
+  if (price < 0) return 'TRASH';
+  if (price >= 500) return 'GG';
+  if (price >= 100) return 'HIGH';
+  if (price >= 20) return 'MID';
+  if (price >= 5) return 'LOW';
   return 'TRASH';
 }
 

@@ -7,7 +7,7 @@ import { ItemPriceTable } from '@/components/item-price-table';
 import { FilterBuilder } from '@/components/filter-builder';
 import { PriceHistoryModal } from '@/components/price-history-modal';
 import { D2Item, TIER_COLORS } from '@/lib/d2r-data';
-import { RefreshCw, Github, Download } from 'lucide-react';
+import { RefreshCw, Github } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 
@@ -39,6 +39,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [selectedItem, setSelectedItem] = useState<D2Item | null>(null);
   const [isBuilding, setIsBuilding] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   // Fetch stats
   const fetchStats = useCallback(async () => {
@@ -88,7 +89,10 @@ export default function Home() {
         body: JSON.stringify({ preset, threshold }),
       });
 
-      if (!res.ok) throw new Error('Failed to build filter');
+      if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.error || 'Failed to build filter');
+      }
 
       const content = await res.text();
       const blob = new Blob([content], { type: 'text/plain' });
@@ -104,9 +108,43 @@ export default function Home() {
       toast.success('Filter downloaded successfully!');
     } catch (error) {
       console.error('Failed to build filter:', error);
-      toast.error('Failed to build filter');
+      toast.error(error instanceof Error ? error.message : 'Failed to build filter');
     } finally {
       setIsBuilding(false);
+    }
+  };
+
+  // Scrape prices from d2jsp
+  const handleRefreshPrices = async () => {
+    setIsRefreshing(true);
+    toast.info('Starting price scrape from d2jsp...');
+
+    try {
+      const res = await fetch('/api/prices/scrape', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          forumId: 271, // D2R Ladder trading
+          maxItems: 50,
+          syncToDb: true,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Scraping failed');
+      }
+
+      toast.success(data.message || `Scraped ${data.scraped} prices, synced ${data.synced}`);
+
+      // Refresh stats and items
+      await Promise.all([fetchStats(), fetchItems()]);
+    } catch (error) {
+      console.error('Failed to refresh prices:', error);
+      toast.error(error instanceof Error ? error.message : 'Failed to scrape prices');
+    } finally {
+      setIsRefreshing(false);
     }
   };
 
@@ -188,7 +226,12 @@ export default function Home() {
 
           {/* Sidebar */}
           <div className="space-y-6">
-            <FilterBuilder onBuild={handleBuildFilter} isBuilding={isBuilding} />
+            <FilterBuilder
+              onBuild={handleBuildFilter}
+              isBuilding={isBuilding}
+              onRefresh={handleRefreshPrices}
+              isRefreshing={isRefreshing}
+            />
 
             {/* Quick Stats */}
             <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-4 space-y-3">
@@ -221,6 +264,9 @@ export default function Home() {
               </p>
               <p>
                 📊 Prices are sourced from d2jsp forum observations and updated regularly.
+              </p>
+              <p>
+                🔄 Use &quot;Refresh Prices&quot; to scrape the latest prices from d2jsp.
               </p>
             </div>
           </div>

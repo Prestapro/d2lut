@@ -12,14 +12,17 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Download, Settings } from 'lucide-react';
+import { Download, Settings, RefreshCw, Loader2 } from 'lucide-react';
+import { toast } from 'sonner';
 
 interface FilterBuilderProps {
   onBuild: (preset: string, threshold: number) => void;
   isBuilding?: boolean;
+  onRefresh?: () => void;
+  isRefreshing?: boolean;
 }
 
-export function FilterBuilder({ onBuild, isBuilding = false }: FilterBuilderProps) {
+export function FilterBuilder({ onBuild, isBuilding = false, onRefresh, isRefreshing = false }: FilterBuilderProps) {
   const [preset, setPreset] = useState('default');
   const [threshold, setThreshold] = useState(0);
 
@@ -32,6 +35,11 @@ export function FilterBuilder({ onBuild, isBuilding = false }: FilterBuilderProp
 
   const handleBuild = () => {
     onBuild(preset, threshold);
+  };
+
+  const handleRefreshPrices = async () => {
+    if (!onRefresh) return;
+    onRefresh();
   };
 
   return (
@@ -86,18 +94,46 @@ export function FilterBuilder({ onBuild, isBuilding = false }: FilterBuilderProp
           </div>
         </div>
 
-        <Button
-          onClick={handleBuild}
-          disabled={isBuilding}
-          className="w-full bg-amber-600 hover:bg-amber-700 text-white"
-        >
-          <Download className="mr-2 h-4 w-4" />
-          {isBuilding ? 'Building...' : 'Download Filter'}
-        </Button>
+        <div className="grid grid-cols-2 gap-2">
+          <Button
+            onClick={handleBuild}
+            disabled={isBuilding}
+            className="bg-amber-600 hover:bg-amber-700 text-white"
+          >
+            {isBuilding ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              <Download className="mr-2 h-4 w-4" />
+            )}
+            {isBuilding ? 'Building...' : 'Download'}
+          </Button>
+          
+          {onRefresh && (
+            <Button
+              onClick={handleRefreshPrices}
+              disabled={isRefreshing}
+              variant="outline"
+              className="border-zinc-700 text-zinc-300 hover:bg-zinc-800"
+            >
+              {isRefreshing ? (
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <RefreshCw className="mr-2 h-4 w-4" />
+              )}
+              {isRefreshing ? 'Scraping...' : 'Refresh Prices'}
+            </Button>
+          )}
+        </div>
 
         <p className="text-xs text-zinc-500 text-center">
           Downloads a .filter file for Diablo 2 Resurrected
         </p>
+        
+        {onRefresh && (
+          <p className="text-xs text-zinc-600 text-center">
+            Refresh prices from d2jsp forum (takes ~30s)
+          </p>
+        )}
       </CardContent>
     </Card>
   );

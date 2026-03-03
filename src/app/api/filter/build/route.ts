@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { exec } from 'child_process';
-import { promisify } from 'util';
+import { spawn } from 'child_process';
 import path from 'path';
-
-const execAsync = promisify(exec);
 
 // Filter builder that works without Python (fallback)
 function buildFilterDirect(preset: string, threshold: number): string {
@@ -90,33 +87,111 @@ function buildFilterDirect(preset: string, threshold: number): string {
   return lines.join('\n');
 }
 
+// Valid preset names (whitelist for security)
+const VALID_PRESETS = ['default', 'roguecore', 'minimal', 'verbose'] as const;
+type ValidPreset = typeof VALID_PRESETS[number];
+
+// Validate and sanitize inputs
+function validateInputs(preset: string, threshold: number): { valid: boolean; preset: ValidPreset; error?: string } {
+  // Validate preset against whitelist
+  if (!VALID_PRESETS.includes(preset as ValidPreset)) {
+    return { valid: false, preset: 'default', error: `Invalid preset. Must be one of: ${VALID_PRESETS.join(', ')}` };
+  }
+  
+  // Validate threshold is a reasonable number
+  if (!Number.isFinite(threshold) || threshold < 0 || threshold > 1000000) {
+    return { valid: false, preset: 'default', error: 'Invalid threshold. Must be between 0 and 1,000,000' };
+  }
+  
+  return { valid: true, preset: preset as ValidPreset };
+}
+
+// Execute Python bridge safely using spawn with array arguments
+function executePythonBridge(bridgePath: string, preset: ValidPreset, threshold: number): Promise<{ success: boolean; content?: string; error?: string }> {
+  return new Promise((resolve) => {
+    // Use spawn with array arguments to prevent command injection
+    const args = [
+      bridgePath,
+      '--action', 'build_filter',
+      '--preset', preset,  // Safe: validated against whitelist
+      '--threshold', String(threshold),  // Safe: validated as number
+    ];
+    
+    const proc = spawn('python3', args, {
+      timeout: 30000,
+      stdio: ['ignore', 'pipe', 'pipe'],
+    });
+    
+    let stdout = '';
+    let stderr = '';
+    
+    proc.stdout.on('data', (data) => {
+      stdout += data.toString();
+    });
+    
+    proc.stderr.on('data', (data) => {
+      stderr += data.toString();
+    });
+    
+    proc.on('close', (code) => {
+      if (code === 0) {
+        try {
+          const result = JSON.parse(stdout);
+          if (result.success) {
+            resolve({ success: true, content: result.content });
+          } else {
+            resolve({ success: false, error: result.error || 'Python bridge returned failure' });
+          }
+        } catch {
+          resolve({ success: false, error: 'Failed to parse Python bridge output' });
+        }
+      } else {
+        resolve({ success: false, error: stderr || `Python exited with code ${code}` });
+      }
+    });
+    
+    proc.on('error', (err) => {
+      resolve({ success: false, error: err.message });
+    });
+  });
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { preset = 'default', threshold = 0 } = body;
+    const rawPreset = String(body.preset || 'default');
+    const rawThreshold = Number(body.threshold) || 0;
+    
+    // Validate inputs
+    const validation = validateInputs(rawPreset, rawThreshold);
+    if (!validation.valid) {
+      return NextResponse.json(
+        { error: validation.error },
+        { status: 400 }
+      );
+    }
+    
+    const { preset, /* threshold is already validated as number */ } = validation;
+    const threshold = rawThreshold;
 
     // Try Python bridge first
     const bridgePath = path.join(process.cwd(), 'mini-services', 'bridge.py');
     
-    try {
-      const { stdout } = await execAsync(
-        `python3 "${bridgePath}" --action build_filter --preset ${preset} --threshold ${threshold}`,
-        { timeout: 30000 }
-      );
-      
-      const result = JSON.parse(stdout);
-      
-      if (result.success) {
-        return new NextResponse(result.content, {
-          status: 200,
-          headers: {
-            'Content-Type': 'text/plain; charset=utf-8',
-            'Content-Disposition': `attachment; filename="d2lut_${preset}_${Date.now()}.filter"`,
-          },
-        });
-      }
-    } catch (pythonError) {
-      console.log('Python bridge not available, using built-in generator');
+    const pythonResult = await executePythonBridge(bridgePath, preset, threshold);
+    
+    if (pythonResult.success && pythonResult.content) {
+      return new NextResponse(pythonResult.content, {
+        status: 200,
+        headers: {
+          'Content-Type': 'text/plain; charset=utf-8',
+          'Content-Disposition': `attachment; filename="d2lut_${preset}_${Date.now()}.filter"`,
+        },
+      });
+    }
+    
+    // Log why Python bridge failed (for debugging)
+    if (pythonResult.error) {
+      console.log('Python bridge not available:', pythonResult.error);
     }
 
     // Fallback to direct filter generation
@@ -140,8 +215,20 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
-  const preset = searchParams.get('preset') || 'default';
-  const threshold = parseFloat(searchParams.get('threshold') || '0');
+  const rawPreset = searchParams.get('preset') || 'default';
+  const rawThreshold = parseFloat(searchParams.get('threshold') || '0');
+  
+  // Validate inputs
+  const validation = validateInputs(rawPreset, rawThreshold);
+  if (!validation.valid) {
+    return NextResponse.json(
+      { error: validation.error },
+      { status: 400 }
+    );
+  }
+  
+  const { preset } = validation;
+  const threshold = rawThreshold;
 
   // Use direct generation for GET requests
   const filterContent = buildFilterDirect(preset, threshold);
