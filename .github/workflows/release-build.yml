@@ -132,7 +132,7 @@ jobs:
           draft: false
           generate_release_notes: false
           body: |
-            ## D2R Loot Filter Builder v${{ github.ref_name }}
+            ## D2R Loot Filter Builder ${{ github.ref_name }}
 
             ### Downloads
             - **Windows**: D2R_Filter_Builder-windows-x64.zip
