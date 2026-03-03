@@ -17,8 +17,8 @@ export async function GET(request: NextRequest) {
     const tier = searchParams.get('tier');
 
     // Build where clause
-    const where: any = {};
-    const andConditions: any[] = [];
+    const where: Record<string, unknown> = {};
+    const andConditions: Record<string, unknown>[] = [];
 
     if (category) {
       andConditions.push({ category });

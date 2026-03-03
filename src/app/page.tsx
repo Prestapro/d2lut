@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback, Suspense } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { StatsCards } from '@/components/stats-cards';
 import { CategoryTabs } from '@/components/category-tabs';
 import { ItemPriceTable } from '@/components/item-price-table';
@@ -169,13 +169,11 @@ export default function Home() {
         {/* Category Tabs */}
         <div className="space-y-4">
           <h2 className="text-lg font-semibold text-zinc-300">Browse Items</h2>
-          <Suspense fallback={<div className="text-zinc-500">Loading categories...</div>}>
-            <CategoryTabs
-              categories={categories}
-              activeCategory={activeCategory}
-              onCategoryChange={setActiveCategory}
-            />
-          </Suspense>
+          <CategoryTabs
+            categories={categories}
+            activeCategory={activeCategory}
+            onCategoryChange={setActiveCategory}
+          />
         </div>
 
         {/* Main Grid */}
@@ -188,12 +186,10 @@ export default function Home() {
                 Loading items...
               </div>
             ) : (
-              <Suspense fallback={<div className="text-zinc-500">Loading items...</div>}>
-                <ItemPriceTable
-                  items={items}
-                  onItemSelect={setSelectedItem}
-                />
-              </Suspense>
+              <ItemPriceTable
+                items={items}
+                onItemSelect={setSelectedItem}
+              />
             )}
           </div>
 

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { getTier } from '@/lib/d2r-utils';
 
 export const dynamic = 'force-dynamic';
 
@@ -85,8 +86,6 @@ export async function GET() {
     );
   }
 }
-
-import { getTier } from '@/lib/d2r-utils';
 
 function getCategoryIcon(category: string): string {
   const icons: Record<string, string> = {

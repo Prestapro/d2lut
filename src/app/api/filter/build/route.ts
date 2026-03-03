@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { spawn } from 'child_process';
 import path from 'path';
+import { getTier } from '@/lib/d2r-utils';
 
 const VALID_PRESETS = ['default', 'roguecore', 'minimal', 'verbose'];
 
@@ -8,13 +9,15 @@ interface FilterItem {
   name: string;
   codes: string[];  // D2R item codes (base items for runewords)
   price: number;
-  tier: string;
 }
 
 // Validate and sanitize inputs
 function validateInputs(preset: string, threshold: unknown): { preset: string; threshold: number } | string {
   if (!/^[a-zA-Z0-9_-]+$/.test(preset)) {
     return 'Invalid preset name. Only alphanumeric characters, dashes, and underscores are allowed.';
+  }
+  if (!VALID_PRESETS.includes(preset)) {
+    return `Invalid preset. Must be one of: ${VALID_PRESETS.join(', ')}`;
   }
   const th = typeof threshold === 'number' ? threshold : parseFloat(String(threshold));
   if (isNaN(th) || th < 0 || th > 100000) {
@@ -27,47 +30,50 @@ function validateInputs(preset: string, threshold: unknown): { preset: string; t
 function buildFilterDirect(preset: string, threshold: number): string {
   const items: FilterItem[] = [
     // Runes — direct item codes
-    { name: 'Jah Rune', codes: ['r31'], price: 150, tier: 'GG' },
-    { name: 'Ber Rune', codes: ['r30'], price: 140, tier: 'GG' },
-    { name: 'Cham Rune', codes: ['r32'], price: 25, tier: 'MID' },
-    { name: 'Sur Rune', codes: ['r29'], price: 35, tier: 'MID' },
-    { name: 'Lo Rune', codes: ['r28'], price: 30, tier: 'MID' },
-    { name: 'Ohm Rune', codes: ['r27'], price: 28, tier: 'MID' },
-    { name: 'Vex Rune', codes: ['r26'], price: 22, tier: 'MID' },
-    { name: 'Gul Rune', codes: ['r25'], price: 12, tier: 'LOW' },
-    { name: 'Ist Rune', codes: ['r24'], price: 18, tier: 'MID' },
-    { name: 'Mal Rune', codes: ['r23'], price: 8, tier: 'LOW' },
-    { name: 'Um Rune', codes: ['r22'], price: 4, tier: 'TRASH' },
+    { name: 'Jah Rune', codes: ['r31'], price: 150 },
+    { name: 'Ber Rune', codes: ['r30'], price: 140 },
+    { name: 'Cham Rune', codes: ['r32'], price: 25 },
+    { name: 'Sur Rune', codes: ['r29'], price: 35 },
+    { name: 'Lo Rune', codes: ['r28'], price: 30 },
+    { name: 'Ohm Rune', codes: ['r27'], price: 28 },
+    { name: 'Vex Rune', codes: ['r26'], price: 22 },
+    { name: 'Gul Rune', codes: ['r25'], price: 12 },
+    { name: 'Ist Rune', codes: ['r24'], price: 18 },
+    { name: 'Mal Rune', codes: ['r23'], price: 8 },
+    { name: 'Um Rune', codes: ['r22'], price: 4 },
 
     // Uniques — unique item codes
-    { name: 'Harlequin Crest', codes: ['uui'], price: 15, tier: 'MID' },
-    { name: 'Arachnid Mesh', codes: ['umc'], price: 45, tier: 'MID' },
-    { name: "Tyrael's Might", codes: ['uar'], price: 200, tier: 'GG' },
-    { name: 'Hellfire Torch', codes: ['cm2'], price: 50, tier: 'HIGH' },
-    { name: 'Annihilus', codes: ['cm3'], price: 80, tier: 'HIGH' },
-    { name: "Mara's Kaleidoscope", codes: ['amu'], price: 25, tier: 'MID' },
-    { name: "Griffon's Eye", codes: ['uap'], price: 85, tier: 'HIGH' },
-    { name: 'Crown of Ages', codes: ['ucr'], price: 120, tier: 'HIGH' },
-    { name: "Verdungo's Hearty Cord", codes: ['umh'], price: 15, tier: 'MID' },
-    { name: "Thundergod's Vigor", codes: ['utb'], price: 8, tier: 'LOW' },
-    { name: 'Storm Shield', codes: ['uit'], price: 35, tier: 'MID' },
-    { name: 'Windforce', codes: ['am6'], price: 180, tier: 'GG' },
-    { name: 'Stone of Jordan', codes: ['rin'], price: 30, tier: 'MID' },
-    { name: "Highlord's Wrath", codes: ['amuhl'], price: 18, tier: 'MID' },
+    { name: 'Harlequin Crest', codes: ['uui'], price: 15 },
+    { name: 'Arachnid Mesh', codes: ['umc'], price: 45 },
+    { name: "Tyrael's Might", codes: ['uar'], price: 200 },
+    { name: 'Hellfire Torch', codes: ['cm2'], price: 50 },
+    { name: 'Annihilus', codes: ['cm3'], price: 80 },
+    { name: "Mara's Kaleidoscope", codes: ['amu'], price: 25 },
+    { name: "Griffon's Eye", codes: ['uap'], price: 85 },
+    { name: 'Crown of Ages', codes: ['ucr'], price: 120 },
+    { name: "Verdungo's Hearty Cord", codes: ['umh'], price: 15 },
+    { name: "Thundergod's Vigor", codes: ['utb'], price: 8 },
+    { name: 'Storm Shield', codes: ['uit'], price: 35 },
+    { name: 'Windforce', codes: ['am6'], price: 180 },
+    { name: 'Stone of Jordan', codes: ['rin'], price: 30 },
+    { name: "Highlord's Wrath", codes: ['amuhl'], price: 18 },
 
-    // Runewords — filter by popular base items (socketable)
-    { name: 'Enigma', codes: ['xtp', 'uea', 'utp'], price: 160, tier: 'GG' },
-    { name: 'Infinity', codes: ['7vo', '7s8', '7pa'], price: 180, tier: 'GG' },
-    { name: 'Breath of the Dying', codes: ['7cr', '7gd', '7ws'], price: 85, tier: 'HIGH' },
-    { name: 'Grief', codes: ['7cr', '7ls'], price: 35, tier: 'MID' },
-    { name: 'Call to Arms', codes: ['7cr', '7gd'], price: 40, tier: 'MID' },
-    { name: 'Fortitude', codes: ['xtp', 'uea', 'utp'], price: 45, tier: 'MID' },
-    { name: 'Spirit', codes: ['xrn', 'pa9', 'ush'], price: 5, tier: 'LOW' },
-    { name: 'Beast', codes: ['7bt', '7ba'], price: 55, tier: 'HIGH' },
-    { name: 'Last Wish', codes: ['7cr', '7ls'], price: 120, tier: 'HIGH' },
-    { name: 'Faith', codes: ['6cb', '6lw', '8cb'], price: 95, tier: 'HIGH' },
-    { name: 'Chains of Honor', codes: ['xtp', 'uea', 'utp'], price: 30, tier: 'MID' },
-    { name: 'Heart of the Oak', codes: ['8cs', '8ws'], price: 15, tier: 'MID' },
+    // Runewords — filter by popular socketable base items
+    // Note: runewords sharing bases (e.g. Enigma/Fortitude both use xtp/uea/utp)
+    // will generate multiple rules for the same code — this is intentional so
+    // all valuable bases are highlighted regardless of intended runeword
+    { name: 'Enigma', codes: ['xtp', 'uea', 'utp'], price: 160 },
+    { name: 'Infinity', codes: ['7vo', '7s8', '7pa'], price: 180 },
+    { name: 'Breath of the Dying', codes: ['7cr', '7gd', '7ws'], price: 85 },
+    { name: 'Grief', codes: ['7cr', '7ls'], price: 35 },
+    { name: 'Call to Arms', codes: ['7cr', '7gd'], price: 40 },
+    { name: 'Fortitude', codes: ['xtp', 'uea', 'utp'], price: 45 },
+    { name: 'Spirit', codes: ['xrn', 'pa9', 'ush'], price: 5 },
+    { name: 'Beast', codes: ['7bt', '7ba'], price: 55 },
+    { name: 'Last Wish', codes: ['7cr', '7ls'], price: 120 },
+    { name: 'Faith', codes: ['6cb', '6lw', '8cb'], price: 95 },
+    { name: 'Chains of Honor', codes: ['xtp', 'uea', 'utp'], price: 30 },
+    { name: 'Heart of the Oak', codes: ['8cs', '8ws'], price: 15 },
   ];
 
   const colors: Record<string, string> = {
@@ -75,7 +81,7 @@ function buildFilterDirect(preset: string, threshold: number): string {
   };
 
   const filtered = items.filter(i => i.price >= threshold);
-  const tiers = ['GG', 'HIGH', 'MID', 'LOW', 'TRASH'];
+  const tierList = ['GG', 'HIGH', 'MID', 'LOW', 'TRASH'];
 
   const lines: string[] = [
     `# D2R Loot Filter - D2LUT`,
@@ -86,15 +92,15 @@ function buildFilterDirect(preset: string, threshold: number): string {
     '',
   ];
 
-  for (const tier of tiers) {
-    const tierItems = filtered.filter(i => i.tier === tier);
+  for (const tierName of tierList) {
+    const tierItems = filtered.filter(i => getTier(i.price) === tierName);
     if (tierItems.length === 0) continue;
 
-    lines.push(`# === ${tier} TIER (${tierItems.length} items) ===`);
+    lines.push(`# === ${tierName} TIER (${tierItems.length} items) ===`);
     lines.push('');
 
     for (const item of tierItems) {
-      const color = colors[tier];
+      const color = colors[tierName];
       // Emit a rule for each base code
       for (const code of item.codes) {
         lines.push(`ItemDisplay[${code}]: ${color}${item.name} ÿc4[${item.price} FG]`);
