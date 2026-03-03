@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ENV_FILE="/Users/alex/Desktop/d2lut/.env"
+
+if [[ ! -f "$ENV_FILE" ]]; then
+  echo "[opencode-lf] .env not found: $ENV_FILE" >&2
+  exit 1
+fi
+
+# Read only required Langfuse vars without leaking secrets to logs.
+# Supports both `KEY=value` and `export KEY=value`.
+read_from_env_file() {
+  local key="$1"
+  python3 - "$ENV_FILE" "$key" <<'PY'
+import re
+import sys
+from pathlib import Path
+
+env_file = Path(sys.argv[1])
+target = sys.argv[2]
+pattern = re.compile(r"^(?:export\s+)?([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)$")
+
+value = ""
+for line in env_file.read_text().splitlines():
+    s = line.strip()
+    if not s or s.startswith("#"):
+        continue
+    m = pattern.match(s)
+    if not m:
+        continue
+    k, v = m.group(1), m.group(2).strip()
+    if k != target:
+        continue
+    if (v.startswith('"') and v.endswith('"')) or (v.startswith("'") and v.endswith("'")):
+        v = v[1:-1]
+    value = v
+
+print(value, end="")
+PY
+}
+
+LANGFUSE_BASE_URL_RAW="$(read_from_env_file LANGFUSE_BASE_URL)"
+LANGFUSE_PUBLIC_KEY_RAW="$(read_from_env_file LANGFUSE_PUBLIC_KEY)"
+LANGFUSE_SECRET_KEY_RAW="$(read_from_env_file LANGFUSE_SECRET_KEY)"
+
+if [[ -z "${LANGFUSE_BASE_URL_RAW:-}" || -z "${LANGFUSE_PUBLIC_KEY_RAW:-}" || -z "${LANGFUSE_SECRET_KEY_RAW:-}" ]]; then
+  echo "[opencode-lf] Missing one of LANGFUSE_BASE_URL/LANGFUSE_PUBLIC_KEY/LANGFUSE_SECRET_KEY in $ENV_FILE" >&2
+  exit 1
+fi
+
+export LANGFUSE_BASE_URL="$LANGFUSE_BASE_URL_RAW"
+export LANGFUSE_PUBLIC_KEY="$LANGFUSE_PUBLIC_KEY_RAW"
+export LANGFUSE_SECRET_KEY="$LANGFUSE_SECRET_KEY_RAW"
+
+# Normalize endpoint. Langfuse OTLP endpoint: /api/public/otel
+base="${LANGFUSE_BASE_URL%/}"
+export OTEL_EXPORTER_OTLP_ENDPOINT="${base}/api/public/otel"
+export OTEL_EXPORTER_OTLP_TRACES_ENDPOINT="${base}/api/public/otel/v1/traces"
+export OTEL_EXPORTER_OTLP_PROTOCOL="http/protobuf"
+export OTEL_EXPORTER_OTLP_TRACES_PROTOCOL="http/protobuf"
+
+# Basic auth header required by Langfuse OTLP endpoint.
+AUTH_STRING="$(printf '%s:%s' "$LANGFUSE_PUBLIC_KEY" "$LANGFUSE_SECRET_KEY" | base64)"
+export OTEL_EXPORTER_OTLP_HEADERS="Authorization=Basic ${AUTH_STRING}"
+
+# Optional but useful metadata for traces.
+export OTEL_SERVICE_NAME="opencode"
+export OTEL_RESOURCE_ATTRIBUTES="deployment.environment=local,service.version=$(opencode --version 2>/dev/null || echo unknown)"
+
+exec opencode "$@"

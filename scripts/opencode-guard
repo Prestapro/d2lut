@@ -1,0 +1,105 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+RUNNER="/Users/alex/Desktop/d2lut/scripts/opencode-run-json"
+RUNS_DIR="${HOME}/.local/share/opencode/runs"
+
+if [[ ! -x "$RUNNER" ]]; then
+  echo "[opencode-guard] missing runner: $RUNNER" >&2
+  exit 2
+fi
+
+mkdir -p "$RUNS_DIR"
+
+# Snapshot existing run files to identify the one created by this invocation.
+BEFORE_LIST="$(mktemp)"
+AFTER_LIST="$(mktemp)"
+trap 'rm -f "$BEFORE_LIST" "$AFTER_LIST"' EXIT
+
+ls -1 "$RUNS_DIR"/*.jsonl 2>/dev/null | sort > "$BEFORE_LIST" || true
+
+# Execute OpenCode and stream output.
+"$RUNNER" "$@"
+
+ls -1 "$RUNS_DIR"/*.jsonl 2>/dev/null | sort > "$AFTER_LIST" || true
+
+NEW_FILE="$(comm -13 "$BEFORE_LIST" "$AFTER_LIST" | tail -n1 || true)"
+if [[ -z "${NEW_FILE:-}" ]]; then
+  NEW_FILE="$(ls -t "$RUNS_DIR"/*.jsonl 2>/dev/null | head -n1 || true)"
+fi
+
+if [[ -z "${NEW_FILE:-}" || ! -f "$NEW_FILE" ]]; then
+  echo "[opencode-guard] could not locate run jsonl file" >&2
+  exit 3
+fi
+
+python3 - "$NEW_FILE" <<'PY'
+import json
+import re
+import sys
+from pathlib import Path
+
+path = Path(sys.argv[1])
+
+has_kimi_task = False
+has_kimi_model = False
+has_kimi_label = False
+has_text_block = False
+verdict_found = False
+
+for line in path.read_text().splitlines():
+    line=line.strip()
+    if not line:
+        continue
+    try:
+        evt = json.loads(line)
+    except json.JSONDecodeError:
+        continue
+
+    # Check explicit tool task call to kimi-review
+    part = evt.get("part") or {}
+    if evt.get("type") == "tool_use":
+        if part.get("type") == "tool" and part.get("tool") == "task":
+            st = part.get("state") or {}
+            inp = st.get("input") or {}
+            if inp.get("subagent_type") == "kimi-review":
+                has_kimi_task = True
+            md = st.get("metadata") or {}
+            model = md.get("model") or {}
+            if (model.get("providerID") == "kilo" and model.get("modelID") == "moonshotai/kimi-k2.5"):
+                has_kimi_model = True
+
+    if evt.get("type") == "text":
+        txt = (part.get("text") or "")
+        if "Kimi:" in txt:
+            has_kimi_label = True
+        if txt:
+            has_text_block = True
+        if re.search(r"\bVerdict:\s*(approve|rework|reject)\b", txt, re.IGNORECASE):
+            verdict_found = True
+
+errors = []
+if not has_text_block:
+    errors.append("no assistant text response found")
+if not has_kimi_task:
+    errors.append("no real subagent task call to kimi-review found")
+if not has_kimi_model:
+    errors.append("no evidence task used kilo/moonshotai/kimi-k2.5 model")
+if not has_kimi_label:
+    errors.append("final answer missing 'Kimi:' section")
+if not verdict_found:
+    errors.append("final answer missing 'Verdict: approve|rework|reject'")
+
+if errors:
+    print("[opencode-guard] FAIL")
+    print(f"[opencode-guard] run file: {path}")
+    for e in errors:
+        print(f"- {e}")
+    sys.exit(10)
+
+print("[opencode-guard] PASS")
+print(f"[opencode-guard] verified run file: {path}")
+print("- found subagent task call: kimi-review")
+print("- found model: kilo/moonshotai/kimi-k2.5")
+print("- found final Kimi section + Verdict")
+PY

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+OUT_DIR="${HOME}/.local/share/opencode/runs"
+mkdir -p "$OUT_DIR"
+TS="$(date +%Y-%m-%dT%H%M%S)"
+OUT_FILE="$OUT_DIR/${TS}.jsonl"
+
+echo "[opencode-run-json] writing events to: $OUT_FILE" >&2
+
+/Users/alex/Desktop/d2lut/scripts/opencode-lf run --format json "$@" | tee "$OUT_FILE"
