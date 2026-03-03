@@ -6,7 +6,7 @@ import { CategoryTabs } from '@/components/category-tabs';
 import { ItemPriceTable } from '@/components/item-price-table';
 import { FilterBuilder } from '@/components/filter-builder';
 import { PriceHistoryModal } from '@/components/price-history-modal';
-import { D2Item, TIER_COLORS } from '@/lib/d2r-data';
+import { D2Item, TIER_COLORS, TIER_LABELS } from '@/lib/d2r-utils';
 import { RefreshCw, Github, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
@@ -50,11 +50,13 @@ export default function Home() {
   const fetchStats = useCallback(async () => {
     try {
       const res = await fetch('/api/stats');
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       setStats(data);
       setCategories(data.categories || []);
     } catch (error) {
       console.error('Failed to fetch stats:', error);
+      toast.error('Failed to load stats');
     }
   }, []);
 
@@ -67,10 +69,12 @@ export default function Home() {
         params.set('category', activeCategory);
       }
       const res = await fetch(`/api/items?${params.toString()}`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data: ItemsResponse = await res.json();
       setItems(data.items);
     } catch (error) {
       console.error('Failed to fetch items:', error);
+      toast.error('Failed to load items');
     } finally {
       setLoading(false);
     }
@@ -201,23 +205,14 @@ export default function Home() {
             <div className="bg-zinc-900 border border-zinc-800 rounded-lg p-4 space-y-3">
               <h3 className="font-semibold text-zinc-300">Tier Legend</h3>
               <div className="space-y-2">
-                {Object.entries(TIER_COLORS).map(([tier, color]) => {
-                  const ranges: Record<string, string> = {
-                    GG: '500+ FG',
-                    HIGH: '100-500 FG',
-                    MID: '20-100 FG',
-                    LOW: '5-20 FG',
-                    TRASH: '<5 FG',
-                  };
-                  return (
-                    <div key={tier} className="flex items-center justify-between text-sm">
-                      <span style={{ color }} className="font-medium">
-                        {tier}
-                      </span>
-                      <span className="text-zinc-500">{ranges[tier]}</span>
-                    </div>
-                  );
-                })}
+                {Object.entries(TIER_COLORS).map(([tier, color]) => (
+                  <div key={tier} className="flex items-center justify-between text-sm">
+                    <span style={{ color }} className="font-medium">
+                      {tier}
+                    </span>
+                    <span className="text-zinc-500">{TIER_LABELS[tier]}</span>
+                  </div>
+                ))}
               </div>
             </div>
 
