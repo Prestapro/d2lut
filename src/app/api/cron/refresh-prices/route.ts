@@ -36,6 +36,25 @@ function confidenceLabel(count: number): 'low' | 'medium' | 'high' {
   return 'low';
 }
 
+function runPythonCommand(pythonCmd: string, args: string[]): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const proc = spawn(pythonCmd, args, { timeout: 180000 });
+    let out = '';
+    let err = '';
+
+    proc.stdout.on('data', (d) => { out += d.toString(); });
+    proc.stderr.on('data', (d) => { err += d.toString(); });
+    proc.on('error', reject);
+    proc.on('close', (code) => {
+      if (code !== 0) {
+        reject(new Error(err || `collector exited with code ${code}`));
+        return;
+      }
+      resolve(out);
+    });
+  });
+}
+
 function runCollector(mode: 'static' | 'live', forumId: number, maxPosts: number): Promise<CollectorResponse> {
   return new Promise((resolve, reject) => {
     const scriptPath = path.join(process.cwd(), 'mini-services', 'collect_observations.py');
@@ -49,25 +68,24 @@ function runCollector(mode: 'static' | 'live', forumId: number, maxPosts: number
       String(maxPosts),
     ];
 
-    const proc = spawn('python3', args, { timeout: 180000 });
-    let out = '';
-    let err = '';
+    const pythonCandidates = process.platform === 'win32'
+      ? ['python', 'python3']
+      : ['python3', 'python'];
 
-    proc.stdout.on('data', (d) => { out += d.toString(); });
-    proc.stderr.on('data', (d) => { err += d.toString(); });
-    proc.on('error', reject);
-    proc.on('close', (code) => {
-      if (code !== 0) {
-        reject(new Error(err || `collector exited with code ${code}`));
-        return;
+    (async () => {
+      let lastError: unknown;
+      for (const pythonCmd of pythonCandidates) {
+        try {
+          const out = await runPythonCommand(pythonCmd, args);
+          resolve(JSON.parse(out.trim()) as CollectorResponse);
+          return;
+        } catch (error) {
+          lastError = error;
+        }
       }
 
-      try {
-        resolve(JSON.parse(out.trim()) as CollectorResponse);
-      } catch (parseError) {
-        reject(new Error(`collector returned invalid JSON: ${String(parseError)}`));
-      }
-    });
+      reject(lastError instanceof Error ? lastError : new Error('failed to run python collector'));
+    })().catch(reject);
   });
 }
 

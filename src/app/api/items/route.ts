@@ -1,12 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { getTier } from '@/lib/d2r-utils';
+import { Prisma } from '@prisma/client';
 
 export const dynamic = 'force-dynamic';
 
 const VALID_SORT = ['price', 'name', 'category'] as const;
 const VALID_ORDER = ['asc', 'desc'] as const;
 const VALID_TIERS = ['GG', 'HIGH', 'MID', 'LOW', 'TRASH'] as const;
+const MAX_PRICE_DEFAULT = 999999;
+
+const TIER_RANGES: Record<string, { min: number; max: number }> = {
+  GG: { min: 500, max: Number.POSITIVE_INFINITY },
+  HIGH: { min: 100, max: 500 },
+  MID: { min: 20, max: 100 },
+  LOW: { min: 5, max: 20 },
+  TRASH: { min: 0, max: 5 },
+};
 
 export async function GET(request: NextRequest) {
   try {
@@ -18,14 +28,14 @@ export async function GET(request: NextRequest) {
     // Validate sort/order
     const sortRaw = searchParams.get('sort') || 'price';
     const orderRaw = searchParams.get('order') || 'desc';
-    const sort = (VALID_SORT as readonly string[]).includes(sortRaw) ? sortRaw : 'price';
-    const order = (VALID_ORDER as readonly string[]).includes(orderRaw) ? orderRaw : 'desc';
+    const sort = ((VALID_SORT as readonly string[]).includes(sortRaw) ? sortRaw : 'price') as typeof VALID_SORT[number];
+    const order = ((VALID_ORDER as readonly string[]).includes(orderRaw) ? orderRaw : 'desc') as Prisma.SortOrder;
 
     // Validate price range
     const minPriceRaw = parseFloat(searchParams.get('minPrice') || '0');
-    const maxPriceRaw = parseFloat(searchParams.get('maxPrice') || '999999');
+    const maxPriceRaw = parseFloat(searchParams.get('maxPrice') || String(MAX_PRICE_DEFAULT));
     const minPrice = isNaN(minPriceRaw) || minPriceRaw < 0 ? 0 : minPriceRaw;
-    const maxPrice = isNaN(maxPriceRaw) || maxPriceRaw < 0 ? 999999 : maxPriceRaw;
+    const maxPrice = isNaN(maxPriceRaw) || maxPriceRaw < 0 ? MAX_PRICE_DEFAULT : maxPriceRaw;
 
     // Validate tier
     const tierRaw = searchParams.get('tier');
@@ -38,8 +48,7 @@ export async function GET(request: NextRequest) {
     const offset = isNaN(offsetRaw) || offsetRaw < 0 ? 0 : offsetRaw;
 
     // Build where clause
-    const where: Record<string, unknown> = {};
-    const andConditions: Record<string, unknown>[] = [];
+    const andConditions: Prisma.D2ItemWhereInput[] = [];
 
     if (category) {
       andConditions.push({ category });
@@ -48,66 +57,85 @@ export async function GET(request: NextRequest) {
     if (search) {
       andConditions.push({
         OR: [
-          { name: { contains: search, mode: 'insensitive' } },
-          { displayName: { contains: search, mode: 'insensitive' } },
-          { variantKey: { contains: search, mode: 'insensitive' } },
-        ]
+          { name: { contains: search } },
+          { displayName: { contains: search } },
+          { variantKey: { contains: search } },
+        ],
       });
     }
 
-    if (andConditions.length > 0) {
-      where.AND = andConditions;
+    const includeNullPrices = minPrice <= 0 && !tier;
+
+    if (tier) {
+      const tierRange = TIER_RANGES[tier];
+      const boundedMin = Math.max(minPrice, tierRange.min);
+      const boundedMax = Math.min(maxPrice, tierRange.max);
+      andConditions.push({
+        priceEstimate: {
+          is: {
+            priceFg: {
+              gte: boundedMin,
+              lte: Number.isFinite(boundedMax) ? boundedMax : undefined,
+            },
+          },
+        },
+      });
+    } else {
+      const pricedInRange: Prisma.D2ItemWhereInput = {
+        priceEstimate: {
+          is: {
+            priceFg: {
+              gte: minPrice,
+              lte: maxPrice,
+            },
+          },
+        },
+      };
+
+      if (includeNullPrices) {
+        andConditions.push({
+          OR: [
+            { priceEstimate: { is: null } },
+            pricedInRange,
+          ],
+        });
+      } else {
+        andConditions.push(pricedInRange);
+      }
     }
 
-    // Fetch items with prices
-    const items = await db.d2Item.findMany({
-      where,
-      include: {
-        priceEstimate: true,
-      },
-    });
+    const where: Prisma.D2ItemWhereInput = andConditions.length > 0 ? { AND: andConditions } : {};
 
-    // Filter by price and tier
-    let filteredItems = items.filter(item => {
-      const price = item.priceEstimate?.priceFg;
+    let orderBy: Prisma.D2ItemOrderByWithRelationInput;
+    switch (sort) {
+      case 'name':
+        orderBy = { displayName: order };
+        break;
+      case 'category':
+        orderBy = { category: order };
+        break;
+      case 'price':
+      default:
+        // Relation-field ordering for one-to-one price estimate.
+        orderBy = { priceEstimate: { priceFg: order } } as Prisma.D2ItemOrderByWithRelationInput;
+        break;
+    }
 
-      // Items without prices: include only if no price/tier filter is active
-      if (price == null) {
-        return minPrice <= 0 && !tier;
-      }
-
-      if (price < minPrice || price > maxPrice) return false;
-
-      if (tier) {
-        const itemTier = getTier(price);
-        if (itemTier !== tier) return false;
-      }
-
-      return true;
-    });
-
-    // Sort
-    filteredItems.sort((a, b) => {
-      let comparison = 0;
-      const priceA = a.priceEstimate?.priceFg ?? 0;
-      const priceB = b.priceEstimate?.priceFg ?? 0;
-
-      switch (sort) {
-        case 'name':
-          comparison = (a.displayName ?? a.name).localeCompare(b.displayName ?? b.name);
-          break;
-        case 'category':
-          comparison = a.category.localeCompare(b.category);
-          break;
-        case 'price':
-        default:
-          comparison = priceA - priceB;
-      }
-      return order === 'desc' ? -comparison : comparison;
-    });
+    const [items, total] = await Promise.all([
+      db.d2Item.findMany({
+        where,
+        include: {
+          priceEstimate: true,
+        },
+        orderBy,
+        skip: offset,
+        take: limit,
+      }),
+      db.d2Item.count({ where }),
+    ]);
 
     // Transform for response
-    const result = filteredItems.map(item => {
+    const result = items.map(item => {
       const price = item.priceEstimate?.priceFg;
       return {
         variantKey: item.variantKey,
@@ -123,16 +151,12 @@ export async function GET(request: NextRequest) {
       };
     });
 
-    // Apply pagination
-    const total = result.length;
-    const paged = result.slice(offset, offset + limit);
-
     return NextResponse.json({
-      items: paged,
+      items: result,
       total,
       limit,
       offset,
-      hasMore: offset + limit < total,
+      hasMore: offset + result.length < total,
       filters: { category, search, sort, order, minPrice, maxPrice, tier },
     });
   } catch (error) {
@@ -143,4 +167,3 @@ export async function GET(request: NextRequest) {
     );
   }
 }
-
