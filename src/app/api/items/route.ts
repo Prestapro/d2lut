@@ -4,17 +4,32 @@ import { getTier } from '@/lib/d2r-utils';
 
 export const dynamic = 'force-dynamic';
 
+const VALID_SORT = ['price', 'name', 'category'] as const;
+const VALID_ORDER = ['asc', 'desc'] as const;
+const VALID_TIERS = ['GG', 'HIGH', 'MID', 'LOW', 'TRASH'] as const;
+
 export async function GET(request: NextRequest) {
   try {
     const url = new URL(request.url);
     const searchParams = url.searchParams;
     const category = searchParams.get('category');
     const search = searchParams.get('search');
-    const sort = searchParams.get('sort') || 'price';
-    const order = searchParams.get('order') || 'desc';
-    const minPrice = parseFloat(searchParams.get('minPrice') || '0');
-    const maxPrice = parseFloat(searchParams.get('maxPrice') || '999999');
-    const tier = searchParams.get('tier');
+
+    // Validate sort/order
+    const sortRaw = searchParams.get('sort') || 'price';
+    const orderRaw = searchParams.get('order') || 'desc';
+    const sort = (VALID_SORT as readonly string[]).includes(sortRaw) ? sortRaw : 'price';
+    const order = (VALID_ORDER as readonly string[]).includes(orderRaw) ? orderRaw : 'desc';
+
+    // Validate price range
+    const minPriceRaw = parseFloat(searchParams.get('minPrice') || '0');
+    const maxPriceRaw = parseFloat(searchParams.get('maxPrice') || '999999');
+    const minPrice = isNaN(minPriceRaw) || minPriceRaw < 0 ? 0 : minPriceRaw;
+    const maxPrice = isNaN(maxPriceRaw) || maxPriceRaw < 0 ? 999999 : maxPriceRaw;
+
+    // Validate tier
+    const tierRaw = searchParams.get('tier');
+    const tier = tierRaw && (VALID_TIERS as readonly string[]).includes(tierRaw) ? tierRaw : null;
 
     // Build where clause
     const where: Record<string, unknown> = {};
@@ -27,9 +42,9 @@ export async function GET(request: NextRequest) {
     if (search) {
       andConditions.push({
         OR: [
-          { name: { contains: search.toLowerCase() } },
-          { displayName: { contains: search } },
-          { variantKey: { contains: search.toLowerCase() } },
+          { name: { contains: search, mode: 'insensitive' } },
+          { displayName: { contains: search, mode: 'insensitive' } },
+          { variantKey: { contains: search, mode: 'insensitive' } },
         ]
       });
     }
@@ -48,7 +63,13 @@ export async function GET(request: NextRequest) {
 
     // Filter by price and tier
     let filteredItems = items.filter(item => {
-      const price = item.priceEstimate?.priceFg || 0;
+      const price = item.priceEstimate?.priceFg;
+
+      // Items without prices: include only if no price/tier filter is active
+      if (price == null) {
+        return minPrice <= 0 && !tier;
+      }
+
       if (price < minPrice || price > maxPrice) return false;
 
       if (tier) {
@@ -62,12 +83,12 @@ export async function GET(request: NextRequest) {
     // Sort
     filteredItems.sort((a, b) => {
       let comparison = 0;
-      const priceA = a.priceEstimate?.priceFg || 0;
-      const priceB = b.priceEstimate?.priceFg || 0;
+      const priceA = a.priceEstimate?.priceFg ?? 0;
+      const priceB = b.priceEstimate?.priceFg ?? 0;
 
       switch (sort) {
         case 'name':
-          comparison = a.displayName.localeCompare(b.displayName);
+          comparison = (a.displayName ?? a.name).localeCompare(b.displayName ?? b.name);
           break;
         case 'category':
           comparison = a.category.localeCompare(b.category);
@@ -80,18 +101,21 @@ export async function GET(request: NextRequest) {
     });
 
     // Transform for response
-    const result = filteredItems.map(item => ({
-      variantKey: item.variantKey,
-      name: item.name,
-      displayName: item.displayName,
-      category: item.category,
-      d2rCode: item.d2rCode,
-      subCategory: item.subCategory,
-      priceFg: item.priceEstimate?.priceFg || null,
-      tier: getTier(item.priceEstimate?.priceFg || 0),
-      confidence: item.priceEstimate?.confidence || null,
-      nObservations: item.priceEstimate?.nObservations || 0,
-    }));
+    const result = filteredItems.map(item => {
+      const price = item.priceEstimate?.priceFg;
+      return {
+        variantKey: item.variantKey,
+        name: item.name,
+        displayName: item.displayName,
+        category: item.category,
+        d2rCode: item.d2rCode,
+        subCategory: item.subCategory,
+        priceFg: price ?? null,
+        tier: price != null ? getTier(price) : 'UNKNOWN',
+        confidence: item.priceEstimate?.confidence ?? null,
+        nObservations: item.priceEstimate?.nObservations ?? 0,
+      };
+    });
 
     return NextResponse.json({
       items: result,

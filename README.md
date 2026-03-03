@@ -12,7 +12,7 @@ A web application for generating Diablo 2 Resurrected loot filters with Forum Go
 
 ## Tech Stack
 
-- **Frontend**: Next.js 15, React 19, TypeScript, Tailwind CSS 4
+- **Frontend**: Next.js 14, React 18, TypeScript 5, Tailwind CSS
 - **UI Components**: shadcn/ui with Radix UI primitives
 - **Database**: Prisma ORM with SQLite
 - **Backend**: Python CLI tool for price collection
