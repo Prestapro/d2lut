@@ -1,0 +1,6 @@
+include README.md LICENSE CHANGELOG.md
+include data/*.json data/*.sql
+include data/templates/*.json
+include config/*.yml
+include scripts/*.py
+recursive-include src *.py

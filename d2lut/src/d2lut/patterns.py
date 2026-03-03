@@ -403,6 +403,12 @@ def find_best_price_in_text(text: str) -> dict | None:
 
     Note:
         Prices of 0 are ignored to prevent free/giveaway posts from polluting data.
+
+    Priority Logic:
+        1. Higher confidence signals (sold > bin > ask > co) are preferred
+        2. Within the same confidence level, higher prices are preferred
+        3. This means "sold: 50 bin: 200" returns sold=50 (more reliable)
+           but "bin: 50 bin: 200" returns bin=200 (same confidence, higher price)
     """
     best_price: float | None = None
     best_confidence = 0.0
@@ -417,7 +423,13 @@ def find_best_price_in_text(text: str) -> dict | None:
                 if price <= 0:
                     continue
                 confidence = get_signal_confidence(signal_kind)
-                if best_price is None or confidence > best_confidence:
+                # Update if:
+                # 1. No price yet, OR
+                # 2. Higher confidence, OR
+                # 3. Same confidence but higher price
+                if (best_price is None or
+                    confidence > best_confidence or
+                    (confidence == best_confidence and price > best_price)):
                     best_price = price
                     best_confidence = confidence
                     best_signal_kind = signal_kind

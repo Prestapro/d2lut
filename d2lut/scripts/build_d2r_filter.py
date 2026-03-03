@@ -52,9 +52,9 @@ COLORS = {
     "CYAN": "ÿc;",
 }
 
-# Price tiers (FG)
+# Price tiers (FG) - use 999_999 instead of float("inf") for JSON serialization
 PRICE_TIERS = {
-    "GG": (500, float("inf")),    # 500+ FG
+    "GG": (500, 999_999),         # 500+ FG
     "HIGH": (100, 500),           # 100-500 FG
     "MID": (20, 100),             # 20-100 FG
     "LOW": (5, 20),               # 5-20 FG
@@ -237,10 +237,38 @@ class FilterBuilder:
         self.preset_config = load_preset_config(preset)
         self.items: list[PricedItem] = []
         self.filtered_count: int = 0  # Track items after threshold filtering
+        self._missing_codes: set[str] = set()  # Track items without valid D2R codes
         
         # Load item codes and display names
         self.item_codes = load_item_codes()
         self.display_names = load_display_names()
+
+    def _get_valid_d2r_code(self, variant_key: str) -> Optional[str]:
+        """Get valid D2R item code for a variant.
+        
+        Args:
+            variant_key: Item variant key (e.g., "rune:jah")
+            
+        Returns:
+            Valid D2R code (e.g., "r31") or None if not found
+            
+        Note:
+            Logs a warning if no valid code is found. D2R filter lines
+            with invalid codes will be silently ignored by the game.
+        """
+        code = self.item_codes.get(variant_key)
+        if code:
+            return code
+            
+        # Track missing codes for summary warning
+        if variant_key not in self._missing_codes:
+            self._missing_codes.add(variant_key)
+            logger.warning(
+                f"No D2R code found for '{variant_key}'. "
+                f"Filter line will use variant name but may not work in-game. "
+                f"Add code to data/item_codes.json for proper support."
+            )
+        return None
 
     def load_prices(self) -> None:
         """Load item prices from database."""
@@ -380,8 +408,8 @@ class FilterBuilder:
             # Determine tier
             tier = self._get_tier(price_fg)
             
-            # Get D2R code and display name
-            d2r_code = self.item_codes.get(variant_key, name)
+            # Get D2R code (with validation) and display name
+            d2r_code = self._get_valid_d2r_code(variant_key) or name
             display_name = self.display_names.get(variant_key, name.title())
 
             return PricedItem(
@@ -413,8 +441,8 @@ class FilterBuilder:
             # Determine tier
             tier = self._get_tier(price_fg)
             
-            # Get D2R code and display name
-            d2r_code = self.item_codes.get(variant_key, name)
+            # Get D2R code (with validation) and display name
+            d2r_code = self._get_valid_d2r_code(variant_key) or name
             display_name = self.display_names.get(variant_key, name.title())
 
             return PricedItem(
@@ -471,7 +499,7 @@ class FilterBuilder:
         for variant_key, price, category, display_name in default_prices:
             tier = self._get_tier(price)
             name = variant_key.split(":")[-1]
-            d2r_code = self.item_codes.get(variant_key, name)
+            d2r_code = self._get_valid_d2r_code(variant_key) or name
             self.items.append(PricedItem(
                 name=name,
                 variant_key=variant_key,
@@ -532,6 +560,14 @@ class FilterBuilder:
 
         # Store filtered count for reporting
         self.filtered_count = len(filtered_items)
+        
+        # Summary warning for missing D2R codes
+        if self._missing_codes:
+            logger.warning(
+                f"Built filter with {len(self._missing_codes)} items missing D2R codes. "
+                f"These items may not display correctly in-game. "
+                f"Add codes to data/item_codes.json to fix."
+            )
 
     def _build_item_line(self, item: PricedItem) -> str:
         """Build a single filter line for an item using preset config.

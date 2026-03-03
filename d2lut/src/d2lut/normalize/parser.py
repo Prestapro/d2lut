@@ -11,9 +11,20 @@ from ..patterns import find_items_in_text, find_best_price_in_text
 
 logger = logging.getLogger(__name__)
 
+# Default limit - can be overridden in constructor
+DEFAULT_MAX_ITEMS_PER_POST = 5
+
 
 class MarketParser:
-    """Parser for extracting price signals from forum posts."""
+    """Parser for extracting price signals from forum posts.
+
+    Args:
+        max_items_per_post: Maximum number of items to extract per post.
+            Default is 5. Set to 0 or negative for no limit.
+    """
+
+    def __init__(self, max_items_per_post: int = DEFAULT_MAX_ITEMS_PER_POST):
+        self.max_items_per_post = max_items_per_post
 
     def parse_posts(self, posts: Iterable[MarketPost]) -> list[ObservedPrice]:
         """Parse posts and extract price observations.
@@ -59,9 +70,14 @@ class MarketParser:
         if not price_info:
             return []
 
-        # Create observations for first 2 items (limit)
+        # Apply item limit (0 or negative means no limit)
+        items_to_process = items_found
+        if self.max_items_per_post > 0:
+            items_to_process = items_found[:self.max_items_per_post]
+
+        # Create observations
         observations = []
-        for variant_key in items_found[:2]:
+        for variant_key in items_to_process:
             obs = ObservedPrice(
                 canonical_item_id=variant_key.split(":")[-1],
                 variant_key=variant_key,
