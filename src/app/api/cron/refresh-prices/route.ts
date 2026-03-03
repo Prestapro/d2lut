@@ -26,6 +26,12 @@ interface CollectorResponse {
   observations?: CollectorObservation[];
 }
 
+interface PersistResult {
+  observationsStored: number;
+  estimatesUpdated: number;
+  unmatchedItems: number;
+}
+
 function unauthorized() {
   return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 }
@@ -89,6 +95,100 @@ function runCollector(mode: 'static' | 'live', forumId: number, maxPosts: number
   });
 }
 
+async function persistObservations(observations: CollectorObservation[]): Promise<PersistResult> {
+  const items = await db.d2Item.findMany({
+    select: { id: true, variantKey: true },
+  });
+  const itemByVariant = new Map(items.map((item) => [item.variantKey, item.id]));
+
+  const now = new Date();
+  const creates = observations
+    .map((o) => {
+      const itemId = itemByVariant.get(o.variantKey);
+      if (!itemId || !Number.isFinite(o.priceFg) || o.priceFg <= 0) return null;
+
+      return {
+        itemId,
+        priceFg: o.priceFg,
+        confidence: Number.isFinite(o.confidence) ? Math.max(0, Math.min(1, o.confidence)) : 0.5,
+        signalKind: o.signalKind || 'bin',
+        source: o.source || 'd2jsp_live_chrome',
+        sourceId: o.sourceId || null,
+        author: o.author || null,
+        observedAt: o.observedAt ? new Date(o.observedAt) : now,
+      };
+    })
+    .filter((o): o is NonNullable<typeof o> => o !== null);
+
+  if (creates.length === 0) {
+    return {
+      observationsStored: 0,
+      estimatesUpdated: 0,
+      unmatchedItems: observations.length,
+    };
+  }
+
+  await db.priceObservation.createMany({ data: creates });
+  const touchedItemIds = [...new Set(creates.map((o) => o.itemId))];
+
+  let estimatesUpdated = 0;
+  for (const itemId of touchedItemIds) {
+    const [aggregate, previous] = await Promise.all([
+      db.priceObservation.aggregate({
+        where: { itemId },
+        _count: { _all: true },
+        _avg: { priceFg: true },
+        _min: { priceFg: true },
+        _max: { priceFg: true },
+      }),
+      db.priceEstimate.findUnique({
+        where: { itemId },
+        select: { priceFg: true },
+      }),
+    ]);
+
+    const count = aggregate._count._all;
+    const avg = aggregate._avg.priceFg;
+    if (!count || avg == null) continue;
+
+    const priceChange = previous?.priceFg
+      ? ((avg - previous.priceFg) / previous.priceFg) * 100
+      : null;
+
+    await db.priceEstimate.upsert({
+      where: { itemId },
+      update: {
+        priceFg: avg,
+        confidence: confidenceLabel(count),
+        nObservations: count,
+        minPrice: aggregate._min.priceFg ?? avg,
+        maxPrice: aggregate._max.priceFg ?? avg,
+        avgPrice: avg,
+        priceChange,
+        lastUpdated: now,
+      },
+      create: {
+        itemId,
+        priceFg: avg,
+        confidence: confidenceLabel(count),
+        nObservations: count,
+        minPrice: aggregate._min.priceFg ?? avg,
+        maxPrice: aggregate._max.priceFg ?? avg,
+        avgPrice: avg,
+        priceChange: null,
+        lastUpdated: now,
+      },
+    });
+    estimatesUpdated += 1;
+  }
+
+  return {
+    observationsStored: creates.length,
+    estimatesUpdated,
+    unmatchedItems: observations.length - creates.length,
+  };
+}
+
 export async function POST(request: NextRequest) {
   try {
     const secret = process.env.CRON_SECRET;
@@ -109,113 +209,38 @@ export async function POST(request: NextRequest) {
     const forumId = Number.isFinite(forumIdRaw) && forumIdRaw > 0 ? forumIdRaw : 271;
     const maxPosts = Number.isFinite(maxPostsRaw) && maxPostsRaw > 0 ? Math.min(maxPostsRaw, 100) : 20;
 
-    const collector = await runCollector(mode, forumId, maxPosts);
-    if (!collector.ok || !collector.observations) {
-      return NextResponse.json(
-        { error: collector.error || 'collector failed' },
-        { status: 500 }
-      );
+    let observations: CollectorObservation[] = [];
+    let postsScanned = 0;
+    let usedMode: 'static' | 'live' | 'direct' = mode;
+
+    if (Array.isArray(body.observations)) {
+      observations = body.observations as CollectorObservation[];
+      postsScanned = Number.isFinite(Number(body.postsScanned)) ? Number(body.postsScanned) : observations.length;
+      usedMode = 'direct';
+    } else {
+      const collector = await runCollector(mode, forumId, maxPosts);
+      if (!collector.ok || !collector.observations) {
+        return NextResponse.json(
+          { error: collector.error || 'collector failed' },
+          { status: 500 }
+        );
+      }
+      observations = collector.observations;
+      postsScanned = collector.postsScanned || 0;
+      usedMode = collector.mode || mode;
     }
 
-    const items = await db.d2Item.findMany({
-      select: { id: true, variantKey: true },
-    });
-    const itemByVariant = new Map(items.map((item) => [item.variantKey, item.id]));
-
-    const now = new Date();
-    const creates = collector.observations
-      .map((o) => {
-        const itemId = itemByVariant.get(o.variantKey);
-        if (!itemId || !Number.isFinite(o.priceFg) || o.priceFg <= 0) return null;
-
-        return {
-          itemId,
-          priceFg: o.priceFg,
-          confidence: Number.isFinite(o.confidence) ? Math.max(0, Math.min(1, o.confidence)) : 0.5,
-          signalKind: o.signalKind || 'bin',
-          source: o.source || collector.mode || mode,
-          sourceId: o.sourceId || null,
-          author: o.author || null,
-          observedAt: o.observedAt ? new Date(o.observedAt) : now,
-        };
-      })
-      .filter((o): o is NonNullable<typeof o> => o !== null);
-
-    if (creates.length === 0) {
-      return NextResponse.json({
-        ok: true,
-        mode,
-        forumId,
-        postsScanned: collector.postsScanned || 0,
-        observationsReceived: collector.observations.length,
-        observationsStored: 0,
-        estimatesUpdated: 0,
-      });
-    }
-
-    await db.priceObservation.createMany({ data: creates });
-    const touchedItemIds = [...new Set(creates.map((o) => o.itemId))];
-
-    let estimatesUpdated = 0;
-    for (const itemId of touchedItemIds) {
-      const [aggregate, previous] = await Promise.all([
-        db.priceObservation.aggregate({
-          where: { itemId },
-          _count: { _all: true },
-          _avg: { priceFg: true },
-          _min: { priceFg: true },
-          _max: { priceFg: true },
-        }),
-        db.priceEstimate.findUnique({
-          where: { itemId },
-          select: { priceFg: true },
-        }),
-      ]);
-
-      const count = aggregate._count._all;
-      const avg = aggregate._avg.priceFg;
-      if (!count || avg == null) continue;
-
-      const priceChange = previous?.priceFg
-        ? ((avg - previous.priceFg) / previous.priceFg) * 100
-        : null;
-
-      await db.priceEstimate.upsert({
-        where: { itemId },
-        update: {
-          priceFg: avg,
-          confidence: confidenceLabel(count),
-          nObservations: count,
-          minPrice: aggregate._min.priceFg ?? avg,
-          maxPrice: aggregate._max.priceFg ?? avg,
-          avgPrice: avg,
-          priceChange,
-          lastUpdated: now,
-        },
-        create: {
-          itemId,
-          priceFg: avg,
-          confidence: confidenceLabel(count),
-          nObservations: count,
-          minPrice: aggregate._min.priceFg ?? avg,
-          maxPrice: aggregate._max.priceFg ?? avg,
-          avgPrice: avg,
-          priceChange: null,
-          lastUpdated: now,
-        },
-      });
-      estimatesUpdated += 1;
-    }
+    const persisted = await persistObservations(observations);
 
     return NextResponse.json({
       ok: true,
-      mode,
+      mode: usedMode,
       forumId,
-      postsScanned: collector.postsScanned || 0,
-      observationsReceived: collector.observations.length,
-      observationsStored: creates.length,
-      estimatesUpdated,
-      unmatchedItems: collector.observations.length - creates.length,
+      postsScanned,
+      observationsReceived: observations.length,
+      observationsStored: persisted.observationsStored,
+      estimatesUpdated: persisted.estimatesUpdated,
+      unmatchedItems: persisted.unmatchedItems,
     });
   } catch (error) {
     console.error('Failed to refresh prices:', error);
