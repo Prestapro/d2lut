@@ -5,10 +5,31 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 RUNNER="${SCRIPT_DIR}/opencode-run-json"
 RUNS_DIR="${HOME}/.local/share/opencode/runs"
 
-if [[ ! -x "$RUNNER" ]]; then
-  echo "[opencode-guard] missing runner: $RUNNER" >&2
-  exit 2
+. "${SCRIPT_DIR}/opencode-common.sh"
+
+usage() {
+  cat <<'EOF'
+Usage: opencode-guard [--] [opencode args...]
+
+Runs opencode through opencode-run-json and verifies:
+  - a real kimi-review subagent task was called
+  - final response includes a Kimi block with Verdict
+EOF
+  print_exit_code_legend
+}
+
+if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
+  usage
+  exit 0
 fi
+
+if [[ "${1:-}" == "--version" || "${1:-}" == "-v" ]]; then
+  echo "opencode-guard ${SCRIPT_VERSION}"
+  exit 0
+fi
+
+require_executable_file "$RUNNER" opencode-guard
+require_command python3 opencode-guard
 
 mkdir -p "$RUNS_DIR"
 
@@ -31,7 +52,7 @@ fi
 
 if [[ -z "${NEW_FILE:-}" || ! -f "$NEW_FILE" ]]; then
   echo "[opencode-guard] could not locate run jsonl file" >&2
-  exit 3
+  exit_with_code 4
 fi
 
 python3 - "$NEW_FILE" <<'PY'
@@ -105,3 +126,5 @@ print("- found subagent task call: kimi-review")
 print("- found model: kilo/moonshotai/kimi-k2.5")
 print("- found final Kimi section + Verdict")
 PY
+
+exit 0

@@ -3,6 +3,35 @@ set -euo pipefail
 
 OUT_DIR="${HOME}/.local/share/opencode/runs"
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+LF_RUNNER="${SCRIPT_DIR}/opencode-lf"
+
+. "${SCRIPT_DIR}/opencode-common.sh"
+
+usage() {
+  cat <<'EOF'
+Usage: opencode-run-json [--] [opencode args...]
+
+Runs opencode in JSON event mode and mirrors events to:
+  ~/.local/share/opencode/runs/<timestamp>.jsonl
+EOF
+  print_exit_code_legend
+}
+
+if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
+  usage
+  exit 0
+fi
+
+if [[ "${1:-}" == "--version" || "${1:-}" == "-v" ]]; then
+  echo "opencode-run-json ${SCRIPT_VERSION}"
+  exit 0
+fi
+
+require_command python3 opencode-run-json
+require_command opencode opencode-run-json
+require_executable_file "$LF_RUNNER" opencode-run-json
+assert_pipefail_enabled opencode-run-json
+
 mkdir -p "$OUT_DIR"
 NS="$(python3 - <<'PY'
 import time
@@ -14,4 +43,24 @@ OUT_FILE="$OUT_DIR/${TS}.jsonl"
 
 echo "[opencode-run-json] writing events to: $OUT_FILE" >&2
 
-"${SCRIPT_DIR}/opencode-lf" run --format json "$@" | tee "$OUT_FILE"
+run_pipeline() {
+  set +e
+  "$LF_RUNNER" run --format json "$@" | tee "$OUT_FILE"
+  local runner_status_local=${PIPESTATUS[0]:-1}
+  local tee_status_local=${PIPESTATUS[1]:-0}
+  set -e
+  printf '%s %s\n' "$runner_status_local" "$tee_status_local"
+}
+
+runner_status=0
+tee_status=0
+read -r runner_status tee_status < <(run_pipeline "$@")
+
+if [[ "$tee_status" -ne 0 ]]; then
+  echo "[opencode-run-json] failed to write json output: $OUT_FILE" >&2
+  exit_with_code 4
+fi
+
+if [[ "$runner_status" -ne 0 ]]; then
+  exit "$runner_status"
+fi

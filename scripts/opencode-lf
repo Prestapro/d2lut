@@ -4,14 +4,34 @@ set -euo pipefail
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 ENV_FILE="${SCRIPT_DIR}/../.env"
 
-if ! command -v opencode >/dev/null 2>&1; then
-  echo "[opencode-lf] opencode not found in PATH" >&2
-  exit 1
+. "${SCRIPT_DIR}/opencode-common.sh"
+
+usage() {
+  cat <<'EOF'
+Usage: opencode-lf [opencode args...]
+
+Loads Langfuse credentials from project .env, exports OTLP env vars,
+then execs opencode with the provided args.
+EOF
+  print_exit_code_legend
+}
+
+if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
+  usage
+  exit 0
 fi
+
+if [[ "${1:-}" == "--version" || "${1:-}" == "-v" ]]; then
+  echo "opencode-lf ${SCRIPT_VERSION}"
+  exit 0
+fi
+
+require_command opencode opencode-lf
+require_command python3 opencode-lf
 
 if [[ ! -f "$ENV_FILE" ]]; then
   echo "[opencode-lf] .env not found: $ENV_FILE" >&2
-  exit 1
+  exit_with_code 5
 fi
 
 # Read only required Langfuse vars without leaking secrets to logs.
@@ -91,7 +111,7 @@ LANGFUSE_SECRET_KEY_RAW="$(read_from_env_file LANGFUSE_SECRET_KEY)"
 
 if [[ -z "${LANGFUSE_BASE_URL_RAW:-}" || -z "${LANGFUSE_PUBLIC_KEY_RAW:-}" || -z "${LANGFUSE_SECRET_KEY_RAW:-}" ]]; then
   echo "[opencode-lf] Missing one of LANGFUSE_BASE_URL/LANGFUSE_PUBLIC_KEY/LANGFUSE_SECRET_KEY in $ENV_FILE" >&2
-  exit 1
+  exit_with_code 5
 fi
 
 export LANGFUSE_BASE_URL="$LANGFUSE_BASE_URL_RAW"

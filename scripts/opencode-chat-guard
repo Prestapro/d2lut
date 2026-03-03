@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+GUARD_BIN="${SCRIPT_DIR}/opencode-guard"
+
+. "${SCRIPT_DIR}/opencode-common.sh"
+
+usage() {
+  cat <<'EOF'
+Usage: opencode-chat-guard
+
+Interactive guarded wrapper around opencode-guard.
+Commands in prompt:
+  :q | :quit | :exit   Quit session
+  :reset               Start a fresh session context
+EOF
+}
+
+if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
+  usage
+  exit 0
+fi
+
+if [[ "${1:-}" == "--version" || "${1:-}" == "-v" ]]; then
+  echo "opencode-chat-guard ${SCRIPT_VERSION}"
+  exit 0
+fi
+
+if [[ ! -x "$GUARD_BIN" ]]; then
+  echo "[opencode-chat-guard] missing guard script: $GUARD_BIN" >&2
+  exit_with_code 3
+fi
+
+echo "Guarded interactive mode (Kimi required)."
+echo "Commands: :q (quit), :reset (new session)"
+
+first_turn=1
+
+while true; do
+  printf "\nYou> "
+  IFS= read -r prompt || break
+
+  if [[ -z "${prompt// }" ]]; then
+    continue
+  fi
+
+  case "$prompt" in
+    :q|:quit|:exit)
+      break
+      ;;
+    :reset)
+      first_turn=1
+      echo "[opencode-chat-guard] session reset"
+      continue
+      ;;
+  esac
+
+  if [[ "$first_turn" -eq 1 ]]; then
+    set +e
+    "$GUARD_BIN" -- "$prompt"
+    code=$?
+    set -e
+    first_turn=0
+  else
+    set +e
+    "$GUARD_BIN" -- -c "$prompt"
+    code=$?
+    set -e
+  fi
+
+  if [[ "$code" -ne 0 ]]; then
+    echo "[opencode-chat-guard] FAIL (exit=$code). Last turn did not pass Kimi guard."
+  fi
+done
