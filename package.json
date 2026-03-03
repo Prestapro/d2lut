@@ -11,7 +11,9 @@
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:reset": "prisma migrate reset",
-    "db:seed": "bunx tsx prisma/seed.ts"
+    "db:seed": "bunx tsx prisma/seed.ts",
+    "db:setup": "prisma generate && prisma db push && bunx tsx prisma/seed.ts",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^6.11.1",
