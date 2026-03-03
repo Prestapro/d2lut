@@ -116,6 +116,29 @@ bun run db:generate  # Generate Prisma client
 bun run db:migrate   # Create migration
 ```
 
+## Hybrid Context Bootstrap (CocoIndex + Memory-ready)
+
+```bash
+bash scripts/bootstrap_hybrid_context.sh
+```
+
+What this does:
+- Configures `cocoindex-code` MCP for this repo
+- Installs/configures `codexfi` memory layer (prefers Gemini extraction key when available)
+- Verifies memory health via `codexfi status`
+
+Optional live smoke check (uses a free OpenCode model by default):
+
+```bash
+OPENCODE_MEMORY_SMOKE=1 bash scripts/bootstrap_hybrid_context.sh
+```
+
+Optional model override for smoke check:
+
+```bash
+OPENCODE_MEMORY_SMOKE=1 OPENCODE_MEMORY_SMOKE_MODEL=opencode/big-pickle bash scripts/bootstrap_hybrid_context.sh
+```
+
 ## Docker Compose
 
 ```bash

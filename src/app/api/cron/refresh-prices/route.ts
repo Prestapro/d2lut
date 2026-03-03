@@ -199,10 +199,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const auth = request.headers.get('authorization');
-    if (auth !== `Bearer ${secret}`) return unauthorized();
-
     const body = await request.json().catch(() => ({}));
+    const auth = request.headers.get('authorization');
+    const bodySecret = typeof body.secret === 'string' ? body.secret : '';
+    const allowBodySecret =
+      process.env.NODE_ENV !== 'production' &&
+      bodySecret.length > 0 &&
+      bodySecret === secret;
+
+    if (auth !== `Bearer ${secret}` && !allowBodySecret) return unauthorized();
+
     const mode: 'static' | 'live' = body.mode === 'live' ? 'live' : 'static';
     const forumIdRaw = Number(body.forumId);
     const maxPostsRaw = Number(body.maxPosts);

@@ -13,6 +13,8 @@ export interface D2Item {
     confidence?: string | null;
     nObservations?: number;
     priceChange?: number;
+    topicUrls?: string[];
+    topicSearchUrl?: string;
 }
 
 // Tier definitions in explicit descending order (highest first)

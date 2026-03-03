@@ -18,6 +18,19 @@ const TIER_RANGES: Record<string, { min: number; max: number }> = {
   TRASH: { min: 0, max: 5 },
 };
 
+function toTopicId(sourceId: string | null | undefined): string | null {
+  if (!sourceId) return null;
+  const trimmed = sourceId.trim();
+  if (!trimmed) return null;
+
+  if (/^\d+$/.test(trimmed)) return trimmed;
+
+  const urlMatch = trimmed.match(/[?&]t=(\d+)/i);
+  if (urlMatch?.[1]) return urlMatch[1];
+
+  return null;
+}
+
 export async function GET(request: NextRequest) {
   try {
     const url = new URL(request.url);
@@ -126,6 +139,11 @@ export async function GET(request: NextRequest) {
         where,
         include: {
           priceEstimate: true,
+          observations: {
+            select: { sourceId: true, observedAt: true },
+            orderBy: { observedAt: 'desc' },
+            take: 20,
+          },
         },
         orderBy,
         skip: offset,
@@ -137,6 +155,16 @@ export async function GET(request: NextRequest) {
     // Transform for response
     const result = items.map(item => {
       const price = item.priceEstimate?.priceFg;
+      const topicIds = Array.from(
+        new Set(
+          item.observations
+            .map((obs) => toTopicId(obs.sourceId))
+            .filter((id): id is string => Boolean(id))
+        )
+      ).slice(0, 3);
+
+      const query = encodeURIComponent(item.displayName || item.name || item.variantKey);
+
       return {
         variantKey: item.variantKey,
         name: item.name,
@@ -148,6 +176,8 @@ export async function GET(request: NextRequest) {
         tier: price != null ? getTier(price) : 'UNKNOWN',
         confidence: item.priceEstimate?.confidence ?? null,
         nObservations: item.priceEstimate?.nObservations ?? 0,
+        topicUrls: topicIds.map((id) => `https://forums.d2jsp.org/topic.php?t=${id}`),
+        topicSearchUrl: `https://forums.d2jsp.org/search.php?c=1&f=271&q=${query}`,
       };
     });
 

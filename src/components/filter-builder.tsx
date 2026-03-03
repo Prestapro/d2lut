@@ -14,7 +14,7 @@ interface FilterBuilderProps {
 
 export function FilterBuilder({ onBuild, isBuilding = false }: FilterBuilderProps) {
   const [preset, setPreset] = useState('default');
-  const [threshold, setThreshold] = useState(0);
+  const [threshold, setThreshold] = useState(5);
 
   const presets = [
     { id: 'default', name: 'Default', description: 'Balanced filter with all items' },
@@ -67,7 +67,7 @@ export function FilterBuilder({ onBuild, isBuilding = false }: FilterBuilderProp
               value={threshold}
               onChange={(e) => setThreshold(parseFloat(e.target.value) || 0)}
               className="bg-zinc-800 border-zinc-700 text-white"
-              placeholder="0"
+              placeholder="5"
             />
           </div>
         </div>

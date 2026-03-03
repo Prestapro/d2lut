@@ -96,6 +96,7 @@ export default function Home() {
       }
       params.set('sort', sortField);
       params.set('order', sortOrder);
+      params.set('minPrice', '5');
       params.set('limit', String(limit));
       params.set('offset', String(offset));
       const res = await fetch(`/api/items?${params.toString()}`);

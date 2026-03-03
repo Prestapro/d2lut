@@ -13,7 +13,12 @@
     "db:reset": "prisma migrate reset",
     "db:seed": "bunx tsx prisma/seed.ts",
     "db:setup": "prisma generate && prisma db push && bunx tsx prisma/seed.ts",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "db:sync-catalog": "bunx tsx scripts/sync_full_catalog.ts",
+    "db:import-market-snapshot": "bunx tsx scripts/import_market_snapshot.ts",
+    "db:import-price-tables": "bunx tsx scripts/import_price_tables.ts",
+    "setup:cocoindex": "bash scripts/setup_cocoindex_mcp.sh",
+    "setup:hybrid-context": "bash scripts/bootstrap_hybrid_context.sh"
   },
   "dependencies": {
     "@prisma/client": "^6.11.1",

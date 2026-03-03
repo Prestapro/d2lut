@@ -161,12 +161,13 @@ export function ItemPriceTable({
               </TableHead>
               <TableHead className="text-zinc-400 text-center">Tier</TableHead>
               <TableHead className="text-zinc-400 text-center">Confidence</TableHead>
+              <TableHead className="text-zinc-400">Topics</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {items.length === 0 ? (
               <TableRow className="border-zinc-800">
-                <TableCell colSpan={5} className="text-center text-zinc-500 py-8">
+                <TableCell colSpan={6} className="text-center text-zinc-500 py-8">
                   No items found
                 </TableCell>
               </TableRow>
@@ -211,6 +212,36 @@ export function ItemPriceTable({
                     >
                       {item.confidence}
                     </span>
+                  </TableCell>
+                  <TableCell className="text-sm text-zinc-300">
+                    {item.topicUrls && item.topicUrls.length > 0 ? (
+                      <div className="flex flex-wrap gap-2">
+                        {item.topicUrls.map((url, idx) => (
+                          <a
+                            key={`${item.variantKey}-${idx}`}
+                            href={url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sky-400 hover:text-sky-300 underline"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            topic {idx + 1}
+                          </a>
+                        ))}
+                      </div>
+                    ) : item.topicSearchUrl ? (
+                      <a
+                        href={item.topicSearchUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sky-400 hover:text-sky-300 underline"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        find topics
+                      </a>
+                    ) : (
+                      <span className="text-zinc-600">-</span>
+                    )}
                   </TableCell>
                 </TableRow>
               ))
