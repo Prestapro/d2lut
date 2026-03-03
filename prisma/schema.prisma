@@ -1,8 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// D2LUT - D2R Loot Filter Database Schema
+// Tracks items, prices, and filter configurations
 
 generator client {
   provider = "prisma-client-js"
@@ -13,20 +10,109 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+// D2R Item catalog
+model D2Item {
+  id          String   @id @default(cuid())
+  variantKey  String   @unique  // e.g., "rune:jah", "unique:shako"
+  name        String              // Short name: "jah", "shako"
+  displayName String              // Full name: "Jah Rune", "Harlequin Crest"
+  category    String              // rune, unique, runeword, set, base, craft
+  d2rCode     String?             // D2R filter code: "r32", "uui"
+  subCategory String?             // helm, armor, weapon, etc.
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  priceEstimate   PriceEstimate?
+  observations    PriceObservation[]
+  filterItems     FilterItem[]
+
+  @@index([category])
 }
 
-model Post {
+// Current price estimate for an item
+model PriceEstimate {
+  id           String   @id @default(cuid())
+  itemId       String   @unique
+  item         D2Item   @relation(fields: [itemId], references: [id])
+  
+  priceFg      Float              // Current FG price
+  confidence   String             // high, medium, low
+  nObservations Int    @default(0)
+  
+  // Price history stats
+  minPrice     Float?
+  maxPrice     Float?
+  avgPrice     Float?
+  priceChange  Float?             // 24h change percentage
+  
+  lastUpdated  DateTime @default(now())
+  createdAt    DateTime @default(now())
+  
+  // Relations
+  observations PriceObservation[]
+
+  @@index([priceFg])
+}
+
+// Individual price observation from forum
+model PriceObservation {
+  id          String   @id @default(cuid())
+  
+  itemId      String
+  item        D2Item   @relation(fields: [itemId], references: [id])
+  estimateId  String?
+  estimate    PriceEstimate? @relation(fields: [estimateId], references: [id])
+  
+  priceFg     Float
+  confidence  Float    // 0.0 - 1.0
+  signalKind  String   // sold, bin, ask, co
+  
+  source      String?  // d2jsp, discord, etc.
+  sourceId    String?  // topic ID, message ID
+  author      String?
+  
+  observedAt  DateTime @default(now())
+  createdAt   DateTime @default(now())
+
+  @@index([itemId, observedAt])
+}
+
+// Saved filter configuration
+model FilterPreset {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?
+  
+  showTrash   Boolean  @default(false)
+  showPrices  Boolean  @default(true)
+  showColors  Boolean  @default(true)
+  showBases   Boolean  @default(true)
+  
+  priceThreshold Float  @default(0)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relations
+  filterItems FilterItem[]
+}
+
+// Items included in a filter preset
+model FilterItem {
   id        String   @id @default(cuid())
-  title     String
-  content   String?
-  published Boolean  @default(false)
-  authorId  String
+  
+  presetId  String
+  preset    FilterPreset @relation(fields: [presetId], references: [id], onDelete: Cascade)
+  
+  itemId    String
+  item      D2Item   @relation(fields: [itemId], references: [id])
+  
+  customThreshold Float?
+  enabled   Boolean  @default(true)
+  
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  
+  @@unique([presetId, itemId])
 }
