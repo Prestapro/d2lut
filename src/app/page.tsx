@@ -32,6 +32,8 @@ interface ItemsResponse {
 }
 
 export default function Home() {
+  // Client-only rendering guard — must be first hook
+  const [mounted, setMounted] = useState(false);
   const [stats, setStats] = useState<Stats | null>(null);
   const [items, setItems] = useState<D2Item[]>([]);
   const [categories, setCategories] = useState<Stats['categories']>([]);
@@ -39,6 +41,10 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [selectedItem, setSelectedItem] = useState<D2Item | null>(null);
   const [isBuilding, setIsBuilding] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Fetch stats
   const fetchStats = useCallback(async () => {
@@ -109,12 +115,6 @@ export default function Home() {
       setIsBuilding(false);
     }
   };
-
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   if (!mounted) return null;
 

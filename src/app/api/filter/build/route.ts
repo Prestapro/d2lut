@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { exec } from 'child_process';
-import { promisify } from 'util';
+import { spawn } from 'child_process';
 import path from 'path';
-
-const execAsync = promisify(exec);
 
 // Filter builder that works without Python (fallback)
 function buildFilterDirect(preset: string, threshold: number): string {
@@ -35,7 +32,7 @@ function buildFilterDirect(preset: string, threshold: number): string {
     { name: 'Storm Shield', code: 'uit', price: 35, tier: 'MID' },
     { name: 'Windforce', code: 'am6', price: 180, tier: 'GG' },
     { name: 'Stone of Jordan', code: 'rin', price: 30, tier: 'MID' },
-    { name: "Highlord's Wrath", code: 'amu', price: 18, tier: 'MID' },
+    { name: "Highlord's Wrath", code: 'amuhl', price: 18, tier: 'MID' },
 
     // Runewords
     { name: 'Enigma', code: null, price: 160, tier: 'GG' },
@@ -107,12 +104,18 @@ export async function POST(request: NextRequest) {
     }
 
     try {
-      const { stdout } = await execAsync(
-        `python3 "${bridgePath}" --action build_filter --preset ${preset} --threshold ${threshold}`,
-        { timeout: 30000 }
-      );
+      const stdout = await new Promise<string>((resolve, reject) => {
+        const args = [bridgePath, '--action', 'build_filter', '--preset', preset, '--threshold', String(threshold)];
+        const proc = spawn('python3', args, { timeout: 30000 });
+        let out = '';
+        let err = '';
+        proc.stdout.on('data', (d) => { out += d; });
+        proc.stderr.on('data', (d) => { err += d; });
+        proc.on('close', (code) => code === 0 ? resolve(out) : reject(new Error(err || `exit ${code}`)));
+        proc.on('error', reject);
+      });
 
-      const result = JSON.parse(stdout);
+      const result = JSON.parse(stdout.trim());
 
       if (result.success) {
         return new NextResponse(result.content, {
