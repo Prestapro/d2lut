@@ -186,7 +186,18 @@ export function HomePageClient() {
     }
   };
 
-  if (!mounted) return null;
+  if (!mounted) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-zinc-950 via-zinc-900 to-zinc-950 text-white">
+        <div className="container mx-auto px-4 py-16">
+          <div className="text-center py-12 text-zinc-500">
+            <RefreshCw className="h-8 w-8 animate-spin mx-auto mb-4" />
+            Loading dashboard...
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-zinc-950 via-zinc-900 to-zinc-950 text-white">

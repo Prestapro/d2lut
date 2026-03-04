@@ -1,0 +1,37 @@
+name: Live Refresh Prices
+
+on:
+  schedule:
+    - cron: "30 */12 * * *"
+  workflow_dispatch:
+
+jobs:
+  refresh-live:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Execute live scraper refresh
+        env:
+          API_URL: ${{ secrets.LIVE_REFRESH_URL }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: |
+          if [ -z "$API_URL" ] || [ -z "$CRON_SECRET" ]; then
+            echo "LIVE_REFRESH_URL/CRON_SECRET secrets are required"
+            exit 1
+          fi
+
+          node scripts/live_refresh_d2jsp.js

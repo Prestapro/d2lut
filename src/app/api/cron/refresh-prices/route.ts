@@ -32,6 +32,9 @@ interface PersistResult {
   unmatchedItems: number;
 }
 
+const MAX_DIRECT_OBSERVATIONS = 2000;
+const PRICE_WINDOW_DAYS = 30;
+
 function unauthorized() {
   return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 }
@@ -102,10 +105,13 @@ async function persistObservations(observations: CollectorObservation[]): Promis
   const itemByVariant = new Map(items.map((item) => [item.variantKey, item.id]));
 
   const now = new Date();
+  const priceWindowStart = new Date(now.getTime() - PRICE_WINDOW_DAYS * 24 * 60 * 60 * 1000);
   const creates = observations
     .map((o) => {
       const itemId = itemByVariant.get(o.variantKey);
       if (!itemId || !Number.isFinite(o.priceFg) || o.priceFg <= 0) return null;
+      const observedAt = o.observedAt ? new Date(o.observedAt) : now;
+      if (Number.isNaN(observedAt.getTime())) return null;
 
       return {
         itemId,
@@ -115,7 +121,7 @@ async function persistObservations(observations: CollectorObservation[]): Promis
         source: o.source || 'd2jsp_live_chrome',
         sourceId: o.sourceId || null,
         author: o.author || null,
-        observedAt: o.observedAt ? new Date(o.observedAt) : now,
+        observedAt,
       };
     })
     .filter((o): o is NonNullable<typeof o> => o !== null);
@@ -135,7 +141,10 @@ async function persistObservations(observations: CollectorObservation[]): Promis
   for (const itemId of touchedItemIds) {
     const [aggregate, previous] = await Promise.all([
       db.priceObservation.aggregate({
-        where: { itemId },
+        where: {
+          itemId,
+          observedAt: { gte: priceWindowStart },
+        },
         _count: { _all: true },
         _avg: { priceFg: true },
         _min: { priceFg: true },
@@ -220,6 +229,14 @@ export async function POST(request: NextRequest) {
     let usedMode: 'static' | 'live' | 'direct' = mode;
 
     if (Array.isArray(body.observations)) {
+      if (body.observations.length > MAX_DIRECT_OBSERVATIONS) {
+        return NextResponse.json(
+          {
+            error: `Too many observations in request body. Maximum allowed: ${MAX_DIRECT_OBSERVATIONS}`,
+          },
+          { status: 413 }
+        );
+      }
       observations = body.observations as CollectorObservation[];
       postsScanned = Number.isFinite(Number(body.postsScanned)) ? Number(body.postsScanned) : observations.length;
       usedMode = 'direct';

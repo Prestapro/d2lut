@@ -30,10 +30,17 @@ except ImportError:
     D2LUT_AVAILABLE = False
 
 
+def missing_dependency_error() -> str:
+    return (
+        "d2lut package not available. Run `python3 -m pip install -e ./d2lut` "
+        "from repository root."
+    )
+
+
 def get_items() -> dict:
     """Get list of all known item patterns."""
     if not D2LUT_AVAILABLE:
-        return {"error": "d2lut package not available", "items": []}
+        return {"error": missing_dependency_error(), "items": []}
     
     items = []
     for variant_key in ITEM_PATTERNS.keys():
@@ -62,7 +69,7 @@ def build_filter(preset: str = "default", threshold: float = 0) -> dict:
         Dict with filter content and metadata
     """
     if not D2LUT_AVAILABLE:
-        return {"error": "d2lut package not available"}
+        return {"error": missing_dependency_error()}
         
     try:
         from build_d2r_filter import FilterBuilder
@@ -98,7 +105,7 @@ def parse_text(text: str) -> dict:
         Dict with found items and prices
     """
     if not D2LUT_AVAILABLE:
-        return {"error": "d2lut package not available", "items": [], "price": None}
+        return {"error": missing_dependency_error(), "items": [], "price": None}
     
     items = find_items_in_text(text)
     price = find_best_price_in_text(text)

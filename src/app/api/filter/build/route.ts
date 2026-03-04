@@ -20,6 +20,32 @@ interface BridgeResult {
 }
 
 const TIER_LIST = ['GG', 'HIGH', 'MID', 'LOW', 'TRASH'] as const;
+const HARDCODED_PRICE_SNAPSHOT = '2026-03-04';
+
+function selectBestItemsByCode(items: FilterItem[]): FilterItem[] {
+  const bestByCode = new Map<string, FilterItem>();
+
+  for (const item of items) {
+    for (const rawCode of item.codes) {
+      const code = rawCode.trim();
+      if (!code) continue;
+
+      const existing = bestByCode.get(code);
+      if (
+        !existing ||
+        item.price > existing.price ||
+        (item.price === existing.price && item.name.localeCompare(existing.name) < 0)
+      ) {
+        bestByCode.set(code, { ...item, codes: [code] });
+      }
+    }
+  }
+
+  return [...bestByCode.values()].sort((a, b) => {
+    if (b.price !== a.price) return b.price - a.price;
+    return a.name.localeCompare(b.name);
+  });
+}
 
 function generateFilterContent(
   preset: string,
@@ -27,7 +53,7 @@ function generateFilterContent(
   sourceLabel: string,
   items: FilterItem[]
 ): string {
-  const filtered = items.filter((item) => item.price >= threshold);
+  const filtered = selectBestItemsByCode(items).filter((item) => item.price >= threshold);
 
   const lines: string[] = [
     `# D2R Loot Filter - D2LUT`,
@@ -165,7 +191,7 @@ function buildFilterDirect(preset: string, threshold: number): string {
   const effectiveThreshold = autoThreshold ?? threshold;
   const sourceLabel = autoThreshold != null
     ? `hardcoded fallback + auto-top threshold (${effectiveThreshold} FG)`
-    : 'hardcoded fallback';
+    : `hardcoded fallback snapshot (${HARDCODED_PRICE_SNAPSHOT})`;
 
   return generateFilterContent(preset, effectiveThreshold, sourceLabel, items);
 }

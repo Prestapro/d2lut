@@ -15,7 +15,17 @@ try:
     from d2lut.collect.d2jsp import D2JspCollector
     from d2lut.normalize.parser import MarketParser
 except ImportError as exc:
-    print(json.dumps({"ok": False, "error": f"Import failed: {exc}"}))
+    print(
+        json.dumps(
+            {
+                "ok": False,
+                "error": (
+                    f"Import failed: {exc}. "
+                    "Install package with `python3 -m pip install -e ./d2lut` from repo root."
+                ),
+            }
+        )
+    )
     sys.exit(1)
 
 

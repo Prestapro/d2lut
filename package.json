@@ -17,6 +17,7 @@
     "db:sync-catalog": "bunx tsx scripts/sync_full_catalog.ts",
     "db:import-market-snapshot": "bunx tsx scripts/import_market_snapshot.ts",
     "db:import-price-tables": "bunx tsx scripts/import_price_tables.ts",
+    "cron:live-refresh": "node scripts/live_refresh_d2jsp.js",
     "setup:cocoindex": "bash scripts/setup_cocoindex_mcp.sh",
     "setup:hybrid-context": "bash scripts/bootstrap_hybrid_context.sh"
   },
