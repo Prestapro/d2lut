@@ -42,6 +42,15 @@ export const TIER_COLORS: Record<string, string> = {
     TRASH: '#808080',   // Gray
 };
 
+// Tier color codes for D2R item labels
+export const TIER_D2R_COLOR_CODES: Record<string, string> = {
+    GG: 'ÿc9',
+    HIGH: 'ÿc7',
+    MID: 'ÿc8',
+    LOW: 'ÿc0',
+    TRASH: 'ÿc5',
+};
+
 // Tier labels for UI legend
 export const TIER_LABELS: Record<string, string> = {
     GG: '500+ FG',

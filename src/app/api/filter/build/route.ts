@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { spawn } from 'child_process';
+import { existsSync } from 'fs';
 import path from 'path';
-import { getTier } from '@/lib/d2r-utils';
+import { getTier, TIER_D2R_COLOR_CODES } from '@/lib/d2r-utils';
 import { db } from '@/lib/db';
 
 const VALID_PRESETS = ['default', 'ggplus', 'gg', 'roguecore', 'minimal', 'verbose'];
@@ -12,15 +13,13 @@ interface FilterItem {
   price: number;
 }
 
-const TIER_LIST = ['GG', 'HIGH', 'MID', 'LOW', 'TRASH'] as const;
+interface BridgeResult {
+  success: boolean;
+  content?: string;
+  error?: string;
+}
 
-const TIER_COLORS: Record<string, string> = {
-  GG: 'ÿc9',
-  HIGH: 'ÿc7',
-  MID: 'ÿc8',
-  LOW: 'ÿc0',
-  TRASH: 'ÿc5',
-};
+const TIER_LIST = ['GG', 'HIGH', 'MID', 'LOW', 'TRASH'] as const;
 
 function generateFilterContent(
   preset: string,
@@ -47,7 +46,7 @@ function generateFilterContent(
     lines.push('');
 
     for (const item of tierItems) {
-      const color = TIER_COLORS[tierName];
+      const color = TIER_D2R_COLOR_CODES[tierName];
       for (const code of item.codes) {
         lines.push(`ItemDisplay[${code}]: ${color}${item.name} ÿc4[${item.price} FG]`);
       }
@@ -157,7 +156,7 @@ function buildFilterDirect(preset: string, threshold: number): string {
     // Runewords — filter by popular socketable base items
     { name: 'Enigma', codes: ['xtp', 'uea', 'utp'], price: 160 },
     { name: 'Infinity', codes: ['7vo', '7s8', '7pa'], price: 180 },
-    { name: 'Grief', codes: ['7cr', '7ls'], price: 35 },
+    { name: 'Grief', codes: ['7ls'], price: 35 },
     { name: 'Call to Arms', codes: ['7cr', '7gd'], price: 40 },
     { name: 'Spirit', codes: ['xrn', 'pa9', 'ush'], price: 5 },
   ];
@@ -196,6 +195,47 @@ function filterResponse(content: string, preset: string) {
   });
 }
 
+function isBridgeResult(value: unknown): value is BridgeResult {
+  if (!value || typeof value !== 'object') return false;
+  const candidate = value as Partial<BridgeResult>;
+  return typeof candidate.success === 'boolean';
+}
+
+async function getFilterWithFallback(preset: string, threshold: number): Promise<string> {
+  // Try Python bridge first for legacy presets.
+  // GG/GG+ need local auto-top threshold logic, so they intentionally bypass bridge.
+  const shouldUsePythonBridge = preset !== 'gg' && preset !== 'ggplus';
+  if (shouldUsePythonBridge) {
+    const bridgePath = path.join(process.cwd(), 'mini-services', 'bridge.py');
+    if (!existsSync(bridgePath)) {
+      console.warn(`Python bridge not found at ${bridgePath}; using built-in generator`);
+    } else {
+      try {
+        const stdout = await executePythonBridge(bridgePath, preset, threshold);
+        const parsed: unknown = JSON.parse(stdout.trim());
+        if (!isBridgeResult(parsed)) {
+          console.error('Python bridge returned invalid payload shape');
+        } else if (parsed.success && typeof parsed.content === 'string') {
+          return parsed.content;
+        } else if (parsed.error) {
+          console.error('Python bridge returned unsuccessful result:', parsed.error);
+        } else {
+          console.error('Python bridge returned unsuccessful result without error message');
+        }
+      } catch (error) {
+        console.error('Python bridge failed, using built-in generator:', error);
+      }
+    }
+  }
+
+  const dbFilter = await buildFilterFromDB(preset, threshold);
+  if (dbFilter) {
+    return dbFilter;
+  }
+
+  return buildFilterDirect(preset, threshold);
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -208,31 +248,9 @@ export async function POST(request: NextRequest) {
     }
 
     const { preset, threshold } = validation;
+    const filterContent = await getFilterWithFallback(preset, threshold);
 
-    // Try Python bridge first for legacy presets.
-    // GG/GG+ need local auto-top threshold logic, so they intentionally bypass bridge.
-    const shouldUsePythonBridge = preset !== 'gg' && preset !== 'ggplus';
-    if (shouldUsePythonBridge) {
-      const bridgePath = path.join(process.cwd(), 'mini-services', 'bridge.py');
-      try {
-        const stdout = await executePythonBridge(bridgePath, preset, threshold);
-        const result = JSON.parse(stdout.trim());
-        if (result.success) {
-          return filterResponse(result.content, preset);
-        }
-      } catch {
-        console.log('Python bridge not available, using built-in generator');
-      }
-    }
-
-    // Try DB-backed filter generation
-    const dbFilter = await buildFilterFromDB(preset, threshold);
-    if (dbFilter) {
-      return filterResponse(dbFilter, preset);
-    }
-
-    // Last resort: hardcoded fallback
-    return filterResponse(buildFilterDirect(preset, threshold), preset);
+    return filterResponse(filterContent, preset);
   } catch (error) {
     console.error('Error building filter:', error);
     return NextResponse.json({ error: 'Failed to build filter' }, { status: 500 });
@@ -240,20 +258,23 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
-  const searchParams = request.nextUrl.searchParams;
-  const rawPreset = searchParams.get('preset') || 'default';
-  const rawThreshold = searchParams.get('threshold') || '0';
+  try {
+    const searchParams = request.nextUrl.searchParams;
+    const rawPreset = searchParams.get('preset') || 'default';
+    const rawThreshold = searchParams.get('threshold') || '0';
 
-  const validation = validateInputs(rawPreset, rawThreshold);
-  if (typeof validation === 'string') {
-    return NextResponse.json({ error: validation }, { status: 400 });
+    const validation = validateInputs(rawPreset, rawThreshold);
+    if (typeof validation === 'string') {
+      return NextResponse.json({ error: validation }, { status: 400 });
+    }
+
+    const { preset, threshold } = validation;
+
+    const filterContent = await getFilterWithFallback(preset, threshold);
+
+    return filterResponse(filterContent, preset);
+  } catch (error) {
+    console.error('Error building filter:', error);
+    return NextResponse.json({ error: 'Failed to build filter' }, { status: 500 });
   }
-
-  const { preset, threshold } = validation;
-
-  // Try DB first, then hardcoded fallback
-  const dbFilter = await buildFilterFromDB(preset, threshold);
-  const filterContent = dbFilter || buildFilterDirect(preset, threshold);
-
-  return filterResponse(filterContent, preset);
 }

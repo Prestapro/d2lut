@@ -10,12 +10,12 @@ const VALID_ORDER = ['asc', 'desc'] as const;
 const VALID_TIERS = ['GG', 'HIGH', 'MID', 'LOW', 'TRASH'] as const;
 const MAX_PRICE_DEFAULT = 999999;
 
-const TIER_RANGES: Record<string, { min: number; max: number }> = {
-  GG: { min: 500, max: MAX_PRICE_DEFAULT },
-  HIGH: { min: 100, max: 500 },
-  MID: { min: 20, max: 100 },
-  LOW: { min: 5, max: 20 },
-  TRASH: { min: 0, max: 5 },
+const TIER_RANGES: Record<string, { min: number; maxExclusive: number | null }> = {
+  GG: { min: 500, maxExclusive: null },
+  HIGH: { min: 100, maxExclusive: 500 },
+  MID: { min: 20, maxExclusive: 100 },
+  LOW: { min: 5, maxExclusive: 20 },
+  TRASH: { min: 0, maxExclusive: 5 },
 };
 
 function toTopicId(sourceId: string | null | undefined): string | null {
@@ -161,13 +161,15 @@ export async function GET(request: NextRequest) {
     if (tier) {
       const tierRange = TIER_RANGES[tier];
       const boundedMin = Math.max(minPrice, tierRange.min);
-      const boundedMax = Math.min(maxPrice, tierRange.max);
+      const boundedMaxExclusive = tierRange.maxExclusive == null
+        ? null
+        : Math.min(maxPrice, tierRange.maxExclusive);
       andConditions.push({
         priceEstimate: {
           is: {
             priceFg: {
               gte: boundedMin,
-              lte: Number.isFinite(boundedMax) ? boundedMax : undefined,
+              lt: boundedMaxExclusive ?? undefined,
             },
           },
         },
