@@ -13,6 +13,33 @@ services:
       - "3000"
     restart: unless-stopped
 
+  live-scanner:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - app
+    environment:
+      API_URL: http://app:3000/api/cron/refresh-prices
+      CRON_SECRET: ${CRON_SECRET}
+      NODE_ENV: production
+      LIVE_SCANNER_INTERVAL_SEC: ${LIVE_SCANNER_INTERVAL_SEC:-1800}
+      LIVE_SCANNER_RETRY_MAX: ${LIVE_SCANNER_RETRY_MAX:-3}
+      LIVE_SCANNER_RETRY_BACKOFF_SEC: ${LIVE_SCANNER_RETRY_BACKOFF_SEC:-20}
+      LIVE_SCANNER_HEARTBEAT_FILE: /tmp/live-scanner.heartbeat
+    command: ["/bin/sh", "scripts/live_scanner_worker.sh"]
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "test -f /tmp/live-scanner.heartbeat && [ $(( $(date +%s) - $(date +%s -r /tmp/live-scanner.heartbeat) )) -lt ${LIVE_SCANNER_HEALTH_MAX_AGE:-7200} ]",
+        ]
+      interval: 2m
+      timeout: 10s
+      retries: 3
+      start_period: 2m
+    restart: unless-stopped
+
   caddy:
     image: caddy:2
     depends_on:

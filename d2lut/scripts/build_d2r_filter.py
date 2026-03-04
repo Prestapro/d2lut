@@ -61,6 +61,8 @@ PRICE_TIERS = {
     "TRASH": (0, 5),              # <5 FG
 }
 
+_TIER_PRIORITY = {"GG": 4, "HIGH": 3, "MID": 2, "LOW": 1, "TRASH": 0}
+
 TIER_COLORS = {
     "GG": COLORS["PURPLE"],
     "HIGH": COLORS["ORANGE"],
@@ -460,9 +462,34 @@ class FilterBuilder:
     def _get_tier(self, price: float) -> str:
         """Determine price tier."""
         for tier, (low, high) in PRICE_TIERS.items():
-            if low <= price < high:
+            is_last_tier = tier == "GG"
+            if low <= price and (price < high or is_last_tier):
                 return tier
         return "TRASH"
+
+    def _dedupe_items_by_code(self, items: list[PricedItem]) -> list[PricedItem]:
+        """Keep one item per D2R code, preferring higher-value entries."""
+        deduped: dict[str, PricedItem] = {}
+        for item in items:
+            existing = deduped.get(item.d2r_code)
+            if existing is None:
+                deduped[item.d2r_code] = item
+                continue
+
+            existing_rank = (
+                existing.price_fg,
+                _TIER_PRIORITY.get(existing.tier, -1),
+                len(existing.display_name),
+            )
+            candidate_rank = (
+                item.price_fg,
+                _TIER_PRIORITY.get(item.tier, -1),
+                len(item.display_name),
+            )
+            if candidate_rank > existing_rank:
+                deduped[item.d2r_code] = item
+
+        return list(deduped.values())
 
     def _load_default_prices(self) -> None:
         """Load default hardcoded prices."""
@@ -523,6 +550,8 @@ class FilterBuilder:
             logger.info(f"Filtered to {len(filtered_items)} items (threshold: {cfg.price_threshold} FG)")
         else:
             filtered_items = self.items
+
+        filtered_items = self._dedupe_items_by_code(filtered_items)
 
         # Header
         lines.append(f"# D2R Loot Filter - Built {datetime.now().isoformat()}")

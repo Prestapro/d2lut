@@ -13,7 +13,9 @@ from __future__ import annotations
 import argparse
 import asyncio
 import logging
+import math
 import sqlite3
+from statistics import median
 from datetime import datetime
 from pathlib import Path
 from typing import Optional
@@ -160,26 +162,112 @@ def update_estimates(db_path: Path) -> int:
         Number of estimates updated
     """
     conn = sqlite3.connect(db_path)
+    conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
-    
-    # Aggregate observations into estimates
-    cursor.execute("""
-        INSERT OR REPLACE INTO price_estimates (variant_key, price_fg, observation_count, updated_at)
-        SELECT 
-            variant_key,
-            AVG(price_fg),
-            COUNT(*),
-            CURRENT_TIMESTAMP
+
+    cursor.execute(
+        """
+        SELECT variant_key, price_fg, confidence, observed_at
         FROM observed_prices
         WHERE price_fg > 0
-        GROUP BY variant_key
-        HAVING COUNT(*) >= 1
-    """)
-    
-    updated = cursor.rowcount
+        ORDER BY variant_key, observed_at
+        """
+    )
+
+    grouped: dict[str, list[sqlite3.Row]] = {}
+    for row in cursor.fetchall():
+        grouped.setdefault(row["variant_key"], []).append(row)
+
+    if not grouped:
+        conn.close()
+        logger.info("Updated 0 price estimates")
+        return 0
+
+    now = datetime.utcnow()
+    updated = 0
+    for variant_key, rows in grouped.items():
+        prices = sorted(float(row["price_fg"]) for row in rows if row["price_fg"])
+        if not prices:
+            continue
+
+        count = len(prices)
+        trim = int(count * 0.1)
+        if count < 5 or trim == 0:
+            trimmed_prices = prices
+        else:
+            trimmed_prices = prices[trim:-trim] or prices
+
+        median_price = float(median(prices))
+        trimmed_mean = float(sum(trimmed_prices) / len(trimmed_prices))
+        robust_price = (median_price * 0.6) + (trimmed_mean * 0.4)
+
+        mean_price = float(sum(prices) / count)
+        variance = sum((price - mean_price) ** 2 for price in prices) / count
+        std_dev = math.sqrt(variance)
+
+        min_price = prices[0]
+        max_price = prices[-1]
+
+        first_observed = rows[0]["observed_at"]
+        last_observed = rows[-1]["observed_at"]
+
+        last_dt = datetime.fromisoformat(last_observed) if last_observed else now
+        age_hours = max((now - last_dt).total_seconds() / 3600, 0.0)
+        staleness_penalty = min(age_hours / (24 * 7), 1.0)
+
+        avg_input_conf = sum(float(row["confidence"] or 0.5) for row in rows) / count
+        sample_boost = min(math.log10(count + 1) / 2, 1.0)
+        confidence = max(
+            0.1,
+            min(1.0, (avg_input_conf * 0.5) + (sample_boost * 0.5) - (0.4 * staleness_penalty)),
+        )
+
+        if robust_price >= 500:
+            tier = "GG"
+        elif robust_price >= 100:
+            tier = "HIGH"
+        elif robust_price >= 20:
+            tier = "MID"
+        elif robust_price >= 5:
+            tier = "LOW"
+        else:
+            tier = "TRASH"
+
+        cursor.execute(
+            """
+            INSERT OR REPLACE INTO price_estimates (
+                variant_key,
+                price_fg,
+                confidence,
+                observation_count,
+                min_price,
+                max_price,
+                std_dev,
+                price_tier,
+                first_observed,
+                last_observed,
+                updated_at
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
+            """,
+            (
+                variant_key,
+                robust_price,
+                confidence,
+                count,
+                min_price,
+                max_price,
+                std_dev,
+                tier,
+                first_observed,
+                last_observed,
+            ),
+        )
+        updated += 1
+
     conn.commit()
     conn.close()
-    
+
     logger.info(f"Updated {updated} price estimates")
     return updated
 
