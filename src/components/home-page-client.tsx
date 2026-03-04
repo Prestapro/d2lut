@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { StatsCards } from '@/components/stats-cards';
 import { CategoryTabs } from '@/components/category-tabs';
 import { ItemPriceTable, SortField, SortOrder } from '@/components/item-price-table';
@@ -36,33 +35,17 @@ interface ItemsResponse {
 }
 
 export function HomePageClient() {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  const initialCategory = searchParams.get('category');
-  const initialSearch = searchParams.get('search') || '';
-  const initialTier = searchParams.get('tier') || 'all';
-  const initialSort = searchParams.get('sort') === 'name' || searchParams.get('sort') === 'category' || searchParams.get('sort') === 'price'
-    ? (searchParams.get('sort') as SortField)
-    : 'price';
-  const initialOrder = searchParams.get('order') === 'asc' || searchParams.get('order') === 'desc'
-    ? (searchParams.get('order') as SortOrder)
-    : 'desc';
-  const initialOffsetRaw = Number.parseInt(searchParams.get('offset') || '0', 10);
-  const initialOffset = Number.isFinite(initialOffsetRaw) && initialOffsetRaw >= 0 ? initialOffsetRaw : 0;
-
   const [mounted, setMounted] = useState(false);
   const [stats, setStats] = useState<Stats | null>(null);
   const [items, setItems] = useState<D2Item[]>([]);
   const [categories, setCategories] = useState<Stats['categories']>([]);
-  const [activeCategory, setActiveCategory] = useState<string | null>(initialCategory);
-  const [search, setSearch] = useState(initialSearch);
-  const [debouncedSearch, setDebouncedSearch] = useState(initialSearch.trim());
-  const [tierFilter, setTierFilter] = useState<string>(initialTier);
-  const [sortField, setSortField] = useState<SortField>(initialSort);
-  const [sortOrder, setSortOrder] = useState<SortOrder>(initialOrder);
-  const [offset, setOffset] = useState(initialOffset);
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [search, setSearch] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState('');
+  const [tierFilter, setTierFilter] = useState<string>('all');
+  const [sortField, setSortField] = useState<SortField>('price');
+  const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
+  const [offset, setOffset] = useState(0);
   const [limit] = useState(100);
   const [totalItems, setTotalItems] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -71,6 +54,22 @@ export function HomePageClient() {
 
   useEffect(() => {
     setMounted(true);
+
+    const params = new URLSearchParams(window.location.search);
+    const category = params.get('category');
+    const initialSearch = params.get('search') || '';
+    const tier = params.get('tier') || 'all';
+    const sort = params.get('sort');
+    const order = params.get('order');
+    const offsetRaw = Number.parseInt(params.get('offset') || '0', 10);
+
+    setActiveCategory(category);
+    setSearch(initialSearch);
+    setDebouncedSearch(initialSearch.trim());
+    setTierFilter(tier);
+    setSortField(sort === 'name' || sort === 'category' || sort === 'price' ? sort : 'price');
+    setSortOrder(order === 'asc' || order === 'desc' ? order : 'desc');
+    setOffset(Number.isFinite(offsetRaw) && offsetRaw >= 0 ? offsetRaw : 0);
   }, []);
 
   useEffect(() => {
@@ -89,6 +88,8 @@ export function HomePageClient() {
   }, [activeCategory, tierFilter, sortField, sortOrder, debouncedSearch]);
 
   useEffect(() => {
+    if (!mounted) return;
+
     const params = new URLSearchParams();
 
     if (activeCategory) params.set('category', activeCategory);
@@ -99,9 +100,10 @@ export function HomePageClient() {
     if (offset > 0) params.set('offset', String(offset));
 
     const query = params.toString();
-    const nextUrl = query ? `${pathname}?${query}` : pathname;
-    router.replace(nextUrl, { scroll: false });
-  }, [activeCategory, debouncedSearch, tierFilter, sortField, sortOrder, offset, pathname, router]);
+    const basePath = window.location.pathname || '/';
+    const nextUrl = query ? `${basePath}?${query}` : basePath;
+    window.history.replaceState(null, '', nextUrl);
+  }, [activeCategory, debouncedSearch, tierFilter, sortField, sortOrder, offset, mounted]);
 
   const fetchStats = useCallback(async () => {
     try {
