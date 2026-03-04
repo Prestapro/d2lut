@@ -30,9 +30,12 @@ interface PersistResult {
   observationsStored: number;
   estimatesUpdated: number;
   unmatchedItems: number;
+  truncatedObservations: number;
 }
 
 const MAX_DIRECT_OBSERVATIONS = 2000;
+const MAX_TOTAL_OBSERVATIONS = 2000;
+const CREATE_MANY_BATCH_SIZE = 500;
 const PRICE_WINDOW_DAYS = 30;
 
 function unauthorized() {
@@ -131,11 +134,20 @@ async function persistObservations(observations: CollectorObservation[]): Promis
       observationsStored: 0,
       estimatesUpdated: 0,
       unmatchedItems: observations.length,
+      truncatedObservations: 0,
     };
   }
 
-  await db.priceObservation.createMany({ data: creates });
-  const touchedItemIds = [...new Set(creates.map((o) => o.itemId))];
+  const truncatedObservations = Math.max(0, creates.length - MAX_TOTAL_OBSERVATIONS);
+  const acceptedCreates = creates.slice(0, MAX_TOTAL_OBSERVATIONS);
+
+  await db.$transaction(async (tx) => {
+    for (let offset = 0; offset < acceptedCreates.length; offset += CREATE_MANY_BATCH_SIZE) {
+      const batch = acceptedCreates.slice(offset, offset + CREATE_MANY_BATCH_SIZE);
+      await tx.priceObservation.createMany({ data: batch });
+    }
+  });
+  const touchedItemIds = [...new Set(acceptedCreates.map((o) => o.itemId))];
 
   let estimatesUpdated = 0;
   for (const itemId of touchedItemIds) {
@@ -192,9 +204,10 @@ async function persistObservations(observations: CollectorObservation[]): Promis
   }
 
   return {
-    observationsStored: creates.length,
+    observationsStored: acceptedCreates.length,
     estimatesUpdated,
-    unmatchedItems: observations.length - creates.length,
+    unmatchedItems: observations.length - acceptedCreates.length,
+    truncatedObservations,
   };
 }
 
@@ -276,6 +289,7 @@ export async function POST(request: NextRequest) {
       observationsStored: persisted.observationsStored,
       estimatesUpdated: persisted.estimatesUpdated,
       unmatchedItems: persisted.unmatchedItems,
+      truncatedObservations: persisted.truncatedObservations,
     });
   } catch (error) {
     console.error('Failed to refresh prices:', error);
