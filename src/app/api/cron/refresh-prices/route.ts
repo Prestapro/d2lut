@@ -36,7 +36,6 @@ interface PersistResult {
 const MAX_DIRECT_OBSERVATIONS = 2000;
 const MAX_TOTAL_OBSERVATIONS = 2000;
 const CREATE_MANY_BATCH_SIZE = 500;
-const PRICE_WINDOW_DAYS = 30;
 const MAX_REQUEST_BYTES = 1_000_000;
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const RATE_LIMIT_MAX_REQUESTS = 30;
@@ -44,6 +43,13 @@ const RATE_LIMIT_MAX_REQUESTS = 30;
 type RateWindow = { count: number; windowStartedAt: number };
 
 const rateLimitStore = new Map<string, RateWindow>();
+
+function getPriceWindowDays(): number {
+  const raw = Number(process.env.PRICE_WINDOW_DAYS ?? '30');
+  if (!Number.isFinite(raw)) return 30;
+  const rounded = Math.floor(raw);
+  return Math.min(365, Math.max(1, rounded));
+}
 
 function unauthorized() {
   return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -137,7 +143,8 @@ async function persistObservations(observations: CollectorObservation[]): Promis
   const itemByVariant = new Map(items.map((item) => [item.variantKey, item.id]));
 
   const now = new Date();
-  const priceWindowStart = new Date(now.getTime() - PRICE_WINDOW_DAYS * 24 * 60 * 60 * 1000);
+  const priceWindowDays = getPriceWindowDays();
+  const priceWindowStart = new Date(now.getTime() - priceWindowDays * 24 * 60 * 60 * 1000);
   const creates = observations
     .map((o) => {
       const itemId = itemByVariant.get(o.variantKey);
@@ -266,7 +273,22 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const body = await request.json().catch(() => ({}));
+    const rawBody = await request.text();
+    const rawBodyBytes = Buffer.byteLength(rawBody, 'utf8');
+    if (rawBodyBytes > MAX_REQUEST_BYTES) {
+      return NextResponse.json(
+        { error: `Request body too large. Maximum allowed: ${MAX_REQUEST_BYTES} bytes` },
+        { status: 413 }
+      );
+    }
+    let body: Record<string, unknown> = {};
+    if (rawBody) {
+      try {
+        body = JSON.parse(rawBody) as Record<string, unknown>;
+      } catch {
+        return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 });
+      }
+    }
     const auth = request.headers.get('authorization');
 
     if (auth !== `Bearer ${secret}`) return unauthorized();
@@ -324,6 +346,7 @@ export async function POST(request: NextRequest) {
       ok: true,
       mode: usedMode,
       forumId,
+      priceWindowDays: getPriceWindowDays(),
       postsScanned,
       observationsReceived: observations.length,
       observationsStored: persisted.observationsStored,

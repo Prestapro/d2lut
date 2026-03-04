@@ -30,6 +30,9 @@ jobs:
       - name: Run tests
         run: PYTHONPATH=src pytest tests/ -v --tb=short -x
 
+      - name: Run pipeline regression tests
+        run: PYTHONPATH=src pytest tests/test_filter_generation.py tests/test_pipeline_estimates.py -v --tb=short
+
   # Next.js web app build
   nextjs-build:
     runs-on: ubuntu-latest

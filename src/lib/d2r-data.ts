@@ -29,8 +29,10 @@ export const D2R_CODES: Record<string, string | null> = {
   'unique:wartraveler': 'uhb', 'unique:sandstorm': 'ulb', 'unique:goredriver': 'uhg',
   'unique:dracul': 'uvg', 'unique:stormshield': 'uit', 'unique:homunculus': 'unec',
   'unique:windforce': 'am6', 'unique:occulus': 'obf', 'unique:wizardspike': 'ob2',
-  'unique:soj': 'rin', 'unique:bk': 'rin', 'unique:raven': 'rin',
-  'unique:mara': 'amu', 'unique:highlord': 'amu', 'unique:catseye': 'amu',
+  // Ambiguous generic base codes (ring/amulet) intentionally nulled to avoid
+  // false-positive collisions in generated filters.
+  'unique:soj': null, 'unique:bk': null, 'unique:raven': null,
+  'unique:mara': null, 'unique:highlord': null, 'unique:catseye': null,
   'unique:anni': 'cm3', 'unique:torch': 'cm2', 'unique:gheed': 'cm1',
 };
 

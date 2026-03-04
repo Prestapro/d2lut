@@ -172,7 +172,7 @@ export async function GET(request: NextRequest) {
           is: {
             priceFg: {
               gte: minPrice,
-              lte: maxPrice,
+              lt: maxPrice,
             },
           },
         },
