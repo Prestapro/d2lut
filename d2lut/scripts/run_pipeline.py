@@ -28,6 +28,25 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
+def _parse_sqlite_datetime(raw: str | None, default: datetime) -> datetime:
+    """Parse SQLite/ISO datetime strings safely."""
+    if not raw:
+        return default
+    value = raw.strip()
+    if value.endswith("Z"):
+        value = value[:-1] + "+00:00"
+    try:
+        return datetime.fromisoformat(value)
+    except ValueError:
+        return default
+
+
+def _table_columns(cursor: sqlite3.Cursor, table: str) -> set[str]:
+    """Return column names for a table."""
+    cursor.execute(f"PRAGMA table_info({table})")
+    return {str(row[1]) for row in cursor.fetchall()}
+
+
 def init_database(db_path: Path, schema_path: Optional[Path] = None) -> None:
     """Initialize database with schema.
     
@@ -164,6 +183,7 @@ def update_estimates(db_path: Path) -> int:
     conn = sqlite3.connect(db_path)
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
+    estimate_columns = _table_columns(cursor, "price_estimates")
 
     cursor.execute(
         """
@@ -211,7 +231,7 @@ def update_estimates(db_path: Path) -> int:
         first_observed = rows[0]["observed_at"]
         last_observed = rows[-1]["observed_at"]
 
-        last_dt = datetime.fromisoformat(last_observed) if last_observed else now
+        last_dt = _parse_sqlite_datetime(last_observed, now)
         age_hours = max((now - last_dt).total_seconds() / 3600, 0.0)
         staleness_penalty = min(age_hours / (24 * 7), 1.0)
 
@@ -233,36 +253,54 @@ def update_estimates(db_path: Path) -> int:
         else:
             tier = "TRASH"
 
-        cursor.execute(
-            """
-            INSERT OR REPLACE INTO price_estimates (
-                variant_key,
-                price_fg,
-                confidence,
-                observation_count,
-                min_price,
-                max_price,
-                std_dev,
-                price_tier,
-                first_observed,
-                last_observed,
-                updated_at
+        if {"confidence", "min_price", "max_price", "std_dev", "price_tier", "first_observed", "last_observed"}.issubset(estimate_columns):
+            cursor.execute(
+                """
+                INSERT OR REPLACE INTO price_estimates (
+                    variant_key,
+                    price_fg,
+                    confidence,
+                    observation_count,
+                    min_price,
+                    max_price,
+                    std_dev,
+                    price_tier,
+                    first_observed,
+                    last_observed,
+                    updated_at
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
+                """,
+                (
+                    variant_key,
+                    robust_price,
+                    confidence,
+                    count,
+                    min_price,
+                    max_price,
+                    std_dev,
+                    tier,
+                    first_observed,
+                    last_observed,
+                ),
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
-            """,
-            (
-                variant_key,
-                robust_price,
-                confidence,
-                count,
-                min_price,
-                max_price,
-                std_dev,
-                tier,
-                first_observed,
-                last_observed,
-            ),
-        )
+        else:
+            cursor.execute(
+                """
+                INSERT OR REPLACE INTO price_estimates (
+                    variant_key,
+                    price_fg,
+                    observation_count,
+                    updated_at
+                )
+                VALUES (?, ?, ?, CURRENT_TIMESTAMP)
+                """,
+                (
+                    variant_key,
+                    robust_price,
+                    count,
+                ),
+            )
         updated += 1
 
     conn.commit()

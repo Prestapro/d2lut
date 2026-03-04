@@ -27,13 +27,11 @@ services:
       LIVE_SCANNER_RETRY_MAX: ${LIVE_SCANNER_RETRY_MAX:-3}
       LIVE_SCANNER_RETRY_BACKOFF_SEC: ${LIVE_SCANNER_RETRY_BACKOFF_SEC:-20}
       LIVE_SCANNER_HEARTBEAT_FILE: /tmp/live-scanner.heartbeat
+      LIVE_SCANNER_HEALTH_MAX_AGE: ${LIVE_SCANNER_HEALTH_MAX_AGE:-7200}
+      LIVE_SCANNER_COMMAND: ${LIVE_SCANNER_COMMAND:-}
     command: ["/bin/sh", "scripts/live_scanner_worker.sh"]
     healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "test -f /tmp/live-scanner.heartbeat && [ $(( $(date +%s) - $(date +%s -r /tmp/live-scanner.heartbeat) )) -lt ${LIVE_SCANNER_HEALTH_MAX_AGE:-7200} ]",
-        ]
+      test: ["CMD", "python3", "scripts/live_scanner_healthcheck.py"]
       interval: 2m
       timeout: 10s
       retries: 3
