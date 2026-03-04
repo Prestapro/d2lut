@@ -1,22 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
-import { getTier } from '@/lib/d2r-utils';
+import { getTier, TIER_PRICE_RANGES, TIER_NAMES, type TierName } from '@/lib/d2r-utils';
 import { Prisma } from '@prisma/client';
 
 export const dynamic = 'force-dynamic';
 
 const VALID_SORT = ['price', 'name', 'category'] as const;
 const VALID_ORDER = ['asc', 'desc'] as const;
-const VALID_TIERS = ['GG', 'HIGH', 'MID', 'LOW', 'TRASH'] as const;
+const VALID_TIERS = TIER_NAMES;
 const MAX_PRICE_DEFAULT = 999999;
-
-const TIER_RANGES: Record<string, { min: number; maxExclusive: number | null }> = {
-  GG: { min: 500, maxExclusive: null },
-  HIGH: { min: 100, maxExclusive: 500 },
-  MID: { min: 20, maxExclusive: 100 },
-  LOW: { min: 5, maxExclusive: 20 },
-  TRASH: { min: 0, maxExclusive: 5 },
-};
 
 function toTopicId(sourceId: string | null | undefined): string | null {
   if (!sourceId) return null;
@@ -159,7 +151,7 @@ export async function GET(request: NextRequest) {
     const includeNullPrices = minPrice <= 0 && !tier;
 
     if (tier) {
-      const tierRange = TIER_RANGES[tier];
+      const tierRange = TIER_PRICE_RANGES[tier as TierName];
       const boundedMin = Math.max(minPrice, tierRange.min);
       const boundedMaxExclusive = tierRange.maxExclusive == null
         ? null

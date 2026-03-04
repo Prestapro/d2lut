@@ -14,6 +14,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
+import sqlite3
 import sys
 from pathlib import Path
 
@@ -35,6 +37,20 @@ def missing_dependency_error() -> str:
         "d2lut package not available. Run `python3 -m pip install -e ./d2lut` "
         "from repository root."
     )
+
+
+def resolve_db_path() -> Path:
+    database_url = os.getenv("DATABASE_URL", "file:./data/cache/d2lut.db")
+    if database_url.startswith("file:"):
+        raw_path = database_url[len("file:"):]
+    else:
+        raw_path = database_url
+
+    candidate = Path(raw_path)
+    if candidate.is_absolute():
+        return candidate
+
+    return (PROJECT_ROOT / candidate).resolve()
 
 
 def get_items() -> dict:
@@ -76,7 +92,7 @@ def build_filter(preset: str = "default", threshold: float = 0) -> dict:
     except ImportError as exc:
         return {"error": f"FilterBuilder import failed: {exc}"}
 
-    db_path = PROJECT_ROOT / "data" / "cache" / "d2lut.db"
+    db_path = resolve_db_path()
     builder = FilterBuilder(db_path=db_path, preset=preset)
     builder.load_prices()
     
@@ -93,6 +109,48 @@ def build_filter(preset: str = "default", threshold: float = 0) -> dict:
         "itemsCount": builder.filtered_count,
         "filename": f"d2lut_{preset}.filter",
     }
+
+
+def selfcheck() -> dict:
+    report = {
+        "python": sys.version.split()[0],
+        "d2lutAvailable": D2LUT_AVAILABLE,
+        "filterBuilderAvailable": False,
+        "dbPath": str(resolve_db_path()),
+        "dbExists": False,
+        "dbReadable": False,
+    }
+
+    try:
+        from build_d2r_filter import FilterBuilder  # noqa: F401
+        report["filterBuilderAvailable"] = True
+    except Exception as exc:  # pragma: no cover
+        report["filterBuilderError"] = str(exc)
+
+    db_path = Path(report["dbPath"])
+    report["dbExists"] = db_path.exists()
+
+    if db_path.exists():
+        try:
+            conn = sqlite3.connect(str(db_path))
+            conn.execute("SELECT 1")
+            conn.close()
+            report["dbReadable"] = True
+        except Exception as exc:  # pragma: no cover
+            report["dbError"] = str(exc)
+
+    ok = bool(
+        report["d2lutAvailable"]
+        and report["filterBuilderAvailable"]
+        and report["dbExists"]
+        and report["dbReadable"]
+    )
+
+    report["ok"] = ok
+    if not ok:
+        report["error"] = "selfcheck failed"
+
+    return report
 
 
 def parse_text(text: str) -> dict:
@@ -121,7 +179,7 @@ def main():
     parser = argparse.ArgumentParser(description="D2LUT Bridge Service")
     parser.add_argument(
         "--action", "-a",
-        choices=["get_items", "build_filter", "parse_text", "get_price"],
+        choices=["get_items", "build_filter", "parse_text", "get_price", "selfcheck"],
         required=True,
         help="Action to perform"
     )
@@ -158,6 +216,9 @@ def main():
                 # Price lookup would go here
                 result["item"] = args.item
                 result["success"] = True
+
+        elif args.action == "selfcheck":
+            result = merge_action(selfcheck())
         
     except Exception as e:
         result["error"] = str(e)

@@ -37,9 +37,38 @@ const MAX_DIRECT_OBSERVATIONS = 2000;
 const MAX_TOTAL_OBSERVATIONS = 2000;
 const CREATE_MANY_BATCH_SIZE = 500;
 const PRICE_WINDOW_DAYS = 30;
+const MAX_REQUEST_BYTES = 1_000_000;
+const RATE_LIMIT_WINDOW_MS = 60_000;
+const RATE_LIMIT_MAX_REQUESTS = 30;
+
+type RateWindow = { count: number; windowStartedAt: number };
+
+const rateLimitStore = new Map<string, RateWindow>();
 
 function unauthorized() {
   return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+}
+
+function getClientKey(request: NextRequest): string {
+  const forwarded = request.headers.get('x-forwarded-for') || '';
+  const ip = forwarded.split(',')[0]?.trim();
+  if (ip) return ip;
+  const realIp = request.headers.get('x-real-ip');
+  if (realIp) return realIp;
+  return 'unknown';
+}
+
+function isRateLimited(key: string): boolean {
+  const now = Date.now();
+  const existing = rateLimitStore.get(key);
+  if (!existing || now - existing.windowStartedAt >= RATE_LIMIT_WINDOW_MS) {
+    rateLimitStore.set(key, { count: 1, windowStartedAt: now });
+    return false;
+  }
+
+  existing.count += 1;
+  rateLimitStore.set(key, existing);
+  return existing.count > RATE_LIMIT_MAX_REQUESTS;
 }
 
 function confidenceLabel(count: number): 'low' | 'medium' | 'high' {
@@ -213,6 +242,22 @@ async function persistObservations(observations: CollectorObservation[]): Promis
 
 export async function POST(request: NextRequest) {
   try {
+    const contentLength = Number(request.headers.get('content-length') || '0');
+    if (Number.isFinite(contentLength) && contentLength > MAX_REQUEST_BYTES) {
+      return NextResponse.json(
+        { error: `Request body too large. Maximum allowed: ${MAX_REQUEST_BYTES} bytes` },
+        { status: 413 }
+      );
+    }
+
+    const clientKey = getClientKey(request);
+    if (isRateLimited(clientKey)) {
+      return NextResponse.json(
+        { error: 'Rate limit exceeded' },
+        { status: 429 }
+      );
+    }
+
     const secret = process.env.CRON_SECRET;
     if (!secret) {
       return NextResponse.json(
@@ -223,13 +268,8 @@ export async function POST(request: NextRequest) {
 
     const body = await request.json().catch(() => ({}));
     const auth = request.headers.get('authorization');
-    const bodySecret = typeof body.secret === 'string' ? body.secret : '';
-    const allowBodySecret =
-      process.env.NODE_ENV !== 'production' &&
-      bodySecret.length > 0 &&
-      bodySecret === secret;
 
-    if (auth !== `Bearer ${secret}` && !allowBodySecret) return unauthorized();
+    if (auth !== `Bearer ${secret}`) return unauthorized();
 
     const mode: 'static' | 'live' = body.mode === 'live' ? 'live' : 'static';
     const forumIdRaw = Number(body.forumId);

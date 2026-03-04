@@ -18,9 +18,13 @@ export interface D2Item {
     topicSearchUrl?: string;
 }
 
+export const TIER_NAMES = ['GG', 'HIGH', 'MID', 'LOW', 'TRASH'] as const;
+
+export type TierName = typeof TIER_NAMES[number];
+
 // Tier definitions in explicit descending order (highest first)
 // Using ordered array to guarantee iteration order across all JS engines
-const TIER_LIST: [string, number, number][] = [
+const TIER_LIST: [TierName, number, number][] = [
     ['GG', 500, Infinity],
     ['HIGH', 100, 500],
     ['MID', 20, 100],
@@ -29,9 +33,17 @@ const TIER_LIST: [string, number, number][] = [
 ];
 
 // Record form for backward compatibility (lookup by tier name)
-export const TIER_THRESHOLDS: Record<string, [number, number]> = Object.fromEntries(
+export const TIER_THRESHOLDS: Record<TierName, [number, number]> = Object.fromEntries(
     TIER_LIST.map(([name, low, high]) => [name, [low, high] as [number, number]])
-);
+) as Record<TierName, [number, number]>;
+
+export const TIER_PRICE_RANGES: Record<TierName, { min: number; maxExclusive: number | null }> = {
+    GG: { min: 500, maxExclusive: null },
+    HIGH: { min: 100, maxExclusive: 500 },
+    MID: { min: 20, maxExclusive: 100 },
+    LOW: { min: 5, maxExclusive: 20 },
+    TRASH: { min: 0, maxExclusive: 5 },
+};
 
 // Tier colors for UI
 export const TIER_COLORS: Record<string, string> = {
@@ -60,7 +72,7 @@ export const TIER_LABELS: Record<string, string> = {
     TRASH: '<5 FG',
 };
 
-export function getTier(price: number): string {
+export function getTier(price: number): TierName {
     for (const [name, low, high] of TIER_LIST) {
         if (price >= low && price < high) {
             return name;

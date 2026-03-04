@@ -6,6 +6,8 @@ import { getTier, TIER_D2R_COLOR_CODES } from '@/lib/d2r-utils';
 import { db } from '@/lib/db';
 
 const VALID_PRESETS = ['default', 'ggplus', 'gg', 'roguecore', 'minimal', 'verbose'];
+const VALID_MODES = ['auto', 'python', 'db', 'fallback'] as const;
+type BuildMode = typeof VALID_MODES[number];
 
 interface FilterItem {
   name: string;
@@ -19,11 +21,20 @@ interface BridgeResult {
   error?: string;
 }
 
+interface BuildResult {
+  content: string;
+  source: 'python' | 'db' | 'fallback';
+  mode: BuildMode;
+  warnings: string[];
+}
+
 const TIER_LIST = ['GG', 'HIGH', 'MID', 'LOW', 'TRASH'] as const;
 const HARDCODED_PRICE_SNAPSHOT = '2026-03-04';
+let pythonBridgeSelfcheckLogged = false;
 
-function selectBestItemsByCode(items: FilterItem[]): FilterItem[] {
+function selectBestItemsByCode(items: FilterItem[]): { items: FilterItem[]; warnings: string[] } {
   const bestByCode = new Map<string, FilterItem>();
+  const conflicts = new Map<string, Set<string>>();
 
   for (const item of items) {
     for (const rawCode of item.codes) {
@@ -31,6 +42,12 @@ function selectBestItemsByCode(items: FilterItem[]): FilterItem[] {
       if (!code) continue;
 
       const existing = bestByCode.get(code);
+      if (existing && existing.name !== item.name) {
+        const names = conflicts.get(code) ?? new Set<string>([existing.name]);
+        names.add(item.name);
+        conflicts.set(code, names);
+      }
+
       if (
         !existing ||
         item.price > existing.price ||
@@ -41,10 +58,16 @@ function selectBestItemsByCode(items: FilterItem[]): FilterItem[] {
     }
   }
 
-  return [...bestByCode.values()].sort((a, b) => {
+  const selected = [...bestByCode.values()].sort((a, b) => {
     if (b.price !== a.price) return b.price - a.price;
     return a.name.localeCompare(b.name);
   });
+
+  const warnings = [...conflicts.entries()]
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .map(([code, names]) => `Code collision for ${code}: ${[...names].sort().join(', ')}`);
+
+  return { items: selected, warnings };
 }
 
 function generateFilterContent(
@@ -52,8 +75,9 @@ function generateFilterContent(
   threshold: number,
   sourceLabel: string,
   items: FilterItem[]
-): string {
-  const filtered = selectBestItemsByCode(items).filter((item) => item.price >= threshold);
+): { content: string; warnings: string[] } {
+  const deduped = selectBestItemsByCode(items);
+  const filtered = deduped.items.filter((item) => item.price >= threshold);
 
   const lines: string[] = [
     `# D2R Loot Filter - D2LUT`,
@@ -80,7 +104,7 @@ function generateFilterContent(
     lines.push('');
   }
 
-  return lines.join('\n');
+  return { content: lines.join('\n'), warnings: deduped.warnings };
 }
 
 function getAutoTopThreshold(items: FilterItem[], preset: string): number | null {
@@ -116,7 +140,10 @@ function validateInputs(preset: string, threshold: unknown): { preset: string; t
 }
 
 // Build filter from Prisma DB — uses real prices from database
-async function buildFilterFromDB(preset: string, threshold: number): Promise<string | null> {
+async function buildFilterFromDB(
+  preset: string,
+  threshold: number
+): Promise<{ content: string; warnings: string[] } | null> {
   try {
     const items = await db.d2Item.findMany({
       where: {
@@ -154,7 +181,7 @@ async function buildFilterFromDB(preset: string, threshold: number): Promise<str
 }
 
 // Hardcoded fallback filter builder (works without DB)
-function buildFilterDirect(preset: string, threshold: number): string {
+function buildFilterDirect(preset: string, threshold: number): { content: string; warnings: string[] } {
   const items: FilterItem[] = [
     // Runes — direct item codes
     { name: 'Jah Rune', codes: ['r31'], price: 150 },
@@ -210,6 +237,29 @@ function executePythonBridge(bridgePath: string, preset: string, threshold: numb
   });
 }
 
+function executePythonSelfcheck(bridgePath: string): Promise<boolean> {
+  return new Promise<boolean>((resolve) => {
+    const args = [bridgePath, '--action', 'selfcheck'];
+    const proc = spawn('python3', args, { timeout: 10000 });
+    let out = '';
+    proc.stdout.on('data', (d) => { out += d; });
+    proc.on('close', (code) => {
+      if (code !== 0) {
+        resolve(false);
+        return;
+      }
+
+      try {
+        const parsed = JSON.parse(out.trim()) as { success?: boolean; ok?: boolean };
+        resolve(Boolean(parsed.success && parsed.ok));
+      } catch {
+        resolve(false);
+      }
+    });
+    proc.on('error', () => resolve(false));
+  });
+}
+
 // Helper to return filter as downloadable file
 function filterResponse(content: string, preset: string) {
   return new NextResponse(content, {
@@ -227,39 +277,94 @@ function isBridgeResult(value: unknown): value is BridgeResult {
   return typeof candidate.success === 'boolean';
 }
 
-async function getFilterWithFallback(preset: string, threshold: number): Promise<string> {
+function parseRequestedMode(rawMode: unknown): BuildMode | null {
+  const mode = typeof rawMode === 'string' ? rawMode : '';
+  if (!mode) return 'auto';
+  return (VALID_MODES as readonly string[]).includes(mode) ? (mode as BuildMode) : null;
+}
+
+function withBuildHeaders(response: NextResponse, buildResult: BuildResult): NextResponse {
+  response.headers.set('X-D2LUT-Filter-Source', buildResult.source);
+  response.headers.set('X-D2LUT-Filter-Mode', buildResult.mode);
+  if (buildResult.warnings.length > 0) {
+    response.headers.set('X-D2LUT-Filter-Warnings', String(buildResult.warnings.length));
+    console.warn('Filter build warnings:', buildResult.warnings);
+  }
+  return response;
+}
+
+async function getFilterWithFallback(preset: string, threshold: number, mode: BuildMode): Promise<BuildResult> {
+  const warnings: string[] = [];
+
   // Try Python bridge first for legacy presets.
   // GG/GG+ need local auto-top threshold logic, so they intentionally bypass bridge.
-  const shouldUsePythonBridge = preset !== 'gg' && preset !== 'ggplus';
+  const shouldUsePythonBridge = (mode === 'auto' || mode === 'python') && preset !== 'gg' && preset !== 'ggplus';
   if (shouldUsePythonBridge) {
     const bridgePath = path.join(process.cwd(), 'mini-services', 'bridge.py');
     if (!existsSync(bridgePath)) {
-      console.warn(`Python bridge not found at ${bridgePath}; using built-in generator`);
+      const message = `Python bridge not found at ${bridgePath}`;
+      console.warn(`${message}; using built-in generator`);
+      warnings.push(message);
     } else {
       try {
+        if (!pythonBridgeSelfcheckLogged) {
+          pythonBridgeSelfcheckLogged = true;
+          const available = await executePythonSelfcheck(bridgePath);
+          console.info(`python bridge available: ${available}`);
+        }
+
         const stdout = await executePythonBridge(bridgePath, preset, threshold);
         const parsed: unknown = JSON.parse(stdout.trim());
         if (!isBridgeResult(parsed)) {
           console.error('Python bridge returned invalid payload shape');
         } else if (parsed.success && typeof parsed.content === 'string') {
-          return parsed.content;
+          return { content: parsed.content, source: 'python', mode, warnings };
         } else if (parsed.error) {
           console.error('Python bridge returned unsuccessful result:', parsed.error);
+          warnings.push(`python bridge error: ${parsed.error}`);
         } else {
           console.error('Python bridge returned unsuccessful result without error message');
+          warnings.push('python bridge returned unsuccessful result without error message');
         }
       } catch (error) {
         console.error('Python bridge failed, using built-in generator:', error);
+        warnings.push('python bridge execution failed');
       }
+    }
+
+    if (mode === 'python') {
+      throw new Error('Python mode requested but bridge is unavailable or failed');
+    }
+  } else if (mode === 'python') {
+    throw new Error(`Python mode is not supported for preset: ${preset}`);
+  }
+
+  if (mode === 'db' || mode === 'auto') {
+    const dbFilter = await buildFilterFromDB(preset, threshold);
+    if (dbFilter) {
+      return { content: dbFilter.content, source: 'db', mode, warnings: [...warnings, ...dbFilter.warnings] };
+    }
+
+    if (mode === 'db') {
+      throw new Error('DB mode requested but no priced items were available for this filter');
     }
   }
 
-  const dbFilter = await buildFilterFromDB(preset, threshold);
-  if (dbFilter) {
-    return dbFilter;
+  if (mode === 'auto' && process.env.NODE_ENV === 'production') {
+    throw new Error('Fallback filter generation is disabled in production auto mode');
   }
 
-  return buildFilterDirect(preset, threshold);
+  if (mode !== 'auto' && mode !== 'fallback') {
+    throw new Error(`Fallback mode is not allowed when mode=${mode}`);
+  }
+
+  const fallbackFilter = buildFilterDirect(preset, threshold);
+  return {
+    content: fallbackFilter.content,
+    source: 'fallback',
+    mode,
+    warnings: [...warnings, ...fallbackFilter.warnings],
+  };
 }
 
 export async function POST(request: NextRequest) {
@@ -267,6 +372,10 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const rawPreset = body.preset ?? 'default';
     const rawThreshold = body.threshold ?? 0;
+    const mode = parseRequestedMode(body.mode);
+    if (!mode) {
+      return NextResponse.json({ error: `Invalid mode. Must be one of: ${VALID_MODES.join(', ')}` }, { status: 400 });
+    }
 
     const validation = validateInputs(rawPreset, rawThreshold);
     if (typeof validation === 'string') {
@@ -274,9 +383,9 @@ export async function POST(request: NextRequest) {
     }
 
     const { preset, threshold } = validation;
-    const filterContent = await getFilterWithFallback(preset, threshold);
+    const buildResult = await getFilterWithFallback(preset, threshold, mode);
 
-    return filterResponse(filterContent, preset);
+    return withBuildHeaders(filterResponse(buildResult.content, preset), buildResult);
   } catch (error) {
     console.error('Error building filter:', error);
     return NextResponse.json({ error: 'Failed to build filter' }, { status: 500 });
@@ -288,6 +397,10 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
     const rawPreset = searchParams.get('preset') || 'default';
     const rawThreshold = searchParams.get('threshold') || '0';
+    const mode = parseRequestedMode(searchParams.get('mode'));
+    if (!mode) {
+      return NextResponse.json({ error: `Invalid mode. Must be one of: ${VALID_MODES.join(', ')}` }, { status: 400 });
+    }
 
     const validation = validateInputs(rawPreset, rawThreshold);
     if (typeof validation === 'string') {
@@ -296,9 +409,9 @@ export async function GET(request: NextRequest) {
 
     const { preset, threshold } = validation;
 
-    const filterContent = await getFilterWithFallback(preset, threshold);
+    const buildResult = await getFilterWithFallback(preset, threshold, mode);
 
-    return filterResponse(filterContent, preset);
+    return withBuildHeaders(filterResponse(buildResult.content, preset), buildResult);
   } catch (error) {
     console.error('Error building filter:', error);
     return NextResponse.json({ error: 'Failed to build filter' }, { status: 500 });
