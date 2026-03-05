@@ -1,0 +1,251 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+ROOT_DIR="$(cd -- "${SCRIPT_DIR}/.." >/dev/null 2>&1 && pwd)"
+source "${SCRIPT_DIR}/opencode-common.sh"
+
+DEFAULT_CONFIG="${ROOT_DIR}/.opencode/pipeline.json"
+PIPELINE_MODE="${OPENCODE_PIPELINE_MODE:-auto}"  # auto|config|hybrid
+CONFIG_PATH="${OPENCODE_PIPELINE_CONFIG:-$DEFAULT_CONFIG}"
+
+usage() {
+  cat <<'USAGE'
+Usage: opencode-universal-checks
+
+Universal project pipeline checks.
+
+Modes:
+  OPENCODE_PIPELINE_MODE=auto    Auto-detect stack and stages (default)
+  OPENCODE_PIPELINE_MODE=config  Use OPENCODE_PIPELINE_CONFIG only
+  OPENCODE_PIPELINE_MODE=hybrid  Use config if exists, otherwise auto
+
+Config:
+  OPENCODE_PIPELINE_CONFIG=<path>  Config path (default: .opencode/pipeline.json)
+
+Environment toggles:
+  OPENCODE_SKIP_LINT=1
+  OPENCODE_SKIP_BUILD=1
+  OPENCODE_SKIP_TEST=1
+  OPENCODE_SKIP_HEALTH=1
+  OPENCODE_SKIP_MEMORY=1
+USAGE
+  print_exit_code_legend
+}
+
+if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
+  usage
+  exit 0
+fi
+
+require_command python3 opencode-universal-checks
+require_command curl opencode-universal-checks
+cd "$ROOT_DIR"
+
+if [[ -x "${SCRIPT_DIR}/load-env.sh" && -f "${ROOT_DIR}/.env" ]]; then
+  # shellcheck disable=SC2046
+  eval "$("${SCRIPT_DIR}/load-env.sh")"
+fi
+
+resolve_config() {
+  case "$PIPELINE_MODE" in
+    config)
+      [[ -f "$CONFIG_PATH" ]] || {
+        echo "[universal-checks] missing config in config mode: $CONFIG_PATH" >&2
+        exit_with_code 5
+      }
+      echo "$CONFIG_PATH"
+      ;;
+    hybrid)
+      if [[ -f "$CONFIG_PATH" ]]; then
+        echo "$CONFIG_PATH"
+      else
+        local tmp_cfg
+        tmp_cfg="$(mktemp "${TMPDIR:-/tmp}/opencode-pipeline-auto.XXXXXX")"
+        if [[ -x "${SCRIPT_DIR}/opencode-pipeline-init" ]]; then
+          "${SCRIPT_DIR}/opencode-pipeline-init" "$tmp_cfg" >/tmp/opencode-pipeline-init.log 2>&1
+        else
+          echo "[universal-checks] missing pipeline init script in hybrid mode" >&2
+          exit_with_code 5
+        fi
+        echo "$tmp_cfg"
+      fi
+      ;;
+    auto)
+      local tmp_cfg
+      tmp_cfg="$(mktemp "${TMPDIR:-/tmp}/opencode-pipeline-auto.XXXXXX")"
+      if [[ -x "${SCRIPT_DIR}/opencode-pipeline-init" ]]; then
+        "${SCRIPT_DIR}/opencode-pipeline-init" "$tmp_cfg" >/tmp/opencode-pipeline-init.log 2>&1
+      else
+        echo "[universal-checks] missing pipeline init script in auto mode" >&2
+        exit_with_code 5
+      fi
+      echo "$tmp_cfg"
+      ;;
+    *)
+      echo "[universal-checks] invalid OPENCODE_PIPELINE_MODE: $PIPELINE_MODE" >&2
+      exit_with_code 5
+      ;;
+  esac
+}
+
+ACTIVE_CONFIG="$(resolve_config)"
+if [[ "$ACTIVE_CONFIG" != "$CONFIG_PATH" ]]; then
+  trap '[[ -f "$ACTIVE_CONFIG" ]] && rm -f "$ACTIVE_CONFIG"' EXIT
+  echo "[universal-checks] using auto-generated config: $ACTIVE_CONFIG"
+else
+  echo "[universal-checks] using config: $ACTIVE_CONFIG"
+fi
+
+read_json() {
+  local expr="$1"
+  python3 - "$ACTIVE_CONFIG" "$expr" <<'PY'
+import json
+import sys
+from pathlib import Path
+
+cfg = json.loads(Path(sys.argv[1]).read_text(encoding='utf-8'))
+expr = sys.argv[2]
+
+cur = cfg
+for part in expr.split('.'):
+    if not part:
+        continue
+    if isinstance(cur, dict):
+        cur = cur.get(part)
+    else:
+        cur = None
+        break
+
+if cur is None:
+    print("")
+elif isinstance(cur, bool):
+    print("true" if cur else "false")
+elif isinstance(cur, (int, float)):
+    print(cur)
+elif isinstance(cur, str):
+    print(cur)
+else:
+    print(json.dumps(cur, ensure_ascii=False))
+PY
+}
+
+run_stage() {
+  local name="$1"
+  local command="$2"
+  local required="$3"
+
+  if [[ -z "$command" ]]; then
+    if [[ "$required" == "true" ]]; then
+      echo "[universal-checks] stage '$name' missing command and is required" >&2
+      exit_with_code 5
+    fi
+    echo "[universal-checks] stage '$name': skipped (no command)"
+    return 0
+  fi
+
+  echo "[universal-checks] stage '$name': $command"
+  bash -lc "$command" >/tmp/opencode-${name}.log 2>&1 || {
+    echo "[universal-checks] stage '$name' failed. tail:" >&2
+    tail -n 80 "/tmp/opencode-${name}.log" >&2 || true
+    if [[ "$required" == "true" ]]; then
+      exit_with_code 4
+    fi
+    return 0
+  }
+  echo "[universal-checks] stage '$name': OK"
+}
+
+probe_health_urls() {
+  local urls_json
+  urls_json="$(read_json stages.health.urls)"
+
+  python3 - "$urls_json" <<'PY' >/tmp/opencode-health-urls.txt
+import json
+import sys
+raw = sys.argv[1].strip()
+if not raw:
+    sys.exit(0)
+try:
+    arr = json.loads(raw)
+except Exception:
+    sys.exit(0)
+for u in arr:
+    if isinstance(u, str) and u.strip():
+        print(u.strip())
+PY
+
+  local delay
+  delay="$(read_json stages.health.probe_delay_seconds)"
+  [[ -n "$delay" ]] || delay="2"
+
+  while IFS= read -r url; do
+    echo "[universal-checks] health probe: GET $url"
+    curl -fsS "$url" >/tmp/opencode-health-last.out || return 1
+    sleep "$delay"
+    curl -fsS "$url" >/tmp/opencode-health-last2.out || return 1
+  done < /tmp/opencode-health-urls.txt
+}
+
+# lint
+if [[ "${OPENCODE_SKIP_LINT:-0}" != "1" ]]; then
+  if [[ "$(read_json stages.lint.enabled)" == "true" ]]; then
+    run_stage "lint" "$(read_json stages.lint.command)" "$(read_json stages.lint.required)"
+  fi
+else
+  echo "[universal-checks] lint skipped (OPENCODE_SKIP_LINT=1)"
+fi
+
+# build
+if [[ "${OPENCODE_SKIP_BUILD:-0}" != "1" ]]; then
+  if [[ "$(read_json stages.build.enabled)" == "true" ]]; then
+    run_stage "build" "$(read_json stages.build.command)" "$(read_json stages.build.required)"
+  fi
+else
+  echo "[universal-checks] build skipped (OPENCODE_SKIP_BUILD=1)"
+fi
+
+# test
+if [[ "${OPENCODE_SKIP_TEST:-0}" != "1" ]]; then
+  if [[ "$(read_json stages.test.enabled)" == "true" ]]; then
+    run_stage "test" "$(read_json stages.test.command)" "$(read_json stages.test.required)"
+  fi
+else
+  echo "[universal-checks] test skipped (OPENCODE_SKIP_TEST=1)"
+fi
+
+# health
+if [[ "${OPENCODE_SKIP_HEALTH:-0}" != "1" ]]; then
+  if [[ "$(read_json stages.health.enabled)" == "true" ]]; then
+    local_start_cmd="$(read_json stages.health.start_command)"
+    if [[ -n "$local_start_cmd" ]]; then
+      bash -lc "$local_start_cmd" >/tmp/opencode-health-start.log 2>&1 || {
+        echo "[universal-checks] health start command failed. tail:" >&2
+        tail -n 80 /tmp/opencode-health-start.log >&2 || true
+        if [[ "$(read_json stages.health.required)" == "true" ]]; then
+          exit_with_code 4
+        fi
+      }
+    fi
+    probe_health_urls || {
+      echo "[universal-checks] health checks failed" >&2
+      if [[ "$(read_json stages.health.required)" == "true" ]]; then
+        exit_with_code 4
+      fi
+    }
+    echo "[universal-checks] health: OK"
+  fi
+else
+  echo "[universal-checks] health skipped (OPENCODE_SKIP_HEALTH=1)"
+fi
+
+# memory
+if [[ "${OPENCODE_SKIP_MEMORY:-0}" != "1" ]]; then
+  if [[ "$(read_json stages.memory.enabled)" == "true" ]]; then
+    run_stage "memory" "$(read_json stages.memory.command)" "$(read_json stages.memory.required)"
+  fi
+else
+  echo "[universal-checks] memory skipped (OPENCODE_SKIP_MEMORY=1)"
+fi
+
+echo "[universal-checks] done"

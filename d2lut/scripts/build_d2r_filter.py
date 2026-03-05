@@ -1,727 +1,300 @@
 #!/usr/bin/env python3
-"""D2R Loot Filter Builder.
+"""D2R Layered Filter Generator — Python version.
 
-Builds item filter files for Diablo 2 Resurrected based on FG prices.
-
-Usage:
-    python build_d2r_filter.py --preset roguecore --db d2lut.db
-    python build_d2r_filter.py --help
-
-D2R Filter Syntax:
-    ItemDisplay[CODE]: DisplayText
-    
-    Where CODE can be:
-    - Item type code (e.g., "cap", "uui" for unique helm)
-    - Rune code (r01-r33)
-    - Custom code for runewords/sets
+Reads from SQLite (Prisma-compatible), outputs .filter file.
+Mirrors the TypeScript generator logic exactly.
 """
-
 from __future__ import annotations
 
 import argparse
-import json
-import logging
 import sqlite3
 import sys
 from dataclasses import dataclass, field
-from datetime import datetime
 from pathlib import Path
-from typing import Optional
+from datetime import datetime, timezone
 
-import yaml
-
-# Setup logging
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s",
-)
-logger = logging.getLogger(__name__)
-
-# D2R Filter color codes
+# ============================================================
+# D2R COLOR CODES
+# ============================================================
 COLORS = {
-    "WHITE": "ÿc0",
-    "RED": "ÿc1",
-    "GREEN": "ÿc2",
-    "BLUE": "ÿc3",
-    "GOLD": "ÿc4",
-    "GRAY": "ÿc5",
-    "BLACK": "ÿc6",
-    "ORANGE": "ÿc7",
-    "YELLOW": "ÿc8",
-    "PURPLE": "ÿc9",
-    "CYAN": "ÿc;",
+    "GG":    "ÿc9",
+    "HIGH":  "ÿc7",
+    "MID":   "ÿc8",
+    "LOW":   "ÿc0",
+    "TRASH": "ÿc5",
+    "SET":   "ÿc2",
+    "MAGIC": "ÿc3",
+    "RARE":  "ÿc4",
+    "DIM":   "ÿc6",
 }
 
-# Price tiers (FG) - use 999_999 instead of float("inf") for JSON serialization
-PRICE_TIERS = {
-    "GG": (500, 999_999),         # 500+ FG
-    "HIGH": (100, 500),           # 100-500 FG
-    "MID": (20, 100),             # 20-100 FG
-    "LOW": (5, 20),               # 5-20 FG
-    "TRASH": (0, 5),              # <5 FG
-}
+TIER_THRESHOLDS = [
+    ("GG",    500, float("inf")),
+    ("HIGH",  100, 500),
+    ("MID",    20, 100),
+    ("LOW",     5,  20),
+    ("TRASH",   0,   5),
+]
 
-_TIER_PRIORITY = {"GG": 4, "HIGH": 3, "MID": 2, "LOW": 1, "TRASH": 0}
+def get_tier(price: float) -> str:
+    for name, low, high in TIER_THRESHOLDS:
+        if low <= price < high:
+            return name
+    return "TRASH"
 
-TIER_COLORS = {
-    "GG": COLORS["PURPLE"],
-    "HIGH": COLORS["ORANGE"],
-    "MID": COLORS["YELLOW"],
-    "LOW": COLORS["WHITE"],
-    "TRASH": COLORS["GRAY"],
-}
+def tier_color(price: float | None) -> str:
+    if price is None:
+        return COLORS["DIM"]
+    return COLORS.get(get_tier(price), COLORS["DIM"])
 
+def price_tag(price: float | None) -> str:
+    if not price or price <= 0:
+        return ""
+    return f" ÿc6[{round(price)} FG]"
 
+# ============================================================
+# RUNEWORD BASES MAP
+# ============================================================
 @dataclass
-class PricedItem:
-    """Item with FG price and D2R codes."""
-    name: str  # Short name (e.g., "shako")
-    variant_key: str  # Full key (e.g., "unique:shako")
-    d2r_code: str  # D2R item code for filter (e.g., "uui")
-    display_name: str  # Full display name (e.g., "Harlequin Crest")
-    price_fg: float
-    tier: str
-    category: str = "misc"
+class RunewordBase:
+    name: str
+    codes: list[str]
+    sockets: int
+    price: float
 
+RUNEWORD_BASES: list[RunewordBase] = [
+    RunewordBase("Enigma",    ["xtp","uea","utp"],            3, 160),
+    RunewordBase("Infinity",  ["7s8","7vo","7pa","7b8"],      4, 180),
+    RunewordBase("BotD",      ["7wa","7wh","7bt","7fb"],      6, 120),
+    RunewordBase("Last Wish", ["7wa","7wh","7bt","7fb"],      6,  90),
+    RunewordBase("Grief",     ["7cr","7ls","7gy"],            5,  35),
+    RunewordBase("CTA",       ["7cr","7ls","7gy"],            5,  40),
+    RunewordBase("Fortitude", ["xtp","uea","utp","7wa"],      4,  50),
+    RunewordBase("CoH",       ["xtp","uea","utp"],            4,  60),
+    RunewordBase("Faith",     ["am6","8lx","8rx"],            4,  45),
+    RunewordBase("Beast",     ["7wa","7wh"],                  5,  30),
+    RunewordBase("HotO",      ["obf","ob7","obb"],            4,  35),
+    RunewordBase("Spirit",    ["pa9","7pa","ush","xrn"],      4,   5),
+    RunewordBase("Insight",   ["7s8","7vo","7pa"],            4,   8),
+    RunewordBase("Oath",      ["7cr","7ls","7gy","7bt"],      4,   5),
+    RunewordBase("Exile",     ["upa","upb","upc"],            4,  15),
+    RunewordBase("Phoenix",   ["xtp","uea","utp"],            4,  25),
+    RunewordBase("Dragon",    ["xtp","uea","utp"],            3,  10),
+]
 
+def build_runeword_map() -> dict[str, RunewordBase]:
+    """One code → best (most expensive) runeword."""
+    result: dict[str, RunewordBase] = {}
+    for rw in RUNEWORD_BASES:
+        for code in rw.codes:
+            if code not in result or rw.price > result[code].price:
+                result[code] = rw
+    return result
+
+# ============================================================
+# PRESET CONFIGS
+# ============================================================
 @dataclass
 class PresetConfig:
-    """Configuration for a filter preset."""
-    name: str
-    description: str = ""
-    show_trash: bool = False
-    show_prices: bool = True
-    show_tier_colors: bool = True
-    show_bases: bool = True
-    hide_low_value: bool = False
-    price_threshold: float = 0
-    tier_visibility: dict = field(default_factory=dict)
-    display_format: str = "{color}{name} {price_color}[{price} FG]"
-    price_format: str = "int"  # int, float, or none
+    show_unique: bool = True
+    show_set: bool = True
+    show_runeword_bases: bool = True
+    show_normal_bases: bool = True
+    suppress_trash: bool = False
+    auto_threshold: float | None = None  # None = use user threshold
 
+PRESETS: dict[str, PresetConfig] = {
+    "default":   PresetConfig(),
+    "ggplus":    PresetConfig(suppress_trash=True, auto_threshold=100.0),
+    "gg":        PresetConfig(show_set=False, show_normal_bases=False,
+                              suppress_trash=True, auto_threshold=500.0),
+    "roguecore": PresetConfig(suppress_trash=True),
+    "minimal":   PresetConfig(show_set=False, show_runeword_bases=False,
+                              show_normal_bases=False, suppress_trash=True,
+                              auto_threshold=100.0),
+    "verbose":   PresetConfig(),
+}
 
-def load_item_codes() -> dict[str, str]:
-    """Load D2R item code mapping from JSON file.
+# ============================================================
+# LAYER GENERATOR
+# ============================================================
+@dataclass
+class FilterItem:
+    code: str
+    display_name: str
+    price: float | None
+    category: str
 
-    Returns:
-        Dict mapping variant_key to D2R item code
-    """
-    script_dir = Path(__file__).parent
-    codes_path = script_dir.parent / "data" / "item_codes.json"
-    
-    if not codes_path.exists():
-        logger.warning(f"Item codes file not found: {codes_path}")
-        return {}
-    
-    try:
-        with open(codes_path, "r", encoding="utf-8") as f:
-            data = json.load(f)
-        
-        # Flatten all categories into single dict
-        codes = {}
-        for category_items in data.values():
-            if isinstance(category_items, dict):
-                codes.update(category_items)
-        
-        logger.info(f"Loaded {len(codes)} D2R item codes")
-        return codes
-        
-    except (json.JSONDecodeError, IOError) as e:
-        logger.error(f"Error loading item codes: {e}")
-        return {}
+def generate_layers(
+    item: FilterItem,
+    runeword_map: dict[str, RunewordBase],
+    threshold: float,
+    cfg: PresetConfig,
+) -> list[str]:
+    lines: list[str] = []
+    code = item.code
+    color = tier_color(item.price)
+    tag = price_tag(item.price)
+    above = (item.price or 0) >= threshold
 
+    # Layer 1: UNIQUE — %NAME% resolves collisions natively
+    if cfg.show_unique:
+        lines.append(f"ItemDisplay[{code}&UNIQUE]: {COLORS['GG']}%NAME%{tag}")
 
-def load_display_names() -> dict[str, str]:
-    """Load display names from item-names-full.json.
+    # Layer 2: SET
+    if cfg.show_set:
+        lines.append(f"ItemDisplay[{code}&SET]: {COLORS['SET']}%NAME%{tag}")
 
-    Returns:
-        Dict mapping variant_key to display name
-    """
-    script_dir = Path(__file__).parent
-    names_path = script_dir.parent / "data" / "templates" / "item-names-full.json"
-    
-    if not names_path.exists():
-        logger.warning(f"Display names file not found: {names_path}")
-        return {}
-    
-    try:
-        with open(names_path, "r", encoding="utf-8") as f:
-            data = json.load(f)
-        
-        # Flatten nested structure and add prefixes
-        names = {}
-        item_names = data.get("item_names", {})
-        
-        # Map category to prefix
-        category_prefix = {
-            "uniques": "unique",
-            "runes": "rune",
-            "runewords": "runeword",
-            "set_items": "set",
-        }
-        
-        for category, items in item_names.items():
-            prefix = category_prefix.get(category, "")
-            for key, display_name in items.items():
-                # Store both with and without prefix
-                names[key] = display_name
-                if prefix:
-                    names[f"{prefix}:{key}"] = display_name
-        
-        logger.info(f"Loaded {len(names)} display names")
-        return names
-        
-    except (json.JSONDecodeError, IOError) as e:
-        logger.error(f"Error loading display names: {e}")
-        return {}
-
-
-def load_preset_config(preset_name: str) -> PresetConfig:
-    """Load preset configuration from presets.yml.
-
-    Args:
-        preset_name: Name of the preset to load
-
-    Returns:
-        PresetConfig with loaded settings or default if not found
-    """
-    # Find presets.yml
-    script_dir = Path(__file__).parent
-    config_path = script_dir.parent / "config" / "presets.yml"
-
-    if not config_path.exists():
-        logger.warning(f"Presets file not found: {config_path}, using defaults")
-        return PresetConfig(name=preset_name)
-
-    try:
-        with open(config_path, "r", encoding="utf-8") as f:
-            config = yaml.safe_load(f)
-
-        presets = config.get("presets", {})
-        tier_visibility = config.get("tier_visibility", {})
-        display_formats = config.get("display_formats", {})
-
-        if preset_name not in presets:
-            logger.warning(f"Preset '{preset_name}' not found, using defaults")
-            return PresetConfig(name=preset_name)
-
-        preset_data = presets[preset_name]
-        tier_vis = tier_visibility.get(preset_name, {})
-        format_data = display_formats.get(preset_name, {})
-        display_format = format_data.get("format", "{color}{name} {price_color}[{price} FG]")
-        price_format = format_data.get("price_format", "int")
-
-        return PresetConfig(
-            name=preset_data.get("name", preset_name),
-            description=preset_data.get("description", ""),
-            show_trash=preset_data.get("show_trash", False),
-            show_prices=preset_data.get("show_prices", True),
-            show_tier_colors=preset_data.get("show_tier_colors", True),
-            show_bases=preset_data.get("show_bases", True),
-            hide_low_value=preset_data.get("hide_low_value", False),
-            price_threshold=preset_data.get("price_threshold", 0),
-            tier_visibility=tier_vis,
-            display_format=display_format,
-            price_format=price_format,
-        )
-
-    except yaml.YAMLError as e:
-        logger.error(f"Error parsing presets.yml: {e}")
-        return PresetConfig(name=preset_name)
-
-
-class FilterBuilder:
-    """Builds D2R item filter files."""
-
-    def __init__(self, db_path: Optional[Path] = None, preset: str = "default"):
-        self.db_path = db_path
-        self.preset = preset
-        self.preset_config = load_preset_config(preset)
-        self.items: list[PricedItem] = []
-        self.filtered_count: int = 0  # Track items after threshold filtering
-        self._missing_codes: set[str] = set()  # Track items without valid D2R codes
-        
-        # Load item codes and display names
-        self.item_codes = load_item_codes()
-        self.display_names = load_display_names()
-
-    def _get_valid_d2r_code(self, variant_key: str) -> Optional[str]:
-        """Get valid D2R item code for a variant.
-        
-        Args:
-            variant_key: Item variant key (e.g., "rune:jah")
-            
-        Returns:
-            Valid D2R code (e.g., "r31") or None if not found
-            
-        Note:
-            Logs a warning if no valid code is found. D2R filter lines
-            with invalid codes will be silently ignored by the game.
-        """
-        code = self.item_codes.get(variant_key)
-        if code:
-            return code
-            
-        # Track missing codes for summary warning
-        if variant_key not in self._missing_codes:
-            self._missing_codes.add(variant_key)
-            logger.warning(
-                f"No D2R code found for '{variant_key}'. "
-                f"Filter line will use variant name but may not work in-game. "
-                f"Add code to data/item_codes.json for proper support."
+    # Layer 3: Runeword base
+    if cfg.show_runeword_bases:
+        rw = runeword_map.get(code)
+        if rw and rw.price >= threshold:
+            rw_color = tier_color(rw.price)
+            rw_tag = price_tag(rw.price)
+            lines.append(
+                f"ItemDisplay[{code}>{rw.sockets - 1}]: "
+                f"{rw_color}{rw.name} BASE ÿc6[{rw.sockets}os]{rw_tag}"
             )
-        return None
 
-    def load_prices(self) -> None:
-        """Load item prices from database."""
-        if not self.db_path or not self.db_path.exists():
-            logger.warning(f"Database not found: {self.db_path}, using defaults")
-            self._load_default_prices()
-            return
-
-        try:
-            conn = sqlite3.connect(self.db_path)
-            conn.row_factory = sqlite3.Row
-            cursor = conn.cursor()
-
-            # Try to detect schema and use appropriate query
-            items = self._try_load_from_schema(cursor, conn)
-
-            if not items:
-                logger.warning("No items loaded from database, using defaults")
-                self._load_default_prices()
+    # Layer 4: Normal base
+    if cfg.show_normal_bases:
+        if above:
+            if cfg.suppress_trash and item.price is not None and item.price < 5:
+                lines.append(f"ItemDisplay[{code}]: ")
             else:
-                self.items = items
-                logger.info(f"Loaded {len(self.items)} priced items from database")
-
-            conn.close()
-
-        except sqlite3.Error as e:
-            logger.error(f"Database error: {e}")
-            self._load_default_prices()
-
-    def _try_load_from_schema(
-        self, cursor: sqlite3.Cursor, conn: sqlite3.Connection
-    ) -> list[PricedItem]:
-        """Try different SQL queries based on database schema.
-
-        Supports multiple schema versions for backwards compatibility.
-        """
-        items: list[PricedItem] = []
-
-        # Check available tables
-        cursor.execute(
-            "SELECT name FROM sqlite_master WHERE type='table'"
-        )
-        tables = {row[0] for row in cursor.fetchall()}
-
-        # Schema 1: price_estimates with variant_key, price_fg
-        if "price_estimates" in tables:
-            try:
-                cursor.execute("""
-                    SELECT variant_key, price_fg
-                    FROM price_estimates
-                    WHERE price_fg > 0
-                    ORDER BY price_fg DESC
-                """)
-                for row in cursor.fetchall():
-                    item = self._row_to_item_simple(row)
-                    if item:
-                        items.append(item)
-                if items:
-                    return items
-            except sqlite3.OperationalError:
-                pass
-
-        # Schema 2: price_estimates with estimate_fg + catalog_items join
-        if "price_estimates" in tables and "catalog_items" in tables:
-            try:
-                cursor.execute("""
-                    SELECT
-                        ci.variant_key,
-                        pe.estimate_fg as price_fg,
-                        ci.category
-                    FROM price_estimates pe
-                    JOIN catalog_items ci ON pe.item_id = ci.id
-                    WHERE pe.estimate_fg > 0
-                    ORDER BY pe.estimate_fg DESC
-                """)
-                for row in cursor.fetchall():
-                    item = self._row_to_item(row)
-                    if item:
-                        items.append(item)
-                if items:
-                    return items
-            except sqlite3.OperationalError:
-                pass
-
-        # Schema 3: items table with price column
-        if "items" in tables:
-            try:
-                cursor.execute("""
-                    SELECT variant_key, price as price_fg, category
-                    FROM items
-                    WHERE price > 0
-                    ORDER BY price DESC
-                """)
-                for row in cursor.fetchall():
-                    item = self._row_to_item(row)
-                    if item:
-                        items.append(item)
-                if items:
-                    return items
-            except sqlite3.OperationalError:
-                pass
-
-        # Schema 4: observed_prices aggregation
-        if "observed_prices" in tables:
-            try:
-                cursor.execute("""
-                    SELECT
-                        variant_key,
-                        AVG(price_fg) as price_fg
-                    FROM observed_prices
-                    WHERE price_fg > 0
-                    GROUP BY variant_key
-                    HAVING COUNT(*) >= 1
-                    ORDER BY price_fg DESC
-                """)
-                for row in cursor.fetchall():
-                    item = self._row_to_item_simple(row)
-                    if item:
-                        items.append(item)
-                if items:
-                    return items
-            except sqlite3.OperationalError:
-                pass
-
-        return items
-
-    def _row_to_item_simple(self, row: sqlite3.Row) -> Optional[PricedItem]:
-        """Convert database row to PricedItem (simple schema)."""
-        try:
-            variant_key = row["variant_key"]
-            price_fg = row["price_fg"]
-
-            # Extract name from variant_key
-            parts = variant_key.split(":")
-            name = parts[-1] if parts else variant_key
-
-            # Determine tier
-            tier = self._get_tier(price_fg)
-            
-            # Get D2R code (with validation) and display name
-            d2r_code = self._get_valid_d2r_code(variant_key) or name
-            display_name = self.display_names.get(variant_key, name.title())
-
-            return PricedItem(
-                name=name,
-                variant_key=variant_key,
-                d2r_code=d2r_code,
-                display_name=display_name,
-                price_fg=price_fg,
-                tier=tier,
-                category=parts[0] if len(parts) > 1 else "misc",
-            )
-        except (KeyError, TypeError):
-            return None
-
-    def _row_to_item(self, row: sqlite3.Row) -> Optional[PricedItem]:
-        """Convert database row to PricedItem."""
-        try:
-            variant_key = row["variant_key"]
-            price_fg = row["price_fg"]
-
-            # Get category safely
-            row_keys = row.keys()
-            category = row["category"] if "category" in row_keys else "misc"
-
-            # Extract name from variant_key
-            parts = variant_key.split(":")
-            name = parts[-1] if parts else variant_key
-
-            # Determine tier
-            tier = self._get_tier(price_fg)
-            
-            # Get D2R code (with validation) and display name
-            d2r_code = self._get_valid_d2r_code(variant_key) or name
-            display_name = self.display_names.get(variant_key, name.title())
-
-            return PricedItem(
-                name=name,
-                variant_key=variant_key,
-                d2r_code=d2r_code,
-                display_name=display_name,
-                price_fg=price_fg,
-                tier=tier,
-                category=category,
-            )
-        except (KeyError, TypeError):
-            return None
-
-    def _get_tier(self, price: float) -> str:
-        """Determine price tier."""
-        for tier, (low, high) in PRICE_TIERS.items():
-            is_last_tier = tier == "GG"
-            if low <= price and (price < high or is_last_tier):
-                return tier
-        return "TRASH"
-
-    def _dedupe_items_by_code(self, items: list[PricedItem]) -> list[PricedItem]:
-        """Keep one item per D2R code, preferring higher-value entries."""
-        deduped: dict[str, PricedItem] = {}
-        for item in items:
-            existing = deduped.get(item.d2r_code)
-            if existing is None:
-                deduped[item.d2r_code] = item
-                continue
-
-            existing_rank = (
-                existing.price_fg,
-                _TIER_PRIORITY.get(existing.tier, -1),
-                len(existing.display_name),
-            )
-            candidate_rank = (
-                item.price_fg,
-                _TIER_PRIORITY.get(item.tier, -1),
-                len(item.display_name),
-            )
-            if candidate_rank > existing_rank:
-                deduped[item.d2r_code] = item
-
-        return list(deduped.values())
-
-    def _load_default_prices(self) -> None:
-        """Load default hardcoded prices."""
-        default_prices = [
-            # Runes - High value
-            ("rune:jah", 150, "rune", "Jah Rune"),
-            ("rune:ber", 140, "rune", "Ber Rune"),
-            ("rune:sur", 35, "rune", "Sur Rune"),
-            ("rune:lo", 30, "rune", "Lo Rune"),
-            ("rune:ohm", 28, "rune", "Ohm Rune"),
-            ("rune:vex", 22, "rune", "Vex Rune"),
-            ("rune:gul", 12, "rune", "Gul Rune"),
-            ("rune:ist", 18, "rune", "Ist Rune"),
-            ("rune:mal", 8, "rune", "Mal Rune"),
-            ("rune:um", 4, "rune", "Um Rune"),
-
-            # Uniques - High value
-            ("unique:shako", 15, "unique", "Harlequin Crest"),
-            ("unique:arachnid", 45, "unique", "Arachnid Mesh"),
-            ("unique:mara", 25, "unique", "Mara's Kaleidoscope"),
-            ("unique:tyraels", 200, "unique", "Tyrael's Might"),
-            ("unique:torch", 50, "unique", "Hellfire Torch"),
-            ("unique:anni", 80, "unique", "Annihilus"),
-
-            # Runewords
-            ("runeword:enigma", 160, "runeword", "Enigma"),
-            ("runeword:infinity", 180, "runeword", "Infinity"),
-            ("runeword:cta", 40, "runeword", "Call to Arms"),
-            ("runeword:grief", 35, "runeword", "Grief"),
-            ("runeword:fortitude", 45, "runeword", "Fortitude"),
-            ("runeword:spirit", 5, "runeword", "Spirit"),
-        ]
-
-        for variant_key, price, category, display_name in default_prices:
-            tier = self._get_tier(price)
-            name = variant_key.split(":")[-1]
-            d2r_code = self._get_valid_d2r_code(variant_key) or name
-            self.items.append(PricedItem(
-                name=name,
-                variant_key=variant_key,
-                d2r_code=d2r_code,
-                display_name=display_name,
-                price_fg=price,
-                tier=tier,
-                category=category,
-            ))
-
-        logger.info(f"Loaded {len(self.items)} default prices")
-
-    def build_filter(self, output_path: Path) -> None:
-        """Build the filter file using preset configuration."""
-        lines = []
-        cfg = self.preset_config
-
-        # Filter items by price threshold
-        if cfg.hide_low_value and cfg.price_threshold > 0:
-            filtered_items = [i for i in self.items if i.price_fg >= cfg.price_threshold]
-            logger.info(f"Filtered to {len(filtered_items)} items (threshold: {cfg.price_threshold} FG)")
+                lines.append(f"ItemDisplay[{code}]: {color}{item.display_name}{tag}")
         else:
-            filtered_items = self.items
+            lines.append(f"ItemDisplay[{code}]: ")  # suppress
 
-        filtered_items = self._dedupe_items_by_code(filtered_items)
+    return lines
 
-        # Header
-        lines.append(f"# D2R Loot Filter - Built {datetime.now().isoformat()}")
-        lines.append(f"# Preset: {cfg.name}")
-        lines.append(f"# Description: {cfg.description}")
-        lines.append(f"# Items: {len(filtered_items)}")
-        lines.append("")
+# ============================================================
+# DB READER
+# ============================================================
+def load_items_from_db(db_path: Path) -> list[FilterItem]:
+    conn = sqlite3.connect(db_path)
+    conn.row_factory = sqlite3.Row
+    try:
+        rows = conn.execute("""
+            SELECT
+                i.d2rCode  AS code,
+                i.displayName AS display_name,
+                i.category,
+                p.priceFg  AS price
+            FROM D2Item i
+            LEFT JOIN PriceEstimate p ON p.itemId = i.id
+            WHERE i.d2rCode IS NOT NULL
+              AND i.d2rCode != ''
+        """).fetchall()
+    finally:
+        conn.close()
 
-        # Determine tier order based on preset
-        tier_order = ["GG", "HIGH", "MID", "LOW", "TRASH"]
+    items: list[FilterItem] = []
+    for r in rows:
+        items.append(FilterItem(
+            code=r["code"],
+            display_name=r["display_name"] or r["code"],
+            price=float(r["price"]) if r["price"] is not None else None,
+            category=r["category"] or "",
+        ))
+    return items
 
-        # Add filter rules by tier (respecting tier_visibility)
-        for tier in tier_order:
-            # Skip TRASH tier unless show_trash is True
-            if tier == "TRASH" and not cfg.show_trash:
-                continue
+def deduplicate(items: list[FilterItem]) -> dict[str, FilterItem]:
+    """One code → highest price item."""
+    by_code: dict[str, FilterItem] = {}
+    for item in items:
+        existing = by_code.get(item.code)
+        if not existing or (item.price or 0) > (existing.price or 0):
+            by_code[item.code] = item
+    return by_code
 
-            # Check tier visibility
-            if cfg.tier_visibility and not cfg.tier_visibility.get(tier, True):
-                continue
+# ============================================================
+# MAIN GENERATOR
+# ============================================================
+def generate_filter(
+    preset: str,
+    threshold: float,
+    db_path: Path,
+) -> str:
+    cfg = PRESETS.get(preset, PRESETS["default"])
+    effective_threshold = cfg.auto_threshold if cfg.auto_threshold is not None else threshold
+    runeword_map = build_runeword_map()
 
-            tier_items = [i for i in filtered_items if i.tier == tier]
-            if tier_items:
-                lines.append(f"# === {tier} TIER ({len(tier_items)} items) ===")
-                lines.append("")
-                for item in tier_items:
-                    line = self._build_item_line(item)
-                    lines.append(line)
-                lines.append("")
+    items = load_items_from_db(db_path)
+    by_code = deduplicate(items)
 
-        # Write output
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-        output_path.write_text("\n".join(lines), encoding="utf-8")
-        logger.info(f"Filter written to: {output_path}")
+    header = "\n".join([
+        "# D2R Layered Loot Filter — D2LUT",
+        f"# Generated: {datetime.now(timezone.utc).isoformat()}Z",
+        f"# Preset: {preset} | Threshold: {effective_threshold} FG",
+        "# Architecture: 4-layer (UNIQUE > SET > RUNEWORD_BASE > NORMAL)",
+        "# %NAME% token: D2R resolves unique/set names natively",
+        "",
+        "# Layer 1: [code&UNIQUE]  → %NAME% (no base collisions!)",
+        "# Layer 2: [code&SET]     → %NAME% set color",
+        "# Layer 3: [code>N]       → RUNEWORD BASE (N = min sockets)",
+        "# Layer 4: [code]         → normal base / suppress",
+        "",
+    ])
 
-        # Store filtered count for reporting
-        self.filtered_count = len(filtered_items)
-        
-        # Summary warning for missing D2R codes
-        if self._missing_codes:
-            logger.warning(
-                f"Built filter with {len(self._missing_codes)} items missing D2R codes. "
-                f"These items may not display correctly in-game. "
-                f"Add codes to data/item_codes.json to fix."
-            )
+    # Group by tier for readability
+    tier_order = ["GG", "HIGH", "MID", "LOW", "TRASH", "UNKNOWN"]
+    tier_groups: dict[str, list[str]] = {t: [] for t in tier_order}
 
-    def _build_item_line(self, item: PricedItem) -> str:
-        """Build a single filter line for an item using preset config.
+    for code, item in by_code.items():
+        tier = get_tier(item.price) if item.price is not None else "UNKNOWN"
+        layers = generate_layers(item, runeword_map, effective_threshold, cfg)
+        if layers:
+            group = tier_groups.get(tier, tier_groups["UNKNOWN"])
+            group.append(f"# --- {item.display_name} ({item.price or '?'} FG) ---")
+            group.extend(layers)
+            group.append("")
 
-        Uses display_format and price_format from preset configuration.
-        Outputs valid D2R filter syntax with D2R item codes.
-        
-        D2R Filter Format:
-            ItemDisplay[CODE]: DisplayText
-            
-        Where CODE is the D2R item code (e.g., "r32" for Jah, "uui" for Shako)
-        """
-        cfg = self.preset_config
+    sections = [header]
+    for tier in tier_order:
+        lines = tier_groups[tier]
+        if not lines:
+            continue
+        rule_count = sum(1 for l in lines if l.startswith("ItemDisplay"))
+        sections.append("=" * 60)
+        sections.append(f"# {tier} TIER — {rule_count} rules")
+        sections.append("=" * 60)
+        sections.append("")
+        sections.extend(lines)
 
-        # Get color based on tier (or white if show_tier_colors is False)
-        if cfg.show_tier_colors:
-            color = TIER_COLORS.get(item.tier, COLORS["WHITE"])
-        else:
-            color = COLORS["WHITE"]
+    return "\n".join(sections)
 
-        price_color = COLORS["GOLD"]
-
-        # Format price based on price_format setting
-        if cfg.price_format == "none" or not cfg.show_prices:
-            price_str = ""
-        elif cfg.price_format == "float":
-            price_str = f"{item.price_fg:.1f}"
-        else:  # "int" or default
-            if item.price_fg >= 100:
-                price_str = f"{int(item.price_fg)}"
-            elif item.price_fg >= 10:
-                price_str = f"{item.price_fg:.0f}"
-            else:
-                price_str = f"{item.price_fg:.1f}"
-
-        # Build display using template from preset
-        # Use display_name for the visible text, d2r_code for the filter code
-        display_name = item.display_name or item.name.title()
-        
-        try:
-            display = cfg.display_format.format(
-                color=color,
-                name=display_name,
-                price_color=price_color,
-                price=price_str,
-                tier=item.tier,
-            )
-        except KeyError:
-            # Fallback if template has unknown placeholders
-            display = f"{color}{display_name}"
-            if cfg.show_prices and price_str:
-                display += f" {price_color}[{price_str} FG]"
-
-        # Use D2R item code for the filter key (not the display name)
-        return f'ItemDisplay[{item.d2r_code}]: {display}'
-
-
-def main() -> int:
-    """Main entry point."""
-    parser = argparse.ArgumentParser(
-        description="Build D2R loot filter with FG prices",
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog="""
-Examples:
-    %(prog)s --preset roguecore --db d2lut.db
-    %(prog)s --output custom_filter.filter
-    %(prog)s --list-tiers
-        """,
-    )
-
-    parser.add_argument(
-        "--preset", "-p",
-        default="default",
-        choices=["default", "roguecore", "minimal", "verbose"],
-        help="Filter preset to use (default: default)",
-    )
-    parser.add_argument(
-        "--db", "-d",
-        type=Path,
-        help="Path to d2lut database file",
-    )
-    parser.add_argument(
-        "--output", "-o",
-        type=Path,
-        default=Path("dist/d2r_filter.filter"),
-        help="Output filter file path (default: dist/d2r_filter.filter)",
-    )
-    parser.add_argument(
-        "--list-tiers",
-        action="store_true",
-        help="List price tier thresholds and exit",
-    )
-    parser.add_argument(
-        "--verbose", "-v",
-        action="store_true",
-        help="Enable verbose logging",
-    )
-
+# ============================================================
+# CLI
+# ============================================================
+def main():
+    parser = argparse.ArgumentParser(description="D2R Layered Filter Generator")
+    parser.add_argument("--preset",    default="default",
+                        choices=list(PRESETS.keys()))
+    parser.add_argument("--threshold", type=float, default=0)
+    parser.add_argument("--db",        type=Path,
+                        default=Path("db/custom.db"),
+                        help="Path to Prisma SQLite database")
+    parser.add_argument("--output",    type=Path, default=None,
+                        help="Output file path (default: stdout)")
     args = parser.parse_args()
 
-    if args.verbose:
-        logging.getLogger().setLevel(logging.DEBUG)
+    if not args.db.exists():
+        # Try fallback path
+        fallback = Path("prisma/dev.db")
+        if fallback.exists():
+            args.db = fallback
+        else:
+            print(f"ERROR: DB not found at {args.db}", file=sys.stderr)
+            sys.exit(1)
 
-    if args.list_tiers:
-        print("\nPrice Tiers (FG):")
-        print("-" * 30)
-        for tier, (low, high) in PRICE_TIERS.items():
-            if high == float("inf"):
-                print(f"  {tier}: {low}+ FG")
-            else:
-                print(f"  {tier}: {low}-{high} FG")
-        return 0
+    content = generate_filter(args.preset, args.threshold, args.db)
 
-    # Build filter
-    builder = FilterBuilder(db_path=args.db, preset=args.preset)
-    builder.load_prices()
-    builder.build_filter(args.output)
-
-    print(f"\nFilter built successfully!")
-    print(f"  Preset: {args.preset}")
-    print(f"  Items: {builder.filtered_count} (of {len(builder.items)} loaded)")
-    print(f"  Output: {args.output}")
-
-    return 0
-
+    if args.output:
+        args.output.write_text(content, encoding="utf-8")
+        print(f"✓ Filter written to {args.output} ({content.count('ItemDisplay')} rules)")
+    else:
+        print(content)
 
 if __name__ == "__main__":
-    sys.exit(main())
+    main()

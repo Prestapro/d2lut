@@ -139,6 +139,30 @@ Optional model override for smoke check:
 OPENCODE_MEMORY_SMOKE=1 OPENCODE_MEMORY_SMOKE_MODEL=opencode/big-pickle bash scripts/bootstrap_hybrid_context.sh
 ```
 
+## Universal OpenCode Pipeline
+
+This repository now includes a stack-agnostic pipeline runner that can be reused in any project:
+
+```bash
+# Zero-config mode (auto-detects stack and checks)
+scripts/opencode-universal-checks
+```
+
+Optional explicit config mode:
+
+```bash
+# Generate/update project pipeline config
+scripts/opencode-pipeline-init
+
+# Run using explicit config file
+OPENCODE_PIPELINE_MODE=config scripts/opencode-universal-checks
+
+# Override config path
+OPENCODE_PIPELINE_CONFIG=/path/to/pipeline.json scripts/opencode-universal-checks
+```
+
+Pipeline stages (`lint`, `build`, `test`, `health`, `memory`) are configurable via `.opencode/pipeline.json` with per-stage `enabled/required/command`.
+
 ## Docker Compose
 
 ```bash

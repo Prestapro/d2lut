@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "project": "d2lut",
+  "stages": {
+    "lint": {
+      "enabled": true,
+      "required": false,
+      "command": "npm run lint"
+    },
+    "build": {
+      "enabled": true,
+      "required": false,
+      "command": "npm run build"
+    },
+    "test": {
+      "enabled": false,
+      "required": false,
+      "command": ""
+    },
+    "health": {
+      "enabled": true,
+      "required": true,
+      "start_command": "scripts/dev-server start",
+      "probe_delay_seconds": 2,
+      "urls": [
+        "http://localhost:3000/",
+        "http://localhost:3000/api/stats",
+        "http://localhost:3000/api/items?sort=price&order=desc&minPrice=0&limit=5&offset=0"
+      ]
+    },
+    "memory": {
+      "enabled": true,
+      "required": false,
+      "command": "opipe memory"
+    }
+  }
+}

@@ -13,11 +13,13 @@ Usage: opencode-guard [--] [opencode args...]
 
 Runs opencode through opencode-run-json and verifies:
   - a real kimi-review subagent task was called
-  - final response includes a Kimi block with Verdict
-  - run contains runtime validation commands (lint + API checks)
+  - final response includes Kimi + Observer blocks
+  - run contains universal runtime + memory validation commands
+  - a real gemini-observer subagent task was called
 
 Environment:
   OPENCODE_GUARD_REQUIRE_RUNTIME=0   Disable runtime-command enforcement
+  OPENCODE_GUARD_REQUIRE_MEMORY=0    Disable memory-command enforcement
 EOF
   print_exit_code_legend
 }
@@ -59,7 +61,7 @@ if [[ -z "${NEW_FILE:-}" || ! -f "$NEW_FILE" ]]; then
   exit_with_code 4
 fi
 
-python3 - "$NEW_FILE" "${OPENCODE_GUARD_REQUIRE_RUNTIME:-1}" <<'PY'
+python3 - "$NEW_FILE" "${OPENCODE_GUARD_REQUIRE_RUNTIME:-1}" "${OPENCODE_GUARD_REQUIRE_MEMORY:-1}" <<'PY'
 import json
 import re
 import sys
@@ -67,20 +69,28 @@ from pathlib import Path
 
 path = Path(sys.argv[1])
 require_runtime = (sys.argv[2] != "0")
+require_memory = (sys.argv[3] != "0")
 
 has_kimi_task = False
 has_kimi_model = False
 has_kimi_label = False
+has_observer_task = False
+has_observer_model = False
+has_observer_label = False
 has_text_block = False
 verdict_found = False
 validation_block_found = False
 validation_lint_found = False
 validation_build_found = False
 validation_runtime_found = False
+observer_runtime_found = False
+observer_memory_found = False
+observer_kimi_closed_found = False
 has_lint_check = False
 has_stats_check = False
 has_items_check = False
 has_runtime_script = False
+has_memory_script = False
 
 with path.open("r", encoding="utf-8", errors="replace") as fh:
     for raw_line in fh:
@@ -100,8 +110,10 @@ with path.open("r", encoding="utf-8", errors="replace") as fh:
                 inp = st.get("input") or {}
                 command = (inp.get("command") or "").lower()
                 if command:
-                    if "scripts/opencode-runtime-checks" in command:
+                    if "scripts/opencode-runtime-checks" in command or "scripts/opencode-universal-checks" in command or "opipe check" in command:
                         has_runtime_script = True
+                    if "scripts/opencode-memory-checks" in command or "opipe memory" in command or "opipe check" in command:
+                        has_memory_script = True
                     if re.search(r"(^|\\s)(npm|pnpm|yarn|bun)\\s+run\\s+lint(\\s|$)", command) or " eslint " in f" {command} ":
                         has_lint_check = True
                     if "/api/stats" in command:
@@ -119,10 +131,17 @@ with path.open("r", encoding="utf-8", errors="replace") as fh:
                 if (model.get("providerID") == "kilo" and model.get("modelID") == "moonshotai/kimi-k2.5"):
                     has_kimi_model = True
 
+                if inp.get("subagent_type") in {"gemini-observer", "observer-review", "observer-memory"}:
+                    has_observer_task = True
+                if (model.get("providerID") == "google" and "gemini-3.1-pro-preview" in (model.get("modelID") or "")):
+                    has_observer_model = True
+
         if evt.get("type") == "text":
             txt = (part.get("text") or "")
             if "Kimi:" in txt:
                 has_kimi_label = True
+            if "Observer:" in txt:
+                has_observer_label = True
             if txt:
                 has_text_block = True
             if re.search(r"\bVerdict:\s*(approve|rework|reject)\b", txt, re.IGNORECASE):
@@ -135,6 +154,12 @@ with path.open("r", encoding="utf-8", errors="replace") as fh:
                 validation_build_found = True
             if re.search(r"\bRuntime:\s*(pass|fail|not run)\b", txt, re.IGNORECASE):
                 validation_runtime_found = True
+            if re.search(r"\bRuntimeChecks:\s*(pass|fail|not run)\b", txt, re.IGNORECASE):
+                observer_runtime_found = True
+            if re.search(r"\bMemoryChecks:\s*(pass|fail|not run)\b", txt, re.IGNORECASE):
+                observer_memory_found = True
+            if re.search(r"\bKimiClosed:\s*(yes|no)\b", txt, re.IGNORECASE):
+                observer_kimi_closed_found = True
 
 errors = []
 if not has_text_block:
@@ -145,6 +170,18 @@ if not has_kimi_model:
     errors.append("no evidence task used kilo/moonshotai/kimi-k2.5 model")
 if not has_kimi_label:
     errors.append("final answer missing 'Kimi:' section")
+if not has_observer_task:
+    errors.append("no real subagent task call to gemini-observer found")
+if not has_observer_model:
+    errors.append("no evidence task used google/gemini-3.1-pro-preview model")
+if not has_observer_label:
+    errors.append("final answer missing 'Observer:' section")
+if not observer_runtime_found:
+    errors.append("final answer missing 'RuntimeChecks: pass|fail|not run' in Observer block")
+if not observer_memory_found:
+    errors.append("final answer missing 'MemoryChecks: pass|fail|not run' in Observer block")
+if not observer_kimi_closed_found:
+    errors.append("final answer missing 'KimiClosed: yes|no' in Observer block")
 if not verdict_found:
     errors.append("final answer missing 'Verdict: approve|rework|reject'")
 if not validation_block_found:
@@ -156,16 +193,15 @@ if not validation_build_found:
 if not validation_runtime_found:
     errors.append("final answer missing 'Runtime: pass|fail|not run'")
 if require_runtime:
-    if has_runtime_script:
-        # accepted as a single source of truth for lint + api checks
-        pass
-    else:
+    if not has_runtime_script:
         if not has_lint_check:
             errors.append("no lint execution found in run log")
         if not has_stats_check:
             errors.append("no runtime check for /api/stats found in run log")
         if not has_items_check:
             errors.append("no runtime check for /api/items found in run log")
+    if require_memory and not has_memory_script:
+        errors.append("no memory validation command (scripts/opencode-memory-checks/opipe memory) found in run log")
 
 if errors:
     print("[opencode-guard] FAIL")
@@ -178,13 +214,20 @@ print("[opencode-guard] PASS")
 print(f"[opencode-guard] verified run file: {path}")
 print("- found subagent task call: kimi-review")
 print("- found model: kilo/moonshotai/kimi-k2.5")
+print("- found subagent task call: gemini-observer")
+print("- found model: google/gemini-3.1-pro-preview")
 print("- found final Kimi section + Verdict")
+print("- found final Observer section")
 print("- found Kimi Validation block (Lint/Build/Runtime)")
 if require_runtime:
     if has_runtime_script:
-        print("- found runtime checks via scripts/opencode-runtime-checks")
+        print("- found runtime checks via scripts/opencode-runtime-checks/opencode-universal-checks/opipe check")
     else:
         print("- found runtime checks: lint + /api/stats + /api/items")
+    if require_memory:
+        print("- found memory checks via scripts/opencode-memory-checks/opipe memory")
+    else:
+        print("- memory command enforcement disabled")
 PY
 
 exit 0

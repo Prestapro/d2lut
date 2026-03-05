@@ -1,0 +1,156 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(pwd)"
+OUT_PATH="${1:-$ROOT_DIR/.opencode/pipeline.json}"
+mkdir -p "$(dirname "$OUT_PATH")"
+
+python3 - "$ROOT_DIR" "$OUT_PATH" <<'PY'
+import json
+import os
+import sys
+from pathlib import Path
+
+root = Path(sys.argv[1])
+out = Path(sys.argv[2])
+
+
+def has_file(*names: str) -> bool:
+    return any((root / name).exists() for name in names)
+
+
+def read_package_scripts() -> dict:
+    pkg = root / "package.json"
+    if not pkg.exists():
+        return {}
+    try:
+        data = json.loads(pkg.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    scripts = data.get("scripts") or {}
+    return scripts if isinstance(scripts, dict) else {}
+
+scripts = read_package_scripts()
+
+lint_cmd = ""
+build_cmd = ""
+test_cmd = ""
+start_cmd = ""
+health_urls = []
+
+# Node/JS
+if "lint" in scripts:
+    lint_cmd = "npm run lint"
+elif "check" in scripts:
+    lint_cmd = "npm run check"
+
+if "build" in scripts:
+    build_cmd = "npm run build"
+
+if "test" in scripts:
+    test_cmd = "npm test"
+
+if (root / "scripts/dev-server").exists():
+    start_cmd = "scripts/dev-server start"
+
+# Python
+if not test_cmd and has_file("pyproject.toml", "pytest.ini", "tox.ini"):
+    test_cmd = "pytest -q"
+if not lint_cmd and has_file("pyproject.toml", "ruff.toml", ".ruff.toml"):
+    lint_cmd = "ruff check ."
+
+# Go
+if has_file("go.mod"):
+    if not build_cmd:
+        build_cmd = "go build ./..."
+    if not test_cmd:
+        test_cmd = "go test ./..."
+    if not lint_cmd:
+        lint_cmd = "go vet ./..."
+
+# Rust
+if has_file("Cargo.toml"):
+    if not build_cmd:
+        build_cmd = "cargo check --all-targets"
+    if not test_cmd:
+        test_cmd = "cargo test"
+    if not lint_cmd:
+        lint_cmd = "cargo clippy --all-targets --all-features -- -D warnings"
+
+# Java
+if has_file("pom.xml"):
+    if not build_cmd:
+        build_cmd = "mvn -q -DskipTests package"
+    if not test_cmd:
+        test_cmd = "mvn -q test"
+if has_file("build.gradle", "build.gradle.kts", "settings.gradle", "settings.gradle.kts"):
+    if not build_cmd:
+        build_cmd = "./gradlew build -x test"
+    if not test_cmd:
+        test_cmd = "./gradlew test"
+
+# .NET
+if list(root.glob("*.sln")) or list(root.glob("*.csproj")):
+    if not build_cmd:
+        build_cmd = "dotnet build"
+    if not test_cmd:
+        test_cmd = "dotnet test"
+
+# Generic health URLs
+env_urls = os.getenv("OPENCODE_HEALTH_URLS", "").strip()
+if env_urls:
+    health_urls = [u.strip() for u in env_urls.split(",") if u.strip()]
+elif start_cmd:
+    health_urls = ["http://localhost:3000/"]
+
+# Include project-specific endpoints when present
+if (root / "src" / "app" / "api" / "stats").exists():
+    health_urls.append("http://localhost:3000/api/stats")
+if (root / "src" / "app" / "api" / "items").exists():
+    health_urls.append("http://localhost:3000/api/items?sort=price&order=desc&minPrice=0&limit=5&offset=0")
+
+# Deduplicate while preserving order
+seen = set()
+health_urls = [u for u in health_urls if not (u in seen or seen.add(u))]
+
+has_memory = (root / "scripts/opencode-memory-checks").exists()
+
+cfg = {
+    "version": 1,
+    "project": root.name,
+    "stages": {
+        "lint": {
+            "enabled": bool(lint_cmd),
+            "required": False,
+            "command": lint_cmd,
+        },
+        "build": {
+            "enabled": bool(build_cmd),
+            "required": False,
+            "command": build_cmd,
+        },
+        "test": {
+            "enabled": bool(test_cmd),
+            "required": False,
+            "command": test_cmd,
+        },
+        "health": {
+            "enabled": bool(health_urls),
+            "required": bool(health_urls),
+            "start_command": start_cmd,
+            "probe_delay_seconds": 2,
+            "urls": health_urls,
+        },
+        "memory": {
+            "enabled": bool(has_memory),
+            "required": False,
+            "command": "scripts/opencode-memory-checks" if has_memory else "",
+        },
+    },
+}
+
+out.write_text(json.dumps(cfg, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+print(out)
+PY
+
+echo "[pipeline-init] wrote config: $OUT_PATH"
