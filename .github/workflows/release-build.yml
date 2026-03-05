@@ -131,6 +131,7 @@ jobs:
           python3 - <<'PY'
           import re
           from pathlib import Path
+          import textwrap
 
           tag = "${{ github.ref_name }}"
           version = tag[1:] if tag.startswith("v") else tag
@@ -151,29 +152,30 @@ jobs:
               f"https://github.com/${{ github.repository }}/commits/{tag}\n"
             )
 
-          notes = f"""# D2R Loot Filter Builder {tag}
+          notes = textwrap.dedent(f"""\
+            # D2R Loot Filter Builder {tag}
 
-{changelog_block}
+            {changelog_block}
 
-## Downloads
-- **Windows x64**: `D2R_Filter_Builder-windows-x64.zip`
-- **Linux x64**: `D2R_Filter_Builder-linux-x64.tar.gz`
-- **macOS ARM64**: `D2R_Filter_Builder-macos-arm64.tar.gz`
+            ## Downloads
+            - **Windows x64**: `D2R_Filter_Builder-windows-x64.zip`
+            - **Linux x64**: `D2R_Filter_Builder-linux-x64.tar.gz`
+            - **macOS ARM64**: `D2R_Filter_Builder-macos-arm64.tar.gz`
 
-## Quick Start
-```bash
-# Windows
-D2R_Filter_Builder.exe --help
-D2R_Filter_Builder.exe --preset roguecore --db d2lut.db
+            ## Quick Start
+            ```bash
+            # Windows
+            D2R_Filter_Builder.exe --help
+            D2R_Filter_Builder.exe --preset roguecore --db d2lut.db
 
-# Linux/macOS
-./D2R_Filter_Builder --help
-./D2R_Filter_Builder --preset roguecore --db d2lut.db
-```
+            # Linux/macOS
+            ./D2R_Filter_Builder --help
+            ./D2R_Filter_Builder --preset roguecore --db d2lut.db
+            ```
 
-## Full Changelog
-https://github.com/${{ github.repository }}/blob/main/d2lut/CHANGELOG.md
-"""
+            ## Full Changelog
+            https://github.com/${{ github.repository }}/blob/main/d2lut/CHANGELOG.md
+          """)
 
           Path("RELEASE_NOTES.md").write_text(notes, encoding="utf-8")
           PY
