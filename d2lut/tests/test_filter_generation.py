@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from dataclasses import replace
 from importlib.util import module_from_spec, spec_from_file_location
 from pathlib import Path
 import sys
@@ -18,42 +17,58 @@ def _load_filter_builder_module():
     return module
 
 
-def test_filter_output_has_unique_itemdisplay_codes(tmp_path):
+def test_deduplicate_keeps_highest_price():
     module = _load_filter_builder_module()
-    builder = module.FilterBuilder(db_path=None, preset="default")
-
-    first = module.PricedItem(
-        name="jah",
-        variant_key="rune:jah",
-        d2r_code="r31",
-        display_name="Jah Rune",
-        price_fg=180.0,
-        tier="HIGH",
-        category="rune",
+    
+    first = module.FilterItem(
+        code="uui",
+        display_name="Shako",
+        price=15.0,
+        category="unique",
     )
-    duplicate = replace(
-        first,
-        variant_key="rune:jah_alt",
-        display_name="Jah Rune Duplicate",
-        price_fg=40.0,
-        tier="MID",
+    duplicate = module.FilterItem(
+        code="uui",
+        display_name="Peasant Crown",
+        price=2.0,
+        category="unique",
     )
-    builder.items = [first, duplicate]
-
-    output_path = tmp_path / "d2r.filter"
-    builder.build_filter(output_path)
-    content = output_path.read_text(encoding="utf-8")
-
-    assert content.count("ItemDisplay[r31]") == 1
+    
+    # Passing both items; the one with higher price should win per code
+    deduped = module.deduplicate([first, duplicate])
+    
+    assert len(deduped) == 1
+    assert "uui" in deduped
+    assert deduped["uui"].display_name == "Shako"
+    assert deduped["uui"].price == 15.0
 
 
 def test_tier_boundaries_are_stable():
     module = _load_filter_builder_module()
-    builder = module.FilterBuilder(db_path=None, preset="default")
 
-    assert builder._get_tier(500.0) == "GG"
-    assert builder._get_tier(100.0) == "HIGH"
-    assert builder._get_tier(20.0) == "MID"
-    assert builder._get_tier(5.0) == "LOW"
-    assert builder._get_tier(4.99) == "TRASH"
-    assert builder._get_tier(999_999.0) == "GG"
+    assert module.get_tier(500.0) == "GG"
+    assert module.get_tier(100.0) == "HIGH"
+    assert module.get_tier(20.0) == "MID"
+    assert module.get_tier(5.0) == "LOW"
+    assert module.get_tier(4.99) == "TRASH"
+    assert module.get_tier(999_999.0) == "GG"
+
+def test_layer_generation_syntax():
+    module = _load_filter_builder_module()
+    
+    item = module.FilterItem(
+        code="uui",
+        display_name="Shako",
+        price=15.0,
+        category="unique"
+    )
+    
+    runeword_map = module.build_runeword_map()
+    cfg = module.PRESETS["default"]
+    
+    layers = module.generate_layers(item, runeword_map, threshold=0.0, cfg=cfg)
+    
+    # In default preset we expect up to 3-4 rules for a normal base
+    assert len(layers) > 0
+    assert any("ItemDisplay[uui&UNIQUE]:" in line for line in layers)
+    assert any("ItemDisplay[uui&SET]:" in line for line in layers)
+    assert any("ItemDisplay[uui]:" in line for line in layers)
