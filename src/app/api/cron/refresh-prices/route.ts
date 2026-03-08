@@ -265,10 +265,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const secret = process.env.CRON_SECRET;
+    const secret =
+      process.env.CRON_SECRET ||
+      process.env.CRON ||
+      (process.env.NODE_ENV === 'production' ? undefined : 'local-dev-secret');
     if (!secret) {
       return NextResponse.json(
-        { error: 'CRON_SECRET is not configured' },
+        { error: 'CRON_SECRET/CRON is not configured' },
         { status: 500 }
       );
     }

@@ -18,6 +18,7 @@
     "db:import-market-snapshot": "bunx tsx scripts/import_market_snapshot.ts",
     "db:import-price-tables": "bunx tsx scripts/import_price_tables.ts",
     "cron:live-refresh": "node scripts/live_refresh_d2jsp.js",
+    "cron:live-refresh:local": "API_URL=${API_URL:-http://localhost:3000/api/cron/refresh-prices} CRON_SECRET=${CRON_SECRET:-local-dev-secret} node scripts/live_refresh_d2jsp.js",
     "setup:cocoindex": "bash scripts/setup_cocoindex_mcp.sh",
     "setup:hybrid-context": "bash scripts/bootstrap_hybrid_context.sh"
   },

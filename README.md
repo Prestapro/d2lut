@@ -88,6 +88,32 @@ Set repository secrets:
 - `CRON_REFRESH_URL` (full endpoint URL)
 - `CRON_SECRET`
 
+### Local Live Refresh
+
+For local runs, the scraper supports:
+- `CRON_SECRET` or `CRON`
+- `API_URL` or `LIVE_REFRESH_URL` or `CRON_REFRESH_URL`
+
+Default local values:
+- token: `local-dev-secret`
+- endpoint: `http://localhost:3000/api/cron/refresh-prices`
+
+```bash
+npm run dev
+```
+
+```bash
+npm run cron:live-refresh:local
+```
+
+Or explicitly:
+
+```bash
+API_URL=http://localhost:3000/api/cron/refresh-prices \
+CRON_SECRET=local-dev-secret \
+node scripts/live_refresh_d2jsp.js
+```
+
 ## Price Tiers
 
 | Tier | FG Range | Color |

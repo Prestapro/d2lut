@@ -1,7 +1,11 @@
 const { chromium } = require('playwright');
 
-const CRON_SECRET = process.env.CRON_SECRET || 'local-dev-secret';
-const API_URL = process.env.API_URL || 'http://localhost:3000/api/cron/refresh-prices';
+const CRON_SECRET = process.env.CRON_SECRET || process.env.CRON || 'local-dev-secret';
+const API_URL =
+  process.env.API_URL ||
+  process.env.LIVE_REFRESH_URL ||
+  process.env.CRON_REFRESH_URL ||
+  'http://localhost:3000/api/cron/refresh-prices';
 const PROFILE = process.env.D2JSP_PROFILE || 'data/cache/playwright-d2jsp-profile';
 
 const itemPatterns = [
