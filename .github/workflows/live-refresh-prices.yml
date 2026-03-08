@@ -8,6 +8,7 @@ on:
 jobs:
   refresh-live:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -18,20 +19,36 @@ jobs:
           node-version: 20
           cache: npm
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Install Playwright Chromium
-        run: npx playwright install --with-deps chromium
-
-      - name: Execute live scraper refresh
+      - name: Validate workflow configuration
+        id: preflight
         env:
-          API_URL: ${{ secrets.LIVE_REFRESH_URL }}
+          API_URL: ${{ secrets.LIVE_REFRESH_URL != '' && secrets.LIVE_REFRESH_URL || secrets.CRON_REFRESH_URL }}
           CRON_SECRET: ${{ secrets.CRON_SECRET }}
         run: |
           if [ -z "$API_URL" ] || [ -z "$CRON_SECRET" ]; then
-            echo "LIVE_REFRESH_URL/CRON_SECRET secrets are required"
-            exit 1
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            {
+              echo "### Live refresh skipped"
+              echo
+              echo "- Missing \`CRON_SECRET\` or refresh URL secret."
+              echo "- Supported URL secrets: \`LIVE_REFRESH_URL\` or \`CRON_REFRESH_URL\`."
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 0
           fi
+          echo "ready=true" >> "$GITHUB_OUTPUT"
 
+      - name: Install dependencies
+        if: steps.preflight.outputs.ready == 'true'
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        if: steps.preflight.outputs.ready == 'true'
+        run: npx playwright install --with-deps chromium
+
+      - name: Execute live scraper refresh
+        if: steps.preflight.outputs.ready == 'true'
+        env:
+          API_URL: ${{ secrets.LIVE_REFRESH_URL != '' && secrets.LIVE_REFRESH_URL || secrets.CRON_REFRESH_URL }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: |
           node scripts/live_refresh_d2jsp.js
