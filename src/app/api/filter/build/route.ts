@@ -211,7 +211,7 @@ const PRESET_CONFIGS: Record<string, PresetConfig> = {
 // ============================================================
 // MAIN GENERATOR
 // ============================================================
-export async function generateLayeredFilter(
+async function generateLayeredFilter(
   preset: string,
   threshold: number
 ): Promise<{ content: string, warnings: string[] } | null> {
